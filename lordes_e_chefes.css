@@ -1,0 +1,68 @@
+*{
+    padding: 0;
+    margin: 0 ;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body{
+    background-image: url(./assets/Backgroundcastle.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+}
+
+#topicos{
+    margin-top: 100px;
+}
+
+ul li a{
+    border-radius: 8px;
+    display: flex;
+    border: solid rgb(161, 38, 1) 1px;
+    text-decoration: none;
+    color: white;
+    flex-direction: column;
+    text-align: center;
+    line-height: 50px;
+    background-color: rgba(0, 0, 0, 0.527);
+    
+    
+}
+
+ul li a:hover{
+    background-color: rgba(128, 128, 128, 0.342);
+    border: black solid 1px;
+    
+}
+
+ul{
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    padding-left: 70px;
+    padding-right: 70px;
+    text-decoration: none;
+    list-style: none;
+    
+}
+
+#voltar a{
+    position: absolute;
+    bottom: 130px;
+    left: 0;
+    right: 0;  
+    text-align: center;
+    font-size: medium;
+    color: white;
+    text-decoration: none;
+    font-weight: bolder;
+    background-color: rgba(37, 37, 37, 0.445); 
+}
+
+#voltar a:hover{
+    background-color: rgb(121, 35, 4);
+}
+
+
+

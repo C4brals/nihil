@@ -1,0 +1,80 @@
+*{ /*alinha todo documento ao centro*/
+    padding: 0;
+    margin: 0 ;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    }
+
+body{
+    background-image: url(./assets/Backgroundsword.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+}
+#container{
+    margin:56px auto 0px;
+    width: 360px;
+   /* height: 500px;
+    margin: auto;
+    margin-top: 20%;*/
+}
+
+p{ 
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-align: center;
+
+    
+       
+}
+
+
+ul{ /*configuração geral da lista*/
+    margin-top: 10%;
+    padding: 10px;
+    list-style: none;
+    display: flex;
+    text-align: center;
+    flex-direction: column; /*Ordena itens por coluna*/
+    gap: 30px;
+    padding-left: 40px;
+    padding-right: 40px;
+    
+ 
+    
+    
+}
+
+ul li a{/*configuração apenas dos links*/
+    font-family: 'Roboto', sans-serif;
+    background-color: rgba(0, 0, 0, 0.521);
+    color: rgb(240, 240, 240);
+    border: 1px solid rgb(109, 106, 106);
+    display: flex; /*Possibilita os itens receberem outras propriedades */
+    align-items: center; /*Alinha os itens ao centro */
+    justify-content: center; /*define como o navegador distribui o espaço entre e ao redor dos itens de conteúdo */
+    padding: 16px 24px; /*Padding é o espaço entre o texto e as bordas*/
+    border-radius: 8px;
+    text-decoration: none; /*remove o sublinhado*/
+    font-weight: 500;
+    transition: background 0.9s; /*A cada alteração faz efeito por 0.3 segundos*/
+    
+}
+
+ul li a:hover{
+    background-color: rgba(63, 1, 1, 0.658);
+    border-color: rgb(189, 189, 189);
+}
+
+footer{
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    margin-top: 280px;
+    color: rgb(235, 234, 233);
+    font-size: small;
+
+}
+
+
