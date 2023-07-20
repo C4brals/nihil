@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumíveis</title>
+    <link rel="stylesheet" href="./consumiveis.css">
+    <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap"
+    rel="stylesheet"
+   />
+</head>
+<body>
+
+    <div id="titulo">
+        <p>Consumíveis</p>
+    </div>
+    
+    <div id="container">
+      <p><span style="color: red; font-size: 100%;" ><strong>D - Elixir de Cura</strong></span>: Recupera 2 de PV.  Pode ser utilizada antes de se movimentar. O melhor amigo para se ter depois de uma taverna, arena, disputa, emboscada, perseguição, caçada e o que mais se encontrar pela jornada.</p>
+      <p><span style="color: red; font-size: 100%;" ><strong>D - Elixir do Sangue Ácido:</strong></span> Durante os próximos 2 turnos do combate, todo dano sem ser de habilidades que você receber, você causará 1 de dano automaticamente no PV do adversário. É a melhor bebida para um café da manhã, segundo os Atrozes.</p>
+      <p><span style="color: red; font-size: 100%;" ><strong>I - Elixir da Luta Melhorada</strong></span>: Durante o próximo golpe no combate você recebe +3 para acertar o alvo. Numa luta de facas a melhor arma é a surpresa.</p>
+      <p><span style="color: red; font-size: 100%;" ><strong>Elixir de Invisibilidade</strong></span>: Durante a próxima movimentação, ignora jogadores, eventos, armadilhas e inimigos (exceto Lordes e Guardiões).  Deve ser utilizada antes de se movimentar. Minha juventude teria sido muito melhor se eu tivesse um desses.</p>
+      <p><span style="color: red; font-size: 100%;" ><strong>D - Elixir da Confusão Mágica</strong></span>: Ignore a próxima habilidade que tenha você como alvo.  As Druidas de Cormator usavam isso amarradas nas pontas das flechas, enquanto lutavam contra os Outubristas pelo controle da Floresta Sem Fim.</p>
+      <p><span style="color: red; font-size: 100%;" ><strong>Elixir da Velocidade</strong></span>: Você ganha mais 3 pontos para a próxima ação de deslocamento no mapa.  Deverá ser usada antes de se movimentar. Alguns raios são vermelhos na escola de poções. </p>
+      <p><span style="color: red; font-size: 100%;" ><strong>D - Elixir de Escudos</strong></span>: Ignore o próximo dano sem ser da habilidade que você receberá. O bom dos escudos mágicos é que além de brilharem, eles não enferrujam.</p>
+      <p><span style="color: red; font-size: 100%;" ><strong>D - Elixir da Distorção</strong></span>: Ignore o próximo ataque físico ou de habilidade que tenha você como alvo. Um mago assassino é o pior inimigo para se ter no encalço, simplesmente eles seguem em linha reta ignorando a todos.</p>
+      <p><span style="color: red; font-size: 100%;" ><strong>D - Elixir do Armazenamento Mágico</strong></span>: Recupere uma habilidade já utilizada. Pode ser utilizada antes de se movimentar. No Castelo de Vidro os Adeptos primeiro fazem amizades com esse Elixir e depois as Adagas. </p>
+      <p><span style="color: red; font-size: 100%;" ><strong>Acampamento</strong></span>: O usuário descansa no cenário e pode recuperar 3 de PV e uma das suas habilidades. Para ser usada o jogador deverá passar sua vez do turno. Deixe-me ver, 2 espadas, 1 machado, 6 adagas, 1 óleo, 1 cola, 1 novelo e onde foi parar aquele vidro triturado?</p>
+      <p><span style="color: red; font-size: 100%;" ><strong>O - Pergaminho do Fogo</strong></span>: Lança um feitiço que causa 2 de dano ao PV. Atacar primeiro é sempre a resposta!</p>
+      <p><span style="color: red; font-size: 100%;" ><strong>O - Pergaminho do Gelo</strong></span>: Causa 1 de dano ao PV e congela o alvo, o mesmo receberá -2 na próxima jogada de ataque do combate. Um pergaminho de gelo pode te salvar de bandidos e de feras indesejadas.</p>
+    </div>
+
+   <!--
+    <div id="botao" onclick = "buttonaction()">
+     <button >
+        Habilidades
+     </button>
+    </div>
+   --> 
+<!--################################Criação de Modal################################-->
+    <button class="btnOpenModal" onclick="openModal()">Informações</button>
+
+  <div class="modal-container">
+    <div class="modal">
+      <h2>Informações</h2>
+      <hr />
+       <p>
+        Itens são ferramentas que agregam ao personagem mais status, dando-lhe vantagens sobre seus oponentes e garantindo a sua sobrevivência. 
+        A morte em combate resulta na perda de todos os seus itens conquistados (exceto itens vinculados). Se for morto por outro jogador, ele se apossará de seus itens, tornando um futuro combate mais hostil e “pessoal”.
+       </p>
+      <hr />
+  
+   
+   
+
+
+
+      <div class="btns">
+        <!--<button class="btnOK" onclick="closeModal()">OK</button>-->
+        <button class="btnClose" onclick="closeModal()">Fechar</button>
+      </div>
+    </div>
+  </div>
+  <!--################################Criação de Modal################################-->
+
+
+
+  <div id="voltar">
+    <a href="./areajogador.html">Voltar</a>
+  </div>
+  
+  <script src="./torre.js"></script>
+
+
+</body>
+</html>
