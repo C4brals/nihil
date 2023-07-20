@@ -31,20 +31,16 @@ p{
     font-weight: bold;
     color: rgb(253, 253, 253);
     text-align: center;
-
-    
        
 }
 
 
 ul{ /*configuração geral da lista*/
     margin-top: 10%;
-    padding: 10px;
     list-style: none;
     display: flex;
     text-align: center;
     flex-direction: column; /*Ordena itens por coluna*/
-    gap: 30px;
     padding-left: 40px;
     padding-right: 40px;   
 }
@@ -62,11 +58,12 @@ ul li a{/*configuração apenas dos links*/
     text-decoration: none; /*remove o sublinhado*/
     font-weight: 500;
     transition: background 0.9s; /*A cada alteração faz efeito por 0.3 segundos*/
+
     
 }
 
 ul li a:hover{
-    background-color: rgba(187, 113, 29, 0.76);
+    background-color: rgba(121, 35, 4, 0.76);
     border-color: rgb(189, 189, 189);
 }
 
