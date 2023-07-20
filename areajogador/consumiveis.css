@@ -7,11 +7,8 @@
 
 body{
     background-image: url(./assets/bg-consumivel2.jpg);
-    background-color: black;
     background-repeat: no-repeat;
     background-size:cover;
-    
-    
     
 }
 
@@ -36,7 +33,6 @@ body{
     color: rgb(255, 255, 255);
     text-align: center;
     padding: 10px;
-    
 }
 
 #botao button{
@@ -121,7 +117,7 @@ button{
   
   .btns button {
     position: absolute;
-    top: 350px;
+    top: 255px;
     font-size: medium;
     padding: 10px;
     border: none;
