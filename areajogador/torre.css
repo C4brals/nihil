@@ -119,6 +119,8 @@ button{
   }
   
   .btns button {
+    position: absolute;
+    top: 350px;
     font-size: medium;
     padding: 10px;
     border: none;
