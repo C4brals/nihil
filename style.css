@@ -41,10 +41,7 @@ ul{ /*configuração geral da lista*/
     gap: 30px;
     padding-left: 40px;
     padding-right: 40px;
-    
  
-    
-    
 }
 
 ul li a{/*configuração apenas dos links*/
@@ -60,6 +57,7 @@ ul li a{/*configuração apenas dos links*/
     text-decoration: none; /*remove o sublinhado*/
     font-weight: 500;
     transition: background 0.9s; /*A cada alteração faz efeito por 0.3 segundos*/
+    line-height: 1px;
     
 }
 
