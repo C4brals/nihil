@@ -6,7 +6,7 @@
 }
 
 body{
-    background-image: url(./assets/torre1.png);
+    background-image: url(/areajogador/assets/bg-guardiao.jpg);
     background-repeat: no-repeat;
     background-size:cover;
     
@@ -15,29 +15,42 @@ body{
 }
 
 #titulo p{
-  
+    
     font-size: 30px;
     color: white;
     text-align: center;
     width: auto;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 40px;
       
 }
+#habilidades p{
+    
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    width: auto;
+    align-items: center;
+    margin-top: 30px;
+      
+}
+
 #container{
-    margin-bottom: 50px;
-    margin-top: 140px;
-    height: 100%;
+    background-color: rgba(0, 0, 0, 0.404);
+    margin-bottom: 20px;
+    margin-top: 80px;
+    height: 469px;
     
 }
 #container p{
-    background-color: rgba(0, 0, 0, 0.356);
+   
     color: rgb(255, 255, 255);
     text-align: center;
     padding: 10px;
     
-}
+    
 
+}
 #botao button{
     height: 40px;
     width: 100px;
@@ -46,14 +59,12 @@ body{
 button{
     position: absolute;
     border: 1px rgba(158, 26, 26, 0.603) solid;
-    top: 130px;
+    top: 137px;
     left: 20px;
     border-radius: 8px;
-    background-color: rgba(221, 1, 1, 0.363);
+    background-color: rgba(221, 1, 1, 0.349);
     color: white;
 }
-
-
 
 /*--################################Criação de Modal###############################*/
 .btnOpenModal {
@@ -120,21 +131,24 @@ button{
   
   .btns button {
     position: absolute;
-    top: 350px;
+    top: 128px;
     font-size: medium;
     padding: 10px;
     border: none;
     border-radius: 5px;
     color: white;
     cursor: pointer;
+    
   }
   
   .btnOK {
    background-color: rgba(0, 0, 0, 0.774)!important;
+  
   }
   
   .btnClose {
     background-color: rgb(179, 1, 1)!important;
+    
    }
   
    @media (max-width: 500px) {
@@ -148,12 +162,10 @@ button{
     }
    }
 /*--################################Criação de Modal###############################*/
-
-
 #voltar a{
     position: absolute;
     color: white;
-    top: 95px;
+    top: 105px;
     left: 22px;
     text-decoration: none;
     background-color: rgba(95, 95, 95, 0.432);
