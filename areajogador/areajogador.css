@@ -1,24 +1,15 @@
-*
-{ /*alinha todo documento ao centro*/
+*{
     padding: 0;
     margin: 0 ;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
-    }
+}
 
 body{
-    background-image: url(./assets/bg-atroz.jpg);
+    background-image: url(./assets/Backgroundcastle.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top center;
-}
-#container{
-    
-    margin:56px auto 0px;
-    width: 360px;
-    height: 645px;
-    
-
 }
 
 p{ 
@@ -31,45 +22,55 @@ p{
     font-weight: bold;
     color: rgb(253, 253, 253);
     text-align: center;
-       
+    margin-top:100px;       
 }
 
+#atalhos{
+    
+    margin-top: 80px;
+}
 
 ul{ /*configuração geral da lista*/
-    margin-top: 10%;
+    padding: 10px;
     list-style: none;
     display: flex;
     text-align: center;
     flex-direction: column; /*Ordena itens por coluna*/
+    gap: 30px;
     padding-left: 40px;
-    padding-right: 40px;   
+    padding-right: 40px;
+    line-height: 1px;
+    
+ 
 }
 
-ul li a{/*configuração apenas dos links*/
-    font-family: 'Roboto', sans-serif;
-    background-color: rgba(0, 0, 0, 0.521);
-    color: rgb(240, 240, 240);
-    border: 1px solid rgb(109, 106, 106);
-    display: flex; /*Possibilita os itens receberem outras propriedades */
-    align-items: center; /*Alinha os itens ao centro */
-    justify-content: center; /*define como o navegador distribui o espaço entre e ao redor dos itens de conteúdo */
-    padding: 16px 24px; /*Padding é o espaço entre o texto e as bordas*/
+ul li a{
     border-radius: 8px;
-    text-decoration: none; /*remove o sublinhado*/
-    font-weight: 500;
-    transition: background 0.9s; /*A cada alteração faz efeito por 0.3 segundos*/
-
+    display: flex;
+    border: solid rgb(161, 38, 1) 1px;
+    text-decoration: none;
+    color: white;
+    flex-direction: column;
+    text-align: center;
+    /*line-height: 50px;*/
+    background-color: rgba(0, 0, 0, 0.527);
+    padding: 16px 24px;
+    
+    
     
 }
 
 ul li a:hover{
-    background-color: rgba(121, 35, 4, 0.76);
-    border-color: rgb(189, 189, 189);
+    background-color: rgba(128, 128, 128, 0.342);
+    border: black solid 1px;
+    
 }
+
+
 
 #voltar a{
     position: absolute;
-    bottom: 230px;
+    bottom: 100px;
     left: 0;
     right: 0;  
     text-align: center;
@@ -77,18 +78,13 @@ ul li a:hover{
     color: white;
     text-decoration: none;
     font-weight: bolder;
-    background-color: rgba(124, 15, 15, 0.582); 
+    background-color: rgba(37, 37, 37, 0.445); 
 }
 
 #voltar a:hover{
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(121, 35, 4);
 }
 
-footer{
-    font-family: 'Roboto', sans-serif;
-    text-align: center;
-    margin-top: 280px;
-    color: rgb(235, 234, 233);
-    font-size: small;
 
-}
+
+

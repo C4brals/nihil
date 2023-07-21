@@ -12,8 +12,34 @@ body{
     background-position: top center;
 }
 
+p{ 
+    margin: auto;
+    width: 100%;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.692);
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(253, 253, 253);
+    text-align: center;
+    margin-top:100px;       
+}
+
 #topicos{
-    margin-top: 100px;
+    margin-top: 40px;
+}
+
+ul{ /*configuração geral da lista*/
+    padding: 10px;
+    list-style: none;
+    display: flex;
+    text-align: center;
+    flex-direction: column; /*Ordena itens por coluna*/
+    gap: 30px;
+    padding-left: 40px;
+    padding-right: 40px;
+    line-height: 1px;
+ 
 }
 
 ul li a{
@@ -24,8 +50,10 @@ ul li a{
     color: white;
     flex-direction: column;
     text-align: center;
-    line-height: 50px;
+    /*line-height: 50px;*/
     background-color: rgba(0, 0, 0, 0.527);
+    padding: 16px 24px;
+    
     
     
 }
@@ -36,20 +64,11 @@ ul li a:hover{
     
 }
 
-ul{
-    display: flex;
-    gap: 20px;
-    flex-direction: column;
-    padding-left: 70px;
-    padding-right: 70px;
-    text-decoration: none;
-    list-style: none;
-    
-}
+
 
 #voltar a{
     position: absolute;
-    bottom: 130px;
+    bottom: 100px;
     left: 0;
     right: 0;  
     text-align: center;
