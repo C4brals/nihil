@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementarista</title>
+    <link rel="stylesheet" href="./elementarista.css">
+    <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap"
+    rel="stylesheet"
+   />
+</head>
+<body>
+
+    <div id="titulo">
+        <p>Elementarista</p>
+    </div>
+
+    <div id="habilidades">
+        <p>Habilidades</p>
+    </div>
+    
+    <div id="container">
+        <p><strong>O - Criar Chamas</strong>:Usando seu Hogi para criar o elemento fogo, o Elementarista invoca poderosas labaredas que são disparadas sobre o alvo, causando 2 de dano. Caso o próximo ataque do Elementarista seja um crítico (6 ou mais) alvo tomará +1 de dano por queimadura, além dos outros danos do turno.</p>
+        <p><strong>D/O - Embaçamento</strong>: O Elementarista transforma seu corpo em vapor e faz com que o próximo ataque ou habilidade no combate passe por ele sem o mesmo receber danos ou efeitos. Embaçamento concede mais 2 no acerto da próxima jogada.</p>
+        <p><strong>O - Indução Elétrica</strong>: O Elementarista dispara uma grande  quantidade de eletricidade no alvo, causando 2 de dano ao seu PV e o deixando confuso, fazendo que com que sua próxima  ação no combate receba -3 de penalidade (a próxima jogada do dado irá subtrair -3 do valor no dado).</p>
+    </div>
+
+    <!--################################Criação de Modal################################-->
+    <button class="btnOpenModal" onclick="openModal()">Informações</button>
+
+  <div class="modal-container">
+    <div class="modal">
+      <h2>Lore</h2>
+        <hr />
+           <span>Magos e Sábios que alcançaram o maior conhecimento sobre o Hogi ( a energia espiritual que move o mundo) e agora eles conseguem modificá-lo e  transformá-lo em elementos, são extremamentes poderosos e sempre estão em busca de um novo aprendizado.</span>
+        <hr />
+
+      <div class="btns">
+        <!--<button class="btnOK" onclick="closeModal()">OK</button>-->
+        <button class="btnClose" onclick="closeModal()">Fechar</button>
+      </div>
+    </div>
+  </div>
+  <!--################################Criação de Modal################################-->
+  <div id="voltar">
+    <a href="/areajogador/classes.html">Voltar</a>
+  </div>
+   
+    
+  <script src="./classes.js"></script>  
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guerreiro Atroz</title>
+    <link rel="stylesheet" href="./atroz.css">
+    <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap"
+    rel="stylesheet"
+   />
+</head>
+<body>
+
+    <div id="titulo">
+        <p>Guerreiro Atroz</p>
+    </div>
+
+    <div id="habilidades">
+        <p>Habilidades</p>
+    </div>
+    
+    <div id="container">
+        <p><strong>O - Fúria de Batalha</strong>: O Atroz corta com suas duas lâminas causando 1 de dano ao PV do alvo. Após causar dano com essa habilidade todos os golpes críticos (6 ou mais) no combate, causam 1 de dano a mais ao PV do mesmo alvo. </p>
+        <p><strong>O - Avançar!</strong>: O Atroz com sua musculatura melhorada com Hogi consegue sair em disparada ignorando a maioria dos obstáculos. Adiciona +3 ao dado na próxima ação de mover-se no tabuleiro (Exemplo se “tirar” 4 no dado, resulta em 7). Essa habilidade pode ser usada em combate, caso o faça, o Atroz recebe +3 para acertar o alvo do combate.</p>
+        <p><strong>D/O - Até o fim!</strong>: Quando o corpo de um Atroz se encontra perto da morte o mesmo começa a explodir em Hogi. Caso um Atroz tenha  3 ou menos de PV, seu corpo enrijece como aço evitando que o mesmo receba danos de ataque ou habilidade pelos próximos 2 turnos.O jogador ainda recebe +1 de dano em todos os ataques que fizer nesses 2 turnos.</p>
+    </div>
+
+    <!--################################Criação de Modal################################-->
+    <button class="btnOpenModal" onclick="openModal()">Informações</button>
+
+  <div class="modal-container">
+    <div class="modal">
+      <h2>Lore</h2>
+        <hr />
+           <span>Seres bestiais de mentalidade fraca e corpo de deuses, guerreiros capazes de destruir e arruinar vilas inteiras sozinhos, eles são como o poema de Havel descreve
+            “É mais fácil conter uma enchente do que uma criança atroz”.</span>
+        <hr />
+
+      <div class="btns">
+        <!--<button class="btnOK" onclick="closeModal()">OK</button>-->
+        <button class="btnClose" onclick="closeModal()">Fechar</button>
+      </div>
+    </div>
+  </div>
+  <!--################################Criação de Modal################################-->
+  <div id="voltar">
+    <a href="/areajogador/classes.html">Voltar</a>
+  </div>
+   
+    
+  <script src="./classes.js"></script>  
+</body>
+</html>
