@@ -68,6 +68,11 @@ ul li a:hover{
 
 
 #voltar a{
+    padding: 5px;
+    margin: 0 auto;
+    width: 100px;
+    border-radius: 8px;  
+
     position: absolute;
     bottom: 60px;
     left: 0;
