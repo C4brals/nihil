@@ -55,7 +55,7 @@ ul li a{/*configuração apenas dos links*/
     font-family: 'Roboto', sans-serif;
     background-color: rgba(0, 0, 0, 0.521);
     color: rgb(240, 240, 240);
-    border: 1px solid rgb(109, 106, 106);
+    border: 1px solid rgb(177, 175, 175);
     display: flex; /*Possibilita os itens receberem outras propriedades */
     align-items: center; /*Alinha os itens ao centro */
     justify-content: center; /*define como o navegador distribui o espaço entre e ao redor dos itens de conteúdo */
@@ -70,7 +70,7 @@ ul li a{/*configuração apenas dos links*/
 
 ul li a:hover{
     background-color: rgba(63, 1, 1, 0.658);
-    border-color: rgb(189, 189, 189);
+    border: 1px white solid;
 }
 
 footer{
