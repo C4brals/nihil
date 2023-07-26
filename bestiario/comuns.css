@@ -6,15 +6,14 @@
 }
 
 body{
-    background-image: url(./assets/Backgroundcastle.png);
+    background-image: url(./assets/bg-logo.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top center;
 }
 
 p{ 
-    margin: auto;
-    width: 100%;
+    
     padding: 5px;
     background-color: rgba(0, 0, 0, 0.692);
     font-family: 'Roboto', sans-serif;
@@ -22,31 +21,31 @@ p{
     font-weight: bold;
     color: rgb(253, 253, 253);
     text-align: center;
-    margin-top:70px;       
+    margin-top:50px;       
 }
 
 #topicos{
     margin-top: 40px;
+    
 }
 
 ul{ /*configuração geral da lista*/
-    margin-top: 30px;
+    height: 810px;
     padding: 10px;
     list-style: none;
     display: flex;
     text-align: center;
     flex-direction: column; /*Ordena itens por coluna*/
     gap: 30px;
-    padding-left: 40px;
-    padding-right: 40px;
     line-height: 1px;
+    
  
 }
 
 ul li a{
     margin: 0 auto;
     width: 270px;
-    
+
     border-radius: 8px;
     display: flex;
     border: solid rgb(161, 38, 1) 1px;
@@ -57,6 +56,7 @@ ul li a{
     /*line-height: 50px;*/
     background-color: rgba(0, 0, 0, 0.527);
     padding: 16px 24px;
+    justify-content: center;
     transition: background 0.9s;
     
     
@@ -72,24 +72,28 @@ ul li a:hover{
 
 
 #voltar a{
+    border: solid rgb(161, 38, 1) 1px;
     padding: 5px;
     margin: 0 auto;
     width: 100px;
-    border-radius: 8px;  
-
     position: absolute;
-    bottom: 60px;
+    bottom: -190px;
     left: 0;
     right: 0;  
     text-align: center;
     font-size: medium;
-    color: white;
+    color: rgb(255, 255, 255);
     text-decoration: none;
     font-weight: bolder;
     background-color: rgba(37, 37, 37, 0.445); 
+    border-radius: 8px;
     transition: background 0.9s;
 }
 
 #voltar a:hover{
     background-color: rgb(121, 35, 4);
+    border: rgb(199, 199, 199) solid 1px;
 }
+
+
+

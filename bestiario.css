@@ -68,6 +68,7 @@ ul li a{
     /*line-height: 50px;*/
     background-color: rgba(0, 0, 0, 0.527);
     padding: 16px 24px;
+    transition: background 0.9s;
     
     
     
@@ -126,11 +127,12 @@ ul li a:hover{
     text-decoration: none;
     font-weight: bolder;
     background-color: rgba(37, 37, 37, 0.445); 
+    transition: background 0.9s;
 }
 
 #voltar a:hover{
     background-color: rgb(121, 35, 4);
-    border: white solid 1px;
+    border: rgb(199, 199, 199) solid 1px;
 }
 
 
