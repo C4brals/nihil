@@ -86,7 +86,6 @@ ul li a:hover{
     font-size: medium;
     color: white;
     text-decoration: none;
-    font-weight: bolder;
     background-color: rgba(37, 37, 37, 0.445); 
     transition: background 0.9s;
 }
