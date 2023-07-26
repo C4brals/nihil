@@ -6,10 +6,12 @@
 }
 
 body{
-    background-image: url(./assets/Backgroundcastle.png);
+    background-image: url(./assets/bg-ryme.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: top center;
+    background-position: top center;   
+    height: 650px;
+    
 }
 
 p{ 
@@ -21,15 +23,17 @@ p{
     font-weight: bold;
     color: rgb(253, 253, 253);
     text-align: center;
-    margin-top:100px;       
+    margin-top:50px;       
 }
 
 #topicos{
-    margin-top: 40px;
+    margin-top: 100px;
+    height: 360px;
     
 }
 
 ul{ /*configuração geral da lista*/
+    
     padding: 10px;
     list-style: none;
     display: flex;
@@ -47,13 +51,13 @@ ul li a{
 
     border-radius: 8px;
     display: flex;
-    border: solid rgb(161, 38, 1) 1px;
+    border: solid rgb(149, 129, 187) 1px;
     text-decoration: none;
     color: white;
     flex-direction: column;
     text-align: center;
     /*line-height: 50px;*/
-    background-color: rgba(0, 0, 0, 0.527);
+    background-color: rgba(0, 0, 0, 0.699);
     padding: 16px 24px;
     justify-content: center;
     transition: background 0.9s;
@@ -63,35 +67,44 @@ ul li a{
 }
 
 ul li a:hover{
-    background-color: rgba(128, 128, 128, 0.342);
-    border: black solid 1px;
+    background-color: rgba(51, 1, 133, 0.884);
+    border: rgb(255, 255, 255) solid 1px;
     
 }
 
 
 
 #voltar a{
+    border: solid rgb(149, 129, 187) 1px;
     padding: 5px;
     margin: 0 auto;
     width: 100px;
     position: absolute;
-    bottom: 90px;
+    bottom: 200px;
     left: 0;
     right: 0;  
     text-align: center;
     font-size: medium;
     color: rgb(255, 255, 255);
     text-decoration: none;
-    font-weight: bolder;
-    background-color: rgba(37, 37, 37, 0.445); 
+    background-color: rgba(0, 0, 0, 0.699);
     border-radius: 8px;
     transition: background 0.9s;
 }
 
 #voltar a:hover{
-    background-color: rgb(121, 35, 4);
-    border: rgb(199, 199, 199) solid 1px;
+    background-color: rgba(51, 1, 133, 0.884);
+    border: rgb(255, 255, 255) solid 1px;
 }
-
-
-
+@media(min-width: 900px){
+    body{
+        background-image: url(/assets/bg-newnihil.jpeg);
+        background-size: cover;
+    }
+}
+@media(min-width: 700px){
+    #voltar a{
+        margin-bottom: 60px;
+    bottom: 0px;
+    }
+}

@@ -9,7 +9,8 @@ body{
     background-image: url(./assets/bg-logo.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: top center;
+    background-position: top center;   
+    
 }
 
 p{ 
@@ -30,6 +31,7 @@ p{
 }
 
 ul{ /*configuração geral da lista*/
+    
     height: 810px;
     padding: 10px;
     list-style: none;
@@ -64,8 +66,8 @@ ul li a{
 }
 
 ul li a:hover{
-    background-color: rgba(128, 128, 128, 0.342);
-    border: black solid 1px;
+    background-color: rgba(240, 76, 0, 0.671);
+    border: rgb(255, 255, 255) solid 1px;
     
 }
 
@@ -84,15 +86,26 @@ ul li a:hover{
     font-size: medium;
     color: rgb(255, 255, 255);
     text-decoration: none;
-    font-weight: bolder;
     background-color: rgba(37, 37, 37, 0.445); 
     border-radius: 8px;
     transition: background 0.9s;
 }
 
 #voltar a:hover{
-    background-color: rgb(121, 35, 4);
-    border: rgb(199, 199, 199) solid 1px;
+    background-color: rgba(240, 76, 0, 0.671);
+    border: rgb(255, 255, 255) solid 1px;
+}
+@media(min-width: 900px){
+    body{
+        background-image: url(/assets/bg-newnihil.jpeg);
+        background-size: cover;
+    }
+}
+@media(min-width: 700px){
+    #voltar a{
+        margin-bottom: 60px;
+    bottom: 0px;
+    }
 }
 
 
