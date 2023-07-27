@@ -67,8 +67,15 @@ ul li a{
 }
 
 ul li a:hover{
-    background-color: rgba(51, 1, 133, 0.884);
+    background-color: rgba(30, 1, 77, 0.884);
     border: rgb(255, 255, 255) solid 1px;
+    box-shadow:
+                1px 1px #000000,
+                2px 2px #000000,
+                3px 3px #333333;
+        -webkit-transform: translateX(-3px);
+        transform: translateX(-3px);
+        transition: 0.9s;
     
 }
 
@@ -93,12 +100,19 @@ ul li a:hover{
 }
 
 #voltar a:hover{
-    background-color: rgba(51, 1, 133, 0.884);
+    background-color: rgba(28, 0, 73, 0.884);
     border: rgb(255, 255, 255) solid 1px;
+    box-shadow:
+                1px 1px #000000,
+                2px 2px #000000,
+                3px 3px #333333;
+        -webkit-transform: translateX(-3px);
+        transform: translateX(-3px);
+        transition: 0.9s;
 }
 @media(min-width: 900px){
     body{
-        background-image: url(/assets/bg-newnihil.jpeg);
+        background-image: url(/assets/bg-macula-full.jpg);
         background-size: cover;
     }
 }

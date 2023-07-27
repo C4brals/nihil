@@ -8,15 +8,18 @@
 
 
 body{
-    background-image: url(./assets/Backgroundsword.png);
+    background-image: url(/assets/bg-macula.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top center;
+    
 
     
 }
 #container{
+    
     margin:56px auto 0px;
+    height: 100vh;
     width: 360px;
    /* height: 500px;
     margin: auto;
@@ -55,7 +58,7 @@ ul li a{/*configuração apenas dos links*/
     font-family: 'Roboto', sans-serif;
     background-color: rgba(0, 0, 0, 0.521);
     color: rgb(240, 240, 240);
-    border: 1px solid rgb(177, 175, 175);
+    border: 1px solid rgb(89, 122, 109);
     display: flex; /*Possibilita os itens receberem outras propriedades */
     align-items: center; /*Alinha os itens ao centro */
     justify-content: center; /*define como o navegador distribui o espaço entre e ao redor dos itens de conteúdo */
@@ -69,8 +72,16 @@ ul li a{/*configuração apenas dos links*/
 }
 
 ul li a:hover{
-    background-color: rgba(63, 1, 1, 0.658);
-    border: 1px white solid;
+    background-color: rgba(0, 77, 54, 0.781);
+    border: solid 1px rgb(173, 173, 173);
+    box-shadow:
+                1px 1px #000000,
+                2px 2px #000000,
+                3px 3px #333333;
+        -webkit-transform: translateX(-3px);
+        transform: translateX(-3px);
+        transition: 0.9s;
+    
 }
 
 footer{
@@ -80,6 +91,13 @@ footer{
     color: rgb(235, 234, 233);
     font-size: small;
 
+}
+@media(min-width: 900px){
+    body{
+        background-image: url(/assets/bg-macula-full.jpg);
+        background-size: cover;
+        height: 100vh;
+    }
 }
 
 

@@ -6,10 +6,13 @@
 }
 
 body{
-    background-image: url(./assets/bg-lobo.jpg);
+    background-image: url(/assets/Backgroundsword.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top center;   
+    height: 100vh;
+    height: 1150px;
+    
     
 }
 
@@ -26,13 +29,14 @@ p{
 }
 
 #topicos{
+    
     margin-top: 40px;
     
 }
 
 ul{ /*configuração geral da lista*/
     
-    height: 810px;
+    height: 930px;
     padding: 10px;
     list-style: none;
     display: flex;
@@ -50,13 +54,13 @@ ul li a{
 
     border-radius: 8px;
     display: flex;
-    border: solid rgb(161, 38, 1) 1px;
+    border: solid rgb(228, 228, 228) 1px;
     text-decoration: none;
     color: white;
     flex-direction: column;
     text-align: center;
     /*line-height: 50px;*/
-    background-color: rgba(0, 0, 0, 0.527);
+    background-color: rgba(0, 0, 0, 0.589);
     padding: 16px 24px;
     justify-content: center;
     transition: background 0.9s;
@@ -66,9 +70,8 @@ ul li a{
 }
 
 ul li a:hover{
-    
-    border: rgb(134, 54, 0, 0.815) solid 1px;
-    background-color: rgba(134, 54, 0, 0.815);
+    background-color: rgba(63, 1, 1, 0.918);
+    border: 1px white solid;
     box-shadow:
                 1px 1px #000000,
                 2px 2px #000000,
@@ -77,31 +80,32 @@ ul li a:hover{
         transform: translateX(-3px);
         transition: 0.9s;
     
+    
 }
 
 
 
 #voltar a{
-    border: solid rgb(161, 38, 1) 1px;
+    border: solid rgb(228, 228, 228) 1px;
     padding: 5px;
     margin: 0 auto;
     width: 100px;
     position: absolute;
-    bottom: -190px;
+    bottom: -420px;
     left: 0;
     right: 0;  
     text-align: center;
     font-size: medium;
     color: rgb(255, 255, 255);
     text-decoration: none;
-    background-color: rgba(37, 37, 37, 0.445); 
+    background-color: rgba(0, 0, 0, 0.678);
     border-radius: 8px;
     transition: background 0.9s;
 }
 
 #voltar a:hover{
-    background-color: rgba(240, 76, 0, 0.671);
-    border: rgb(255, 255, 255) solid 1px;
+    background-color: rgba(63, 1, 1, 0.801);
+    border: 1px white solid;
     box-shadow:
                 1px 1px #000000,
                 2px 2px #000000,
@@ -118,10 +122,7 @@ ul li a:hover{
 }
 @media(min-width: 700px){
     #voltar a{
-        margin-bottom: 60px;
+        margin-bottom: -55px;
     bottom: 0px;
     }
 }
-
-
-

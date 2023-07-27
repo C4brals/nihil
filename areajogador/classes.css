@@ -64,8 +64,15 @@ ul li a{
 }
 
 ul li a:hover{
-    background-color: rgba(128, 128, 128, 0.342);
+    background-color: rgba(121, 35, 4, 0.685);
     border: black solid 1px;
+    box-shadow:
+                1px 1px #000000,
+                2px 2px #000000,
+                3px 3px #333333;
+        -webkit-transform: translateX(-3px);
+        transform: translateX(-3px);
+        transition: 0.9s;
     
 }
 
@@ -91,4 +98,11 @@ ul li a:hover{
 
 #voltar a:hover{
     background-color: rgb(121, 35, 4);
+    box-shadow:
+                1px 1px #000000,
+                2px 2px #000000,
+                3px 3px #333333;
+        -webkit-transform: translateX(-3px);
+        transform: translateX(-3px);
+        transition: 0.9s;
 }
