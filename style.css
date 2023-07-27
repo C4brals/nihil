@@ -84,14 +84,23 @@ ul li a:hover{
     
 }
 
-footer{
-    font-family: 'Roboto', sans-serif;
-    text-align: center;
-    margin-top: 280px;
-    color: rgb(235, 234, 233);
-    font-size: small;
-
+#obs p{
+   
+    margin: 0 auto;
+    margin-top: 60px;
+    bottom: -100px;
+    width: 350px;
+    font-size: 10px;
+    color: rgb(255, 255, 255);
+    
 }
+
+#autores p{
+    font-size: 10px;
+    padding-top: 20px;
+    
+}
+
 @media(min-width: 900px){
     body{
         background-image: url(/assets/bg-macula-full.jpg);
