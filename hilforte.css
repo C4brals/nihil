@@ -34,6 +34,7 @@ body{
     color: rgb(255, 255, 255);
     text-align: center;
     padding: 10px;
+    background-color: #00000067;
     
     
 
@@ -55,14 +56,27 @@ button{
 }
 /*--################################Criação de Modal###############################*/
 .btnOpenModal {
-    font-size: 16px;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: rgba(185, 29, 29, 0.514);
-    color: rgb(255, 255, 255);
-    cursor: pointer;
-  }
+  margin-top: -45px;
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(170, 1, 1);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+.btnOpenModal:hover{
+  border: #333333 solid 1px;
+  box-shadow:
+              1px 1px #000000,
+              2px 2px #000000,
+              3px 3px #333333;
+      -webkit-transform: translateX(-3px);
+      transform: translateX(-3px);
+      transition: 0.9s;
+
+}
   
   hr {
     border: 0px;
@@ -154,14 +168,23 @@ button{
 
 
    /*--################################Criação de Modal###############################*/
-#voltar a{
+   #voltar a{
     position: absolute;
     color: white;
-    top: 165px;
+    top: 199px;
     left: 22px;
     text-decoration: none;
-    background-color: rgba(95, 95, 95, 0.432);
+    background-color: rgb(95, 95, 95);
     padding: 5px;
     border-radius: 5px;
 }
 
+#voltar a:hover{
+  box-shadow:
+                1px 1px #000000,
+                2px 2px #000000,
+                3px 3px #333333;
+        -webkit-transform: translateX(-3px);
+        transform: translateX(-3px);
+        transition: 0.9s;
+}
