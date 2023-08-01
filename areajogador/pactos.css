@@ -8,6 +8,8 @@ body{
     background-image: url(/assets/macula.png);
     background-repeat: no-repeat;
     background-size:cover;
+    height: 1100px;
+    
     
 }
 #titulo p{
@@ -33,9 +35,8 @@ body{
   margin: 0 auto;
   width: 100px;
   border-radius: 8px;  
-  
   position: absolute;
-  bottom: 80px;
+  bottom: -330px;
   left: 0;
   right: 0;  
   text-align: center;
@@ -57,107 +58,61 @@ body{
 transform: translateX(-3px);
 transition: 0.9s;
 }
-/*--################################Criação de Modal###############################*/
-.btnOpenModal {
-  margin: 0 auto;
-  justify-content: center;
-  align-items: center;
-  width: 90px;
-  margin-left: 60px;
-  margin-top: 29px;
-  font-size: 16px;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: rgb(170, 1, 1);
-  color: rgb(255, 255, 255);
-  cursor: pointer;
-}
-.btnOpenModal:hover{
-  border: #333333 solid 1px;
-  box-shadow:
-              1px 1px #000000,
-              2px 2px #000000,
-              3px 3px #333333;
-      -webkit-transform: translateX(-3px);
-      transform: translateX(-3px);
-      transition: 0.9s;
-
-}
-hr {
-  border: 0px;
-  border-top: 1px solid rgb(124, 0, 0);
-}
-.modal-container {
-  width: 100vw;
-  position: fixed;
-  top: 30px;
-  display: none;
-  z-index: 999;
-  justify-content: center;
-}
-.modal {
-  display: flex;
-  flex-direction: column;
-  padding: 30px;
-  background-color: rgba(192, 192, 192, 0.911);
-  border-radius: 10px;
-  width: 50%;
-}
-.active {
-  display: flex;
-}
-.active .modal {
-  animation: modal .4s;
-}
-@keyframes modal {
-  from {
-    opacity: 0;
-    transform: translate3d(0, -60px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-span {
-  margin: 10px auto;
-}
-.btns {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-.btns button {
-  font-size: medium;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-}
-.btnOK {
- background-color: rgba(0, 0, 0, 0.774)!important;
-}
-.btnClose {
-  background-color: rgb(179, 1, 1)!important;
- }
- @media (max-width: 500px) {
-  .modal {
-    padding: 10px;
-    width: 80%;
-  }   
-
-  span, .btns button {
-    font-size: smaller;
-  }
- }
-/*--################################Criação de Modal###############################*/
-
-
 @media(min-width: 900px){
   body{
       background-image: url(/assets/bg-macula-full.jpg);
       background-size: cover;
   }
 }
+
+
+
+#pactoI{
+  text-align: left;
+  color: white;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.507);
+  text-align: center;
+}
+
+#pactoII{
+  text-align: left;
+  color: white;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.507);
+  text-align: center;
+}
+
+#pactoIII{
+  text-align: left;
+  color: white;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.507);
+  text-align: center;
+}
+
+#pactoIV{
+  text-align: left;
+  color: white;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.507);
+  text-align: center;
+}
+
+#pactoV{
+  text-align: left;
+  color: white;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.507);
+  text-align: center;
+}
+
+#pactoVI{
+  text-align: left;
+  color: white;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.507);
+  text-align: center;
+}
+
+
