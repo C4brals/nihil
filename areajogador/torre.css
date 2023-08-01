@@ -36,6 +36,7 @@ body{
     text-align: center;
     padding: 10px;
     
+    
 }
 
 #botao button{
@@ -87,6 +88,7 @@ button{
     background-color: rgba(192, 192, 192, 0.911);
     border-radius: 10px;
     width: 50%;
+    text-align: center;
   }
   
   .active {
@@ -120,7 +122,7 @@ button{
   
   .btns button {
     position: absolute;
-    top: 350px;
+    top: 385px;
     font-size: medium;
     padding: 10px;
     border: none;
