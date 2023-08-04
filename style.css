@@ -84,10 +84,37 @@ ul li a:hover{
     
 }
 
-#obs p{
-   
+#formulario {
     margin: 0 auto;
-    margin-top: 60px;
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#formulario a{
+    border-radius: 8px;
+    padding: 6px;
+    background-color: #00000080;
+    color: white;
+    text-decoration: none;
+}
+
+#formulario a:hover{
+    background-color: rgba(0, 77, 54, 0.781);
+    border: solid 1px rgb(173, 173, 173);
+    box-shadow:
+                1px 1px #000000,
+                2px 2px #000000,
+                3px 3px #333333;
+        -webkit-transform: translateX(-3px);
+        transform: translateX(-3px);
+        transition: 0.9s;
+}
+
+#obs p{
+    margin: 0 auto;
+    margin-top: 20px;
     bottom: -100px;
     width: 350px;
     font-size: 10px;
@@ -97,7 +124,8 @@ ul li a:hover{
 
 #autores p{
     font-size: 10px;
-    padding-top: 20px;
+    padding-top: 15px;
+    
     
 }
 
