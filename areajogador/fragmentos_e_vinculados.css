@@ -86,7 +86,7 @@ ul li a:hover{
 
 
 #voltar a{
-    border: solid rgb(228, 228, 228) 1px;
+    border: solid rgba(228, 228, 228, 0.973) 1px;
     padding: 5px;
     margin: 0 auto;
     width: 100px;
