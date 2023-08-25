@@ -82,10 +82,10 @@ ul{
 #box5{
     width: 300px;
     height: 200px;
-    background-image: url(./imagens/bg-silex.png);
+    background-image: url(/alnur/imagens/discipulo.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    background-position-y: -50px;
+    background-position-y: -30px;
     border-radius: 10px;
 }
 #box6{
