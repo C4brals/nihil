@@ -1,0 +1,141 @@
+* {
+    font-family: 'Open Sans', sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+body{
+    background-color: black;
+}
+  
+h1{
+    text-align: center;
+    width: 100%;
+    margin: auto 0;
+    color: rgb(255, 255, 255);   
+    margin-top: 40px;
+    margin-bottom: 40px;
+    font-size: 25px;
+}
+ul a {
+    text-decoration: none;  
+    color: white;
+}
+
+
+ul a p{
+    background-color: rgba(0, 0, 0, 0.219);
+
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    font-weight:bold;
+    padding-top: 90px;
+    padding-bottom: 89px;
+    border-radius: 10px;
+}
+ul{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    width: 100%;
+    padding-bottom: 50px;
+}
+#box1{
+    width: 300px;
+    height: 200px;
+    background-image: url(./imagens/bg-adepto.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: -60px;
+    border-radius: 10px;  
+}
+#box2{
+    width: 300px;
+    height: 200px;
+    background-image: url(/lordes/imagens/arkambau.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+}
+#box3{
+    width: 300px;
+    height: 200px;
+    background-image: url(./torre/imagens/torre-outubrista.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: -35px;
+    border-radius: 10px;
+}
+#box4{
+    width: 300px;
+    height: 200px;
+    background-image: url(./imagens/bg-lobo.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: -60px;
+    border-radius: 10px;
+}
+#box5{
+    width: 300px;
+    height: 200px;
+    background-image: url(./imagens/bg-silex.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: -50px;
+    border-radius: 10px;
+}
+#box6{
+    width: 300px;
+    height: 200px;
+    background-image: url(./imagens/bg-pacto.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+}
+#box7{
+    width: 300px;
+    height: 200px;
+    background-image: url(./imagens/bg-potion1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: -40px;
+    border-radius: 10px;  
+}
+#box1:hover{
+    box-shadow: inset 0 0 0 65px #000000b2;
+    transition: 0.9s;
+}
+#box2:hover{
+    box-shadow: inset 0 0 0 65px #000000b2;
+    transition: 0.9s;
+}
+#box3:hover{
+    box-shadow: inset 0 0 0 65px #000000b2;
+    transition: 0.9s;
+}
+#box4:hover{
+    box-shadow: inset 0 0 0 65px #000000b2;
+    transition: 0.9s;
+}
+#box5:hover{
+    box-shadow: inset 0 0 0 65px #000000b2;
+    transition: 0.9s;
+}
+#box6:hover{
+    box-shadow: inset 0 0 0 65px #000000b2;
+    transition: 0.9s;
+}
+#box7:hover{
+    box-shadow: inset 0 0 0 65px #000000b2;
+    transition: 0.9s;
+}
+
+@media (min-width: 500px){
+    h1{
+        font-size: 33px;
+    }
+}
