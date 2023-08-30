@@ -38,6 +38,24 @@ body{
     background-color: rgb(41, 41, 41);
     transition: 0.9s;
 }
+#mecanica{
+  width: 100%;
+  justify-content: center;
+  margin: auto 0;
+  text-align: center;
+  align-items: center;
+  color: rgb(145, 131, 131);
+  padding: 10px;
+}
+#mecanica p {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin: auto 0;
+  text-align: center;
+  align-items: center;
+  margin-top: 15px;
+}
 #imagens{
     display: flex;
     flex-direction: column;
