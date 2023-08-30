@@ -74,11 +74,12 @@ body{
 #lista ul li{
     display: flex;
     text-decoration: none;
+    padding: 10px;
 }
 h3{
     display: flex;
     justify-content: center;
     margin-top: 20px;
-    color: rgb(105, 2, 2);
+    color: rgb(158, 2, 2);
     font-weight: bold;
 }
