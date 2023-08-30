@@ -1,0 +1,84 @@
+* {
+    font-family: 'Open Sans', sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+body{
+    background-image: linear-gradient(black, white);
+    background-repeat: no-repeat;
+    margin-bottom: 200px;
+}
+#banner1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+}
+#banner2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 30px;
+}
+#banner1 p {
+    font-size: 30px;
+    color: white;
+}
+#banner2 a{ /* Botão voltar */
+    text-decoration: none;
+    color: white;
+    background-color: red;
+    padding: 8px;
+    border-radius: 8px;
+}
+#banner2 a:hover{ /* Botão voltar */
+    background-color: rgb(41, 41, 41);
+    transition: 0.9s;
+}
+#mecanica{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: auto 0;
+    text-align: center;
+    align-items: center;
+    color: rgb(212, 212, 212);
+    padding: 10px;
+  }
+  #imagem{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 50px;
+    
+}
+#imagem img{
+    border-radius: 10px;
+    margin: 0 auto;
+    display: flex;
+    width: 350px;
+}
+#lista{
+    display: flex;
+    width: 100%;
+    text-align: center;
+    justify-content: center;    
+    margin-top: 20px;
+}
+#lista ul li{
+    display: flex;
+    text-decoration: none;
+}
+h3{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    color: rgb(105, 2, 2);
+    font-weight: bold;
+}
