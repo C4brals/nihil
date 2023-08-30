@@ -47,10 +47,10 @@ ul{
 #box1{
     width: 300px;
     height: 200px;
-    background-image: url(./imagens/bg-adepto.jpg);
+    background-image: url(/Personargens/imagens/protetor.png);
     background-repeat: no-repeat;
     background-size: cover;
-    background-position-y: -60px;
+    background-position-y: -20px;
     border-radius: 10px;  
 }
 #box2{
