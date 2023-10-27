@@ -136,6 +136,15 @@ ul{
     background-position-y: -40px;
     border-radius: 10px;  
 }
+#box8{
+    width: 300px;
+    height: 200px;
+    background-image: url(./artefatos/imagens/Livro\ dos\ Espólios\ Corrompidos\ Card.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: -40px;
+    border-radius: 10px;  
+}
 #box1:hover{
     box-shadow: inset 0 0 0 65px #000000b2;
     transition: 0.9s;
@@ -161,6 +170,10 @@ ul{
     transition: 0.9s;
 }
 #box7:hover{
+    box-shadow: inset 0 0 0 65px #000000b2;
+    transition: 0.9s;
+}
+#box8:hover{
     box-shadow: inset 0 0 0 65px #000000b2;
     transition: 0.9s;
 }
