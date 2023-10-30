@@ -186,6 +186,10 @@ ul{
     box-shadow: inset 0 0 0 65px #000000b2;
     transition: 0.9s;
 }
+#box9:hover{
+    box-shadow: inset 0 0 0 65px #000000b2;
+    transition: 0.9s;
+}
 
 @media (min-width: 500px){
     h1{
