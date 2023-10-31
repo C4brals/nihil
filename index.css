@@ -78,7 +78,7 @@ ul{
 #box1{
     width: 300px;
     height: 200px;
-    background-image: url(/Personargens/imagens/Mestre\ de\ forja.jpg);
+    background-image: url(/Personargens/imagens/elementarista.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position-y: -60px;
@@ -87,7 +87,7 @@ ul{
 #box2{
     width: 300px;
     height: 200px;
-    background-image: url(/lordes/imagens/arkambau.jpeg);
+    background-image: url(/lordes/imagens/guido.jpeg);
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 10px;
@@ -113,7 +113,7 @@ ul{
 #box5{
     width: 300px;
     height: 200px;
-    background-image: url(/alnur/imagens/discipulo3.jpg);
+    background-image: url(/alnur/imagens/discipulo2.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position-y: -30px;
@@ -139,7 +139,7 @@ ul{
 #box8{
     width: 300px;
     height: 200px;
-    background-image: url(./artefatos/imagens/Livro\ dos\ Espólios\ Corrompidos\ Card.jpg);
+    background-image: url(./artefatos/imagens/Crisol.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position-y: -40px;
