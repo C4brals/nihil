@@ -1,105 +1,122 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./torre.css">
-    <title>Torre Outubrista</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./torre.css">
+  <title>Torre Outubrista</title>
 </head>
+
 <body>
-    <div id="banner1">
-        <p id="titulo">Torre Outubrista</p>
+  <div id="banner1">
+    <p id="titulo">Torre Outubrista</p>
+  </div>
+
+  <div id="mecanica">
+    <p>A Torre funciona como um santuário seguro criado para que os aventureiros com a marca dos Bravos possam se
+      comunicar em qualquer lugar de Hémoras. Ela permite que aquele que chegar a ela, possa sugerir uma troca de até 2
+      consumíveis, ou 1 item com qualquer outro jogador no mapa, onde o mesmo não precisará estar em outra torre para
+      fazê-lo. A troca acontece imediatamente pela magia do Outubrista que guarda o local. Na torre também é permitido a
+      compra de Elixir, Pergaminhos ou Fragmentos em troca de AM (Artifícios da Mácula). </p>
+    <p>A torre é uma área opcional no mapa, caso qualquer jogador passe pela mesma, pode optar por entrar e realizar as
+      ações que ela permite, encerrando seu turno, ou ignorá-la e seguir caminho. A doação só pode ocorrer entre dois
+      jogadores por vez.</p>
+  </div>
+  <div id="banner2">
+    <a href="/index.html">
+      <p id="voltar">Voltar</p>
+    </a>
+  </div>
+
+  <!----------------------------------------------- Torre ------------------------------------------------------->
+  <div id="imagens">
+
+    <!-- Todos os Botões -->
+    <div class="wrapper">
+      <a href="#demo-modal">Consumíveis</a>
+      <a href="#demo-modal2">Frag. de Páginas</a>
+      <a href="#demo-modal4">Portal Azarth</a>
     </div>
 
-    <div id="mecanica">
-      <p>A Torre funciona como um santuário seguro criado para que os aventureiros com a marca dos Bravos possam se comunicar em qualquer lugar de Hémoras. Ela permite que aquele que chegar a ela, possa sugerir uma troca de até 2 consumíveis, ou 1 item com qualquer outro jogador no mapa, onde o mesmo não precisará estar em outra torre para fazê-lo. A troca acontece imediatamente pela magia do Outubrista que guarda o local. Na torre também é permitido a compra de Elixir, Pergaminhos ou Fragmentos em troca de AM (Artifícios da Mácula). </p>
-      <p>A torre é uma área opcional no mapa, caso qualquer jogador passe pela mesma, pode optar por entrar e realizar as ações que ela permite, encerrando seu turno, ou ignorá-la e seguir caminho. A doação só pode ocorrer entre dois jogadores por vez.</p>
-    </div>
-    <div id="banner2">
-        <a href="/index.html"><p id="voltar">Voltar</p></a>
-    </div>
+    <!-- Modal Elixires -->
+    <div id="demo-modal" class="modal">
+      <div class="content">
+        <h1>Consumíveis</h1>
 
-    <!----------------------------------------------- Torre ------------------------------------------------------->
-    <div id="imagens">
-        
-        <!-- Todos os Botões -->
-        <div class="wrapper">
-          <a href="#demo-modal">Consumíveis</a>
-          <a href="#demo-modal2">Frag. de Páginas</a>
-          <a href="#demo-modal4">Portal Azarth</a>
+        <p>D - Elixir de Cura <strong>3 AM</strong></p>
+        <p>D - Elixir do Sangue Ácido <strong>5 AM</strong></p>
+        <p>I - Elixir da Luta Melhorada <strong>3 AM</strong></p>
+        <p>Elixir de Invisibilidade <strong>5 AM</strong></p>
+        <p>D - Elixir da Confusão Mágica <strong>3 AM</strong></p>
+        <p>Elixir da Velocidade <strong>5 AM</strong></p>
+        <p>D - Elixir de Escudos <strong>3 AM</strong></p>
+        <p>D - Elixir da Distorção <strong>8 AM</strong></p>
+        <p>D - Elixir do Armazenamento Mágico <strong>3 AM</strong></p>
+        <p>Acampamento <strong>5 AM</strong></p>
+        <p>O - Pergaminho de Fogo <strong>3 AM</strong></p>
+        <p>O - Pergaminho de Gelo <strong>3 AM</strong></p>
+        <p>Artefato aleatório de Alnur <strong>50 AM</strong></p>
+
+
+        <div class="footer">
+          <a href="#" class="footer-btn-close"> Fechar </a>
         </div>
 
-        <!-- Modal Elixires -->
-    <div id="demo-modal" class="modal">
-    <div class="content">
-    <h1>Consumíveis</h1>
-   
-    <p>D - Elixir de Cura <strong>3 AM</strong></p>
-    <p>D - Elixir do Sangue Ácido <strong>5 AM</strong></p>
-    <p>I - Elixir da Luta Melhorada <strong>3 AM</strong></p>
-    <p>Elixir de Invisibilidade <strong>5 AM</strong></p>
-    <p>D - Elixir da Confusão Mágica <strong>3 AM</strong></p>
-    <p>Elixir da Velocidade <strong>5 AM</strong></p>
-    <p>D - Elixir de Escudos <strong>3 AM</strong></p>
-    <p>D - Elixir da Distorção <strong>5 AM</strong></p>
-    <p>D - Elixir do Armazenamento Mágico <strong>3 AM</strong></p>
-    <p>Acampamento <strong>3 AM</strong></p>
-    <p>O - Pergaminho de Fogo <strong>3 AM</strong></p>
-    <p>O - Pergaminho de Gelo <strong>3 AM</strong></p>
-    <p>Artefato aleatório de Alnur <strong>50 AM</strong></p>
-   
- 
-    <div class="footer">
-      <a href="#" class="footer-btn-close"> Fechar </a>
-    </div>
- 
-    <a href="#" class="close">&times;</a>
-    </div>
+        <a href="#" class="close">&times;</a>
+      </div>
     </div>
 
     <!-- Modal páginas de fragmento -->
-  <div id="demo-modal2" class="modal2">
-  <div class="content2">
-  <h1>Fragmentos de Páginas</h1>
- 
-  <p><strong>Reúna as 3 partes para acessar um Guardião. Convide até um jogador para lhe ajudar na batalha, e tire a sorte no dado pela recompensa. (Maior resultado recebe a recompensa). Ou tente a sorte numa batalha sozinho...</strong></p>
-  <p>Frag. de Pergaminho para o Faról (Página 1, 2 ou 3) <strong>Recompensa</strong>: <a href="https://drive.google.com/file/d/1oQSNHnvQ48cpfGXV4ubPoKg-bHr7jj45/view?usp=drive_link" target="_blank">Chama do Faról</a> <strong>15 AM</strong></p>
-  <p>Frag. de Pergaminho para as Profundezas (Página 1, 2 ou 3) <strong>15 AM</strong></p>
-  <p>Frag. de Pergaminho para o Desmensurável (Página 1, 2 ou 3) <strong>15 AM</strong></p>
-  <p>Frag. de Pergaminho para a Vastidão (Página 1, 2 ou 3) <strong>15 AM</strong></p>
+    <div id="demo-modal2" class="modal2">
+      <div class="content2">
+        <h1>Fragmentos de Páginas</h1>
+
+        <p><strong>Reúna as 3 partes para acessar um Guardião. Convide até um jogador para lhe ajudar na batalha, e tire
+            a sorte no dado pela recompensa. (Maior resultado recebe a recompensa). Ou tente a sorte numa batalha
+            sozinho...</strong></p>
+        <p>Frag. de Pergaminho para o Faról (Página 1, 2 ou 3) <strong>Recompensa</strong>: <a
+            href="https://drive.google.com/file/d/1oQSNHnvQ48cpfGXV4ubPoKg-bHr7jj45/view?usp=drive_link"
+            target="_blank">Chama do Faról</a> <strong>15 AM</strong></p>
+        <p>Frag. de Pergaminho para as Profundezas (Página 1, 2 ou 3) <strong>15 AM</strong></p>
+        <p>Frag. de Pergaminho para o Desmensurável (Página 1, 2 ou 3) <strong>15 AM</strong></p>
+        <p>Frag. de Pergaminho para a Vastidão (Página 1, 2 ou 3) <strong>15 AM</strong></p>
 
 
-  <div class="footer2">
-    <a href="#" class="footer-btn-close2"> Fechar </a>
-  </div>
+        <div class="footer2">
+          <a href="#" class="footer-btn-close2"> Fechar </a>
+        </div>
 
-  <a href="#" class="close2">&times;</a>
-  </div>
-  </div>
-
-      <!-- Modal Viagem entre Planos -->
-  <div id="demo-modal4" class="modal4">
-      <div class="content4">
-      <h1>Portal Azarth</h1>
-   
-      <p><strong>Viagem entre Planos - 10 AM.</strong> Teletransporta o jogador para uma torre à frente já descoberta <em>(Algum jogador tem que ir até uma torre inicialmente para que ela fique com o status de "descoberta")</em></p>
-
-      <div class="footer4">
-        <a href="#" class="footer-btn-close4"> Fechar </a>
+        <a href="#" class="close2">&times;</a>
       </div>
-  
+    </div>
+
+    <!-- Modal Viagem entre Planos -->
+    <div id="demo-modal4" class="modal4">
+      <div class="content4">
+        <h1>Portal Azarth</h1>
+
+        <p><strong>Viagem entre Planos - 10 AM.</strong> Teletransporta o jogador para uma torre à frente já descoberta
+          <em>(Algum jogador tem que ir até uma torre inicialmente para que ela fique com o status de "descoberta")</em>
+        </p>
+
+        <div class="footer4">
+          <a href="#" class="footer-btn-close4"> Fechar </a>
+        </div>
+
         <a href="#" class="close4">&times;</a>
       </div>
+    </div>
+
+
+
+
+
+    <img src="./imagens/torre-outubrista.jpg" alt="">
   </div>
 
 
 
-
-
-      <img src="./imagens/torre-outubrista.jpg" alt="">
-  </div>
-
-
-    
 </body>
+
 </html>
