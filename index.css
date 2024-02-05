@@ -3,38 +3,42 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-  }
-body{
+}
+
+body {
     background-color: black;
 }
-  
-h1{
+
+h1 {
     text-align: center;
     width: 100%;
     margin: auto 0;
-    color: rgb(255, 255, 255);   
+    color: rgb(255, 255, 255);
     margin-top: 40px;
     margin-bottom: 40px;
     font-size: 25px;
 }
-#links{
+
+#links {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: auto 0; 
+    margin: auto 0;
 }
-#links ul{
+
+#links ul {
     display: flex;
     justify-content: center;
     align-items: center;
     padding-bottom: 0px;
-    margin: auto 0;  
-    flex-direction: row; 
+    margin: auto 0;
+    flex-direction: row;
     list-style: none;
     gap: 15px;
 }
-#links ul li a{
+
+#links ul li a {
     color: rgb(255, 255, 255);
     display: flex;
     padding: 5px;
@@ -43,29 +47,32 @@ h1{
     background-color: red;
     border-radius: 8px;
 }
-#links ul li a:hover{
+
+#links ul li a:hover {
     color: rgb(255, 255, 255);
     background-color: rgb(138, 19, 19);
     transition: 0.9s;
 }
+
 ul a {
-    text-decoration: none;  
+    text-decoration: none;
     color: rgb(255, 255, 255);
 }
 
 
-ul a p{
+ul a p {
     background-color: rgba(0, 0, 0, 0.219);
 
     text-align: center;
     width: 100%;
     margin: 0 auto;
-    font-weight:bold;
+    font-weight: bold;
     padding-top: 90px;
     padding-bottom: 89px;
     border-radius: 10px;
 }
-ul{
+
+ul {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -75,16 +82,18 @@ ul{
     width: 100%;
     padding-bottom: 50px;
 }
-#box1{
+
+#box1 {
     width: 300px;
     height: 200px;
     background-image: url(/Personargens/imagens/elementarista.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position-y: -60px;
-    border-radius: 10px;  
+    border-radius: 10px;
 }
-#box2{
+
+#box2 {
     width: 300px;
     height: 200px;
     background-image: url(/lordes/imagens/guido.jpeg);
@@ -92,7 +101,8 @@ ul{
     background-size: cover;
     border-radius: 10px;
 }
-#box3{
+
+#box3 {
     width: 300px;
     height: 200px;
     background-image: url(./torre/imagens/torre-outubrista.jpg);
@@ -101,7 +111,8 @@ ul{
     background-position-y: -35px;
     border-radius: 10px;
 }
-#box4{
+
+#box4 {
     width: 300px;
     height: 200px;
     background-image: url(./generais/imagens/Nargull.jpg);
@@ -110,7 +121,8 @@ ul{
     background-position-y: -20px;
     border-radius: 10px;
 }
-#box5{
+
+#box5 {
     width: 300px;
     height: 200px;
     background-image: url(/alnur/imagens/discipulo2.jpg);
@@ -119,7 +131,8 @@ ul{
     background-position-y: -30px;
     border-radius: 10px;
 }
-#box6{
+
+#box6 {
     width: 300px;
     height: 200px;
     background-image: url(./imagens/bg-pacto.png);
@@ -127,72 +140,99 @@ ul{
     background-size: cover;
     border-radius: 10px;
 }
-#box7{
+
+#box7 {
     width: 300px;
     height: 200px;
     background-image: url(./imagens/bg-potion1.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position-y: -40px;
-    border-radius: 10px;  
+    border-radius: 10px;
 }
-#box8{
+
+#box8 {
     width: 300px;
     height: 200px;
     background-image: url(./artefatos/imagens/Olho\ de\ Oxiliat.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position-y: -40px;
-    border-radius: 10px;  
+    border-radius: 10px;
 }
-#box9{
+
+#box9 {
     width: 300px;
     height: 200px;
     background-image: url(./guardioes/imagens/ryme.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position-y: -40px;
-    border-radius: 10px;  
+    border-radius: 10px;
 }
-#box1:hover{
-    box-shadow: inset 0 0 0 65px #000000b2;
-    transition: 0.9s;
+
+#box10 {
+    width: 300px;
+    height: 200px;
+    background-image: url(./Fendas/imagens/fendas2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: -50px;
+    border-radius: 10px;
 }
-#box2:hover{
-    box-shadow: inset 0 0 0 65px #000000b2;
-    transition: 0.9s;
-}
-#box3:hover{
-    box-shadow: inset 0 0 0 65px #000000b2;
-    transition: 0.9s;
-}
-#box4:hover{
-    box-shadow: inset 0 0 0 65px #000000b2;
-    transition: 0.9s;
-}
-#box5:hover{
-    box-shadow: inset 0 0 0 65px #000000b2;
-    transition: 0.9s;
-}
-#box6:hover{
-    box-shadow: inset 0 0 0 65px #000000b2;
-    transition: 0.9s;
-}
-#box7:hover{
-    box-shadow: inset 0 0 0 65px #000000b2;
-    transition: 0.9s;
-}
-#box8:hover{
-    box-shadow: inset 0 0 0 65px #000000b2;
-    transition: 0.9s;
-}
-#box9:hover{
+
+#box1:hover {
     box-shadow: inset 0 0 0 65px #000000b2;
     transition: 0.9s;
 }
 
-@media (min-width: 500px){
-    h1{
+#box2:hover {
+    box-shadow: inset 0 0 0 65px #000000b2;
+    transition: 0.9s;
+}
+
+#box3:hover {
+    box-shadow: inset 0 0 0 65px #000000b2;
+    transition: 0.9s;
+}
+
+#box4:hover {
+    box-shadow: inset 0 0 0 65px #000000b2;
+    transition: 0.9s;
+}
+
+#box5:hover {
+    box-shadow: inset 0 0 0 65px #000000b2;
+    transition: 0.9s;
+}
+
+#box6:hover {
+    box-shadow: inset 0 0 0 65px #000000b2;
+    transition: 0.9s;
+}
+
+#box7:hover {
+    box-shadow: inset 0 0 0 65px #000000b2;
+    transition: 0.9s;
+}
+
+#box8:hover {
+    box-shadow: inset 0 0 0 65px #000000b2;
+    transition: 0.9s;
+}
+
+#box9:hover {
+    box-shadow: inset 0 0 0 65px #000000b2;
+    transition: 0.9s;
+}
+
+#box10:hover {
+    box-shadow: inset 0 0 0 65px #000000b2;
+    transition: 0.9s;
+}
+
+@media (min-width: 500px) {
+    h1 {
         font-size: 33px;
     }
 }
