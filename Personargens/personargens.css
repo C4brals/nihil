@@ -71,13 +71,12 @@ body {
   padding: 20px;
   text-align: center;
   align-items: center;
-
-
+  margin-top: -20px
 }
 
 /*------------------------------Modal Adepto----------------------------*/
 .wrapper {
-  margin-top: -25px;
+  margin-top: 50px;
 }
 
 #imagens h1 {
@@ -101,7 +100,7 @@ body {
   display: inline-block;
   text-decoration: none;
   padding: 10px;
-  background-color: #383838a9;
+  background-color: red;
   border-radius: 8px;
   color: #ffffff;
 }
@@ -166,7 +165,7 @@ body {
 
 /*------------------------------Modal Atroz----------------------------*/
 .wrapper2 {
-  margin-top: -25px;
+  margin-top: 50px;
 }
 
 #imagens h1 {
@@ -189,7 +188,7 @@ body {
   display: inline-block;
   text-decoration: none;
   padding: 10px;
-  background-color: #383838a9;
+  background-color: red;
   border-radius: 8px;
   color: #ffffff;
 }
@@ -254,7 +253,7 @@ body {
 
 /*------------------------------Mestre Caçador ----------------------------*/
 .wrapper3 {
-  margin-top: -25px;
+  margin-top: 50px;
 }
 
 #imagens h1 {
@@ -277,7 +276,7 @@ body {
   display: inline-block;
   text-decoration: none;
   padding: 10px;
-  background-color: #383838a9;
+  background-color: red;
   border-radius: 8px;
   color: #ffffff;
 }
@@ -342,7 +341,7 @@ body {
 
 /*------------------------------Clériga ----------------------------*/
 .wrapper4 {
-  margin-top: -25px;
+  margin-top: 50px;
 }
 
 #imagens h1 {
@@ -365,7 +364,7 @@ body {
   display: inline-block;
   text-decoration: none;
   padding: 10px;
-  background-color: #383838a9;
+  background-color: red;
   border-radius: 8px;
   color: #ffffff;
 }
@@ -430,7 +429,7 @@ body {
 
 /*------------------------------Combatente ----------------------------*/
 .wrapper5 {
-  margin-top: -25px;
+  margin-top: 50px;
 }
 
 #imagens h1 {
@@ -453,7 +452,7 @@ body {
   display: inline-block;
   text-decoration: none;
   padding: 10px;
-  background-color: #383838a9;
+  background-color: red;
   border-radius: 8px;
   color: #ffffff;
 }
@@ -518,7 +517,7 @@ body {
 
 /*------------------------------ Druida ----------------------------*/
 .wrapper6 {
-  margin-top: -25px;
+  margin-top: 50px;
 }
 
 #imagens h1 {
@@ -541,7 +540,7 @@ body {
   display: inline-block;
   text-decoration: none;
   padding: 10px;
-  background-color: #383838a9;
+  background-color: red;
   border-radius: 8px;
   color: #ffffff;
 }
@@ -606,7 +605,7 @@ body {
 
 /*------------------------------ Elementarista ----------------------------*/
 .wrapper7 {
-  margin-top: -25px;
+  margin-top: 50px;
 }
 
 #imagens h1 {
@@ -629,7 +628,7 @@ body {
   display: inline-block;
   text-decoration: none;
   padding: 10px;
-  background-color: #383838a9;
+  background-color: red;
   border-radius: 8px;
   color: #ffffff;
 }
@@ -694,7 +693,7 @@ body {
 
 /*------------------------------ Guardião ----------------------------*/
 .wrapper8 {
-  margin-top: -25px;
+  margin-top: 50px;
 }
 
 #imagens h1 {
@@ -717,7 +716,7 @@ body {
   display: inline-block;
   text-decoration: none;
   padding: 10px;
-  background-color: #383838a9;
+  background-color: red;
   border-radius: 8px;
   color: #ffffff;
 }
@@ -782,7 +781,7 @@ body {
 
 /*------------------------------ Mestre de Forja ----------------------------*/
 .wrapper10 {
-  margin-top: -25px;
+  margin-top: 50px;
 }
 
 #imagens h1 {
@@ -805,7 +804,7 @@ body {
   display: inline-block;
   text-decoration: none;
   padding: 10px;
-  background-color: #383838a9;
+  background-color: red;
   border-radius: 8px;
   color: #ffffff;
 }
@@ -876,7 +875,7 @@ body {
 
 /*------------------------------ Protetor ----------------------------*/
 .wrapper9 {
-  margin-top: -25px;
+  margin-top: 50px;
 }
 
 #imagens h1 {
@@ -899,7 +898,7 @@ body {
   display: inline-block;
   text-decoration: none;
   padding: 10px;
-  background-color: #383838a9;
+  background-color: red;
   border-radius: 8px;
   color: #ffffff;
 }
