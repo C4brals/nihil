@@ -184,7 +184,7 @@ ul {
 #box11 {
     width: 300px;
     height: 200px;
-    background-image: url(./regras/imagens/regras.jpg);
+    background-image: url(/imagens/corrompido.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position-y: -50px;
