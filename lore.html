@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nihil - A Lore</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #050505;
+            color: #dcd0c0;
+            font-family: 'Lora', serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), 
+                              url('https://www.transparenttextures.com/patterns/dark-matter.png');
+            overflow: hidden;
+        }
+
+        /* Moldura Medieval Sombria ao redor da tela (Igual à home) */
+        .moldura-tela {
+            position: absolute;
+            top: 20px;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            border: 2px solid #4a0000;
+            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(139, 0, 0, 0.2);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .moldura-tela::before, .moldura-tela::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 4px solid #c5a059;
+        }
+        .moldura-tela::before { top: -5px; left: -5px; border-right: none; border-bottom: none; }
+        .moldura-tela::after { bottom: -5px; right: -5px; border-left: none; border-top: none; }
+
+        /* Container de Conteúdo da Lore */
+        .lore-container {
+            max-width: 750px;
+            width: 90%;
+            max-height: 75vh;
+            background: rgba(10, 10, 10, 0.6);
+            border: 1px solid rgba(197, 160, 89, 0.1);
+            border-radius: 4px;
+            padding: 40px;
+            text-align: justify;
+            z-index: 2;
+            overflow-y: auto; /* Permite rolar a história se for longa */
+            animation: fadeIn 1.5s ease-in-out;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Customização da barra de rolagem (Scrollbar) Sombria */
+        .lore-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .lore-container::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .lore-container::-webkit-scrollbar-thumb {
+            background: #4a0000;
+            border-radius: 3px;
+        }
+        .lore-container::-webkit-scrollbar-thumb:hover {
+            background: #8b0000;
+        }
+
+        /* Títulos */
+        .titulo-lore {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            color: #8b0000;
+            text-shadow: 0 0 15px rgba(139, 0, 0, 0.6), 2px 2px 4px #000;
+            margin-bottom: 5px;
+            letter-spacing: 4px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .subtitulo-lore {
+            font-family: 'Cinzel', serif;
+            color: #c5a059;
+            font-size: 0.95rem;
+            letter-spacing: 3px;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        .secao-titulo {
+            font-family: 'Cinzel', serif;
+            color: #c5a059;
+            font-size: 1.2rem;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+            padding-bottom: 5px;
+        }
+
+        /* Parágrafos e Estilo Textual */
+        p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #bfae96; /* Tom areia confortável para leitura */
+            font-size: 1.05rem;
+        }
+
+        /* Efeito de primeira letra maior (Capitular) */
+        p.introducao::first-letter {
+            font-family: 'Cinzel', serif;
+            font-size: 3.2rem;
+            float: left;
+            margin-right: 12px;
+            line-height: 0.9;
+            color: #8b0000;
+            font-weight: 900;
+            text-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+        }
+
+        strong {
+            color: #ffffff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Bloco de Citação de Manuscritos antigos */
+        blockquote {
+            background: rgba(74, 0, 0, 0.1);
+            border-left: 3px solid #8b0000;
+            padding: 15px 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #a39580;
+            border-radius: 0 4px 4px 0;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        /* Container do Botão de Voltar */
+        .botoes-container {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            z-index: 2;
+            width: 100%;
+        }
+
+        /* Botão Estilo RPG (Idêntico ao menu) */
+        .botao-voltar {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: #bfae96;
+            text-decoration: none;
+            background: linear-gradient(to right, transparent, rgba(26, 0, 0, 0.4), transparent);
+            padding: 10px 40px;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            border-radius: 3px;
+            transition: all 0.4s ease;
+            position: relative;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .botao-voltar:hover {
+            color: #ffffff;
+            border-color: #8b0000;
+            background: linear-gradient(to right, rgba(139, 0, 0, 0.2), rgba(74, 0, 0, 0.6), rgba(139, 0, 0, 0.2));
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.5), inset 0 0 10px rgba(139, 0, 0, 0.4);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+        }
+
+        .botao-voltar::before, .botao-voltar::after {
+            content: '❖';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8b0000;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .botao-voltar::before { left: 15px; }
+        .botao-voltar::after { right: 15px; }
+
+        .botao-voltar:hover::before { opacity: 1; transform: translateY(-50%) translateX(5px); }
+        .botao-voltar:hover::after { opacity: 1; transform: translateY(-50%) translateX(-5px); }
+
+        /* Animação */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .titulo-lore { font-size: 1.6rem; }
+            .lore-container { padding: 20px; max-height: 65vh; }
+            .botao-voltar { font-size: 0.9rem; padding: 8px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="moldura-tela"></div>
+
+    <div class="lore-container">
+        <h1 class="titulo-lore">ATO I</h1>
+        <p class="subtitulo-lore">— Crônicas de Nihil —</p>
+
+        <h3 class="secao-titulo">Havel, A Maldição da Razão</h3>
+
+        <p class="introducao">
+            Há muito tempo os Outubristas vêm tentando corrigir o maior erro que já cometeram, que foi entregar o caos ao reino material “Criella Damar, a Guardiã dos Segredos do Castelo de Vidro”.
+        </p>
+
+        <p>
+            Havel era um dos maiores conhecedor e protetor dos planos dos deuses, ele arquitetava e planejava mundos para que os seres supremos ficassem satisfeitos no local em que estavam. O trabalho de um Outubrista era de manter os deuses a salvo de ameaças externas e de suas próprias frustrações, era de fazer o elo entre o mundo material e a crença nos deuses, pois isso os mantinham satisfeitos. E Havel guardava bem a todos. 
+        </p>
+
+        <blockquote>
+            "O toque do abismo não consome a carne de imediato. Ele sussurra promessas de poder nos ouvidos dos desesperados, até que sua própria imagem se dissipe em um eterno borrão na realidade." <br>— Manuscrito de um Guardião Anônimo
+        </blockquote>        
+        
+        <p>
+            Os Deuses eram frustrados e descontentes o tempo todo, eram mirabolantes e desastrosos, todas as vidas que criavam eles as destruíram momentos depois, não havia espaço para os seres frutos de suas vontades evoluíssem e se aprimorassem. Os deuses sempre destruíram suas criações  quando essas vidas estavam próximas da razão.
+        </p>
+
+        <p>
+            Anos de cuidados com os seres mais sábios e capazes que existiam, transformou a admiração em preocupação. Por ser o confidente mais fiel dos planos e ideias que os deuses revelavam, Havel começou a deduzir que algo não estava certo, os deuses criavam e destruíam tudo muito facilmente, ignoravam seus próprios feitos e esforços, como se tudo o que eles fizessem não levassem a nada. Aos olhos de Havel, o porquê das criações dos deuses darem tão erradas o tempo todo, era simples. Os deuses não eram completos, era deles que vinham as falhas..
+        </p>
+
+        <p>
+            Havel não aceitava mais se submeter a algo que não era perfeito ou mais capaz que ele, ele achava que os deuses não mereciam o lugar a qual existiam, que os deuses eram um erro de um plano, e só uma nova ideia poderia melhorar isso.
+        </p>
+
+        <p>Ele criou então o Encontro dos Mundos, usando A Ponte do Fim Estelar. Estrutura capaz de ligar todos os 26 planos a um só, ele destruiu a ordem que os Outubristas tanto velavam, criou o caos no reino dos deuses, e os mesmos agora não tinham um local apenas seu, todos os outros Deuses poderiam entrar e sair por seus mundos, então centenas de anos de guerras começaram e continuam sem fim.</p>
+    </div>
+
+    <div class="botoes-container">
+        <a href="./index.html" class="botao-voltar">Voltar ao Menu</a>
+    </div>
+
+</body>
+</html>

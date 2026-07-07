@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nihil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Configurações Gerais - O ambiente sombrio */
+        body {
+            background-color: #0a0a0a;
+            color: #dcd0c0; /* Um branco envelhecido, para não agredir os olhos */
+            font-family: 'Lora', serif;
+            margin: 0;
+            padding: 0;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.95)), url('https://www.transparenttextures.com/patterns/dark-matter.png'); /* Textura sutil de fundo */
+        }
+
+        /* Cabeçalho de tamanho imponente */
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 2px solid #4a0000; /* Linha de sangue escuro */
+            background: linear-gradient(to bottom, #1a0000, #0a0a0a);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: #8b0000; /* Vermelho Sangue */
+            text-shadow: 0 0 10px rgba(139, 0, 0, 0.6), 2px 2px 4px #000;
+            margin: 0 0 10px 0;
+            letter-spacing: 4px;
+            
+        }
+
+        header p {
+            font-style: italic;
+            color: #c5a059; /* Ouro envelhecido */
+            font-size: 1.2rem;
+            margin: 0;
+            
+        }
+
+        /* Container Principal */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* Seções de Conteúdo (Alimente aqui seu jogo) */
+        .postagem {
+            background-color: #121212;
+            border: 1px solid #2a2a2a;
+            border-left: 4px solid #8b0000; /* Detalhe gore na lateral */
+            border-radius: 4px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Efeito sutil de magia ao passar o mouse */
+        .postagem:hover {
+            transform: translateY(-5px);
+            border-color: #c5a059; 
+        }
+
+        .postagem h2 {
+            font-family: 'Cinzel', serif;
+            color: #c5a059;
+            margin-top: 0;
+            font-size: 1.8rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        /* Organização de Imagem + Texto */
+        .conteudo-flex {
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .conteudo-flex {
+                flex-direction: column;
+            }
+        }
+
+        /* Estilização das Imagens do Jogo */
+        .imagem-jogo {
+            flex: 1;
+            max-width: 400px;
+            width: 100%;
+            border: 3px solid #333;
+            border-radius: 2px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.9);
+            filter: grayscale(20%) sepia(10%) contrast(110%); /* Filtro para parecer mais dramático */
+            transition: filter 0.3s ease;
+        }
+
+        .imagem-jogo:hover {
+            filter: grayscale(0%) contrast(120%);
+        }
+
+        /* Texto da descrição */
+        .texto-jogo {
+            flex: 1.5;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #555;
+            font-size: 0.9rem;
+            border-top: 1px solid #1a1a1a;
+            background-color: #050505;
+        }
+
+            .botao-medieval {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #c5a059; /* Cor Ouro Envelhecido */
+            background-color: #121212; /* Fundo Carvão */
+            
+            /* Bordas e Espaçamento */
+            padding: 12px 30px;
+            border: 2px solid #c5a059;
+            border-radius: 3px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            
+            /* Posicionamento interno para os efeitos */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            
+            /* Transições suaves para os efeitos */
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        /* Efeito de passar o mouse (Hover) */
+        .botao-medieval:hover {
+            color: #ffffff; /* O texto fica branco brilhante */
+            background-color: #1a0000; /* Fundo ganha tom sutil de sangue */
+            border-color: #8b0000; /* Borda vira Vermelho Sangue */
+            
+            /* Brilho místico ao redor do botão */
+            box-shadow: 0 0 15px rgba(139, 0, 0, 0.7), inset 0 0 8px rgba(139, 0, 0, 0.5);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+            transform: translateY(-2px); /* Ele se eleva levemente */
+        }
+
+        /* Efeito de clique (Active) */
+        .botao-medieval:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Animação suave ao abrir a página */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>HERÓIS</h1>
+        <p>— Personagens jogáveis na campanha —</p>
+    </header>
+
+    <div class="container">
+
+        <!--Adepto das Sombras-->
+        <article class="postagem">
+            <h2 id="titulo-adepto">Adepto das Sombras</h2>
+            
+            <div class="conteudo-flex">
+                <img class="imagem-jogo" 
+                    id="adepto-img" 
+                    src="./assets/herois/adepto.jpg" 
+                    data-alt="./assets/herois/adepto_corrompido.jpg" 
+                    alt="Adepto das Sombras">
+                    
+                <div class="texto-jogo">
+                    <p>
+                        São ladrões, rufiões e trapaceiros, que vivem do crime e suas consequências por todas as regiões. 
+                    </p>
+                    <p><strong>Habilidades conhecidas</strong></p>
+                    <p><strong>D - Evasão</strong>: O Adepto consegue distorcer sua imagem e se transformar em um borrão, conseguindo evadir-se de um Combate ou Evento, recuando uma casa sem ativar o efeito da mesma. Evasão também pode ser usada em combate para desviar de 1 habilidade. Não pode ser usada em Lordes, Eventos e Guardiões.</p>
+                    <p><strong>D - Esquiva Perfeita</strong>: A velocidade de Adepto aumenta em 5x, Os próximos 2 ataques sem ser de Habilidades feitos contra Adepto no combate atual serão esquivados automaticamente.</p>
+                    <p><strong>O - Furto Espectral</strong>: A velocidade de Adepto aumenta em 5x, Os próximos 2 ataques sem ser de Habilidades feitos contra Adepto no combate atual serão esquivados automaticamente.</p>
+                </div>
+            </div>
+        </article>
+
+        <style>
+            .imagem-jogo {
+                cursor: pointer;
+                /* Transição suave para quando a classe 'efeito-troca' sumir */
+                transition: opacity 0.3s ease, transform 0.3s ease; 
+            }
+
+            /* Classe de efeito que o JavaScript vai colocar temporariamente */
+            .efeito-troca {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+        </style>
+
+        <script>
+            const imagemAdepto = document.getElementById('adepto-img');
+            const tituloAdepto = document.getElementById('titulo-adepto');
+
+            imagemAdepto.addEventListener('click', function() {
+                // Aplica o efeito visual diminuindo a opacidade
+                imagemAdepto.classList.add('efeito-troca');
+
+                // Espera 300 milissegundos (o tempo do efeito CSS) para trocar a imagem e o texto
+                setTimeout(() => {
+                    const imagemAtual = imagemAdepto.src;
+                    const imagemAlternativa = imagemAdepto.getAttribute('data-alt');
+
+                    // Troca a imagem
+                    imagemAdepto.src = imagemAlternativa;
+                    imagemAdepto.setAttribute('data-alt', imagemAtual);
+
+                    // Troca o título baseado no texto atual
+                    if (tituloAdepto.textContent === "Adepto das Sombras") {
+                        tituloAdepto.textContent = "Adepto das Sombras Corrompido";
+                    } else {
+                        tituloAdepto.textContent = "Adepto das Sombras";
+                    }
+
+                    // Remove a classe do efeito, fazendo a nova imagem aparecer suavemente
+                    imagemAdepto.classList.remove('efeito-troca');
+                }, 300); 
+            });
+        </script>
+
+        <!--Guerreiro Atroz-->
+        <article class="postagem">
+            <h2 id="titulo-atroz">Guerreiro Atroz</h2>
+            
+            <div class="conteudo-flex">
+                <img class="imagem-jogo" 
+                    id="atroz-img" 
+                    src="./assets/herois/atroz.jpg" 
+                    data-alt="./assets/herois/atroz_corrompido.jpg" 
+                    alt="Guerreiro Atroz">
+                    
+                <div class="texto-jogo">
+                    <p>
+                        Seres bestiais de mentalidade fraca e corpo de deuses, guerreiros capazes de destruir e arruinar vilas inteiras sozinhos, eles são como o poema de Havel descreve “É mais fácil conter uma enchente do que uma criança atroz”. 
+                    </p>
+                    <p><strong>Habilidades conhecidas</strong></p>
+                    <p><strong>O - Fúria de Batalha</strong>: O Atroz corta com suas duas lâminas causando 1 de dano ao PV do alvo. Após causar dano com essa habilidade todos os golpes críticos (6 ou mais) no combate, causam 1 de dano a mais ao PV do mesmo alvo.</p>
+                    <p><strong>I - Avançar</strong>:  O Atroz com sua musculatura melhorada com Hogi consegue sair em disparada ignorando a maioria dos obstáculos. Adiciona +3 ao dado na próxima ação de mover-se no tabuleiro (Exemplo se “tirar” 4 no dado, resulta em 7). Essa habilidade pode ser usada em combate, caso o faça, o Atroz recebe +3 para acertar o alvo do combate.</p>
+                    <p><strong>D/O - Até o fim</strong>: Quando o corpo de um Atroz se encontra perto da morte o mesmo começa a explodir em Hogi. Caso um Atroz tenha 3 ou menos de PV, seu corpo enrijece como aço evitando que o mesmo receba danos de ataque ou habilidade pelos próximos 2 turnos.O jogador ainda recebe +1 de dano em todos os ataques que fizer nesses 2 turnos.</p>
+                </div>
+            </div>
+        </article>
+
+        <style>
+            .imagem-jogo {
+                cursor: pointer;
+                /* Transição suave para quando a classe 'efeito-troca' sumir */
+                transition: opacity 0.3s ease, transform 0.3s ease; 
+            }
+
+            /* Classe de efeito que o JavaScript vai colocar temporariamente */
+            .efeito-troca {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+        </style>
+
+        <script>
+            const imagemAtroz = document.getElementById('atroz-img');
+            const tituloAtroz = document.getElementById('titulo-atroz');
+
+            imagemAtroz.addEventListener('click', function() {
+                // Aplica o efeito visual diminuindo a opacidade
+                imagemAtroz.classList.add('efeito-troca');
+
+                // Espera 300 milissegundos (o tempo do efeito CSS) para trocar a imagem e o texto
+                setTimeout(() => {
+                    const imagemAtual = imagemAtroz.src;
+                    const imagemAlternativa = imagemAtroz.getAttribute('data-alt');
+
+                    // Troca a imagem
+                    imagemAtroz.src = imagemAlternativa;
+                    imagemAtroz.setAttribute('data-alt', imagemAtual);
+
+                    // Troca o título baseado no texto atual
+                    if (tituloAtroz.textContent === "Guerreiro Atroz") {
+                        tituloAtroz.textContent = "Guerreiro Atroz Corrompido";
+                    } else {
+                        tituloAtroz.textContent = "Guerreiro Atroz";
+                    }
+
+                    // Remove a classe do efeito, fazendo a nova imagem aparecer suavemente
+                    imagemAtroz.classList.remove('efeito-troca');
+                }, 300); 
+            });
+        </script>
+
+        <!--Mestre Caçador-->
+        <article class="postagem">
+            <h2 id="titulo-cacador">Mestre Caçador</h2>
+            
+            <div class="conteudo-flex">
+                <img class="imagem-jogo" 
+                    id="cacador-img" 
+                    src="./assets/herois/cacador.jpg" 
+                    data-alt="./assets/herois/cacador_corrompido.jpg" 
+                    alt="Mestre Caçador">
+                    
+                <div class="texto-jogo">
+                    <p>
+                        Seres bestiais de mentalidade fraca e corpo de deuses, guerreiros capazes de destruir e arruinar vilas inteiras sozinhos, eles são como o poema de Havel descreve “É mais fácil conter uma enchente do que uma criança atroz”. 
+                    </p>
+                    <p><strong>Habilidades conhecidas</strong></p>
+                    <p><strong>O/D - Aprisionar</strong>: O Caçador arremessa sobre o alvo, correntes de Hogi que servirão como uma armadilha, elas causarão 1 de dano ao PV do alvo e o prenderão por um turno, impedindo que ele realize ações ofensivas no próximo turno, essa habilidade também permite que o Caçador fuja do combate e ande 1 casa a frente ignorando o efeito da mesma caso usada de modo Defensiva. Não pode ser usada em Lordes, Eventos e Guardiões.</p>
+                    <p><strong>O - Disparo de Precisão</strong>: Concentrando e usando seu Hogi para melhorar sua visão, O Caçador consegue danificar com um tiro a longa distância jogadores que estão até 5 casas à frente ou atrás. Causa 1 de dano ao PV do alvo. Quando usado em combate essa habilidade passa a causar 2 dano ao PV do alvo.</p>
+                    <p><strong>O - Caçada Suprema</strong>: Marca e causa 1 de dano ao PV de todos os alvos do combate usando seu Hogi como conexão, se o dano for causado, o Caçador escolhe par ou ímpar (para o dado dos adversários), e em todas as vezes que os oponentes tirarem um resultado igual ao escolhido, eles receberam +1 de dano ao PV, esse é um dano é extra ele não contará como o ataque do Caçador no turno, essa habilidade encerra quando o combate acabar.</p>
+                </div>
+            </div>
+        </article>
+
+        <style>
+            .imagem-jogo {
+                cursor: pointer;
+                /* Transição suave para quando a classe 'efeito-troca' sumir */
+                transition: opacity 0.3s ease, transform 0.3s ease; 
+            }
+
+            /* Classe de efeito que o JavaScript vai colocar temporariamente */
+            .efeito-troca {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+        </style>
+
+        <script>
+            const imagemCaçador = document.getElementById('cacador-img');
+            const tituloCaçador = document.getElementById('titulo-cacador');
+
+            imagemCaçador.addEventListener('click', function() {
+                // Aplica o efeito visual diminuindo a opacidade
+                imagemCaçador.classList.add('efeito-troca');
+
+                // Espera 300 milissegundos (o tempo do efeito CSS) para trocar a imagem e o texto
+                setTimeout(() => {
+                    const imagemAtual = imagemCaçador.src;
+                    const imagemAlternativa = imagemCaçador.getAttribute('data-alt');
+
+                    // Troca a imagem
+                    imagemCaçador.src = imagemAlternativa;
+                    imagemCaçador.setAttribute('data-alt', imagemAtual);
+
+                    // Troca o título baseado no texto atual
+                    if (tituloCaçador.textContent === "Mestre Caçador") {
+                        tituloCaçador.textContent = "Mestre Caçador Corrompido";
+                    } else {
+                        tituloCaçador.textContent = "Mestre Caçador";
+                    }
+
+                    // Remove a classe do efeito, fazendo a nova imagem aparecer suavemente
+                    imagemCaçador.classList.remove('efeito-troca');
+                }, 300); 
+            });
+        </script>
+
+
+
+
+        <!-- Botões de Ação 
+        <button class="botao-medieval">
+            <span>✦</span> Invocar Criatura
+        </button>
+        -->
+
+        <a href="./index.html" class="botao-medieval" style="text-decoration: none;">
+            <span>◀</span> Voltar ao Menu
+        </a>
+
+    </div>
+
+    <footer>
+        <p>© 2026 Desenvolvido por Augusto Cabral e Marlon Aciole. Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>

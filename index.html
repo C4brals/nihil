@@ -1,117 +1,192 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nihil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #050505;
+            color: #dcd0c0;
+            font-family: 'Lora', serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.95)), 
+                              url('https://www.transparenttextures.com/patterns/dark-matter.png');
+            overflow: hidden;
+        }
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nihil</title>
-  <link rel="stylesheet" href="./index.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
-  <link rel="shortcut icon" href="/imagens/favicon.ico" />
+        /* Moldura Medieval Sombria ao redor da tela */
+        .moldura-tela {
+            position: absolute;
+            top: 20px;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            border: 2px solid #4a0000; /* Linha de sangue */
+            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(139, 0, 0, 0.2);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Detalhes nos cantos da moldura */
+        .moldura-tela::before, .moldura-tela::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 4px solid #c5a059; /* Ouro envelhecido nos cantos */
+        }
+        .moldura-tela::before { top: -5px; left: -5px; border-right: none; border-bottom: none; }
+        .moldura-tela::after { bottom: -5px; right: -5px; border-left: none; border-top: none; }
+
+        /* Container do Menu */
+        .menu-container {
+            text-align: center;
+            z-index: 2;
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* Título Principal */
+        .titulo-jogo {
+            font-family: 'Cinzel', serif;
+            font-size: 3.0rem;
+            color: #8b0000;
+            text-shadow: 0 0 20px rgba(139, 0, 0, 0.7), 4px 4px 8px #000;
+            margin-bottom: 5px;
+            letter-spacing: 6px;
+            font-weight: 900;
+        }
+
+        .subtitulo-jogo {
+            font-family: 'Cinzel', serif;
+            color: #c5a059;
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            margin-top: 0;
+            margin-bottom: 60px;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        /* Lista de Opções */
+        .opcoes-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* Botões Estilo RPG */
+        .botao-menu {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            color: #bfae96;
+            text-decoration: none;
+            background: linear-gradient(to right, transparent, rgba(26, 0, 0, 0.4), transparent);
+            padding: 12px 60px;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            border-radius: 3px;
+            transition: all 0.4s ease;
+            position: relative;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        /* Efeito de Brilho de Sangue e Magia ao passar o mouse */
+        .botao-menu:hover {
+            color: #ffffff;
+            border-color: #8b0000;
+            background: linear-gradient(to right, rgba(139, 0, 0, 0.2), rgba(74, 0, 0, 0.6), rgba(139, 0, 0, 0.2));
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.5), inset 0 0 10px rgba(139, 0, 0, 0.4);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+        }
+
+        /* Ícones rúnicos ocultos (❖) que aparecem nas laterais no hover */
+        .botao-menu::before, .botao-menu::after {
+            content: '❖';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8b0000;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .botao-menu::before { left: 20px; }
+        .botao-menu::after { right: 20px; }
+
+        .botao-menu:hover::before {
+            opacity: 1;
+            transform: translateY(-50%) translateX(5px);
+        }
+        .botao-menu:hover::after {
+            opacity: 1;
+            transform: translateY(-50%) translateX(-5px);
+        }
+
+        /* Rodapé */
+        .footer-menu {
+            position: absolute;
+            bottom: 40px;
+            font-size: 0.8rem;
+            color: #444;
+            letter-spacing: 2px;
+            z-index: 2;
+        }
+
+        /* Animação suave ao abrir a página */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 480px) {
+            .titulo-jogo { font-size: 2.3rem; }
+            .botao-menu { font-size: 1.1rem; padding: 10px 30px; }
+        }
+
+        
+    </style>
 </head>
-
 <body>
 
-  <div id="titulo">
-    <h1>Nihil e a última campanha</h1>
-  </div>
+    <div class="moldura-tela"></div>
 
-  <div id="links">
-    <ul>
+    <div class="menu-container">
+        <h1 class="titulo-jogo">NIHIL, A ÚLTIMA CAMPANHA</h1>
+        <p class="subtitulo-jogo">— Uma jornada em busca do mal não compreendido —</p>
 
-      <li><a href="https://drive.google.com/file/d/1fO8r3cFZV1ANlviS7KTp_KrtrrFm2jTX/view?usp=drive_link"
-          target="_blank">Regras do Jogo</a></li>
+        <nav class="opcoes-menu">
+            <a href="./lore.html" class="botao-menu">Lore</a>
+            <a href="herois.html" class="botao-menu">Heróis</a>
+            <a href="bestiario.html" class="botao-menu">Bestiário</a>
+            <a href="/viloes.html" class="botao-menu">Principais Vilões</a>
+            <a href="sistemas.html" class="botao-menu">Mecânicas</a>
+        </nav>
+    </div>
 
-    </ul>
-  </div>
+    <div class="footer-menu">
+        <p>Augusto Cabral | Marlon Aciole</p>
+    </div>
 
-  <ul>
-    <a href="./lores/lores.html">
-      <div id="box0">
-        <p>Lores</p>
-      </div>
-    </a>
-
-    <a href="./Personargens/personargens.html">
-      <div id="box1">
-        <p>Personargens</p>
-      </div>
-    </a>
-
-    <a href="/lordes/lordes.html">
-      <div id="box2">
-        <p>Lordes</p>
-      </div>
-    </a>
-
-    <a href="/torre/torre.html">
-      <div id="box3">
-        <p>Torre Outubrista</p>
-      </div>
-    </a>
-
-    <a href="/generais/generais.html">
-      <div id="box4">
-        <p>Generais dos Lordes</p>
-      </div>
-    </a>
-
-    <a href="/alnur/alnur.html">
-      <div id="box5">
-        <p>Alnur e Discípulos</p>
-      </div>
-    </a>
-
-    <a href="/pactos/pactos.html">
-      <div id="box6">
-        <p>Pacto dos Bravos</p>
-      </div>
-    </a>
-
-    <a href="/consumiveis/consumiveis.html">
-      <div id="box7">
-        <p>Consumíveis</p>
-      </div>
-    </a>
-
-    <a href="/artefatos/artefatos.html">
-      <div id="box8">
-        <p>Artefatos de Alnur</p>
-      </div>
-    </a>
-
-    <a href="/guardioes/guardioes.html">
-      <div id="box9">
-        <p>Guardiões</p>
-      </div>
-    </a>
-
-    <a href="/Fendas/fendas.html">
-      <div id="box10">
-        <p>Fendas</p>
-      </div>
-    </a>
-
-    <a href="/corrompido/corrompido.html">
-      <div id="box11">
-        <p>Corrompido</p>
-      </div>
-    </a>
-
-    <a href="">
-      <div id="box12">
-        <p>DLC</p>
-      </div>
-    </a>
-
-  </ul>
-
-
-  <script src="./index.js"></script>
 </body>
-
-
 </html>

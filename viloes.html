@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nihil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Configurações Gerais - O ambiente sombrio */
+        body {
+            background-color: #0a0a0a;
+            color: #dcd0c0; /* Um branco envelhecido, para não agredir os olhos */
+            font-family: 'Lora', serif;
+            margin: 0;
+            padding: 0;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.95)), url('https://www.transparenttextures.com/patterns/dark-matter.png'); /* Textura sutil de fundo */
+        }
+
+        /* Cabeçalho de tamanho imponente */
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 2px solid #4a0000; /* Linha de sangue escuro */
+            background: linear-gradient(to bottom, #1a0000, #0a0a0a);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: #8b0000; /* Vermelho Sangue */
+            text-shadow: 0 0 10px rgba(139, 0, 0, 0.6), 2px 2px 4px #000;
+            margin: 0 0 10px 0;
+            letter-spacing: 4px;
+            
+        }
+
+        header p {
+            font-style: italic;
+            color: #c5a059; /* Ouro envelhecido */
+            font-size: 1.2rem;
+            margin: 0;
+            
+        }
+
+        /* Container Principal */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* Seções de Conteúdo (Alimente aqui seu jogo) */
+        .postagem {
+            background-color: #121212;
+            border: 1px solid #2a2a2a;
+            border-left: 4px solid #8b0000; /* Detalhe gore na lateral */
+            border-radius: 4px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Efeito sutil de magia ao passar o mouse */
+        .postagem:hover {
+            transform: translateY(-5px);
+            border-color: #c5a059; 
+        }
+
+        .postagem h2 {
+            font-family: 'Cinzel', serif;
+            color: #c5a059;
+            margin-top: 0;
+            font-size: 1.8rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        /* Organização de Imagem + Texto */
+        .conteudo-flex {
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .conteudo-flex {
+                flex-direction: column;
+            }
+        }
+
+        /* Estilização das Imagens do Jogo */
+        .imagem-jogo {
+            flex: 1;
+            max-width: 400px;
+            width: 100%;
+            border: 2px solid #333;
+            border-radius: 2px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.9);
+            filter: grayscale(20%) sepia(10%) contrast(110%); /* Filtro para parecer mais dramático */
+            transition: filter 0.3s ease;
+        }
+
+        .imagem-jogo:hover {
+            filter: grayscale(0%) contrast(120%);
+        }
+
+        /* Texto da descrição */
+        .texto-jogo {
+            flex: 1.5;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #555;
+            font-size: 0.9rem;
+            border-top: 1px solid #1a1a1a;
+            background-color: #050505;
+        }
+
+            .botao-medieval {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #c5a059; /* Cor Ouro Envelhecido */
+            background-color: #121212; /* Fundo Carvão */
+            
+            /* Bordas e Espaçamento */
+            padding: 12px 30px;
+            border: 2px solid #c5a059;
+            border-radius: 3px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            
+            /* Posicionamento interno para os efeitos */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            
+            /* Transições suaves para os efeitos */
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        /* Efeito de passar o mouse (Hover) */
+        .botao-medieval:hover {
+            color: #ffffff; /* O texto fica branco brilhante */
+            background-color: #1a0000; /* Fundo ganha tom sutil de sangue */
+            border-color: #8b0000; /* Borda vira Vermelho Sangue */
+            
+            /* Brilho místico ao redor do botão */
+            box-shadow: 0 0 15px rgba(139, 0, 0, 0.7), inset 0 0 8px rgba(139, 0, 0, 0.5);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+            transform: translateY(-2px); /* Ele se eleva levemente */
+        }
+
+        /* Efeito de clique (Active) */
+        .botao-medieval:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Animação suave ao abrir a página */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>NIHIL - A ÚLTIMA CAMPANHA</h1>
+        <p>— Principais Vilões que causarão terror durante a jornada —</p>
+    </header>
+
+    <div class="container">
+
+        <article class="postagem">
+            <h2>Alnur</h2>
+            <div class="conteudo-flex">
+                <img class="imagem-jogo" src="./assets/viloes/alnur.png" alt="Alnur, o Senhor da Mácula">
+                <div class="texto-jogo">
+                    <p>Há muito tempo os Outubristas vêm tentando corrigir o maior erro que já cometeram, que foi entregar o caos ao reino material “Criella Damar, a Guardiã dos Segredos do Castelo de Vidro”.
+                     Havel era um dos maiores conhecedor e protetor dos planos dos deuses, ele arquitetava e planejava mundos para que os seres supremos ficassem satisfeitos no local em que estavam. O trabalho de um Outubrista era de manter os deuses a salvo de ameaças externas e de suas próprias frustrações, de fazer o elo entre o mundo material e a crença nos deuses, pois isso os mantinham satisfeitos. E Havel guardava bem a todos. 
+                    </p>
+                    <p><strong>Habilidades conhecidas:</strong></p>
+                    <p><strong>Sem esperança</strong>: O luar vermelho toma conta do cenário, aumentando o poder do Alnur. Ele lança uma rajada de Mácula causando 1 de dano ao PV do alvo e recuperando até 1 de PV perdido. Após a primeira vez ativada, todos os ataques de Alnur durante o combate, reativam Sem Esperança.</p>
+                </div>
+            </div>
+        </article>
+
+        <article class="postagem">
+            <h2>Arkambau Fagio</h2>
+            <div class="conteudo-flex">
+                <img class="imagem-jogo" src="./assets/viloes/arkambau.jpg" alt="Arkambau">
+                <div class="texto-jogo">
+                    <p>Conhecido como, O Faminto por seus adversários. Conseguiu com muita sagacidade destruir um Gênio do Palácio Dourado que roubava dos homens do 
+                        sul seus sonhos, e os deixavam em um sono eterno!  Ao completar esse feito sua recompensa foi a lâmina de duas mãos conhecida como a Insaciável,
+                        capaz de absorver a vitalidade após qualquer corte e concedendo maior vigor ao seu portador. Lutar contra Arkambau era como entrar numa dança 
+                        infinita pela vida! Agora acordado após 550 anos, O Faminto coloca seu nome à prova mais uma vez.
+                    </p>
+                    <p><strong>Habilidades conhecidas:</strong></p>
+                    <p><strong>Sangue Sagaz</strong>: Brandindo a Insaciável, Arkambau corta o alvo e causa 2 de dano ao seu PV, se o dano for causado, o Lorde recupera 1 de PV perdido. Essa habilidade pode ser relançada enquanto houver o combate.</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- Botões de Ação 
+        <button class="botao-medieval">
+            <span>✦</span> Invocar Criatura
+        </button>
+        -->
+
+        <a href="./index.html" class="botao-medieval" style="text-decoration: none;">
+            <span>◀</span> Voltar ao Menu
+        </a>
+
+    </div>
+
+    <footer>
+        <p>© 2026 Desenvolvido por Augusto Cabral e Marlon Aciole. Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>
