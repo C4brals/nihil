@@ -336,7 +336,7 @@
                     
                 <div class="texto-jogo">
                     <p>
-                        Seres bestiais de mentalidade fraca e corpo de deuses, guerreiros capazes de destruir e arruinar vilas inteiras sozinhos, eles são como o poema de Havel descreve “É mais fácil conter uma enchente do que uma criança atroz”. 
+                        Guerreiros capazes de manter e trazer a ordem por onde for preciso, mestres em resolver problemas, os caçadores sempre estão a serviço de quem pagar mais. 
                     </p>
                     <p><strong>Habilidades conhecidas</strong></p>
                     <p><strong>O/D - Aprisionar</strong>: O Caçador arremessa sobre o alvo, correntes de Hogi que servirão como uma armadilha, elas causarão 1 de dano ao PV do alvo e o prenderão por um turno, impedindo que ele realize ações ofensivas no próximo turno, essa habilidade também permite que o Caçador fuja do combate e ande 1 casa a frente ignorando o efeito da mesma caso usada de modo Defensiva. Não pode ser usada em Lordes, Eventos e Guardiões.</p>
@@ -470,7 +470,7 @@
                     
                 <div class="texto-jogo">
                     <p>
-                        Indo além do arcadismo ou do combate, um Combatente é um guerreiro habilidoso, treinado em várias técnicas de combate, vinculado ao seu deus Wilenfar, o Combatente, consegue se destacar no campo de batalha e na sua jornada grandes poderes para proteger ou para destruir todos no seu caminho. 
+                        Guerreiros com vasta experiência em batalhas, tanto em guerras ou como em arenas, aptos para todo os terrenos, eles nunca fogem de um desafio. 
                     </p>
                     <p><strong>Habilidades conhecidas</strong></p>
                     <p><strong>D - Mestre das Armas</strong>: O Combatente usando suas armas consegue direcionar o próximo ataque sem ser de habilidade evitando que o acerte , essa habilidade também pode ser usada para direcionar o golpe para outro alvo no combate.</p>
@@ -520,6 +520,73 @@
 
                     // Remove a classe do efeito, fazendo a nova imagem aparecer suavemente
                     imagemCombatente.classList.remove('efeito-troca');
+                }, 300); 
+            });
+        </script>
+
+        <!--Druida-->
+        <article class="postagem">
+            <h2 id="titulo-druida">Druida</h2>
+            
+            <div class="conteudo-flex">
+                <img class="imagem-jogo" 
+                    id="druida-img" 
+                    src="./assets/herois/druida.jpg" 
+                    data-alt="./assets/herois/druida_corrompido.jpg" 
+                    alt="Druida">
+                    
+                <div class="texto-jogo">
+                    <p>
+                        A druida é uma sacerdotisa devotada a proteger a natureza. Através de forte ligação com sua patrona natureza, ela é capaz de usar magia divinas, não tomando a energia natural para si, mas sim tornando-se um com ela. 
+                    </p>
+                    <p><strong>Habilidades conhecidas</strong></p>
+                    <p><strong>D - Fortuna de Nur</strong>: A Druida recebe a benção da Deusa da colheita e da vida, fazendo com que a mesma recupere 1 PV e receba +1 de vida permanente até o fim do combate.</p>
+                    <p><strong>O - Estocada Peçonhenta</strong>: A Druida preenche sua arma com veneno letal, corta e causa 1 dano ao Pv do Alvo, fazendo o mesmo ficar envenenado. Durante os próximos 2 turnos, o alvo recebe -1 nas suas ações de combate.</p>
+                    <p><strong>I - Forma Ancestral</strong>: A Druida, converte seu hogi para dentro do seu corpo, abrindo um portal para o reino de Nur, a deusa por sua vez envia uma criatura para substituir o corpo da Druida aumentando sua vitalidade máxima em +1 e concedendo um bônus de acerto no ataque de +1. Enquanto estiver na forma Ancestral a druida não poderá, usar outras habilidades até o fim do combate, seus elixires e itens vinculados ainda podem ser acessados normalmente. Essa habilidade dura 3 turnos.</p>
+                </div>
+            </div>
+        </article>
+
+        <style>
+            .imagem-jogo {
+                cursor: pointer;
+                /* Transição suave para quando a classe 'efeito-troca' sumir */
+                transition: opacity 0.3s ease, transform 0.3s ease; 
+            }
+
+            /* Classe de efeito que o JavaScript vai colocar temporariamente */
+            .efeito-troca {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+        </style>
+
+        <script>
+            const imagemDruida = document.getElementById('druida-img');
+            const tituloDruida = document.getElementById('titulo-druida');
+
+            imagemDruida.addEventListener('click', function() {
+                // Aplica o efeito visual diminuindo a opacidade
+                imagemDruida.classList.add('efeito-troca');
+
+                // Espera 300 milissegundos (o tempo do efeito CSS) para trocar a imagem e o texto
+                setTimeout(() => {
+                    const imagemAtual = imagemDruida.src;
+                    const imagemAlternativa = imagemDruida.getAttribute('data-alt');
+
+                    // Troca a imagem
+                    imagemDruida.src = imagemAlternativa;
+                    imagemDruida.setAttribute('data-alt', imagemAtual);
+
+                    // Troca o título baseado no texto atual
+                    if (tituloDruida.textContent === "Druida") {
+                        tituloDruida.textContent = "Druida Corrompida";
+                    } else {
+                        tituloDruida.textContent = "Druida";
+                    }
+
+                    // Remove a classe do efeito, fazendo a nova imagem aparecer suavemente
+                    imagemDruida.classList.remove('efeito-troca');
                 }, 300); 
             });
         </script>
