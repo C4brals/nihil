@@ -591,6 +591,73 @@
             });
         </script>
 
+        <!--Elementarista-->
+        <article class="postagem">
+            <h2 id="titulo-elementarista">Elementarista</h2>
+            
+            <div class="conteudo-flex">
+                <img class="imagem-jogo" 
+                    id="elementarista-img" 
+                    src="./assets/herois/elementarista.jpg" 
+                    data-alt="./assets/herois/elementarista_corrompido.jpg" 
+                    alt="Elementarista">
+                    
+                <div class="texto-jogo">
+                    <p>
+                        Magos e Sábios que alcançaram o maior conhecimento sobre o Hogi ( a energia espiritual que move o mundo) e agora eles conseguem modificá-lo e transformá-lo em elementos, são extremamentes poderosos e sempre estão em busca de um novo aprendizado. 
+                    </p>
+                    <p><strong>Habilidades conhecidas</strong></p>
+                    <p><strong>O - Criar Chamas</strong>: Usando seu Hogi para criar o elemento fogo, o Elementarista invoca poderosas labaredas que são disparadas sobre o alvo, causando 2 de dano. Caso o próximo ataque do Elementarista seja um crítico (6 ou mais) alvo tomará +1 de dano por queimadura, além dos outros danos do turno.</p>
+                    <p><strong>D/O - Embaçamento</strong>: O Elementarista transforma seu corpo em vapor e faz com que o próximo ataque ou habilidade no combate passe por ele sem o mesmo receber danos ou efeitos. Embaçamento concede mais 2 no acerto da próxima jogada.</p>
+                    <p><strong>O - Indução Elétrica</strong>: O Elementarista dispara uma grande quantidade de eletricidade no alvo, causando 2 de dano ao seu PV e o deixando confuso, fazendo que com que sua próxima ação no combate receba -3 de penalidade (a próxima jogada do dado irá subtrair -3 do valor no dado).</p>
+                </div>
+            </div>
+        </article>
+
+        <style>
+            .imagem-jogo {
+                cursor: pointer;
+                /* Transição suave para quando a classe 'efeito-troca' sumir */
+                transition: opacity 0.3s ease, transform 0.3s ease; 
+            }
+
+            /* Classe de efeito que o JavaScript vai colocar temporariamente */
+            .efeito-troca {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+        </style>
+
+        <script>
+            const imagemElementarista = document.getElementById('elementarista-img');
+            const tituloElementarista = document.getElementById('titulo-elementarista');
+
+            imagemElementarista.addEventListener('click', function() {
+                // Aplica o efeito visual diminuindo a opacidade
+                imagemElementarista.classList.add('efeito-troca');
+
+                // Espera 300 milissegundos (o tempo do efeito CSS) para trocar a imagem e o texto
+                setTimeout(() => {
+                    const imagemAtual = imagemElementarista.src;
+                    const imagemAlternativa = imagemElementarista.getAttribute('data-alt');
+
+                    // Troca a imagem
+                    imagemElementarista.src = imagemAlternativa;
+                    imagemElementarista.setAttribute('data-alt', imagemAtual);
+
+                    // Troca o título baseado no texto atual
+                    if (tituloElementarista.textContent === "Elementarista") {
+                        tituloElementarista.textContent = "Elementarista Corrompido";
+                    } else {
+                        tituloElementarista.textContent = "Elementarista";
+                    }
+
+                    // Remove a classe do efeito, fazendo a nova imagem aparecer suavemente
+                    imagemElementarista.classList.remove('efeito-troca');
+                }, 300); 
+            });
+        </script>
+
 
 
 
