@@ -390,6 +390,140 @@
             });
         </script>
 
+        <!--Clériga-->
+        <article class="postagem">
+            <h2 id="titulo-cleriga">Clériga</h2>
+            
+            <div class="conteudo-flex">
+                <img class="imagem-jogo" 
+                    id="cleriga-img" 
+                    src="./assets/herois/cleriga.jpg" 
+                    data-alt="./assets/herois/cleriga_corrompido.jpg" 
+                    alt="Clériga">
+                    
+                <div class="texto-jogo">
+                    <p>
+                        Indo além do arcadismo ou do combate, uma Clériga é uma canalizadora de Energias Divinas, vinculado ao seu deus Wilenfar, a Clériga, consegue se no campo de batalha e na sua jornada grandes poderes para proteger ou para destruir todos no seu caminho. 
+                    </p>
+                    <p><strong>Habilidades conhecidas</strong></p>
+                    <p><strong>I - Oração Definitiva</strong>: Wilenfar abençoa seus discípulos baseado nas suas necessidades, após ativar essa habilidade a Clériga pode escolher que benção receber, Benção da Força + 1 de jogada de combate e +1 no dano caso acerte, ou Benção da Harmonia + 1 de jogada de combate e recupera de 1 de PV. As bençãos só duram um turno.</p>
+                    <p><strong>I - Extinguir</strong>: A Clériga conjura uma aura protetora para ela ou para outro jogador, com a habilidade de recuperar 2 de PV e de Dissipar qualquer efeito negativo que o mesmo tenha, tanto de cenário ou de inimigos. Enquanto estiver em combate, a aura impede o alvo de receber qualquer outro efeito negativo. Essa habilidade pode ser usada em um jogador até 8 casas de distância.</p>
+                    <p><strong>I - Luz Traçante</strong>: A Clériga conjura a fúria do seu deus para a batalha, a Clériga sumona uma luz de calor surreal (Inatingível) que desce ao combate e persegue um alvo para queimá- lo por completo. Pelos próximos 2 turnos, um Raio de Luz irá de encontro a todos os alvos do combate alvo, atacando os mesmos com uma base de rolagem (3)”o alvo precisar tirar mais que 3 para não receber o ataque do Raio”, caso a luz o acerte, ela causará uma queimadura de 2 dano ao PV. A Clériga e a Luz se tornam alvos diferentes.</p>
+                </div>
+            </div>
+        </article>
+
+        <style>
+            .imagem-jogo {
+                cursor: pointer;
+                /* Transição suave para quando a classe 'efeito-troca' sumir */
+                transition: opacity 0.3s ease, transform 0.3s ease; 
+            }
+
+            /* Classe de efeito que o JavaScript vai colocar temporariamente */
+            .efeito-troca {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+        </style>
+
+        <script>
+            const imagemCleriga = document.getElementById('cleriga-img');
+            const tituloCleriga = document.getElementById('titulo-cleriga');
+
+            imagemCleriga.addEventListener('click', function() {
+                // Aplica o efeito visual diminuindo a opacidade
+                imagemCleriga.classList.add('efeito-troca');
+
+                // Espera 300 milissegundos (o tempo do efeito CSS) para trocar a imagem e o texto
+                setTimeout(() => {
+                    const imagemAtual = imagemCleriga.src;
+                    const imagemAlternativa = imagemCleriga.getAttribute('data-alt');
+
+                    // Troca a imagem
+                    imagemCleriga.src = imagemAlternativa;
+                    imagemCleriga.setAttribute('data-alt', imagemAtual);
+
+                    // Troca o título baseado no texto atual
+                    if (tituloCleriga.textContent === "Clériga") {
+                        tituloCleriga.textContent = "Clériga Corrompida";
+                    } else {
+                        tituloCleriga.textContent = "Clériga";
+                    }
+
+                    // Remove a classe do efeito, fazendo a nova imagem aparecer suavemente
+                    imagemCleriga.classList.remove('efeito-troca');
+                }, 300); 
+            });
+        </script>
+
+        <!--Combatente-->
+        <article class="postagem">
+            <h2 id="titulo-combatente">Combatente</h2>
+            
+            <div class="conteudo-flex">
+                <img class="imagem-jogo" 
+                    id="combatente-img" 
+                    src="./assets/herois/combatente.jpg" 
+                    data-alt="./assets/herois/combatente_corrompido.jpg" 
+                    alt="Combatente">
+                    
+                <div class="texto-jogo">
+                    <p>
+                        Indo além do arcadismo ou do combate, um Combatente é um guerreiro habilidoso, treinado em várias técnicas de combate, vinculado ao seu deus Wilenfar, o Combatente, consegue se destacar no campo de batalha e na sua jornada grandes poderes para proteger ou para destruir todos no seu caminho. 
+                    </p>
+                    <p><strong>Habilidades conhecidas</strong></p>
+                    <p><strong>D - Mestre das Armas</strong>: O Combatente usando suas armas consegue direcionar o próximo ataque sem ser de habilidade evitando que o acerte , essa habilidade também pode ser usada para direcionar o golpe para outro alvo no combate.</p>
+                    <p><strong>D - Golpe de Oportunidade</strong>: Após ativada os sentidos do combatentes são elevados ao nível de semi deus, e com isso os próximos 2 golpes no combate atual que o Combatente receber, ele imediatamente revida e causa 1 de dano no PV do agressor. Não ignora o dano sofrido. Essa habilidade se acumula com o elixir do sangue ácido.</p>
+                    <p><strong>O - Hora de Vencer</strong>: Intimida o alvo enquanto entoa seu hino de combate, fazendo seu Hogi causar 1 de dano ao PV do mesmo, depois bonifica os próximos danos que o Combatente causar e que não sejam de Habilidades em mais 1 até o fim do Combate.</p>
+                </div>
+            </div>
+        </article>
+
+        <style>
+            .imagem-jogo {
+                cursor: pointer;
+                /* Transição suave para quando a classe 'efeito-troca' sumir */
+                transition: opacity 0.3s ease, transform 0.3s ease; 
+            }
+
+            /* Classe de efeito que o JavaScript vai colocar temporariamente */
+            .efeito-troca {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+        </style>
+
+        <script>
+            const imagemCombatente = document.getElementById('combatente-img');
+            const tituloCombatente = document.getElementById('titulo-combatente');
+
+            imagemCombatente.addEventListener('click', function() {
+                // Aplica o efeito visual diminuindo a opacidade
+                imagemCombatente.classList.add('efeito-troca');
+
+                // Espera 300 milissegundos (o tempo do efeito CSS) para trocar a imagem e o texto
+                setTimeout(() => {
+                    const imagemAtual = imagemCombatente.src;
+                    const imagemAlternativa = imagemCombatente.getAttribute('data-alt');
+
+                    // Troca a imagem
+                    imagemCombatente.src = imagemAlternativa;
+                    imagemCombatente.setAttribute('data-alt', imagemAtual);
+
+                    // Troca o título baseado no texto atual
+                    if (tituloCombatente.textContent === "Combatente") {
+                        tituloCombatente.textContent = "Combatente Corrompido";
+                    } else {
+                        tituloCombatente.textContent = "Combatente";
+                    }
+
+                    // Remove a classe do efeito, fazendo a nova imagem aparecer suavemente
+                    imagemCombatente.classList.remove('efeito-troca');
+                }, 300); 
+            });
+        </script>
+
 
 
 
