@@ -260,5 +260,17 @@
         <a href="./index.html" class="botao-voltar">Voltar ao Menu</a>
     </div>
 
+    <audio id="musicaAmbiente" autoplay loop>
+    <source src="./assets/audios/audio_leitura.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+    // Seleciona o elemento de áudio pelo ID
+    var audio = document.getElementById("musicaAmbiente");
+    
+    // Define o volume para 10% da capacidade total (bem baixinho)
+    audio.volume = 0.4;
+    </script>
+
 </body>
 </html>
