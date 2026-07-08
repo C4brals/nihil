@@ -656,14 +656,19 @@
             }
         });
 
-        // Escutador global para a rolagem de dados
-        let ultimoTimestamp = 0;
+        // Registra o momento exato em que a página foi aberta
+        const momentoCarregamento = Date.now();
+
         onValue(ref(db, 'rolagem_dado'), (snapshot) => {
             const dados = snapshot.val();
-            if (dados && dados.timestamp > ultimoTimestamp) {
-                ultimoTimestamp = dados.timestamp;
-                // Adicionado o parâmetro dados.cor no final:
-                animarDado3D(dados.nome, dados.resultado, dados.estado, dados.cor);
+            
+            // SÓ roda a animação se o dado tiver sido gerado DEPOIS que a página abriu
+            if (dados && dados.timestamp > momentoCarregamento) {
+                // Garante que só roda uma vez por clique usando o timestamp
+                if (!window.ultimoTimestampRolado || dados.timestamp > window.ultimoTimestampRolado) {
+                    window.ultimoTimestampRolado = dados.timestamp;
+                    animarDado3D(dados.nome, dados.resultado, dados.estado, dados.cor);
+                }
             }
         });
     </script>
