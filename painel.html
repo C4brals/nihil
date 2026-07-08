@@ -82,7 +82,6 @@
             text-shadow: 2px 2px 4px #000;
         }
 
-        /* Indicador visual do modo atual */
         .tag-modo {
             font-family: 'Cinzel', serif;
             font-size: 0.9rem;
@@ -101,7 +100,7 @@
 
         .grid-fichas {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 25px;
             margin-bottom: 40px;
         }
@@ -122,20 +121,22 @@
 
         .ficha-header {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column; /* Empilha o nome acima dos atributos */
+            align-items: flex-start; /* Alinha tudo à esquerda */
             border-bottom: 1px solid #4a0000;
-            padding-bottom: 10px;
+            padding-bottom: 12px;
             margin-bottom: 15px;
+            gap: 12px; /* Espaço elegante entre o nome e a linha de atributos */
         }
 
         .ficha-nome {
             font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
+            font-size: 1.2rem; /* Aumentado levemente para dar mais destaque */
             color: #bfae96;
             background: transparent;
             border: none;
-            width: 60%;
+            width: 100%; /* Agora o nome ocupa toda a largura do card! */
+            padding-bottom: 4px;
         }
 
         .ficha-nome:focus {
@@ -144,19 +145,29 @@
             border-bottom: 1px dashed #c5a059;
         }
 
-        /* Se o input for apenas leitura do jogador, remove efeitos visuais */
         .ficha-nome:read-only {
             cursor: default;
             border-bottom: none !important;
         }
 
-        .pv-container {
+        /* Container de Atributos (PV e AM lado a lado) */
+        .atributos-header-container {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0; /* Impede que o container encolha, protegendo o tamanho do PV/AM */
+        }
+
+        .pv-container, .am-container {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             background: rgba(4, 4, 4, 0.6);
-            padding: 5px 10px;
+            padding: 5px 8px;
             border: 1px solid rgba(139, 0, 0, 0.4);
+        }
+
+        .am-container {
+            border: 1px solid rgba(197, 160, 89, 0.4); /* Borda dourada para moedas */
         }
 
         .pv-label {
@@ -166,23 +177,34 @@
             font-weight: bold;
         }
 
-        .pv-valor {
+        .am-label {
             font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
+            font-size: 0.85rem;
+            color: #c5a059;
+            font-weight: bold;
+        }
+
+        .pv-valor, .am-valor {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
             color: #dcd0c0;
-            min-width: 25px;
+            min-width: 20px;
             text-align: center;
         }
 
-        .pv-btn {
+        .am-valor {
+            min-width: 32px; /* Garante espaço estável para até 3 dígitos */
+        }
+
+        .pv-btn, .am-btn {
             background: transparent;
             border: 1px solid rgba(197, 160, 89, 0.3);
             color: #c5a059;
             cursor: pointer;
             font-family: 'Cinzel', serif;
-            font-size: 1rem;
-            width: 22px;
-            height: 22px;
+            font-size: 0.9rem;
+            width: 20px;
+            height: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -193,6 +215,12 @@
             background: #4a0000;
             color: #fff;
             border-color: #8b0000;
+        }
+
+        .am-btn:hover {
+            background: #c5a059;
+            color: #050505;
+            border-color: #fff;
         }
 
         .status-container {
@@ -219,7 +247,6 @@
             text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
         }
 
-        /* Remove visual de select do jogador */
         .status-select:disabled {
             opacity: 1;
             cursor: default;
@@ -263,7 +290,7 @@
             background-color: rgba(30, 10, 10, 0.3);
         }
 
-        textarea:rose-only, textarea:read-only {
+        textarea:read-only {
             background-color: rgba(15, 15, 15, 0.4);
             border-color: rgba(197, 160, 89, 0.05);
             resize: none;
@@ -309,7 +336,7 @@
 
     <div class="painel-container">
         <h1 class="titulo-painel">Painel de Campanha</h1>
-        <p class="subtitulo-painel">— O destino dos 10 heróis de Nihil —</p>
+        <p class="subtitulo-painel">— O destino dos heróis de Hémoras —</p>
         
         <div class="tag-modo" id="tagModo">Visão: <span>Carregando...</span></div>
         
@@ -325,7 +352,7 @@
         const CHAVE_STORAGE = 'nihil_painel_campanha';
 
         // --- CONFIGURAÇÃO DE SEGURANÇA ---
-        const SENHA_MESTRE = "nihil123"; // Altere aqui para a sua senha secreta
+        const SENHA_MESTRE = "232823"; 
         // ----------------------------------
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -338,18 +365,15 @@
             while (!autenticado) {
                 let tentativaSenha = prompt("Digite a palavra-passe do Mestre para obter direito de alteração:\n(Ou clique em Cancelar para voltar ao menu)");
 
-                // Se o usuário clicar em Cancelar, tentativaSenha será null
                 if (tentativaSenha === null) {
-                    window.location.href = "./index.html"; // Volta para a página inicial
+                    window.location.href = "./index.html"; 
                     break; 
                 }
 
-                // Se acertar a senha
                 if (tentativaSenha === SENHA_MESTRE) {
                     modoAcesso = 'mestre';
                     autenticado = true;
                 } else {
-                    // Se errar a senha, exibe o aviso e o laço 'while' força o prompt a abrir de novo
                     alert("Senha inválida! Tente novamente.");
                 }
             }
@@ -361,6 +385,7 @@
             return {
                 nome: `Herói ${index}`,
                 pv: 5,
+                am: 0, // Adicionado contador de Artifício da Mácula por padrão
                 status: 'Normal',
                 inventario: '',
                 historico: ''
@@ -370,7 +395,12 @@
         function obterDadosGerais() {
             const dadosSalvos = localStorage.getItem(CHAVE_STORAGE);
             if (dadosSalvos) {
-                return JSON.parse(dadosSalvos);
+                const dadosConvertidos = JSON.parse(dadosSalvos);
+                // Tratamento caso a estrutura antiga no localStorage não possua o campo 'am'
+                return dadosConvertidos.map((ficha, idx) => {
+                    if (ficha.am === undefined) ficha.am = 0;
+                    return ficha;
+                });
             } else {
                 const listaNova = [];
                 for(let i = 1; i <= TOTAL_FICHAS; i++) {
@@ -381,7 +411,7 @@
         }
 
         function salvarDadosGerais(dados) {
-            if (modoAcesso !== 'mestre') return; // Segurança extra caso forcem via console
+            if (modoAcesso !== 'mestre') return; 
             localStorage.setItem(CHAVE_STORAGE, JSON.stringify(dados));
         }
 
@@ -418,13 +448,27 @@
             document.getElementById(`pv-val-${index}`).innerText = novoPV;
         }
 
+        // Função para alteração do Artifício da Mácula (Limites de 0 a 999)
+        function alterarAM(index, quantidade) {
+            if (modoAcesso !== 'mestre') return;
+            const dados = obterDadosGerais();
+            let novoAM = parseInt(dados[index].am || 0) + quantidade;
+            
+            if (novoAM < 0) novoAM = 0; 
+            if (novoAM > 999) novoAM = 999; // Limita a 3 casas decimais
+            
+            dados[index].am = novoAM;
+            salvarDadosGerais(dados);
+            
+            document.getElementById(`am-val-${index}`).innerText = novoAM;
+        }
+
         function renderizarPainel() {
-            // Atualiza a tag indicativa no topo
             const tagModo = document.getElementById('tagModo');
             if (modoAcesso === 'mestre') {
                 tagModo.innerHTML = 'Modo Atual: <span class="modo-mestre">Mestre da Campanha</span>';
             } else {
-                tagModo.innerHTML = 'Modo Atual: <span class="modo-jogador">Visualização do Jogador</span>';
+                tagModo.innerHTML = 'Modo Atual: <span class="modo-jogador">Visualização</span>';
             }
 
             const dados = obterDadosGerais();
@@ -436,13 +480,22 @@
             dados.forEach((ficha, index) => {
                 const isCorrompido = ficha.status === 'Corrompido';
                 
-                // Define os botões de vida se for mestre, ou remove se for jogador
+                // Elementos de Vida adaptáveis
                 const botoesVida = isMestre ? `
                     <button type="button" class="pv-btn" onclick="alterarPV(${index}, -1)">-</button>
                     <span class="pv-valor" id="pv-val-${index}">${ficha.pv}</span>
                     <button type="button" class="pv-btn" onclick="alterarPV(${index}, 1)">+</button>
                 ` : `
-                    <span class="pv-valor" id="pv-val-${index}" style="margin: 0 10px;">${ficha.pv}</span>
+                    <span class="pv-valor" id="pv-val-${index}" style="margin: 0 4px;">${ficha.pv}</span>
+                `;
+
+                // Elementos da Moeda AM adaptáveis
+                const botoesAM = isMestre ? `
+                    <button type="button" class="am-btn" onclick="alterarAM(${index}, -1)">-</button>
+                    <span class="am-valor" id="am-val-${index}">${ficha.am}</span>
+                    <button type="button" class="am-btn" onclick="alterarAM(${index}, 1)">+</button>
+                ` : `
+                    <span class="am-valor" id="am-val-${index}" style="margin: 0 4px;">${ficha.am}</span>
                 `;
 
                 const cardHTML = `
@@ -452,9 +505,15 @@
                                 ${!isMestre ? 'readonly' : ''}
                                 onchange="atualizarCampo(${index}, 'nome', this.value)" placeholder="Nome do Herói">
                             
-                            <div class="pv-container">
-                                <span class="pv-label">PV</span>
-                                ${botoesVida}
+                            <div class="atributos-header-container">
+                                <div class="pv-container">
+                                    <span class="pv-label">PV</span>
+                                    ${botoesVida}
+                                </div>
+                                <div class="am-container" title="Artifício da Mácula">
+                                    <span class="am-label">AM</span>
+                                    ${botoesAM}
+                                </div>
                             </div>
                         </div>
 

@@ -19,19 +19,21 @@
             font-family: 'Lora', serif;
             margin: 0;
             padding: 0;
-            height: 100vh;
+            /* Mudado para min-height e inserido paddings para respirar em telas pequenas */
+            min-height: 100vh; 
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between; /* Empurra o rodapé nativamente para o fim */
             align-items: center;
             background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.95)), 
                               url('https://www.transparenttextures.com/patterns/dark-matter.png');
-            overflow: hidden;
+            overflow-y: auto; /* Permite rolar a tela se faltar espaço */
+            padding: 60px 20px;
         }
 
-        /* Moldura Medieval Sombria ao redor da tela */
+        /* Moldura Medieval Sombria fixa para acompanhar o scroll se necessário */
         .moldura-tela {
-            position: absolute;
+            position: fixed;
             top: 20px;
             bottom: 20px;
             left: 20px;
@@ -59,7 +61,8 @@
             z-index: 2;
             max-width: 600px;
             width: 100%;
-            padding: 20px;
+            margin: auto 0; /* Centraliza verticalmente no espaço disponível */
+            padding: 20px 0;
             animation: fadeIn 2s ease-in-out;
         }
 
@@ -80,7 +83,7 @@
             font-size: 1.1rem;
             letter-spacing: 4px;
             margin-top: 0;
-            margin-bottom: 60px;
+            margin-bottom: 40px; /* Reduzido levemente para evitar empurrar demais */
             text-shadow: 2px 2px 4px #000;
         }
 
@@ -120,7 +123,7 @@
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
         }
 
-        /* Ícones rúnicos ocultos (❖) que aparecem nas laterais no hover */
+        /* Ícones rúnicos ocultos (❖) */
         .botao-menu::before, .botao-menu::after {
             content: '❖';
             position: absolute;
@@ -143,14 +146,14 @@
             transform: translateY(-50%) translateX(-5px);
         }
 
-        /* Rodapé */
+        /* Rodapé Ajustado */
         .footer-menu {
-            position: absolute;
-            bottom: 40px;
             font-size: 0.8rem;
             color: #444;
             letter-spacing: 2px;
             z-index: 2;
+            text-align: center;
+            margin-top: 30px; /* Garante distância mínima caso o menu chegue perto */
         }
 
         /* Animação suave ao abrir a página */
@@ -159,12 +162,27 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Media Query Otimizada para Celulares */
         @media (max-width: 480px) {
-            .titulo-jogo { font-size: 2.3rem; }
-            .botao-menu { font-size: 1.1rem; padding: 10px 30px; }
+            body {
+                padding: 50px 30px; /* Margem adequada para a moldura interna */
+            }
+            .titulo-jogo { 
+                font-size: 1.8rem; /* Reduzido para não quebrar feio no celular */
+                letter-spacing: 3px;
+            }
+            .subtitulo-jogo {
+                font-size: 0.9rem;
+                margin-bottom: 30px;
+            }
+            .botao-menu { 
+                font-size: 1.1rem; 
+                padding: 12px 20px; 
+            }
+            .botao-menu::before, .botao-menu::after {
+                display: none; /* Oculta runas no celular para sobrar espaço para o texto */
+            }
         }
-
-        
     </style>
 </head>
 <body>
@@ -180,9 +198,7 @@
             <a href="herois.html" class="botao-menu">Heróis</a>
             <a href="bestiario.html" class="botao-menu">Bestiário</a>
             <a href="/viloes.html" class="botao-menu">Principais Vilões</a>
-            <!-- Link para o Mestre (Permite alterar tudo) -->
             <a href="painel.html?modo=mestre" class="botao-menu">Painel do Mestre</a>
-            <!-- Link para os Jogadores (Apenas leitura) -->
             <a href="painel.html?modo=jogador" class="botao-menu">Painel do Jogador</a>
         </nav>
     </div>
