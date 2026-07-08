@@ -658,6 +658,207 @@
             });
         </script>
 
+        <!--Guardião-->
+        <article class="postagem">
+            <h2 id="titulo-guardiao">Guardião</h2>
+            
+            <div class="conteudo-flex">
+                <img class="imagem-jogo" 
+                    id="guardiao-img" 
+                    src="./assets/herois/guardiao.jpg" 
+                    data-alt="./assets/herois/guardiao_corrompido.jpg" 
+                    alt="Guardião">
+                    
+                <div class="texto-jogo">
+                    <p>
+                        Magos e Sábios que alcançaram o maior conhecimento sobre o Hogi ( a energia espiritual que move o mundo) e agora eles conseguem modificá-lo e transformá-lo em elementos, são extremamentes poderosos e sempre estão em busca de um novo aprendizado. 
+                    </p>
+                    <p><strong>Habilidades conhecidas</strong></p>
+                    <p><strong>D - Provocar</strong>: O Guardião brande seu escudo e o bate contra qualquer superfície sólida emitido uma luz que irrita  o alvo, após o ataque do adversário O Guardião poderá bloquear 1 ataque sem ser de habilidade seria direcionado ao seu PV, além disso impede que o adversário use  uma habilidade no próximo turno.</p>
+                    <p><strong>D - Luz da Alvorada</strong>: O Guardião se envolve em uma barreira protetora feita de luz que o previne do próximo dano que seria causado no combate vindo de qualquer fonte (Ataques, Habilidades, Pergaminhos e etc),  quando a barreira acabar o Guardião recupera 2 de Pv.</p>
+                    <p><strong>O/D - Escudada Poderosa</strong>: O Guardião arremessa seu escudo que acerta todos os oponentes do combate e retorna para o mesmo, o choque causa 2 de Dano a todos os alvos e aqueles que receberem o dano não poderão usar   habilidades no próximo turno. Recupera 1 de PV no fim do turno.</p>
+                </div>
+            </div>
+        </article>
+
+        <style>
+            .imagem-jogo {
+                cursor: pointer;
+                /* Transição suave para quando a classe 'efeito-troca' sumir */
+                transition: opacity 0.3s ease, transform 0.3s ease; 
+            }
+
+            /* Classe de efeito que o JavaScript vai colocar temporariamente */
+            .efeito-troca {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+        </style>
+
+        <script>
+            const imagemGuardiao = document.getElementById('guardiao-img');
+            const tituloGuardiao = document.getElementById('titulo-guardiao');
+
+            imagemGuardiao.addEventListener('click', function() {
+                // Aplica o efeito visual diminuindo a opacidade
+                imagemGuardiao.classList.add('efeito-troca');
+
+                // Espera 300 milissegundos (o tempo do efeito CSS) para trocar a imagem e o texto
+                setTimeout(() => {
+                    const imagemAtual = imagemGuardiao.src;
+                    const imagemAlternativa = imagemGuardiao.getAttribute('data-alt');
+
+                    // Troca a imagem
+                    imagemGuardiao.src = imagemAlternativa;
+                    imagemGuardiao.setAttribute('data-alt', imagemAtual);
+
+                    // Troca o título baseado no texto atual
+                    if (tituloGuardiao.textContent === "Guardião") {
+                        tituloGuardiao.textContent = "Guardião Corrompido";
+                    } else {
+                        tituloGuardiao.textContent = "Guardião";
+                    }
+
+                    // Remove a classe do efeito, fazendo a nova imagem aparecer suavemente
+                    imagemGuardiao.classList.remove('efeito-troca');
+                }, 300); 
+            });
+        </script>
+
+        <!--Protetor de Hémoras-->
+        <article class="postagem">
+            <h2 id="titulo-protetor">Protetor de Hémoras</h2>
+            
+            <div class="conteudo-flex">
+                <img class="imagem-jogo" 
+                    id="protetor-img" 
+                    src="./assets/herois/protetor.jpg" 
+                    data-alt="./assets/herois/protetor_corrompido.jpg" 
+                    alt="Protetor de Hémoras">
+                    
+                <div class="texto-jogo">
+                    <p>
+                        Magos e Sábios que alcançaram o maior conhecimento sobre o Hogi ( a energia espiritual que move o mundo) e agora eles conseguem modificá-lo e transformá-lo em elementos, são extremamentes poderosos e sempre estão em busca de um novo aprendizado. 
+                    </p>
+                    <p><strong>Habilidades conhecidas</strong></p>
+                    <p><strong>D - Cura Célere</strong>:  O Protetor conjura com suas mãos uma luz com o poder de  se curar ou curar outro jogador em 3 PV. Você poderá usar essa habilidade em um outro jogador, caso esteja na mesma casa que o mesmo.</p>
+                    <p><strong>O - Fogo Celeste</strong>: O Protetor conjura uma luz que desce como um raio e causa 2 de dano a qualquer alvo no combate. O protetor recupera 1 de PV caso o Fogo cause dano.</p>
+                    <p><strong>D - Paz Momentânea</strong>: O protetor conjura uma área sagrada que brilha em puro Hogi e impede que qualquer dano seja causado a qualquer alvo. Pelos próximos dois turnos no combate o Protetor não pode receber e nem causar danos, além de  recuperar 2 de Pv quando o efeito acabar.</p>
+                </div>
+            </div>
+        </article>
+
+        <style>
+            .imagem-jogo {
+                cursor: pointer;
+                /* Transição suave para quando a classe 'efeito-troca' sumir */
+                transition: opacity 0.3s ease, transform 0.3s ease; 
+            }
+
+            /* Classe de efeito que o JavaScript vai colocar temporariamente */
+            .efeito-troca {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+        </style>
+
+        <script>
+            const imagemProtetor = document.getElementById('protetor-img');
+            const tituloProtetor = document.getElementById('titulo-protetor');
+
+            imagemProtetor.addEventListener('click', function() {
+                // Aplica o efeito visual diminuindo a opacidade
+                imagemProtetor.classList.add('efeito-troca');
+
+                // Espera 300 milissegundos (o tempo do efeito CSS) para trocar a imagem e o texto
+                setTimeout(() => {
+                    const imagemAtual = imagemProtetor.src;
+                    const imagemAlternativa = imagemProtetor.getAttribute('data-alt');
+
+                    // Troca a imagem
+                    imagemProtetor.src = imagemAlternativa;
+                    imagemProtetor.setAttribute('data-alt', imagemAtual);
+
+                    // Troca o título baseado no texto atual
+                    if (tituloProtetor.textContent === "Protetor de Hémoras") {
+                        tituloProtetor.textContent = "Protetor de Hémoras Corrompido";
+                    } else {
+                        tituloProtetor.textContent = "Protetor de Hémoras";
+                    }
+
+                    // Remove a classe do efeito, fazendo a nova imagem aparecer suavemente
+                    imagemProtetor.classList.remove('efeito-troca');
+                }, 300); 
+            });
+        </script>
+
+        <!--Mestre da Forja-->
+        <article class="postagem">
+            <h2 id="titulo-necromante">Mestre da Forja</h2>
+            
+            <div class="conteudo-flex">
+                <img class="imagem-jogo" 
+                    id="necromante-img" 
+                    src="./assets/herois/necromante.jpg" 
+                    data-alt="./assets/herois/necromante_corrompido.jpg" 
+                    alt="Mestre da Forja">
+                    
+                <div class="texto-jogo">
+                    <p>
+                        Magos e Sábios que alcançaram o maior conhecimento sobre o Hogi ( a energia espiritual que move o mundo) e agora eles conseguem modificá-lo e transformá-lo em elementos, são extremamentes poderosos e sempre estão em busca de um novo aprendizado. 
+                    </p>
+                    <p><strong>Habilidades conhecidas</strong></p>
+                    <p><strong>O - Rasgar a Alma</strong>:  Distorcendo a vida do seu oponente, o Mestre remove 1 de PV do alvo e recupera 1 de PV, caso o mesmo venha a morrer, O Mestre recupera 1 de PV a mais.</p>
+                    <p><strong>D - Reforçar a Chama</strong>: Canalizando seu poder seu poder e aumentando suas capacidades , o Mestre impede que os próximos 2 acertos a ele no combate sejam fatais, após os ataques o Mestre recupera 1 de PV perdido.</p>
+                    <p><strong>I - Forjar</strong>: O Mestre invoca do Atman, o reino dos mortos,  uma criatura de sangue e escuridão para trazer o terror ao campo de batalha.. A criatura  tem ações próprias no combate, atacando assim que invocada, enquanto o Mestre só poderá atacar no próximo turno, por causa da fadiga da invocação. A Criatura dura 3 turnos, já contando com o seu turno de invocação. </p>
+                </div>
+            </div>
+        </article>
+
+        <style>
+            .imagem-jogo {
+                cursor: pointer;
+                /* Transição suave para quando a classe 'efeito-troca' sumir */
+                transition: opacity 0.3s ease, transform 0.3s ease; 
+            }
+
+            /* Classe de efeito que o JavaScript vai colocar temporariamente */
+            .efeito-troca {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+        </style>
+
+        <script>
+            const imagemNecromante = document.getElementById('necromante-img');
+            const tituloNecromante = document.getElementById('titulo-necromante');
+
+            imagemNecromante.addEventListener('click', function() {
+                // Aplica o efeito visual diminuindo a opacidade
+                imagemNecromante.classList.add('efeito-troca');
+
+                // Espera 300 milissegundos (o tempo do efeito CSS) para trocar a imagem e o texto
+                setTimeout(() => {
+                    const imagemAtual = imagemNecromante.src;
+                    const imagemAlternativa = imagemNecromante.getAttribute('data-alt');
+
+                    // Troca a imagem
+                    imagemNecromante.src = imagemAlternativa;
+                    imagemNecromante.setAttribute('data-alt', imagemAtual);
+
+                    // Troca o título baseado no texto atual
+                    if (tituloNecromante.textContent === "Necromante") {
+                        tituloNecromante.textContent = "Necromante Corrompido";
+                    } else {
+                        tituloNecromante.textContent = "Necromante";
+                    }
+
+                    // Remove a classe do efeito, fazendo a nova imagem aparecer suavemente
+                    imagemNecromante.classList.remove('efeito-troca');
+                }, 300); 
+            });
+        </script>
+
 
 
 
