@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nihil - Painel de Heróis</title>
+    <title>Nihil - Painel de Campanha</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -30,7 +30,6 @@
             padding-bottom: 60px;
         }
 
-        /* Moldura Medieval Sombria fixa */
         .moldura-tela {
             position: fixed;
             top: 20px;
@@ -53,7 +52,6 @@
         .moldura-tela::before { top: -5px; left: -5px; border-right: none; border-bottom: none; }
         .moldura-tela::after { bottom: -5px; right: -5px; border-left: none; border-top: none; }
 
-        /* Container Principal */
         .painel-container {
             z-index: 2;
             max-width: 1200px;
@@ -80,11 +78,27 @@
             letter-spacing: 2px;
             text-align: center;
             margin-top: 0;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             text-shadow: 2px 2px 4px #000;
         }
 
-        /* Grid das Fichas */
+        /* Indicador visual do modo atual */
+        .tag-modo {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            color: #bfae96;
+        }
+        .tag-modo span {
+            padding: 4px 12px;
+            border-radius: 2px;
+            font-weight: bold;
+        }
+        .modo-mestre { background: rgba(139, 0, 0, 0.3); border: 1px solid #8b0000; color: #ffcccc; }
+        .modo-jogador { background: rgba(197, 160, 89, 0.15); border: 1px solid #c5a059; color: #fff; }
+
         .grid-fichas {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -92,7 +106,6 @@
             margin-bottom: 40px;
         }
 
-        /* Cartão de cada Ficha */
         .ficha-card {
             background: rgba(10, 10, 10, 0.85);
             border: 1px solid rgba(197, 160, 89, 0.15);
@@ -102,7 +115,6 @@
             transition: border-color 0.4s ease;
         }
 
-        /* Se a ficha estiver corrompida muda a borda do card */
         .ficha-card.corrompido-status {
             border-color: #8b0000;
             box-shadow: 0 5px 20px rgba(139, 0, 0, 0.3);
@@ -132,7 +144,12 @@
             border-bottom: 1px dashed #c5a059;
         }
 
-        /* Mecânica de PV (Vida) */
+        /* Se o input for apenas leitura do jogador, remove efeitos visuais */
+        .ficha-nome:read-only {
+            cursor: default;
+            border-bottom: none !important;
+        }
+
         .pv-container {
             display: flex;
             align-items: center;
@@ -178,7 +195,6 @@
             border-color: #8b0000;
         }
 
-        /* Seção do Status (TAG) */
         .status-container {
             margin-bottom: 15px;
             display: flex;
@@ -203,7 +219,17 @@
             text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
         }
 
-        /* Campos de Texto */
+        /* Remove visual de select do jogador */
+        .status-select:disabled {
+            opacity: 1;
+            cursor: default;
+            border-color: transparent;
+            background: transparent;
+            padding: 0;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
         .campo-texto {
             margin-bottom: 12px;
         }
@@ -237,7 +263,13 @@
             background-color: rgba(30, 10, 10, 0.3);
         }
 
-        /* Botão de Voltar */
+        textarea:rose-only, textarea:read-only {
+            background-color: rgba(15, 15, 15, 0.4);
+            border-color: rgba(197, 160, 89, 0.05);
+            resize: none;
+            cursor: default;
+        }
+
         .botoes-container {
             display: flex;
             justify-content: center;
@@ -277,9 +309,10 @@
 
     <div class="painel-container">
         <h1 class="titulo-painel">Painel de Campanha</h1>
-        <p class="subtitulo-painel">— O destino dos heróis de Hémoras —</p>
+        <p class="subtitulo-painel">— O destino dos 10 heróis de Nihil —</p>
         
-        <!-- Onde as 10 fichas serão geradas pelo JavaScript -->
+        <div class="tag-modo" id="tagModo">Visão: <span>Carregando...</span></div>
+        
         <div class="grid-fichas" id="gridFichas"></div>
 
         <div class="botoes-container">
@@ -291,7 +324,31 @@
         const TOTAL_FICHAS = 10;
         const CHAVE_STORAGE = 'nihil_painel_campanha';
 
-        // Estrutura inicial padrão para uma ficha vazia
+        // --- CONFIGURAÇÃO DE SEGURANÇA ---
+        const SENHA_MESTRE = "232823"; // Altere aqui para a senha que você desejar!
+        // ----------------------------------
+
+        // Detecta o modo de acesso pela URL
+        const urlParams = new URLSearchParams(window.location.search);
+        let modoSolicitado = urlParams.get('modo');
+        let modoAcesso = 'jogador'; // Padrão de segurança por padrão
+
+        if (modoSolicitado === 'mestre') {
+            // Solicita a senha em uma caixa de diálogo no navegador
+            let tentativaSenha = prompt("Digite a palavra-passe do Mestre para obter direito de alteração:");
+            
+            if (tentativaSenha === SENHA_MESTRE) {
+                modoAcesso = 'mestre';
+            } else {
+                alert("Senha incorreta! Você foi redirecionado para o modo de visualização.");
+                // Força a URL a mudar para o modo jogador para limpar o histórico
+                window.history.replaceState({}, document.title, window.location.pathname + "?modo=jogador");
+                modoAcesso = 'jogador';
+            }
+        } else {
+            modoAcesso = 'jogador';
+        }
+
         function criarFichaPadrao(index) {
             return {
                 nome: `Herói ${index}`,
@@ -302,7 +359,6 @@
             };
         }
 
-        // Carrega os dados ou cria uma lista com 10 fichas limpas
         function obterDadosGerais() {
             const dadosSalvos = localStorage.getItem(CHAVE_STORAGE);
             if (dadosSalvos) {
@@ -316,18 +372,17 @@
             }
         }
 
-        // Salva a lista completa atualizada de volta no navegador
         function salvarDadosGerais(dados) {
+            if (modoAcesso !== 'mestre') return; // Segurança extra caso forcem via console
             localStorage.setItem(CHAVE_STORAGE, JSON.stringify(dados));
         }
 
-        // Atualiza campos específicos e dispara o salvamento
         function atualizarCampo(index, campo, valor) {
+            if (modoAcesso !== 'mestre') return;
             const dados = obterDadosGerais();
             dados[index][campo] = valor;
             salvarDadosGerais(dados);
 
-            // Efeito visual dinâmico caso altere o status para Corrompido
             if (campo === 'status') {
                 const card = document.getElementById(`card-${index}`);
                 const selectElement = document.getElementById(`status-${index}`);
@@ -342,48 +397,63 @@
             }
         }
 
-        // Controladores de Vida (Aumentar e Diminuir)
-        // Controladores de Vida (Aumentar e Diminuir) - CORRIGIDO
         function alterarPV(index, quantidade) {
+            if (modoAcesso !== 'mestre') return;
             const dados = obterDadosGerais();
-            // Corrigido: usando a variável 'quantidade' corretamente
-            let novoPV = parseInt(dados[index].pv) + quantidade; 
+            let novoPV = parseInt(dados[index].pv) + quantidade;
             
-            if (novoPV < 0) novoPV = 0; // Impede vida negativa
+            if (novoPV < 0) novoPV = 0; 
             
             dados[index].pv = novoPV;
             salvarDadosGerais(dados);
             
-            // Atualiza o número exibido na tela instantaneamente
             document.getElementById(`pv-val-${index}`).innerText = novoPV;
         }
 
-        // Renderiza as 10 fichas na tela de forma limpa
         function renderizarPainel() {
+            // Atualiza a tag indicativa no topo
+            const tagModo = document.getElementById('tagModo');
+            if (modoAcesso === 'mestre') {
+                tagModo.innerHTML = 'Modo Atual: <span class="modo-mestre">Mestre da Campanha</span>';
+            } else {
+                tagModo.innerHTML = 'Modo Atual: <span class="modo-jogador">Visualização do Jogador</span>';
+            }
+
             const dados = obterDadosGerais();
             const grid = document.getElementById('gridFichas');
-            grid.innerHTML = ''; // Limpa conteúdo anterior
+            grid.innerHTML = ''; 
+
+            const isMestre = (modoAcesso === 'mestre');
 
             dados.forEach((ficha, index) => {
                 const isCorrompido = ficha.status === 'Corrompido';
                 
+                // Define os botões de vida se for mestre, ou remove se for jogador
+                const botoesVida = isMestre ? `
+                    <button type="button" class="pv-btn" onclick="alterarPV(${index}, -1)">-</button>
+                    <span class="pv-valor" id="pv-val-${index}">${ficha.pv}</span>
+                    <button type="button" class="pv-btn" onclick="alterarPV(${index}, 1)">+</button>
+                ` : `
+                    <span class="pv-valor" id="pv-val-${index}" style="margin: 0 10px;">${ficha.pv}</span>
+                `;
+
                 const cardHTML = `
                     <div class="ficha-card ${isCorrompido ? 'corrompido-status' : ''}" id="card-${index}">
                         <div class="ficha-header">
                             <input type="text" class="ficha-nome" value="${ficha.nome}" 
+                                ${!isMestre ? 'readonly' : ''}
                                 onchange="atualizarCampo(${index}, 'nome', this.value)" placeholder="Nome do Herói">
                             
                             <div class="pv-container">
                                 <span class="pv-label">PV</span>
-                                <button type="button" class="pv-btn" onclick="alterarPV(${index}, -1)">-</button>
-                                <span class="pv-valor" id="pv-val-${index}">${ficha.pv}</span>
-                                <button type="button" class="pv-btn" onclick="alterarPV(${index}, 1)">+</button>
+                                ${botoesVida}
                             </div>
                         </div>
 
                         <div class="status-container">
-                            <label style="font-family: 'Cinzel'; font-size: 0.8rem; color: #bfae96;">Estado:</label>
+                            <label style="font-family: 'Cinzel'; font-size: 0.8rem; color: #bfae96;">Alinhamento:</label>
                             <select id="status-${index}" class="status-select ${isCorrompido ? 'status-corrompido' : ''}" 
+                                ${!isMestre ? 'disabled' : ''}
                                 onchange="atualizarCampo(${index}, 'status', this.value)">
                                 <option value="Normal" ${ficha.status === 'Normal' ? 'selected' : ''}>Normal</option>
                                 <option value="Corrompido" ${ficha.status === 'Corrompido' ? 'selected' : ''}>Corrompido</option>
@@ -392,14 +462,16 @@
 
                         <div class="campo-texto">
                             <label>Inventário</label>
-                            <textarea onchange="atualizarCampo(${index}, 'inventario', this.value)" 
-                                placeholder="Itens, armas, relíquias...">${ficha.inventario}</textarea>
+                            <textarea ${!isMestre ? 'readonly' : ''} 
+                                onchange="atualizarCampo(${index}, 'inventario', this.value)" 
+                                placeholder="${isMestre ? 'Itens, armas, relíquias...' : 'Nenhum item carregado.'}">${ficha.inventario}</textarea>
                         </div>
 
                         <div class="campo-texto">
                             <label>Histórico da Campanha</label>
-                            <textarea onchange="atualizarCampo(${index}, 'historico', this.value)" 
-                                placeholder="Notas do mestre, cicatrizes mentais...">${ficha.historico}</textarea>
+                            <textarea ${!isMestre ? 'readonly' : ''} 
+                                onchange="atualizarCampo(${index}, 'historico', this.value)" 
+                                placeholder="${isMestre ? 'Notas do mestre, cicatrizes mentais...' : 'Nenhum histórico registrado.'}">${ficha.historico}</textarea>
                         </div>
                     </div>
                 `;
@@ -407,7 +479,6 @@
             });
         }
 
-        // Inicia o processo ao abrir a tela
         window.onload = renderizarPainel;
     </script>
 </body>
