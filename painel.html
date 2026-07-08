@@ -325,25 +325,33 @@
         const CHAVE_STORAGE = 'nihil_painel_campanha';
 
         // --- CONFIGURAÇÃO DE SEGURANÇA ---
-        const SENHA_MESTRE = "232823"; // Altere aqui para a senha que você desejar!
+        const SENHA_MESTRE = "nihil123"; // Altere aqui para a sua senha secreta
         // ----------------------------------
 
-        // Detecta o modo de acesso pela URL
         const urlParams = new URLSearchParams(window.location.search);
         let modoSolicitado = urlParams.get('modo');
-        let modoAcesso = 'jogador'; // Padrão de segurança por padrão
+        let modoAcesso = 'jogador'; 
 
         if (modoSolicitado === 'mestre') {
-            // Solicita a senha em uma caixa de diálogo no navegador
-            let tentativaSenha = prompt("Digite a palavra-passe do Mestre para obter direito de alteração:");
-            
-            if (tentativaSenha === SENHA_MESTRE) {
-                modoAcesso = 'mestre';
-            } else {
-                alert("Senha incorreta! Você foi redirecionado para o modo de visualização.");
-                // Força a URL a mudar para o modo jogador para limpar o histórico
-                window.history.replaceState({}, document.title, window.location.pathname + "?modo=jogador");
-                modoAcesso = 'jogador';
+            let autenticado = false;
+
+            while (!autenticado) {
+                let tentativaSenha = prompt("Digite a palavra-passe do Mestre para obter direito de alteração:\n(Ou clique em Cancelar para voltar ao menu)");
+
+                // Se o usuário clicar em Cancelar, tentativaSenha será null
+                if (tentativaSenha === null) {
+                    window.location.href = "./index.html"; // Volta para a página inicial
+                    break; 
+                }
+
+                // Se acertar a senha
+                if (tentativaSenha === SENHA_MESTRE) {
+                    modoAcesso = 'mestre';
+                    autenticado = true;
+                } else {
+                    // Se errar a senha, exibe o aviso e o laço 'while' força o prompt a abrir de novo
+                    alert("Senha inválida! Tente novamente.");
+                }
             }
         } else {
             modoAcesso = 'jogador';
