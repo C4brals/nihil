@@ -15,13 +15,15 @@
             background-color: #050505;
             color: #dcd0c0;
             font-family: 'Lora', serif;
-            min-height: 100vh; 
+            height: 100vh; /* Alterado de min-height para height fixo */
+            width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
             background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), 
                               url('https://www.transparenttextures.com/patterns/dark-matter.png');
-            padding: 40px 20px;
+            /* MODIFICADO: Ajusta o padding para respeitar a sua moldura medieval de 20px */
+            padding: 22px; 
             overflow: hidden;
         }
 
@@ -39,8 +41,14 @@
         .moldura-tela::after { bottom: -5px; right: -5px; border-left: none; border-top: none; }
 
         .gameplay-wrapper {
-            display: grid; grid-template-columns: 340px 1fr; gap: 25px;
-            width: 100%; max-width: 1400px; z-index: 2;
+            display: grid; 
+            grid-template-columns: 340px 1fr; 
+            gap: 25px;
+            width: 100%; 
+            /* MODIFICADO: Remove o max-width de 1400px e força a ocupar 100% da altura da tela útil */
+            max-width: 100%; 
+            height: 100%;
+            z-index: 2;
         }
 
         /* Painel Lateral */
@@ -198,12 +206,29 @@
             box-shadow: 0 0 5px rgba(255, 0, 0, 0.6);
         }
 
-        /* Container do Tabuleiro */
         .tabuleiro-container {
-            position: relative; width: 100%; align-self: center;
-            border: 1px solid rgba(197, 160, 89, 0.15); border-radius: 4px; overflow: hidden;
+            position: relative; 
+            /* MODIFICADO: Faz o container crescer para ocupar todo o espaço restante */
+            flex: 1; 
+            width: 100%;
+            height: 100%; /* Força a ocupar a altura total disponível da seção */
+            align-self: stretch; /* Estica verticalmente acompanhando o painel lateral */
+            border: 1px solid rgba(197, 160, 89, 0.15); 
+            border-radius: 4px; 
+            overflow: hidden;
+            display: flex; /* Alinha a imagem perfeitamente dentro dele */
+            align-items: center;
+            justify-content: center;
         }
-        .mapa-img { width: 100%; display: block; filter: brightness(0.85) contrast(1.05); }
+        
+        .mapa-img { 
+            width: 100%; 
+            height: 100%; 
+            display: block; 
+            /* ALTERADO: Garante que o mapa inteiro apareça na tela sem cortes */
+            object-fit: contain; 
+            filter: brightness(0.85) contrast(1.05); 
+        }
 
         /* Tokens Redondos */
         .token-heroi {
