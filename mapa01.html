@@ -351,37 +351,65 @@
                     <img src="./assets/herois/atroz.jpg?w=100" class="avatar-painel" id="avatar-h2">
                     <div class="textos-heroi">
                         <span class="nome-heroi">Guerreiro Atroz</span>
-                        <span class="pv-container"><span id="pv-h2">5</span> PV</span>
+                        <div class="atributos-container">
+                            <span class="pv-container"><span id="pv-h2">5</span> PV</span>
+                            <span class="am-container"><span id="am-h2">0</span> AM</span>
+                        </div>
                     </div>
                 </div>
                 <div class="controles-heroi">
-                    <div class="botoes-acao">
-                        <button class="btn-dado" onclick="lancarDado('h2')">⚄</button>
-                        <button class="btn-pv" onclick="alterarPV('h2', -1)">-</button>
-                        <button class="btn-pv" onclick="alterarPV('h2', 1)">+</button>
+                    <div class="linhas-botoes">
+                        <div class="botoes-acao">
+                            <button class="btn-dado" onclick="lancarDado('h2')">⚄</button>
+                            <button class="btn-pv" onclick="alterarPV('h2', -1)">-</button>
+                            <button class="btn-pv" onclick="alterarPV('h2', 1)">+</button>
+                        </div>
+                        <div class="botoes-acao">
+                            <button class="btn-am" onclick="alterarAM('h2', -1)">-</button>
+                            <button class="btn-am" onclick="alterarAM('h2', 1)">+</button>
+                        </div>
                     </div>
                     <button class="btn-estado" id="btn-estado-h2" onclick="alternarEstado('h2')">Normal</button>
+                    <div class="botoes-imagens" style="display: flex; gap: 4px; margin-top: 4px;">
+                        <button id="btn-img-h2-1" class="btn-numero" onclick="abrirImagemCentral('h2', 1, './assets/habilidades/Atroz 1.jpg')">1</button>
+                        <button id="btn-img-h2-2" class="btn-numero" onclick="abrirImagemCentral('h2', 2, './assets/habilidades/Atroz 2.jpg')">2</button>
+                        <button id="btn-img-h2-3" class="btn-numero" onclick="abrirImagemCentral('h2', 3, './assets/habilidades/Atroz 3.jpg')">3</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Cacador -->
-            <div id="card-h3" class="card-heroi" style="--token-color: #2a4d6c;" 
+            <div id="card-h3" class="card-heroi" style="--token-color: #2e4a2e;" 
                  data-img-normal="./assets/herois/cacador.jpg?w=100"
                  data-img-corrompida="./assets/herois/cacador_corrompido.jpg?w=100">
                 <div class="info-heroi">
                     <img src="./assets/herois/cacador.jpg?w=100" class="avatar-painel" id="avatar-h3">
                     <div class="textos-heroi">
-                        <span class="nome-heroi">Mestre Caçador</span>
-                        <span class="pv-container"><span id="pv-h3">5</span> PV</span>
+                        <span class="nome-heroi">Mestre Cacador</span>
+                        <div class="atributos-container">
+                            <span class="pv-container"><span id="pv-h3">5</span> PV</span>
+                            <span class="am-container"><span id="am-h3">0</span> AM</span>
+                        </div>
                     </div>
                 </div>
                 <div class="controles-heroi">
-                    <div class="botoes-acao">
-                        <button class="btn-dado" onclick="lancarDado('h3')">⚄</button>
-                        <button class="btn-pv" onclick="alterarPV('h3', -1)">-</button>
-                        <button class="btn-pv" onclick="alterarPV('h3', 1)">+</button>
+                    <div class="linhas-botoes">
+                        <div class="botoes-acao">
+                            <button class="btn-dado" onclick="lancarDado('h3')">⚄</button>
+                            <button class="btn-pv" onclick="alterarPV('h3', -1)">-</button>
+                            <button class="btn-pv" onclick="alterarPV('h3', 1)">+</button>
+                        </div>
+                        <div class="botoes-acao">
+                            <button class="btn-am" onclick="alterarAM('h3', -1)">-</button>
+                            <button class="btn-am" onclick="alterarAM('h3', 1)">+</button>
+                        </div>
                     </div>
                     <button class="btn-estado" id="btn-estado-h3" onclick="alternarEstado('h3')">Normal</button>
+                    <div class="botoes-imagens" style="display: flex; gap: 4px; margin-top: 4px;">
+                        <button id="btn-img-h3-1" class="btn-numero" onclick="abrirImagemCentral('h3', 1, './assets/habilidades/cacador 1.jpg')">1</button>
+                        <button id="btn-img-h3-2" class="btn-numero" onclick="abrirImagemCentral('h3', 2, './assets/habilidades/cacador 2.jpg')">2</button>
+                        <button id="btn-img-h3-3" class="btn-numero" onclick="abrirImagemCentral('h3', 3, './assets/habilidades/cacador 3.jpg')">3</button>
+                    </div>
                 </div>
             </div>
 
@@ -393,100 +421,170 @@
                     <img src="./assets/herois/cleriga.jpg?w=100" class="avatar-painel" id="avatar-h4">
                     <div class="textos-heroi">
                         <span class="nome-heroi">Clériga</span>
-                        <span class="pv-container"><span id="pv-h4">5</span> PV</span>
+                        <div class="atributos-container">
+                            <span class="pv-container"><span id="pv-h4">5</span> PV</span>
+                            <span class="am-container"><span id="am-h4">0</span> AM</span>
+                        </div>
                     </div>
                 </div>
                 <div class="controles-heroi">
-                    <div class="botoes-acao">
-                        <button class="btn-dado" onclick="lancarDado('h4')">⚄</button>
-                        <button class="btn-pv" onclick="alterarPV('h4', -1)">-</button>
-                        <button class="btn-pv" onclick="alterarPV('h4', 1)">+</button>
+                    <div class="linhas-botoes">
+                        <div class="botoes-acao">
+                            <button class="btn-dado" onclick="lancarDado('h4')">⚄</button>
+                            <button class="btn-pv" onclick="alterarPV('h4', -1)">-</button>
+                            <button class="btn-pv" onclick="alterarPV('h4', 1)">+</button>
+                        </div>
+                        <div class="botoes-acao">
+                            <button class="btn-am" onclick="alterarAM('h4', -1)">-</button>
+                            <button class="btn-am" onclick="alterarAM('h4', 1)">+</button>
+                        </div>
                     </div>
                     <button class="btn-estado" id="btn-estado-h4" onclick="alternarEstado('h4')">Normal</button>
+                    <div class="botoes-imagens" style="display: flex; gap: 4px; margin-top: 4px;">
+                        <button id="btn-img-h4-1" class="btn-numero" onclick="abrirImagemCentral('h4', 1, './assets/habilidades/cleriga 1.jpg')">1</button>
+                        <button id="btn-img-h4-2" class="btn-numero" onclick="abrirImagemCentral('h4', 2, './assets/habilidades/cleriga 2.jpg')">2</button>
+                        <button id="btn-img-h4-3" class="btn-numero" onclick="abrirImagemCentral('h4', 3, './assets/habilidades/cleriga 3.jpg')">3</button>
+                    </div>
                 </div>
             </div>
 
             <!-- combatente -->
-            <div id="card-h5" class="card-heroi" style="--token-color: #5b327a;" 
+            <div id="card-h5" class="card-heroi" style="--token-color: #7c5225;" 
                  data-img-normal="./assets/herois/combatente.jpg?w=100"
                  data-img-corrompida="./assets/herois/combatente_corrompido.jpg?w=100">
                 <div class="info-heroi">
                     <img src="./assets/herois/combatente.jpg?w=100" class="avatar-painel" id="avatar-h5">
                     <div class="textos-heroi">
                         <span class="nome-heroi">Combatente</span>
-                        <span class="pv-container"><span id="pv-h5">5</span> PV</span>
+                        <div class="atributos-container">
+                            <span class="pv-container"><span id="pv-h5">5</span> PV</span>
+                            <span class="am-container"><span id="am-h5">0</span> AM</span>
+                        </div>
                     </div>
                 </div>
                 <div class="controles-heroi">
-                    <div class="botoes-acao">
-                        <button class="btn-dado" onclick="lancarDado('h5')">⚄</button>
-                        <button class="btn-pv" onclick="alterarPV('h5', -1)">-</button>
-                        <button class="btn-pv" onclick="alterarPV('h5', 1)">+</button>
+                    <div class="linhas-botoes">
+                        <div class="botoes-acao">
+                            <button class="btn-dado" onclick="lancarDado('h5')">⚄</button>
+                            <button class="btn-pv" onclick="alterarPV('h5', -1)">-</button>
+                            <button class="btn-pv" onclick="alterarPV('h5', 1)">+</button>
+                        </div>
+                        <div class="botoes-acao">
+                            <button class="btn-am" onclick="alterarAM('h5', -1)">-</button>
+                            <button class="btn-am" onclick="alterarAM('h5', 1)">+</button>
+                        </div>
                     </div>
                     <button class="btn-estado" id="btn-estado-h5" onclick="alternarEstado('h5')">Normal</button>
+                    <div class="botoes-imagens" style="display: flex; gap: 4px; margin-top: 4px;">
+                        <button id="btn-img-h5-1" class="btn-numero" onclick="abrirImagemCentral('h5', 1, './assets/habilidades/Combatente 1.jpg')">1</button>
+                        <button id="btn-img-h5-2" class="btn-numero" onclick="abrirImagemCentral('h5', 2, './assets/habilidades/Combatente 2.jpg')">2</button>
+                        <button id="btn-img-h5-3" class="btn-numero" onclick="abrirImagemCentral('h5', 3, './assets/habilidades/Combatente 3.jpg')">3</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Druida -->
-            <div id="card-h6" class="card-heroi" style="--token-color: #8c7623;" 
+            <div id="card-h6" class="card-heroi" style="--token-color: #7c5225;" 
                  data-img-normal="./assets/herois/druida.jpg?w=100"
                  data-img-corrompida="./assets/herois/druida_corrompido.jpg?w=100">
                 <div class="info-heroi">
                     <img src="./assets/herois/druida.jpg?w=100" class="avatar-painel" id="avatar-h6">
                     <div class="textos-heroi">
                         <span class="nome-heroi">Druida</span>
-                        <span class="pv-container"><span id="pv-h6">5</span> PV</span>
+                        <div class="atributos-container">
+                            <span class="pv-container"><span id="pv-h6">5</span> PV</span>
+                            <span class="am-container"><span id="am-h6">0</span> AM</span>
+                        </div>
                     </div>
                 </div>
                 <div class="controles-heroi">
-                    <div class="botoes-acao">
-                        <button class="btn-dado" onclick="lancarDado('h6')">⚄</button>
-                        <button class="btn-pv" onclick="alterarPV('h6', -1)">-</button>
-                        <button class="btn-pv" onclick="alterarPV('h6', 1)">+</button>
+                    <div class="linhas-botoes">
+                        <div class="botoes-acao">
+                            <button class="btn-dado" onclick="lancarDado('h6')">⚄</button>
+                            <button class="btn-pv" onclick="alterarPV('h6', -1)">-</button>
+                            <button class="btn-pv" onclick="alterarPV('h6', 1)">+</button>
+                        </div>
+                        <div class="botoes-acao">
+                            <button class="btn-am" onclick="alterarAM('h6', -1)">-</button>
+                            <button class="btn-am" onclick="alterarAM('h6', 1)">+</button>
+                        </div>
                     </div>
                     <button class="btn-estado" id="btn-estado-h6" onclick="alternarEstado('h6')">Normal</button>
+                    <div class="botoes-imagens" style="display: flex; gap: 4px; margin-top: 4px;">
+                        <button id="btn-img-h6-1" class="btn-numero" onclick="abrirImagemCentral('h6', 1, './assets/habilidades/Druida 1.jpg')">1</button>
+                        <button id="btn-img-h6-2" class="btn-numero" onclick="abrirImagemCentral('h6', 2, './assets/habilidades/Druida 2.jpg')">2</button>
+                        <button id="btn-img-h6-3" class="btn-numero" onclick="abrirImagemCentral('h6', 3, './assets/habilidades/Druida 3.jpg')">3</button>
+                    </div>
                 </div>
             </div>
 
             <!-- elementarista -->
-            <div id="card-h7" class="card-heroi" style="--token-color: #3b7a7a;" 
+            <div id="card-h7" class="card-heroi" style="--token-color: #7c5225;" 
                  data-img-normal="./assets/herois/elementarista.jpg?w=100"
                  data-img-corrompida="./assets/herois/elementarista_corrompido.jpg?w=100">
                 <div class="info-heroi">
                     <img src="./assets/herois/elementarista.jpg?w=100" class="avatar-painel" id="avatar-h7">
                     <div class="textos-heroi">
                         <span class="nome-heroi">Elementarista</span>
-                        <span class="pv-container"><span id="pv-h7">5</span> PV</span>
+                        <div class="atributos-container">
+                            <span class="pv-container"><span id="pv-h7">5</span> PV</span>
+                            <span class="am-container"><span id="am-h7">0</span> AM</span>
+                        </div>
                     </div>
                 </div>
                 <div class="controles-heroi">
-                    <div class="botoes-acao">
-                        <button class="btn-dado" onclick="lancarDado('h7')">⚄</button>
-                        <button class="btn-pv" onclick="alterarPV('h7', -1)">-</button>
-                        <button class="btn-pv" onclick="alterarPV('h7', 1)">+</button>
+                    <div class="linhas-botoes">
+                        <div class="botoes-acao">
+                            <button class="btn-dado" onclick="lancarDado('h6')">⚄</button>
+                            <button class="btn-pv" onclick="alterarPV('h7', -1)">-</button>
+                            <button class="btn-pv" onclick="alterarPV('h7', 1)">+</button>
+                        </div>
+                        <div class="botoes-acao">
+                            <button class="btn-am" onclick="alterarAM('h7', -1)">-</button>
+                            <button class="btn-am" onclick="alterarAM('h7', 1)">+</button>
+                        </div>
                     </div>
                     <button class="btn-estado" id="btn-estado-h7" onclick="alternarEstado('h7')">Normal</button>
+                    <div class="botoes-imagens" style="display: flex; gap: 4px; margin-top: 4px;">
+                        <button id="btn-img-h7-1" class="btn-numero" onclick="abrirImagemCentral('h7', 1, './assets/habilidades/Elementarista 1.jpg')">1</button>
+                        <button id="btn-img-h7-2" class="btn-numero" onclick="abrirImagemCentral('h7', 2, './assets/habilidades/Elementarista 2.jpg')">2</button>
+                        <button id="btn-img-h7-3" class="btn-numero" onclick="abrirImagemCentral('h7', 3, './assets/habilidades/Elementarista 3.jpg')">3</button>
+                    </div>
                 </div>
             </div>
 
             <!-- guardiao -->
-            <div id="card-h8" class="card-heroi" style="--token-color: #555555;" 
+            <div id="card-h8" class="card-heroi" style="--token-color: #7c5225;" 
                  data-img-normal="./assets/herois/guardiao.jpg?w=100"
                  data-img-corrompida="./assets/herois/guardiao_corrompido.jpg?w=100">
                 <div class="info-heroi">
                     <img src="./assets/herois/guardiao.jpg?w=100" class="avatar-painel" id="avatar-h8">
                     <div class="textos-heroi">
                         <span class="nome-heroi">Guardião</span>
-                        <span class="pv-container"><span id="pv-h8">5</span> PV</span>
+                        <div class="atributos-container">
+                            <span class="pv-container"><span id="pv-h8">5</span> PV</span>
+                            <span class="am-container"><span id="am-h8">0</span> AM</span>
+                        </div>
                     </div>
                 </div>
                 <div class="controles-heroi">
-                    <div class="botoes-acao">
-                        <button class="btn-dado" onclick="lancarDado('h8')">⚄</button>
-                        <button class="btn-pv" onclick="alterarPV('h8', -1)">-</button>
-                        <button class="btn-pv" onclick="alterarPV('h8', 1)">+</button>
+                    <div class="linhas-botoes">
+                        <div class="botoes-acao">
+                            <button class="btn-dado" onclick="lancarDado('h8')">⚄</button>
+                            <button class="btn-pv" onclick="alterarPV('h8', -1)">-</button>
+                            <button class="btn-pv" onclick="alterarPV('h8', 1)">+</button>
+                        </div>
+                        <div class="botoes-acao">
+                            <button class="btn-am" onclick="alterarAM('h8', -1)">-</button>
+                            <button class="btn-am" onclick="alterarAM('h8', 1)">+</button>
+                        </div>
                     </div>
                     <button class="btn-estado" id="btn-estado-h8" onclick="alternarEstado('h8')">Normal</button>
+                    <div class="botoes-imagens" style="display: flex; gap: 4px; margin-top: 4px;">
+                        <button id="btn-img-h8-1" class="btn-numero" onclick="abrirImagemCentral('h8', 1, './assets/habilidades/Guardião 1.jpg')">1</button>
+                        <button id="btn-img-h8-2" class="btn-numero" onclick="abrirImagemCentral('h8', 2, './assets/habilidades/Guardião 2.jpg')">2</button>
+                        <button id="btn-img-h8-3" class="btn-numero" onclick="abrirImagemCentral('h8', 3, './assets/habilidades/Guardião 3.jpg')">3</button>
+                    </div>
                 </div>
             </div>
 
@@ -498,16 +596,30 @@
                     <img src="./assets/herois/necromante.jpg?w=100" class="avatar-painel" id="avatar-h9">
                     <div class="textos-heroi">
                         <span class="nome-heroi">Mestre da Forja</span>
-                        <span class="pv-container"><span id="pv-h9">5</span> PV</span>
+                        <div class="atributos-container">
+                            <span class="pv-container"><span id="pv-h9">5</span> PV</span>
+                            <span class="am-container"><span id="am-h9">0</span> AM</span>
+                        </div>
                     </div>
                 </div>
                 <div class="controles-heroi">
-                    <div class="botoes-acao">
-                        <button class="btn-dado" onclick="lancarDado('h9')">⚄</button>
-                        <button class="btn-pv" onclick="alterarPV('h9', -1)">-</button>
-                        <button class="btn-pv" onclick="alterarPV('h9', 1)">+</button>
+                    <div class="linhas-botoes">
+                        <div class="botoes-acao">
+                            <button class="btn-dado" onclick="lancarDado('h9')">⚄</button>
+                            <button class="btn-pv" onclick="alterarPV('h9', -1)">-</button>
+                            <button class="btn-pv" onclick="alterarPV('h9', 1)">+</button>
+                        </div>
+                        <div class="botoes-acao">
+                            <button class="btn-am" onclick="alterarAM('h9', -1)">-</button>
+                            <button class="btn-am" onclick="alterarAM('h9', 1)">+</button>
+                        </div>
                     </div>
                     <button class="btn-estado" id="btn-estado-h9" onclick="alternarEstado('h9')">Normal</button>
+                    <div class="botoes-imagens" style="display: flex; gap: 4px; margin-top: 4px;">
+                        <button id="btn-img-h9-1" class="btn-numero" onclick="abrirImagemCentral('h9', 1, './assets/habilidades/MMestre da Forja 1.jpg')">1</button>
+                        <button id="btn-img-h9-2" class="btn-numero" onclick="abrirImagemCentral('h9', 2, './assets/habilidades/Mestre da Forja 2.jpg')">2</button>
+                        <button id="btn-img-h9-3" class="btn-numero" onclick="abrirImagemCentral('h9', 3, './assets/habilidades/Mestre da Forja 3.jpg')">3</button>
+                    </div>
                 </div>
             </div>
 
@@ -518,17 +630,31 @@
                 <div class="info-heroi">
                     <img src="./assets/herois/protetor.jpg?w=100" class="avatar-painel" id="avatar-h10">
                     <div class="textos-heroi">
-                        <span class="nome-heroi">Protetor de Hémoras</span>
-                        <span class="pv-container"><span id="pv-h10">5</span> PV</span>
+                        <span class="nome-heroi">Protetor</span>
+                        <div class="atributos-container">
+                            <span class="pv-container"><span id="pv-h10">5</span> PV</span>
+                            <span class="am-container"><span id="am-h10">0</span> AM</span>
+                        </div>
                     </div>
                 </div>
                 <div class="controles-heroi">
-                    <div class="botoes-acao">
-                        <button class="btn-dado" onclick="lancarDado('h10')">⚄</button>
-                        <button class="btn-pv" onclick="alterarPV('h10', -1)">-</button>
-                        <button class="btn-pv" onclick="alterarPV('h10', 1)">+</button>
+                    <div class="linhas-botoes">
+                        <div class="botoes-acao">
+                            <button class="btn-dado" onclick="lancarDado('h10')">⚄</button>
+                            <button class="btn-pv" onclick="alterarPV('h10', -1)">-</button>
+                            <button class="btn-pv" onclick="alterarPV('h10', 1)">+</button>
+                        </div>
+                        <div class="botoes-acao">
+                            <button class="btn-am" onclick="alterarAM('h10', -1)">-</button>
+                            <button class="btn-am" onclick="alterarAM('h10', 1)">+</button>
+                        </div>
                     </div>
                     <button class="btn-estado" id="btn-estado-h10" onclick="alternarEstado('h10')">Normal</button>
+                    <div class="botoes-imagens" style="display: flex; gap: 4px; margin-top: 4px;">
+                        <button id="btn-img-h10-1" class="btn-numero" onclick="abrirImagemCentral('h10', 1, './assets/habilidades/Protetor 1.jpg')">1</button>
+                        <button id="btn-img-h10-2" class="btn-numero" onclick="abrirImagemCentral('h10', 2, './assets/habilidades/Protetor 2.jpg')">2</button>
+                        <button id="btn-img-h10-3" class="btn-numero" onclick="abrirImagemCentral('h10', 3, './assets/habilidades/Protetor 3.jpg')">3</button>
+                    </div>
                 </div>
             </div>
         </aside>
@@ -547,7 +673,7 @@
             <div id="token-h7" class="token-heroi" style="--token-color: #3b7a7a; top: 52%; left: 16.5%;"><img src="./assets/herois/elementarista.jpg?w=100" id="img-token-h7"></div>
             <div id="token-h8" class="token-heroi" style="--token-color: #555555; top: 52%; left: 18.5%;"><img src="./assets/herois/guardiao.jpg?w=100" id="img-token-h8"></div>
             <div id="token-h9" class="token-heroi" style="--token-color: #9c4174; top: 52%; left: 20.5%;"><img src="./assets/herois/necromante.jpg?w=100" id="img-token-h9"></div>
-            <div id="token-h10" class="token-heroi" style="--token-color: #9c4174; top: 55%; left: 16.5%;"><img src="./assets/herois/protetor.jpg?w=100" id="img-token-h10"></div>
+            <div id="token-h10" class="token-heroi" style="--token-color: #f2ff00d2; top: 55%; left: 16.5%;"><img src="./assets/herois/protetor.jpg?w=100" id="img-token-h10"></div>
     </div>
 
     <!-- JAVASCRIPT: LÓGICA E CONEXÃO FIREBASE -->
