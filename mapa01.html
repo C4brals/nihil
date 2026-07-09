@@ -629,8 +629,12 @@
         // Guarda temporariamente qual botão disparou o modal atual
         let botaoPendente = null;
 
-        // Modificado: Agora avisa o Firebase para abrir a imagem para todos
+        // Variável local para que o seu navegador lembre qual botão está aberto no momento
+        let imagemAbertaLocalmente = null;
+
+        // Modificado: Salva localmente e envia ao Firebase para abrir para todos
         window.abrirImagemCentral = function(idHeroi, numeroBotao, caminhoImagem) {
+            imagemAbertaLocalmente = { idHeroi, numeroBotao };
             set(ref(db, 'imagem_ativa'), {
                 idHeroi: idHeroi,
                 numeroBotao: numeroBotao,
@@ -638,22 +642,21 @@
             });
         };
 
-        // Ações dos botões de Usar / Não Usar atualizadas
+        // Ações dos botões de Usar / Não Usar corrigidas
         document.getElementById('btn-modal-usar').addEventListener('click', () => {
-            // Pegamos os dados diretamente do nó temporário que o Firebase guardou
-            get(ref(db, 'imagem_ativa')).then((snapshot) => {
-                const dados = snapshot.val();
-                if (dados) {
-                    set(ref(db, `status/${dados.idHeroi}/botoes_img/${dados.numeroBotao}`), true);
-                }
-                // Limpa o nó para fechar a tela de todo mundo
-                set(ref(db, 'imagem_ativa'), null);
-            });
+            if (imagemAbertaLocalmente) {
+                // Marca o botão como vermelho no Firebase
+                set(ref(db, `status/${imagemAbertaLocalmente.idHeroi}/botoes_img/${imagemAbertaLocalmente.numeroBotao}`), true);
+            }
+            // Fecha a imagem para todo mundo
+            set(ref(db, 'imagem_ativa'), null);
+            imagemAbertaLocalmente = null;
         });
 
         document.getElementById('btn-modal-nao-usar').addEventListener('click', () => {
-            // Apenas limpa o nó para fechar a tela de todo mundo sem marcar como vermelho
+            // Apenas fecha a imagem para todo mundo sem marcar como vermelho
             set(ref(db, 'imagem_ativa'), null);
+            imagemAbertaLocalmente = null;
         });
 
         function fecharModalCentral() {
