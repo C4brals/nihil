@@ -390,6 +390,23 @@
 
     <div class="moldura-tela"></div>
 
+    <div id="mini-player-musica" style="position: fixed; top: 10px; right: 10px; z-index: 20000; background: rgba(15, 10, 10, 0.9); border: 1px solid #c5a059; border-radius: 4px; padding: 5px 10px; display: flex; align-items: center; gap: 10px; box-shadow: 0 0 10px rgba(197, 160, 89, 0.3); pointer-events: auto;">
+        <audio id="audio-principal"></audio>
+        
+        <select id="seletor-musica" onchange="trocarMusica()" style="background: #222; color: #dcd0c0; border: 1px solid #444; font-family: 'Lora', serif; font-size: 0.75rem; padding: 2px 5px; cursor: pointer; max-width: 120px;">
+            <option value="">Sem música</option>
+            <option value="./assets/audios/audio_leitura.mp3">Mistério</option>
+            <option value="assets/musicas/tema_taberna.mp3">Taberna</option>
+            <option value="assets/musicas/tema_misterio.mp3">Combate</option>
+        </select>
+
+        <button id="btn-play-pause" onclick="alternarPlayPause()" style="background: #8b0000; color: #fff; border: 1px solid #ff0000; font-size: 0.75rem; padding: 2px 8px; cursor: pointer; font-family: 'Cinzel', serif; font-weight: bold; border-radius: 3px; min-width: 50px;">
+            Play
+        </button>
+
+        <input type="range" id="volume-player" min="0" max="1" step="0.1" value="0.5" oninput="ajustarVolume()" style="width: 50px; cursor: pointer; accent-color: #8b0000;">
+    </div>
+
     <!-- AREA GLOBAL DE LANÇAMENTO DE DADOS -->
     <div class="area-dados">
         <div id="anuncio-rolagem" class="anuncio-rolagem">
@@ -892,6 +909,60 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
         import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+
+        // --- CONTROLES DO MINI PLAYER DE MÚSICA ---
+        const audio = document.getElementById('audio-principal');
+        const btnPlayPause = document.getElementById('btn-play-pause');
+        const seletorMusica = document.getElementById('seletor-musica');
+
+        // Define o volume inicial baseado no slider (50%)
+        audio.volume = 0.5;
+
+        window.trocarMusica = function() {
+            const caminhoMusica = seletorMusica.value;
+            
+            if (caminhoMusica) {
+                audio.src = caminhoMusica;
+                audio.loop = true; // Garante que a música continue tocando em loop
+                audio.play()
+                    .then(() => {
+                        btnPlayPause.innerText = "Pause";
+                        btnPlayPause.style.background = "#333";
+                        btnPlayPause.style.borderColor = "#555";
+                    })
+                    .catch(err => {
+                        console.log("Autoplay bloqueado pelo navegador. Clique em Play manualmente.");
+                        btnPlayPause.innerText = "Play";
+                    });
+            } else {
+                audio.pause();
+                audio.src = "";
+                btnPlayPause.innerText = "Play";
+                btnPlayPause.style.background = "#8b0000";
+                btnPlayPause.style.borderColor = "#ff0000";
+            }
+        };
+
+        window.alternarPlayPause = function() {
+            if (!audio.src || seletorMusica.value === "") return;
+
+            if (audio.paused) {
+                audio.play();
+                btnPlayPause.innerText = "Pause";
+                btnPlayPause.style.background = "#333";
+                btnPlayPause.style.borderColor = "#555";
+            } else {
+                audio.pause();
+                btnPlayPause.innerText = "Play";
+                btnPlayPause.style.background = "#8b0000";
+                btnPlayPause.style.borderColor = "#ff0000";
+            }
+        };
+
+        window.ajustarVolume = function() {
+            const sliderVolume = document.getElementById('volume-player');
+            audio.volume = sliderVolume.value;
+        };
 
         const firebaseConfig = {
             apiKey: "AIzaSyBNLypR4a5iIFRFykbkVdHq43k9u6zgOYM",
