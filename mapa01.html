@@ -60,10 +60,19 @@
         }
 
         .card-heroi {
-            display: flex; align-items: center; justify-content: space-between;
-            background: rgba(20, 15, 15, 0.6); border: 1px solid rgba(139, 0, 0, 0.2);
-            padding: 10px 14px; border-radius: 3px; border-left: 4px solid var(--token-color);
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between;
+            background: rgba(20, 15, 15, 0.6); 
+            border: 1px solid rgba(139, 0, 0, 0.2);
+            /* AUMENTADO: 10px em cima e embaixo para dar espaço vertical ao texto */
+            padding: 10px 14px 10px 0px; 
+            border-radius: 4px; 
+            border-left: 4px solid var(--token-color);
             transition: all 0.3s ease;
+            overflow: hidden; 
+            /* AUMENTADO: De 70px para 85px (ou mais, se achar necessário) */
+            min-height: 100px; 
         }
 
         .card-heroi.corrompido-estado {
@@ -72,12 +81,25 @@
             border-color: rgba(156, 65, 116, 0.4);
         }
 
-        .info-heroi { display: flex; align-items: center; gap: 10px; }
-        .avatar-painel { width: 35px; height: 35px; border-radius: 50%; border: 1px solid #c5a059; object-fit: cover; transition: border-color 0.3s; }
+        .info-heroi { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            height: 100%; 
+            align-self: stretch; /* Faz este container esticar verticalmente */
+        }
+
+        .avatar-painel { 
+            width: 55px; /* Largura fixa para o retângulo */
+            height: 100%; /* Força a imagem a esticar de cima a baixo */
+            align-self: stretch; 
+            object-fit: cover; /* Faz a imagem cortar sem distorcer */
+            border-right: 1px solid rgba(197, 160, 89, 0.2); /* Divisória sutil entre a foto e os textos */
+            transition: all 0.3s;
+        }
         
         .card-heroi.corrompido-estado .avatar-painel {
-            border-color: #9c4174;
-            box-shadow: 0 0 5px #9c4174;
+            border-right-color: #9c4174;
         }
 
         .textos-heroi { display: flex; flex-direction: column; }
@@ -93,6 +115,56 @@
             width: 28px; height: 28px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer;
         }
         .btn-pv:hover { color: #fff; border-color: #8b0000; background: #4a0000; }
+
+        /* Container para alinhar as duas linhas (PV e AM) */
+        .atributos-container { display: flex; flex-direction: column; gap: 6px; margin-top: 5px; }
+        
+        /* Container de PV (mantido igual) */
+        .pv-container { font-size: 1.1rem; font-weight: bold; color: #8b0000; }
+        .pv-container span { color: #dcd0c0; }
+        
+        /* Novo Container de AM (estilo idêntico ao PV, mas roxo) */
+        .am-container { font-size: 1.1rem; font-weight: bold; color: #9c4174; font-family: 'Lora', serif; }
+        .am-container span { color: #dcd0c0; }
+
+        .controles-heroi { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+        
+        /* Container para agrupar os botões de cada atributo */
+        /* Container para agrupar os botões de cada atributo */
+        .linhas-botoes { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 6px; 
+            width: 100%; /* Garante que o container ocupe todo o espaço disponível */
+        }
+        
+        .botoes-acao { 
+            display: flex; 
+            gap: 6px; 
+            align-items: center; 
+            justify-content: flex-end; /* Alinha todos os botões de todas as linhas à direita */
+        }
+        
+        .btn-pv {
+            background: rgba(40, 10, 10, 0.5); color: #bfae96; border: 1px solid rgba(197, 160, 89, 0.2);
+            width: 28px; height: 28px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer;
+        }
+        .btn-pv:hover { color: #fff; border-color: #8b0000; background: #4a0000; }
+
+        /* Novo botão específico para o AM (muda a cor de hover para roxo) */
+        .btn-am {
+            background: rgba(30, 10, 30, 0.5); color: #bfae96; border: 1px solid rgba(197, 160, 89, 0.2);
+            width: 28px; height: 28px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer;
+        }
+        .btn-am:hover { color: #fff; border-color: #9c4174; background: #4a154b; }
+
+        /* Botão para Rolar Dado */
+        .btn-dado {
+            background: rgba(197, 160, 89, 0.1); color: #c5a059; border: 1px solid #c5a059;
+            width: 28px; height: 28px; font-size: 0.9rem; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; border-radius: 3px; transition: all 0.2s;
+        }
+        .btn-dado:hover { background: #c5a059; color: #050505; box-shadow: 0 0 8px rgba(197, 160, 89, 0.4); }
 
         /* Botão para Rolar Dado */
         .btn-dado {
@@ -229,14 +301,23 @@
                     <img src="./assets/herois/adepto.jpg?w=100" class="avatar-painel" id="avatar-h1">
                     <div class="textos-heroi">
                         <span class="nome-heroi">Adepto das Sombras</span>
-                        <span class="pv-container"><span id="pv-h1">5</span> PV</span>
+                        <div class="atributos-container">
+                            <span class="pv-container"><span id="pv-h1">5</span> PV</span>
+                            <span class="am-container"><span id="am-h1">0</span> AM</span>
+                        </div>
                     </div>
                 </div>
                 <div class="controles-heroi">
-                    <div class="botoes-acao">
-                        <button class="btn-dado" onclick="lancarDado('h1')">⚄</button>
-                        <button class="btn-pv" onclick="alterarPV('h1', -1)">-</button>
-                        <button class="btn-pv" onclick="alterarPV('h1', 1)">+</button>
+                    <div class="linhas-botoes">
+                        <div class="botoes-acao">
+                            <button class="btn-dado" onclick="lancarDado('h1')">⚄</button>
+                            <button class="btn-pv" onclick="alterarPV('h1', -1)">-</button>
+                            <button class="btn-pv" onclick="alterarPV('h1', 1)">+</button>
+                        </div>
+                        <div class="botoes-acao">
+                            <button class="btn-am" onclick="alterarAM('h1', -1)">-</button>
+                            <button class="btn-am" onclick="alterarAM('h1', 1)">+</button>
+                        </div>
                     </div>
                     <button class="btn-estado" id="btn-estado-h1" onclick="alternarEstado('h1')">Normal</button>
                 </div>
@@ -514,6 +595,16 @@
                 set(ref(db, 'status/' + idHeroi + '/pv'), pv);
             }
         }
+        // --- ENVIAR ENTRADA DE AM AO BANCO ---
+        window.alterarAM = function(idHeroi, valor) {
+            const display = document.getElementById(`am-${idHeroi}`);
+            if (display) {
+                let am = parseInt(display.innerText) + valor;
+                if (am < 0) am = 0;
+                if (am > 999) am = 999;
+                set(ref(db, 'status/' + idHeroi + '/am'), am);
+            }
+        }
 
         // --- ALTERAR ESTADO (NORMAL / CORROMPIDO) NO BANCO ---
         window.alternarEstado = function(idHeroi) {
@@ -652,6 +743,11 @@
                     if (dados[idHeroi].estado !== undefined) {
                         aplicarEstadoVisual(idHeroi, dados[idHeroi].estado);
                     }
+                    // --- ATUALIZAÇÃO DO AM EM TEMPO REAL ---
+                    const displayAM = document.getElementById(`am-${idHeroi}`);
+                    if (displayAM && dados[idHeroi].am !== undefined) {
+                        displayAM.innerText = dados[idHeroi].am;
+                    }
                 });
             }
         });
@@ -662,7 +758,7 @@
         onValue(ref(db, 'rolagem_dado'), (snapshot) => {
             const dados = snapshot.val();
             
-            // SÓ roda a animação se o dado tiver sido gerado DEPOIS que a página abriu
+            // Só roda a animação se o dado tiver sido gerado DEPOIS que a página abriu
             if (dados && dados.timestamp > momentoCarregamento) {
                 // Garante que só roda uma vez por clique usando o timestamp
                 if (!window.ultimoTimestampRolado || dados.timestamp > window.ultimoTimestampRolado) {
