@@ -645,7 +645,7 @@
         // Ações dos botões de Usar / Não Usar corrigidas
         document.getElementById('btn-modal-usar').addEventListener('click', () => {
             if (imagemAbertaLocalmente) {
-                // Marca o botão como vermelho no Firebase
+                // Marca o botão como vermelho no Firebase (true)
                 set(ref(db, `status/${imagemAbertaLocalmente.idHeroi}/botoes_img/${imagemAbertaLocalmente.numeroBotao}`), true);
             }
             // Fecha a imagem para todo mundo
@@ -654,7 +654,11 @@
         });
 
         document.getElementById('btn-modal-nao-usar').addEventListener('click', () => {
-            // Apenas fecha a imagem para todo mundo sem marcar como vermelho
+            if (imagemAbertaLocalmente) {
+                // MODIFICADO: Remove a cor vermelha no Firebase voltando o estado para falso (false)
+                set(ref(db, `status/${imagemAbertaLocalmente.idHeroi}/botoes_img/${imagemAbertaLocalmente.numeroBotao}`), false);
+            }
+            // Fecha a imagem para todo mundo
             set(ref(db, 'imagem_ativa'), null);
             imagemAbertaLocalmente = null;
         });
