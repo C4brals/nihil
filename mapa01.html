@@ -72,7 +72,7 @@
             transition: all 0.3s ease;
             overflow: hidden; 
             /* AUMENTADO: De 70px para 85px (ou mais, se achar necessário) */
-            min-height: 100px; 
+            min-height: 130px; 
         }
 
         .card-heroi.corrompido-estado {
@@ -182,6 +182,21 @@
         .btn-estado:hover { background: #c5a059; color: #050505; }
         .card-heroi.corrompido-estado .btn-estado { border-color: #9c4174; color: #9c4174; background: rgba(30, 10, 35, 0.8); }
         .card-heroi.corrompido-estado .btn-estado:hover { background: #9c4174; color: #fff; box-shadow: 0 0 8px #9c4174; }
+
+        .btn-numero {
+            background: rgba(197, 160, 89, 0.1); color: #bfae96; border: 1px solid rgba(197, 160, 89, 0.3);
+            width: 24px; height: 24px; font-family: 'Lora', serif; font-size: 0.8rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; border-radius: 3px; transition: all 0.2s;
+        }
+        .btn-numero:hover { background: rgba(197, 160, 89, 0.3); color: #fff; }
+        
+        /* Estado quando o botão for marcado como "Usar" */
+        .btn-numero.usado {
+            background: #8b0000 !important;
+            color: #ffffff !important;
+            border-color: #ff0000 !important;
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.6);
+        }
 
         /* Container do Tabuleiro */
         .tabuleiro-container {
@@ -320,6 +335,11 @@
                         </div>
                     </div>
                     <button class="btn-estado" id="btn-estado-h1" onclick="alternarEstado('h1')">Normal</button>
+                    <div class="botoes-imagens" style="display: flex; gap: 4px; margin-top: 4px;">
+                        <button id="btn-img-h1-1" class="btn-numero" onclick="abrirImagemCentral('h1', 1, './assets/habilidades/Adepto 1.jpg')">1</button>
+                        <button id="btn-img-h1-2" class="btn-numero" onclick="abrirImagemCentral('h1', 2, './assets/habilidades/Adepto 2.jpg')">2</button>
+                        <button id="btn-img-h1-3" class="btn-numero" onclick="abrirImagemCentral('h1', 3, './assets/habilidades/Adepto 3.jpg')">3</button>
+                    </div>
                 </div>
             </div>
 
@@ -606,6 +626,40 @@
             }
         }
 
+        // Guarda temporariamente qual botão disparou o modal atual
+        let botaoPendente = null;
+
+        window.abrirImagemCentral = function(idHeroi, numeroBotao, caminhoImagem) {
+            const modal = document.getElementById('modal-imagem-central');
+            const img = document.getElementById('imagem-central-exibida');
+            
+            botaoPendente = { idHeroi, numeroBotao };
+            img.src = caminhoImagem;
+            modal.style.display = 'flex';
+        };
+
+        // Ações dos botões internos do Modal
+        document.getElementById('btn-modal-usar').addEventListener('click', () => {
+            if (botaoPendente) {
+                // Envia o estado "usado" para o Firebase para sincronizar com todos
+                set(ref(db, `status/${botaoPendente.idHeroi}/botoes_img/${botaoPendente.numeroBotao}`), true);
+            }
+            fecharModalCentral();
+        });
+
+        document.getElementById('btn-modal-nao-usar').addEventListener('click', () => {
+            if (botaoPendente) {
+                // Opcional: Desmarca ou apenas fecha mantendo como não usado
+                set(ref(db, `status/${botaoPendente.idHeroi}/botoes_img/${botaoPendente.numeroBotao}`), false);
+            }
+            fecharModalCentral();
+        });
+
+        function fecharModalCentral() {
+            document.getElementById('modal-imagem-central').style.display = 'none';
+            botaoPendente = null;
+        }
+
         // --- ALTERAR ESTADO (NORMAL / CORROMPIDO) NO BANCO ---
         window.alternarEstado = function(idHeroi) {
             const btn = document.getElementById(`btn-estado-${idHeroi}`);
@@ -748,6 +802,18 @@
                     if (displayAM && dados[idHeroi].am !== undefined) {
                         displayAM.innerText = dados[idHeroi].am;
                     }
+                    // --- ATUALIZAÇÃO DOS BOTÕES 1, 2, 3 EM TEMPO REAL ---
+                    const dadosBotoes = dados[idHeroi].botoes_img;
+                    for (let num = 1; num <= 3; num++) {
+                        const btn = document.getElementById(`btn-img-${idHeroi}-${num}`);
+                        if (btn) {
+                            if (dadosBotoes && dadosBotoes[num] === true) {
+                                btn.classList.add('usado');
+                            } else {
+                                btn.classList.remove('usado');
+                            }
+                        }
+                    }
                 });
             }
         });
@@ -768,5 +834,14 @@
             }
         });
     </script>
+
+    <div id="modal-imagem-central" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center; flex-direction: column; gap: 20px;">
+        <img id="imagem-central-exibida" src="" style="max-width: 80%; max-height: 70vh; border: 2px solid #c5a059; box-shadow: 0 0 20px rgba(197, 160, 89, 0.5); border-radius: 4px;">
+        <div style="display: flex; gap: 20px;">
+            <button id="btn-modal-usar" style="background: #8b0000; color: #fff; border: 1px solid #ff0000; padding: 10px 25px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer; border-radius: 4px;">Usar</button>
+            <button id="btn-modal-nao-usar" style="background: #333; color: #dcd0c0; border: 1px solid #555; padding: 10px 25px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer; border-radius: 4px;">Não usar</button>
+        </div>
+    </div>
+
 </body>
 </html>
