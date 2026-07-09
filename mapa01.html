@@ -801,10 +801,11 @@
                 </div>
 
                 <div class="menu-item-container">
-                    <button class="btn-menu-rodape" onclick="alternarDropup(event, 'drop-itens')">Itens Vinculados</button>
+                    <button class="btn-menu-rodape" onclick="alternarDropup(event, 'drop-itens')">Itens</button>
                     <ul id="drop-itens" class="lista-dropup">
                         <li onclick="mostrarImagemGrupo('./assets/Cartas/Itens Vinculados/A Insaciável.jpg')">A Insaciável</li>
                         <li onclick="mostrarImagemGrupo('./assets/Cartas/Itens Vinculados/Chama do Farol.jpg')">Chama do Farol</li>
+                        <li onclick="mostrarImagemGrupo('./assets/Cartas/Consumíveis/E de Cura.jpg')">Elixir de Cura</li>
                     </ul>
                 </div>
 
@@ -837,7 +838,7 @@
                 </div>
 
                 <div class="menu-item-container">
-                    <button class="btn-menu-rodape" onclick="alternarDropup(event, 'drop-fragmentos')">Fragmentos da Alma</button>
+                    <button class="btn-menu-rodape" onclick="alternarDropup(event, 'drop-fragmentos')">Fragmentos</button>
                     <ul id="drop-fragmentos" class="lista-dropup">
                         <li onclick="mostrarImagemGrupo('./assets/Cartas/Fragmentos de Almas/1.jpg')">Fragmento de Alma</li>
                     </ul>
@@ -865,9 +866,22 @@
                 </div>
 
                 <div class="menu-item-container">
-                    <button class="btn-menu-rodape" onclick="alternarDropup(event, 'drop-Artefatos')">Artefatos de Alnur</button>
+                    <button class="btn-menu-rodape" onclick="alternarDropup(event, 'drop-Artefatos')">Artefatos</button>
                     <ul id="drop-Artefatos" class="lista-dropup">
                         <li onclick="mostrarImagemGrupo('./assets/Cartas/Artefatos de Alnur/Crisol.jpg')">Crisol</li>
+                    </ul>
+                </div>
+
+                <!-- Mudança de mapas -->
+
+                <div class="menu-item-container">
+                    <button class="btn-menu-rodape" onclick="alternarDropup(event, 'drop-mapas')" style="color: #ffc107; border-color: rgba(255, 193, 7, 0.4);">Mudar Mapa</button>
+                    <ul id="drop-mapas" class="lista-dropup">
+                        <li onclick="trocarMapaNoBanco('./assets/mapas/mapa01.jpg')">Mapa I</li>
+                        <li onclick="trocarMapaNoBanco('./assets/mapas/mapa02.jpg')">Mapa II</li>
+                        <li onclick="trocarMapaNoBanco('./assets/mapas/mapa03.jpg')">Mapa III</li>
+                        <li onclick="trocarMapaNoBanco('./assets/mapas/mapa02.jpg')">Mapa IV</li>
+                        <li onclick="trocarMapaNoBanco('./assets/mapas/mapa03.jpg')">Mapa V</li>
                     </ul>
                 </div>
             </div>
@@ -949,6 +963,12 @@
                 set(ref(db, 'status/' + idHeroi + '/am'), am);
             }
         }
+
+        // --- FUNÇÃO PARA ALTERNAR O MAPA NO BANCO DE DADOS ---
+        window.trocarMapaNoBanco = function(caminhoMapa) {
+            // Salva a URL do mapa atual em um nó separado chamado 'mapa_atual'
+            set(ref(db, 'mapa_atual'), caminhoMapa);
+        };
 
         // Guarda temporariamente qual botão disparou o modal atual
         let botaoPendente = null;
@@ -1152,6 +1172,16 @@
                         tokenNode.style.top = dados[id].top + '%';
                     }
                 });
+            }
+        });
+
+        // --- ESCUTADOR PARA ATUALIZAR O MAPA EM TEMPO REAL ---
+        onValue(ref(db, 'mapa_atual'), (snapshot) => {
+            const caminhoMapa = snapshot.val();
+            const tagMapa = document.querySelector('.mapa-img');
+            
+            if (caminhoMapa && tagMapa) {
+                tagMapa.src = caminhoMapa;
             }
         });
 
