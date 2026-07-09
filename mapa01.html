@@ -1051,6 +1051,31 @@
             });
         }
 
+        // --- FUNÇÃO PARA O INIMIGO ROLAR DADO D6 ---
+        window.lancarDadoInimigo = function() {
+            // Descobre o nome do arquivo da imagem ativa para usar como identificação (ex: "esqueleto.jpg")
+            let nomeInimigo = "Inimigo";
+            if (imagemAbertaLocalmente && imagemAbertaLocalmente.caminho) {
+                const partes = imagemAbertaLocalmente.caminho.split('/');
+                const arquivo = partes[partes.length - 1]; // pega "esqueleto.jpg"
+                nomeInimigo = arquivo.split('.')[0]; // remove o ".jpg" e deixa "esqueleto"
+                // Deixa a primeira letra maiúscula (ex: "Esqueleto")
+                nomeInimigo = nomeInimigo.charAt(0).toUpperCase() + nomeInimigo.slice(1);
+            }
+
+            const resultado = Math.floor(Math.random() * 6) + 1;
+
+            // Envia para o Firebase usando o mesmo nó tridimensional do dado
+            set(ref(db, 'rolagem_dado'), {
+                idHeroi: 'sistema_inimigo',
+                nome: nomeInimigo + " Atacou!",
+                resultado: resultado,
+                estado: 'Corrompido', // Força o efeito visual de corrupção/fumaça preta se houver
+                cor: '#ff0000',       // Cor vermelha viva e forte para o dado 3D
+                timestamp: Date.now()
+            });
+        };
+
         // --- ANIMAÇÃO FÍSICA E ROTACIONAL DO DADO 3D COM BASE NO RESULTADO ---
         function animarDado3D(nome, resultado, estado, cor) {
             const cena = document.getElementById('cena-dado');
@@ -1268,14 +1293,20 @@
         </div>
 
         <div id="container-vida-monstro" style="display: none; flex-direction: column; align-items: center; gap: 12px; background: rgba(15,10,10,0.95); padding: 15px 25px; border: 1px solid rgba(197,160,89,0.3); border-radius: 6px; pointer-events: auto;">
-            <div style="display: flex; align-items: center; gap: 15px;">
-                <span style="font-family: 'Cinzel', serif; font-weight: bold; color: #8b0000; font-size: 1.2rem;">PV:</span>
-                <button onclick="alterarVidaTemporaria(-1)" style="background: #333; color: #fff; border: 1px solid #555; width: 30px; height: 30px; cursor: pointer; font-weight: bold; border-radius: 3px;">-</button>
-                <span id="display-vida-temporaria" style="font-family: 'Lora', serif; font-size: 1.5rem; font-weight: bold; color: #fff; min-width: 40px; text-align: center;">0</span>
-                <button onclick="alterarVidaTemporaria(1)" style="background: #8b0000; color: #fff; border: 1px solid #ff0000; width: 30px; height: 30px; cursor: pointer; font-weight: bold; border-radius: 3px;">+</button>
-            </div>
-            <button id="btn-modal-fechar-sistema" style="background: #222; color: #bfae96; border: 1px solid #444; padding: 6px 16px; font-family: 'Lora', serif; cursor: pointer; border-radius: 4px; margin-top: 5px; font-size: 0.85rem;">Fechar Imagem</button>
+        
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <span style="font-family: 'Cinzel', serif; font-weight: bold; color: #8b0000; font-size: 1.2rem;">PV:</span>
+            <button onclick="alterarVidaTemporaria(-1)" style="background: #333; color: #fff; border: 1px solid #555; width: 30px; height: 30px; cursor: pointer; font-weight: bold; border-radius: 3px;">-</button>
+            <span id="display-vida-temporaria" style="font-family: 'Lora', serif; font-size: 1.5rem; font-weight: bold; color: #fff; min-width: 40px; text-align: center;">0</span>
+            <button onclick="alterarVidaTemporaria(1)" style="background: #8b0000; color: #fff; border: 1px solid #ff0000; width: 30px; height: 30px; cursor: pointer; font-weight: bold; border-radius: 3px;">+</button>
         </div>
+
+        <button onclick="lancarDadoInimigo()" style="background: linear-gradient(135deg, #8b0000 0%, #ff0000 100%); color: #fff; border: 2px solid #ff4d4d; padding: 8px 20px; font-family: 'Cinzel', serif; font-weight: bold; font-size: 1rem; cursor: pointer; border-radius: 5px; box-shadow: 0 0 15px rgba(255, 0, 0, 0.4); text-transform: uppercase; letter-spacing: 1px; transition: transform 0.1s, box-shadow 0.2s; width: 100%; margin-top: 5px;" onmouseover="this.style.boxShadow='0 0 25px rgba(255, 0, 0, 0.8)'" onmouseout="this.style.boxShadow='0 0 15px rgba(255, 0, 0, 0.4)'">
+            ⚔️ Rolar Ataque (D6)
+        </button>
+
+        <button id="btn-modal-fechar-sistema" style="background: #222; color: #bfae96; border: 1px solid #444; padding: 6px 16px; font-family: 'Lora', serif; cursor: pointer; border-radius: 4px; margin-top: 5px; font-size: 0.85rem; width: 100%;">Fechar Imagem</button>
+    </div>
     </div>
 </div>
 
