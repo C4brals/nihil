@@ -396,8 +396,8 @@
         <select id="seletor-musica" onchange="trocarMusica()" style="background: #222; color: #dcd0c0; border: 1px solid #444; font-family: 'Lora', serif; font-size: 0.75rem; padding: 2px 5px; cursor: pointer; max-width: 120px;">
             <option value="">Sem música</option>
             <option value="./assets/audios/audio_leitura.mp3">Mistério</option>
-            <option value="assets/musicas/tema_taberna.mp3">Taberna</option>
-            <option value="assets/musicas/tema_misterio.mp3">Combate</option>
+            <option value="./assets/audios/batalha.mp3">Batalha</option>
+            <option value="./assets/audios/chuva.mp3">Chuva</option>
         </select>
 
         <button id="btn-play-pause" onclick="alternarPlayPause()" style="background: #8b0000; color: #fff; border: 1px solid #ff0000; font-size: 0.75rem; padding: 2px 8px; cursor: pointer; font-family: 'Cinzel', serif; font-weight: bold; border-radius: 3px; min-width: 50px;">
@@ -467,7 +467,7 @@
             </div>
 
             <!-- ATROZ -->
-            <div id="card-h2" class="card-heroi" style="--token-color: #2e4a2e;" 
+            <div id="card-h2" class="card-heroi" style="--token-color: #743838;" 
                  data-img-normal="./assets/herois/atroz.jpg?w=100"
                  data-img-corrompida="./assets/herois/atroz_corrompido.jpg?w=100">
                 <div class="info-heroi">
@@ -502,7 +502,7 @@
             </div>
 
             <!-- Cacador -->
-            <div id="card-h3" class="card-heroi" style="--token-color: #2e4a2e;" 
+            <div id="card-h3" class="card-heroi" style="--token-color: #202020;" 
                  data-img-normal="./assets/herois/cacador.jpg?w=100"
                  data-img-corrompida="./assets/herois/cacador_corrompido.jpg?w=100">
                 <div class="info-heroi">
@@ -537,7 +537,7 @@
             </div>
 
             <!-- Cleriga -->
-            <div id="card-h4" class="card-heroi" style="--token-color: #7c5225;" 
+            <div id="card-h4" class="card-heroi" style="--token-color: #df8ce6;" 
                  data-img-normal="./assets/herois/cleriga.jpg?w=100"
                  data-img-corrompida="./assets/herois/cleriga_corrompido.jpg?w=100">
                 <div class="info-heroi">
@@ -572,7 +572,7 @@
             </div>
 
             <!-- combatente -->
-            <div id="card-h5" class="card-heroi" style="--token-color: #7c5225;" 
+            <div id="card-h5" class="card-heroi" style="--token-color: #331216;" 
                  data-img-normal="./assets/herois/combatente.jpg?w=100"
                  data-img-corrompida="./assets/herois/combatente_corrompido.jpg?w=100">
                 <div class="info-heroi">
@@ -607,7 +607,7 @@
             </div>
 
             <!-- Druida -->
-            <div id="card-h6" class="card-heroi" style="--token-color: #7c5225;" 
+            <div id="card-h6" class="card-heroi" style="--token-color: #4ead3b;" 
                  data-img-normal="./assets/herois/druida.jpg?w=100"
                  data-img-corrompida="./assets/herois/druida_corrompido.jpg?w=100">
                 <div class="info-heroi">
@@ -642,7 +642,7 @@
             </div>
 
             <!-- elementarista -->
-            <div id="card-h7" class="card-heroi" style="--token-color: #7c5225;" 
+            <div id="card-h7" class="card-heroi" style="--token-color: #0d4949;" 
                  data-img-normal="./assets/herois/elementarista.jpg?w=100"
                  data-img-corrompida="./assets/herois/elementarista_corrompido.jpg?w=100">
                 <div class="info-heroi">
@@ -658,7 +658,7 @@
                 <div class="controles-heroi">
                     <div class="linhas-botoes">
                         <div class="botoes-acao">
-                            <button class="btn-dado" onclick="lancarDado('h6')">⚄</button>
+                            <button class="btn-dado" onclick="lancarDado('h7')">⚄</button>
                             <button class="btn-pv" onclick="alterarPV('h7', -1)">-</button>
                             <button class="btn-pv" onclick="alterarPV('h7', 1)">+</button>
                         </div>
@@ -677,7 +677,7 @@
             </div>
 
             <!-- guardiao -->
-            <div id="card-h8" class="card-heroi" style="--token-color: #7c5225;" 
+            <div id="card-h8" class="card-heroi" style="--token-color: #7e3818;" 
                  data-img-normal="./assets/herois/guardiao.jpg?w=100"
                  data-img-corrompida="./assets/herois/guardiao_corrompido.jpg?w=100">
                 <div class="info-heroi">
@@ -712,7 +712,7 @@
             </div>
 
             <!-- Necromante -->
-            <div id="card-h9" class="card-heroi" style="--token-color: #9c4174;" 
+            <div id="card-h9" class="card-heroi" style="--token-color: #3f0024;" 
                  data-img-normal="./assets/herois/necromante.jpg?w=100"
                  data-img-corrompida="./assets/herois/necromante_corrompido.jpg?w=100">
                 <div class="info-heroi">
@@ -747,7 +747,7 @@
             </div>
 
             <!-- Protetor -->
-            <div id="card-h10" class="card-heroi" style="--token-color: #9c4174;" 
+            <div id="card-h10" class="card-heroi" style="--token-color: #8a8104;" 
                  data-img-normal="./assets/herois/protetor.jpg?w=100"
                  data-img-corrompida="./assets/herois/protetor_corrompido.jpg?w=100">
                 <div class="info-heroi">
@@ -1380,7 +1380,7 @@
             </div>
 
             <button onclick="lancarDadoInimigo()" style="background: linear-gradient(135deg, #8b0000 0%, #ff0000 100%); color: #fff; border: 2px solid #ff4d4d; padding: 8px 20px; font-family: 'Cinzel', serif; font-weight: bold; font-size: 1rem; cursor: pointer; border-radius: 5px; box-shadow: 0 0 15px rgba(255, 0, 0, 0.4); text-transform: uppercase; letter-spacing: 1px; transition: transform 0.1s; width: 100%; margin-top: 5px;">
-                ⚔️ Rolar Ataque (D6)
+                ⚔️ Rolar Ataque
             </button>
 
             <button id="btn-modal-fechar-sistema" style="background: #222; color: #bfae96; border: 1px solid #444; padding: 6px 16px; font-family: 'Lora', serif; cursor: pointer; border-radius: 4px; margin-top: 5px; font-size: 0.85rem; width: 100%;">Fechar Inimigo</button>
