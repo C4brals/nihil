@@ -629,30 +629,31 @@
         // Guarda temporariamente qual botão disparou o modal atual
         let botaoPendente = null;
 
+        // Modificado: Agora avisa o Firebase para abrir a imagem para todos
         window.abrirImagemCentral = function(idHeroi, numeroBotao, caminhoImagem) {
-            const modal = document.getElementById('modal-imagem-central');
-            const img = document.getElementById('imagem-central-exibida');
-            
-            botaoPendente = { idHeroi, numeroBotao };
-            img.src = caminhoImagem;
-            modal.style.display = 'flex';
+            set(ref(db, 'imagem_ativa'), {
+                idHeroi: idHeroi,
+                numeroBotao: numeroBotao,
+                caminho: caminhoImagem
+            });
         };
 
-        // Ações dos botões internos do Modal
+        // Ações dos botões de Usar / Não Usar atualizadas
         document.getElementById('btn-modal-usar').addEventListener('click', () => {
-            if (botaoPendente) {
-                // Envia o estado "usado" para o Firebase para sincronizar com todos
-                set(ref(db, `status/${botaoPendente.idHeroi}/botoes_img/${botaoPendente.numeroBotao}`), true);
-            }
-            fecharModalCentral();
+            // Pegamos os dados diretamente do nó temporário que o Firebase guardou
+            get(ref(db, 'imagem_ativa')).then((snapshot) => {
+                const dados = snapshot.val();
+                if (dados) {
+                    set(ref(db, `status/${dados.idHeroi}/botoes_img/${dados.numeroBotao}`), true);
+                }
+                // Limpa o nó para fechar a tela de todo mundo
+                set(ref(db, 'imagem_ativa'), null);
+            });
         });
 
         document.getElementById('btn-modal-nao-usar').addEventListener('click', () => {
-            if (botaoPendente) {
-                // Opcional: Desmarca ou apenas fecha mantendo como não usado
-                set(ref(db, `status/${botaoPendente.idHeroi}/botoes_img/${botaoPendente.numeroBotao}`), false);
-            }
-            fecharModalCentral();
+            // Apenas limpa o nó para fechar a tela de todo mundo sem marcar como vermelho
+            set(ref(db, 'imagem_ativa'), null);
         });
 
         function fecharModalCentral() {
@@ -783,6 +784,21 @@
                         tokenNode.style.top = dados[id].top + '%';
                     }
                 });
+            }
+        });
+
+        // --- ESCUTADOR PARA EXIBIR IMAGEM PARA TODOS EM TEMPO REAL ---
+        onValue(ref(db, 'imagem_ativa'), (snapshot) => {
+            const dados = snapshot.val();
+            const modal = document.getElementById('modal-imagem-central');
+            const img = document.getElementById('imagem-central-exibida');
+
+            if (dados && dados.caminho) {
+                img.src = dados.caminho;
+                modal.style.display = 'flex';
+            } else {
+                modal.style.display = 'none';
+                img.src = '';
             }
         });
 
