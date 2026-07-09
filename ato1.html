@@ -975,6 +975,7 @@
 
         // Variável local para que o seu navegador lembre qual botão está aberto no momento
         let imagemAbertaLocalmente = null;
+        let inimigoAbertoLocalmente = null;
 
         // Modificado: Salva localmente e envia ao Firebase para abrir para todos
         window.abrirImagemCentral = function(idHeroi, numeroBotao, caminhoImagem) {
@@ -986,19 +987,19 @@
             });
         };
 
-        // --- CONTROLE DA VIDA TEMPORÁRIA DOS MONSTROS ---
+        // Modificado: Altera a vida no nó correto do inimigo
         window.alterarVidaTemporaria = function(valor) {
-            if (imagemAbertaLocalmente && imagemAbertaLocalmente.idHeroi === 'sistema') {
-                let novaVida = (imagemAbertaLocalmente.vida || 0) + valor;
+            if (inimigoAbertoLocalmente) {
+                let novaVida = (inimigoAbertoLocalmente.vida || 0) + valor;
                 if (novaVida < 0) novaVida = 0;
-                // Atualiza a vida diretamente no nó do Firebase
-                set(ref(db, 'imagem_ativa/vida'), novaVida);
+                set(ref(db, 'inimigo_ativo/vida'), novaVida);
             }
         };
 
         // Ações dos botões de Usar / Não Usar corrigidas com travas de segurança
+        // Botões dos heróis limpam apenas o nó 'imagem_ativa'
         document.getElementById('btn-modal-usar').addEventListener('click', () => {
-            if (imagemAbertaLocalmente && imagemAbertaLocalmente.idHeroi !== 'sistema') {
+            if (imagemAbertaLocalmente) {
                 set(ref(db, `status/${imagemAbertaLocalmente.idHeroi}/botoes_img/${imagemAbertaLocalmente.numeroBotao}`), true);
             }
             set(ref(db, 'imagem_ativa'), null);
@@ -1006,7 +1007,7 @@
         });
 
         document.getElementById('btn-modal-nao-usar').addEventListener('click', () => {
-            if (imagemAbertaLocalmente && imagemAbertaLocalmente.idHeroi !== 'sistema') {
+            if (imagemAbertaLocalmente) {
                 set(ref(db, `status/${imagemAbertaLocalmente.idHeroi}/botoes_img/${imagemAbertaLocalmente.numeroBotao}`), false);
             }
             set(ref(db, 'imagem_ativa'), null);
@@ -1014,9 +1015,10 @@
         });
 
         // Evento para o botão de fechar quando for imagem do rodapé (sistema)
+        // Botão Fechar exclusivo do Inimigo limpa apenas o nó 'inimigo_ativo'
         document.getElementById('btn-modal-fechar-sistema').addEventListener('click', () => {
-            set(ref(db, 'imagem_ativa'), null);
-            imagemAbertaLocalmente = null;
+            set(ref(db, 'inimigo_ativo'), null);
+            inimigoAbertoLocalmente = null;
         });
 
         function fecharModalCentral() {
@@ -1052,26 +1054,24 @@
         }
 
         // --- FUNÇÃO PARA O INIMIGO ROLAR DADO D6 ---
+        // Modificado: Lê o nome do inimigo a partir do nó correto
         window.lancarDadoInimigo = function() {
-            // Descobre o nome do arquivo da imagem ativa para usar como identificação (ex: "esqueleto.jpg")
             let nomeInimigo = "Inimigo";
-            if (imagemAbertaLocalmente && imagemAbertaLocalmente.caminho) {
-                const partes = imagemAbertaLocalmente.caminho.split('/');
-                const arquivo = partes[partes.length - 1]; // pega "esqueleto.jpg"
-                nomeInimigo = arquivo.split('.')[0]; // remove o ".jpg" e deixa "esqueleto"
-                // Deixa a primeira letra maiúscula (ex: "Esqueleto")
+            if (inimigoAbertoLocalmente && inimigoAbertoLocalmente.caminho) {
+                const partes = inimigoAbertoLocalmente.caminho.split('/');
+                const arquivo = partes[partes.length - 1];
+                nomeInimigo = arquivo.split('.')[0];
                 nomeInimigo = nomeInimigo.charAt(0).toUpperCase() + nomeInimigo.slice(1);
             }
 
             const resultado = Math.floor(Math.random() * 6) + 1;
 
-            // Envia para o Firebase usando o mesmo nó tridimensional do dado
             set(ref(db, 'rolagem_dado'), {
                 idHeroi: 'sistema_inimigo',
                 nome: nomeInimigo + " Atacou!",
                 resultado: resultado,
-                estado: 'Corrompido', // Força o efeito visual de corrupção/fumaça preta se houver
-                cor: '#ff0000',       // Cor vermelha viva e forte para o dado 3D
+                estado: 'Corrompido',
+                cor: '#ff0000',
                 timestamp: Date.now()
             });
         };
@@ -1178,9 +1178,7 @@
 
         // --- TRANSMITIR IMAGEM DO MENU PARA TODOS OS JOGADORES ---
         window.mostrarImagemGrupo = function(caminhoImagem) {
-            set(ref(db, 'imagem_ativa'), {
-                idHeroi: 'sistema',
-                numeroBotao: 0,
+            set(ref(db, 'inimigo_ativo'), {
                 caminho: caminhoImagem,
                 vida: 0
             });
@@ -1211,32 +1209,39 @@
         });
 
         // --- ESCUTADOR MODIFICADO: EXIBIR IMAGEM E ATUALIZAR VIDA DO GRUPO EM TEMPO REAL ---
+        // 1. Escutador das Habilidades dos Heróis (Voltou a ser simples e focado)
         onValue(ref(db, 'imagem_ativa'), (snapshot) => {
             const dados = snapshot.val();
             const modal = document.getElementById('modal-imagem-central');
             const img = document.getElementById('imagem-central-exibida');
-            const pnlHeroi = document.getElementById('container-botoes-heroi');
-            const pnlMonstro = document.getElementById('container-vida-monstro');
-            const displayVida = document.getElementById('display-vida-temporaria');
 
             if (dados && dados.caminho) {
                 imagemAbertaLocalmente = dados;
                 img.src = dados.caminho;
                 modal.style.display = 'flex';
-
-                // Altera a interface dinamicamente de acordo com a origem do clique
-                if (dados.idHeroi === 'sistema') {
-                    pnlHeroi.style.display = 'none';
-                    pnlMonstro.style.display = 'flex';
-                    displayVida.innerText = dados.vida !== undefined ? dados.vida : 0;
-                } else {
-                    pnlHeroi.style.display = 'flex';
-                    pnlMonstro.style.display = 'none';
-                }
             } else {
                 modal.style.display = 'none';
                 img.src = '';
                 imagemAbertaLocalmente = null;
+            }
+        });
+
+        // 2. NOVO Escutador Exclusivo do Inimigo Ativo do Rodapé
+        onValue(ref(db, 'inimigo_ativo'), (snapshot) => {
+            const dados = snapshot.val();
+            const modalInimigo = document.getElementById('modal-inimigo-central');
+            const imgInimigo = document.getElementById('imagem-inimigo-exibida');
+            const displayVida = document.getElementById('display-vida-temporaria');
+
+            if (dados && dados.caminho) {
+                inimigoAbertoLocalmente = dados;
+                imgInimigo.src = dados.caminho;
+                displayVida.innerText = dados.vida !== undefined ? dados.vida : 0;
+                modalInimigo.style.display = 'flex';
+            } else {
+                modalInimigo.style.display = 'none';
+                imgInimigo.src = '';
+                inimigoAbertoLocalmente = null;
             }
         });
 
@@ -1283,30 +1288,32 @@
         });
     </script>
 
-    <div id="modal-imagem-central" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); z-index: 99; align-items: center; justify-content: center; flex-direction: column; gap: 20px; pointer-events: none;">
-    
+    <div id="modal-imagem-central" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 99; align-items: center; justify-content: center; flex-direction: column; gap: 20px; pointer-events: none;">
         <img id="imagem-central-exibida" src="" style="max-width: 80%; max-height: 65vh; border: 2px solid #c5a059; box-shadow: 0 0 20px rgba(197, 160, 89, 0.5); border-radius: 4px; pointer-events: auto;">
         
         <div id="container-botoes-heroi" style="display: flex; gap: 20px; pointer-events: auto;">
             <button id="btn-modal-usar" style="background: #8b0000; color: #fff; border: 1px solid #ff0000; padding: 10px 25px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer; border-radius: 4px;">Usar</button>
             <button id="btn-modal-nao-usar" style="background: #333; color: #dcd0c0; border: 1px solid #555; padding: 10px 25px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer; border-radius: 4px;">Não usar</button>
         </div>
-
-        <div id="container-vida-monstro" style="display: none; flex-direction: column; align-items: center; gap: 12px; background: rgba(15,10,10,0.95); padding: 15px 25px; border: 1px solid rgba(197,160,89,0.3); border-radius: 6px; pointer-events: auto;">
-        
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <span style="font-family: 'Cinzel', serif; font-weight: bold; color: #8b0000; font-size: 1.2rem;">PV:</span>
-            <button onclick="alterarVidaTemporaria(-1)" style="background: #333; color: #fff; border: 1px solid #555; width: 30px; height: 30px; cursor: pointer; font-weight: bold; border-radius: 3px;">-</button>
-            <span id="display-vida-temporaria" style="font-family: 'Lora', serif; font-size: 1.5rem; font-weight: bold; color: #fff; min-width: 40px; text-align: center;">0</span>
-            <button onclick="alterarVidaTemporaria(1)" style="background: #8b0000; color: #fff; border: 1px solid #ff0000; width: 30px; height: 30px; cursor: pointer; font-weight: bold; border-radius: 3px;">+</button>
-        </div>
-
-        <button onclick="lancarDadoInimigo()" style="background: linear-gradient(135deg, #8b0000 0%, #ff0000 100%); color: #fff; border: 2px solid #ff4d4d; padding: 8px 20px; font-family: 'Cinzel', serif; font-weight: bold; font-size: 1rem; cursor: pointer; border-radius: 5px; box-shadow: 0 0 15px rgba(255, 0, 0, 0.4); text-transform: uppercase; letter-spacing: 1px; transition: transform 0.1s, box-shadow 0.2s; width: 100%; margin-top: 5px;" onmouseover="this.style.boxShadow='0 0 25px rgba(255, 0, 0, 0.8)'" onmouseout="this.style.boxShadow='0 0 15px rgba(255, 0, 0, 0.4)'">
-            ⚔️ Rolar Ataque (D6)
-        </button>
-
-        <button id="btn-modal-fechar-sistema" style="background: #222; color: #bfae96; border: 1px solid #444; padding: 6px 16px; font-family: 'Lora', serif; cursor: pointer; border-radius: 4px; margin-top: 5px; font-size: 0.85rem; width: 100%;">Fechar Imagem</button>
     </div>
+
+    <div id="modal-inimigo-central" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 98; align-items: center; justify-content: center; flex-direction: column; gap: 20px; pointer-events: none;">
+        <img id="imagem-inimigo-exibida" src="" style="max-width: 75%; max-height: 60vh; border: 2px solid #8b0000; box-shadow: 0 0 20px rgba(139, 0, 0, 0.6); border-radius: 4px; pointer-events: auto;">
+        
+        <div id="container-vida-monstro" style="flex-direction: column; align-items: center; gap: 12px; background: rgba(15,10,10,0.95); padding: 15px 25px; border: 1px solid rgba(139, 0, 0, 0.4); border-radius: 6px; pointer-events: auto;">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <span style="font-family: 'Cinzel', serif; font-weight: bold; color: #8b0000; font-size: 1.2rem;">PV:</span>
+                <button onclick="alterarVidaTemporaria(-1)" style="background: #333; color: #fff; border: 1px solid #555; width: 30px; height: 30px; cursor: pointer; font-weight: bold; border-radius: 3px;">-</button>
+                <span id="display-vida-temporaria" style="font-family: 'Lora', serif; font-size: 1.5rem; font-weight: bold; color: #fff; min-width: 40px; text-align: center;">0</span>
+                <button onclick="alterarVidaTemporaria(1)" style="background: #8b0000; color: #fff; border: 1px solid #ff0000; width: 30px; height: 30px; cursor: pointer; font-weight: bold; border-radius: 3px;">+</button>
+            </div>
+
+            <button onclick="lancarDadoInimigo()" style="background: linear-gradient(135deg, #8b0000 0%, #ff0000 100%); color: #fff; border: 2px solid #ff4d4d; padding: 8px 20px; font-family: 'Cinzel', serif; font-weight: bold; font-size: 1rem; cursor: pointer; border-radius: 5px; box-shadow: 0 0 15px rgba(255, 0, 0, 0.4); text-transform: uppercase; letter-spacing: 1px; transition: transform 0.1s; width: 100%; margin-top: 5px;">
+                ⚔️ Rolar Ataque (D6)
+            </button>
+
+            <button id="btn-modal-fechar-sistema" style="background: #222; color: #bfae96; border: 1px solid #444; padding: 6px 16px; font-family: 'Lora', serif; cursor: pointer; border-radius: 4px; margin-top: 5px; font-size: 0.85rem; width: 100%;">Fechar Inimigo</button>
+        </div>
     </div>
 </div>
 
