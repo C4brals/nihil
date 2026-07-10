@@ -342,22 +342,29 @@
             color: #fff;
         }
 
-        /* Rodapé Horizontal */
+        /* Rodapé Horizontal Corrigido com Scroll */
         .rodape-menu {
             display: flex;
-            justify-content: space-around;
+            justify-content: flex-start; /* MODIFICADO: Garante o alinhamento correto ao rolar */
+            gap: 12px;                  /* ADICIONADO: Espaçamento fixo e elegante entre os botões */
             background: rgba(15, 10, 10, 0.95);
             border-top: 2px solid #4a0000;
-            padding: 10px 0;
-            z-index: 50; /* Garante que fique acima do mapa, mas abaixo do modal */
+            padding: 10px 15px;         /* MODIFICADO: Um pouco de respiro nas laterais */
+            z-index: 50; 
             position: relative;
+            
+            /* --- REGRAS DO SCROLL HORIZONTAL --- */
+            overflow-x: auto;           /* Ativa o scroll horizontal se os botões transbordarem */
+            overflow-y: hidden;         /* Impede qualquer quebra ou scroll vertical indesejado */
+            white-space: nowrap;        /* Impede os botões de quebrarem linha */
+            -webkit-overflow-scrolling: touch; /* Deixa a rolagem super suave no celular (Touch) */
         }
 
         /* Item do menu (contém o botão e a lista que sobe) */
         .menu-item-container {
             position: relative;
+            flex-shrink: 0;             /* ADICIONADO: Impede o navegador de esmagar o botão em telas pequenas */
         }
-
         /* Botões Principais do Rodapé */
         .btn-menu-rodape {
             background: rgba(197, 160, 89, 0.1);
@@ -375,6 +382,21 @@
             background: #c5a059;
             color: #050505;
             box-shadow: 0 0 10px rgba(197, 160, 89, 0.3);
+        }
+
+        /* --- ESTILIZAÇÃO DA BARRA DE ROLAGEM MEDIEVAL DO MENU --- */
+        .rodape-menu::-webkit-scrollbar {
+            height: 4px;                /* Altura sutil da barra horizontal */
+        }
+        .rodape-menu::-webkit-scrollbar-track {
+            background: #0c0808;
+        }
+        .rodape-menu::-webkit-scrollbar-thumb {
+            background: #4a0000;         /* Vermelho escuro combinando com as bordas */
+            border-radius: 2px;
+        }
+        .rodape-menu::-webkit-scrollbar-thumb:hover {
+            background: #c5a059;         /* Fica dourado ao passar o mouse */
         }
 
         /* Lista que sobe (Dropup) */
