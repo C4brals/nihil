@@ -420,6 +420,30 @@
             color: #fff;
         }
 
+        .lista-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 5px);
+            right: 0;
+            min-width: 180px;
+            background: rgba(15,15,15,.98);
+            border: 1px solid #c5a059;
+            border-radius: 6px;
+            padding: 5px 0;
+            z-index: 30000;
+        }
+
+        .lista-dropdown li{
+            list-style:none;
+            padding:8px 12px;
+            cursor:pointer;
+            color:#ddd;
+        }
+
+        .lista-dropdown li:hover{
+            background:#3d2b12;
+        }
+
         @media (max-width: 900px) {
             .gameplay-wrapper { grid-template-columns: 1fr; }
             .painel-status { max-height: 300px; }
@@ -445,7 +469,66 @@
         </button>
 
         <input type="range" id="volume-player" min="0" max="1" step="0.1" value="0.5" oninput="ajustarVolume()" style="width: 50px; cursor: pointer; accent-color: #8b0000;">
-    </div>
+
+        <div class="menu-item-container">
+
+            <button
+                class="btn-menu-rodape"
+                onclick="alternarDropup(event,'drop-tokens')">
+
+                Tokens
+
+            </button>
+            <!-- LISTA DE TOKENS ADICIONAIS-->
+            <ul id="drop-tokens" class="lista-dropdown">
+
+                <li onclick="criarTokenExtra('General Arivys','./assets/tokens/Arivys.jpg')">
+                    General Arivys
+                </li>
+                <li onclick="criarTokenExtra('General Nargull','./assets/tokens/nargull.jpg')">
+                    General Nargull
+                </li>
+                <li onclick="criarTokenExtra('General Faredir','./assets/tokens/faredir.jpg')">
+                    General Faredir
+                </li>
+                <li onclick="criarTokenExtra('General Jafras','./assets/tokens/jafras.jpg')">
+                    General Jafras
+                </li>
+                <li onclick="criarTokenExtra('Corredor do Abismo','./assets/tokens/corredorDoAbismo.jpg')">
+                    Fenda I - Corredor do Abismo (Elite)
+                </li>
+                <li onclick="criarTokenExtra('Cria Alada','./assets/tokens/criaAlada.jpg')">
+                    Fenda I - Cria Alada (Comum)
+                </li>
+                <li onclick="criarTokenExtra('Argento Inernal','./assets/tokens/argentoInfernal.jpg')">
+                    Fenda II - Argento Inernal (Elite)
+                </li>
+                <li onclick="criarTokenExtra('Depredador','./assets/tokens/depredadorDasChamas.jpg')">
+                    Fenda II - Depredador (Comum)
+                </li>
+                <li onclick="criarTokenExtra('Arauto','./assets/tokens/arauto.jpg')">
+                    Fenda III - Arauto (Elite)
+                </li>
+                <li onclick="criarTokenExtra('Automato','./assets/tokens/automatoDaFenda.jpg')">
+                    Fenda III - Automato (Comum)
+                </li>
+                <li onclick="criarTokenExtra('Lâmina do Abismo','./assets/tokens/laminaDoAbismo.jpg')">
+                    Fenda IV - Lâmina do Abismo (Comum)
+                </li>
+                <li onclick="criarTokenExtra('Sarcedotisa de Malkar','./assets/tokens/sarcedotisaDeMalkar.jpg')">
+                    Fenda IV - Sarcedotisa de Malkar (Elite)
+                </li>
+
+
+
+
+
+            </ul>
+
+        </div>
+
+    </div> 
+   
 
     <!-- AREA GLOBAL DE LANÇAMENTO DE DADOS -->
     <div class="area-dados">
@@ -1059,31 +1142,46 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
+        let contadorTokensExtras = 0;
 
         // --- ENVIAR MOVIMENTAÇÃO AO BANCO (MOUSE + TOUCH ATUALIZADO) ---
-        const tokens = document.querySelectorAll('.token-heroi');
         let tokenAtivo = null;
-        let offsetX = 0; let offsetY = 0;
+        let offsetX = 0;
+        let offsetY = 0;
 
-        tokens.forEach(token => {
-            // Função interna para calcular o início do arrastar
+        // Registra um token para poder ser arrastado
+        function registrarToken(token) {
+
+            // Evita registrar duas vezes
+            if (token.dataset.registrado === "true") return;
+            token.dataset.registrado = "true";
+
             function iniciarMovimento(clientX, clientY) {
                 tokenAtivo = token;
+
                 offsetX = clientX - token.getBoundingClientRect().left - (token.offsetWidth / 2);
                 offsetY = clientY - token.getBoundingClientRect().top - (token.offsetHeight / 2);
-                token.style.zIndex = '200';
+
+                token.style.zIndex = "200";
             }
 
-            // Evento para Computador
-            token.addEventListener('mousedown', (e) => {
+            // Computador
+            token.addEventListener("mousedown", (e) => {
                 iniciarMovimento(e.clientX, e.clientY);
             });
 
-            // Evento para Smartphone
-            token.addEventListener('touchstart', (e) => {
+            // Celular
+            token.addEventListener("touchstart", (e) => {
                 iniciarMovimento(e.touches[0].clientX, e.touches[0].clientY);
             }, { passive: true });
-        });
+
+            
+        }
+
+        
+
+        // Registra todos os tokens existentes (os heróis)
+        document.querySelectorAll(".token-heroi").forEach(registrarToken);
 
         // Função interna para processar o cálculo dos valores em %
         function moverToken(clientX, clientY) {
@@ -1336,7 +1434,7 @@
         window.alternarDropup = function(event, idDropup) {
             event.stopPropagation();
             
-            const listas = document.querySelectorAll('.lista-dropup');
+            const listas = document.querySelectorAll('.lista-dropup, .lista-dropdown');
             listas.forEach(lista => {
                 if (lista.id !== idDropup) {
                     lista.style.display = 'none';
@@ -1356,7 +1454,7 @@
         };
 
         document.addEventListener('click', () => {
-            const listas = document.querySelectorAll('.lista-dropup');
+            const listas = document.querySelectorAll('.lista-dropup, .lista-dropdown');
             const botoes = document.querySelectorAll('.btn-menu-rodape');
             listas.forEach(lista => lista.style.display = 'none');
             botoes.forEach(botao => botao.classList.remove('ativo'));
@@ -1370,18 +1468,85 @@
             });
         };
 
+        window.criarTokenExtra = function(nome, imagem){
+
+            contadorTokensExtras++;
+
+            const id = "token-extra-" + contadorTokensExtras;
+
+            const mapa = document.querySelector(".mapa-wrapper");
+
+            const token = document.createElement("div");
+
+            token.className = "token-heroi";
+            token.style.setProperty("--token-color", "#4B0082");
+
+            token.id = id;
+
+            token.style.left = "50%";
+            token.style.top = "50%";
+
+            token.innerHTML = `
+                <img src="${imagem}">
+            `;
+
+            mapa.appendChild(token);
+
+            registrarToken(token);
+
+            set(ref(db,"tokens/"+id),{
+
+                left:50,
+                top:50,
+                nome:nome,
+                imagem:imagem
+
+            });
+
+        }
+
         // --- ESCUTADORES EM TEMPO REAL ---
-        onValue(ref(db, 'tokens/'), (snapshot) => {
-            const dados = snapshot.val();
-            if (dados) {
-                Object.keys(dados).forEach(id => {
-                    const tokenNode = document.getElementById(id);
-                    if (tokenNode && tokenNode !== tokenAtivo) {
-                        tokenNode.style.left = dados[id].left + '%';
-                        tokenNode.style.top = dados[id].top + '%';
-                    }
-                });
-            }
+        onValue(ref(db,'tokens/'),(snapshot)=>{
+
+            const dados=snapshot.val();
+
+            if(!dados) return;
+
+            Object.keys(dados).forEach(id=>{
+
+                let token=document.getElementById(id);
+
+                // Se ainda não existe, cria automaticamente
+                if(!token && dados[id].imagem){
+
+                    token=document.createElement("div");
+
+                    token.className="token-heroi";
+
+                    token.id=id;
+
+                    token.innerHTML=`
+                        <img src="${dados[id].imagem}">
+                    `;
+
+                    document
+                    .querySelector(".mapa-wrapper")
+                    .appendChild(token);
+
+                    registrarToken(token);
+
+                }
+
+                if(token!==tokenAtivo){
+
+                    token.style.left=dados[id].left+"%";
+
+                    token.style.top=dados[id].top+"%";
+
+                }
+
+            });
+
         });
 
         // --- ESCUTADOR PARA ATUALIZAR O MAPA EM TEMPO REAL ---
