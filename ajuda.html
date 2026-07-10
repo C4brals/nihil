@@ -7,12 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-
-    <link rel="icon" type="image/png" href="./assets/ico.png" sizes="32x32">
-
-    <link rel="icon" type="image/png" href="./assets/ico-grande.png" sizes="192x192">
-
-    <link rel="apple-touch-icon" href="./assets/ico-ios.png">
     
     <style>
         * {
@@ -152,6 +146,65 @@
             transform: translateY(-50%) translateX(-5px);
         }
 
+        /* Container do Botão de Voltar */
+        .botoes-container {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            z-index: 2;
+            width: 100%;
+        }
+
+        /* Botão Estilo RPG (Idêntico ao menu) */
+        .botao-voltar {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: #bfae96;
+            text-decoration: none;
+            background: linear-gradient(to right, transparent, rgba(26, 0, 0, 0.4), transparent);
+            padding: 10px 40px;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            border-radius: 3px;
+            transition: all 0.4s ease;
+            position: relative;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .botao-voltar:hover {
+            color: #ffffff;
+            border-color: #8b0000;
+            background: linear-gradient(to right, rgba(139, 0, 0, 0.2), rgba(74, 0, 0, 0.6), rgba(139, 0, 0, 0.2));
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.5), inset 0 0 10px rgba(139, 0, 0, 0.4);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+        }
+
+        .botao-voltar::before, .botao-voltar::after {
+            content: '❖';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8b0000;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .botao-voltar::before { left: 15px; }
+        .botao-voltar::after { right: 15px; }
+
+        .botao-voltar:hover::before { opacity: 1; transform: translateY(-50%) translateX(5px); }
+        .botao-voltar:hover::after { opacity: 1; transform: translateY(-50%) translateX(-5px); }
+
+        @media (max-width: 600px) {
+            .titulo-lore { font-size: 1.6rem; }
+            .lore-container { padding: 20px; max-height: 65vh; }
+            .botao-voltar { font-size: 0.9rem; padding: 8px 20px; }
+        }
+
         /* Rodapé Ajustado */
         .footer-menu {
             font-size: 0.8rem;
@@ -197,16 +250,17 @@
 
     <div class="menu-container">
         <h1 class="titulo-jogo">NIHIL, A ÚLTIMA CAMPANHA</h1>
-        <p class="subtitulo-jogo">— Uma jornada em busca do mal não compreendido —</p>
+        <p class="subtitulo-jogo">— Mapas a serem explorados —</p>
 
         <nav class="opcoes-menu">
-            <a href="./lore.html" class="botao-menu">Lore</a>
-            <a href="ajuda.html" class="botao-menu">Ajuda</a>
-            <a href="./tabuleiros.html" class="botao-menu">Tabuleiro</a>
-            <a href="/viloes.html" class="botao-menu">Principais Vilões</a>
-            <a href="painel.html?modo=mestre" class="botao-menu">Painel do Mestre</a>
-            <a href="painel.html?modo=jogador" class="botao-menu">Painel do Jogador</a>
+            <a href="./herois.html" class="botao-menu">Personagens</a>
+            <a href="./consumiveis.html" class="botao-menu">Consumíveis</a>
+            
         </nav>
+    </div>
+
+    <div class="botoes-container">
+        <a href="./index.html" class="botao-voltar">Voltar ao Menu</a>
     </div>
 
     <div class="footer-menu">
