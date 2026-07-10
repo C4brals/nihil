@@ -244,8 +244,20 @@
             border: 2px solid var(--token-color); box-shadow: 0 4px 10px rgba(0,0,0,0.8);
             cursor: move; transform: translate(-50%, -50%); z-index: 10;
             transition: border-color 0.3s, box-shadow 0.3s;
+
+            /* ---- ADICIONE ESTAS DUAS LINHAS AQUI ---- */
+            user-select: none;         /* Impede que o celular tente selecionar o token como texto */
+            touch-action: none;        /* Desativa o comportamento padrão de scroll/zoom do celular sobre o token */
         }
-        .token-heroi img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; pointer-events: none; }
+        
+        .token-heroi img { 
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; 
+            pointer-events: none; 
+
+            /* ---- ADICIONE ESTA LINHA AQUI ---- */
+            -webkit-user-drag: none;   /* Impede o navegador móvel de tentar "salvar/arrastar" a imagem pura */
+        }
+        
         .token-heroi::after {
             content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
             border-left: 5px solid transparent; border-right: 5px solid transparent;
@@ -977,27 +989,39 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // --- ENVIAR MOVIMENTAÇÃO AO BANCO ---
+        // --- ENVIAR MOVIMENTAÇÃO AO BANCO (MOUSE + TOUCH ATUALIZADO) ---
         const tokens = document.querySelectorAll('.token-heroi');
         let tokenAtivo = null;
         let offsetX = 0; let offsetY = 0;
 
         tokens.forEach(token => {
-            token.addEventListener('mousedown', (e) => {
+            // Função interna para calcular o início do arrastar
+            function iniciarMovimento(clientX, clientY) {
                 tokenAtivo = token;
-                offsetX = e.clientX - token.getBoundingClientRect().left - (token.offsetWidth / 2);
-                offsetY = e.clientY - token.getBoundingClientRect().top - (token.offsetHeight / 2);
+                offsetX = clientX - token.getBoundingClientRect().left - (token.offsetWidth / 2);
+                offsetY = clientY - token.getBoundingClientRect().top - (token.offsetHeight / 2);
                 token.style.zIndex = '200';
+            }
+
+            // Evento para Computador
+            token.addEventListener('mousedown', (e) => {
+                iniciarMovimento(e.clientX, e.clientY);
             });
+
+            // Evento para Smartphone
+            token.addEventListener('touchstart', (e) => {
+                iniciarMovimento(e.touches[0].clientX, e.touches[0].clientY);
+            }, { passive: true });
         });
 
-        document.addEventListener('mousemove', (e) => {
+        // Função interna para processar o cálculo dos valores em %
+        function moverToken(clientX, clientY) {
             if (!tokenAtivo) return;
             const container = document.querySelector('.tabuleiro-container');
             const limite = container.getBoundingClientRect();
 
-            let pctLeft = ((e.clientX - limite.left - offsetX) / limite.width) * 100;
-            let pctTop = ((e.clientY - limite.top - offsetY) / limite.height) * 100;
+            let pctLeft = ((clientX - limite.left - offsetX) / limite.width) * 100;
+            let pctTop = ((clientY - limite.top - offsetY) / limite.height) * 100;
 
             pctLeft = Math.max(0, Math.min(100, pctLeft));
             pctTop = Math.max(0, Math.min(100, pctTop));
@@ -1009,11 +1033,31 @@
                 left: pctLeft,
                 top: pctTop
             });
+        }
+
+        // Movimento no Computador
+        document.addEventListener('mousemove', (e) => {
+            moverToken(e.clientX, e.clientY);
         });
 
-        document.addEventListener('mouseup', () => {
-            if (tokenAtivo) { tokenAtivo.style.zIndex = '10'; tokenAtivo = null; }
-        });
+        // Movimento no Smartphone (Trava o scroll da página enquanto arrasta)
+        document.addEventListener('touchmove', (e) => {
+            if (!tokenAtivo) return;
+            if (e.cancelable) e.preventDefault(); 
+            moverToken(e.touches[0].clientX, e.touches[0].clientY);
+        }, { passive: false });
+
+        // Função interna para limpar o token selecionado ao soltar
+        function soltarToken() {
+            if (tokenAtivo) { 
+                tokenAtivo.style.zIndex = '10'; 
+                tokenAtivo = null; 
+            }
+        }
+
+        // Soltar no Computador e no Smartphone
+        document.addEventListener('mouseup', soltarToken);
+        document.addEventListener('touchend', soltarToken);
 
         // --- ENVIAR ENTRADA DE PV AO BANCO ---
         window.alterarPV = function(idHeroi, valor) {
