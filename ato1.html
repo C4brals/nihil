@@ -6,6 +6,7 @@
     <title>Nihil - Tabuleiro em Tempo Real</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
@@ -108,6 +109,28 @@
         
         .card-heroi.corrompido-estado .avatar-painel {
             border-right-color: #9c4174;
+        }
+
+        /* Botão de Inventário Medieval */
+        .btn-inventario-medieval {
+            background: rgba(92, 58, 33, 0.4); 
+            color: #c5a059; 
+            border: 1px solid rgba(197, 160, 89, 0.4);
+            width: 28px; 
+            height: 28px; 
+            font-size: 0.85rem; 
+            cursor: pointer; 
+            display: inline-flex;
+            align-items: center; 
+            justify-content: center; 
+            border-radius: 3px; 
+            transition: all 0.2s;
+        }
+        .btn-inventario-medieval:hover { 
+            background: #5c3a21; 
+            color: #fff; 
+            border-color: #c5a059;
+            box-shadow: 0 0 8px rgba(197, 160, 89, 0.3); 
         }
 
         .textos-heroi { display: flex; flex-direction: column; }
@@ -464,7 +487,13 @@
                             <button class="btn-pv" onclick="alterarPV('h1', -1)">-</button>
                             <button class="btn-pv" onclick="alterarPV('h1', 1)">+</button>
                         </div>
+                        
                         <div class="botoes-acao">
+                            <!-- Botão de inventário-->
+                            <button class="btn-inventario-medieval" onclick="abrirInventario('h1', 'Adepto das Sombras')" title="Inventário">
+                                <i class="fa-solid fa-flask" style="color: #c5a059; pointer-events: none;"></i>
+                            </button>
+                            <!-- Botão de inventário-->
                             <button class="btn-am" onclick="alterarAM('h1', -1)">-</button>
                             <button class="btn-am" onclick="alterarAM('h1', 1)">+</button>
                         </div>
@@ -500,6 +529,10 @@
                             <button class="btn-pv" onclick="alterarPV('h2', 1)">+</button>
                         </div>
                         <div class="botoes-acao">
+                            <!-- Botão de inventário-->
+                            <button class="btn-inventario-medieval" onclick="abrirInventario('h2', 'Guerreiro Atroz')" title="Inventário">
+                                <i class="fa-solid fa-flask" style="color: #c5a059; pointer-events: none;"></i>
+                            </button>
                             <button class="btn-am" onclick="alterarAM('h2', -1)">-</button>
                             <button class="btn-am" onclick="alterarAM('h2', 1)">+</button>
                         </div>
@@ -535,6 +568,10 @@
                             <button class="btn-pv" onclick="alterarPV('h3', 1)">+</button>
                         </div>
                         <div class="botoes-acao">
+                            <!-- Botão de inventário -->
+                            <button class="btn-inventario-medieval" onclick="abrirInventario('h3', 'Mestre Cacador')" title="Inventário">
+                                <i class="fa-solid fa-flask" style="color: #c5a059; pointer-events: none;"></i>
+                            </button>
                             <button class="btn-am" onclick="alterarAM('h3', -1)">-</button>
                             <button class="btn-am" onclick="alterarAM('h3', 1)">+</button>
                         </div>
@@ -570,6 +607,10 @@
                             <button class="btn-pv" onclick="alterarPV('h4', 1)">+</button>
                         </div>
                         <div class="botoes-acao">
+                            <!-- Botão de inventário -->
+                            <button class="btn-inventario-medieval" onclick="abrirInventario('h4', 'Clériga')" title="Inventário">
+                                <i class="fa-solid fa-flask" style="color: #c5a059; pointer-events: none;"></i>
+                            </button>
                             <button class="btn-am" onclick="alterarAM('h4', -1)">-</button>
                             <button class="btn-am" onclick="alterarAM('h4', 1)">+</button>
                         </div>
@@ -605,6 +646,10 @@
                             <button class="btn-pv" onclick="alterarPV('h5', 1)">+</button>
                         </div>
                         <div class="botoes-acao">
+                            <!-- Botão de inventário -->
+                            <button class="btn-inventario-medieval" onclick="abrirInventario('h5', 'Combatente')" title="Inventário">
+                                <i class="fa-solid fa-flask" style="color: #c5a059; pointer-events: none;"></i>
+                            </button>
                             <button class="btn-am" onclick="alterarAM('h5', -1)">-</button>
                             <button class="btn-am" onclick="alterarAM('h5', 1)">+</button>
                         </div>
@@ -640,6 +685,10 @@
                             <button class="btn-pv" onclick="alterarPV('h6', 1)">+</button>
                         </div>
                         <div class="botoes-acao">
+                            <!-- Botão de inventário -->
+                            <button class="btn-inventario-medieval" onclick="abrirInventario('h6', 'Druida')" title="Inventário">
+                                <i class="fa-solid fa-flask" style="color: #c5a059; pointer-events: none;"></i>
+                            </button>
                             <button class="btn-am" onclick="alterarAM('h6', -1)">-</button>
                             <button class="btn-am" onclick="alterarAM('h6', 1)">+</button>
                         </div>
@@ -675,6 +724,10 @@
                             <button class="btn-pv" onclick="alterarPV('h7', 1)">+</button>
                         </div>
                         <div class="botoes-acao">
+                            <!-- Botão de inventário -->
+                            <button class="btn-inventario-medieval" onclick="abrirInventario('h7', 'Elementarista')" title="Inventário">
+                                <i class="fa-solid fa-flask" style="color: #c5a059; pointer-events: none;"></i>
+                            </button>
                             <button class="btn-am" onclick="alterarAM('h7', -1)">-</button>
                             <button class="btn-am" onclick="alterarAM('h7', 1)">+</button>
                         </div>
@@ -710,6 +763,10 @@
                             <button class="btn-pv" onclick="alterarPV('h8', 1)">+</button>
                         </div>
                         <div class="botoes-acao">
+                            <!-- Botão de inventário -->
+                            <button class="btn-inventario-medieval" onclick="abrirInventario('h8', 'Guardião')" title="Inventário">
+                                <i class="fa-solid fa-flask" style="color: #c5a059; pointer-events: none;"></i>
+                            </button>
                             <button class="btn-am" onclick="alterarAM('h8', -1)">-</button>
                             <button class="btn-am" onclick="alterarAM('h8', 1)">+</button>
                         </div>
@@ -745,6 +802,10 @@
                             <button class="btn-pv" onclick="alterarPV('h9', 1)">+</button>
                         </div>
                         <div class="botoes-acao">
+                            <!-- Botão de inventário -->
+                            <button class="btn-inventario-medieval" onclick="abrirInventario('h9', 'Mestre da Forja')" title="Inventário">
+                                <i class="fa-solid fa-flask" style="color: #c5a059; pointer-events: none;"></i>
+                            </button>
                             <button class="btn-am" onclick="alterarAM('h9', -1)">-</button>
                             <button class="btn-am" onclick="alterarAM('h9', 1)">+</button>
                         </div>
@@ -780,6 +841,10 @@
                             <button class="btn-pv" onclick="alterarPV('h10', 1)">+</button>
                         </div>
                         <div class="botoes-acao">
+                            <!-- Botão de inventário -->
+                            <button class="btn-inventario-medieval" onclick="abrirInventario('h10', 'Protetor')" title="Inventário">
+                                <i class="fa-solid fa-flask" style="color: #c5a059; pointer-events: none;"></i>
+                            </button>
                             <button class="btn-am" onclick="alterarAM('h10', -1)">-</button>
                             <button class="btn-am" onclick="alterarAM('h10', 1)">+</button>
                         </div>
@@ -920,7 +985,8 @@
     <!-- JAVASCRIPT: LÓGICA E CONEXÃO FIREBASE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-        import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+        import { getDatabase, ref, set, onValue, get } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+        
 
         // --- CONTROLES DO MINI PLAYER DE MÚSICA ---
         const audio = document.getElementById('audio-principal');
@@ -1401,6 +1467,57 @@
                 }
             }
         });
+
+        // --- SISTEMA DE INVENTÁRIO GLOBAL ---
+        let heroiInventarioAtivo = null;
+
+        window.abrirInventario = function(idHeroi, nomeHeroi) {
+            heroiInventarioAtivo = idHeroi;
+            document.getElementById('titulo-inventario').innerText = "Inventário: " + nomeHeroi;
+            
+            // FORÇA ABRIR PRIMEIRO (Para testar o clique físico do botão)
+            document.getElementById('modal-inventario').style.display = 'flex';
+            
+            // Só depois tenta buscar no Firebase
+            get(ref(db, `status/${idHeroi}/inventario`)).then((snapshot) => {
+                const dadosSalvos = snapshot.val() || "";
+                document.getElementById('texto-inventario').value = dadosSalvos;
+            }).catch((err) => {
+                console.error("Falha ao sincronizar inventário:", err);
+            });
+        };
+
+        window.salvarInventario = function() {
+            if (!heroiInventarioAtivo) return;
+            const conteudoTexto = document.getElementById('texto-inventario').value;
+            
+            set(ref(db, `status/${heroiInventarioAtivo}/inventario`), conteudoTexto)
+                .then(() => {
+                    fecharInventario();
+                })
+                .catch((err) => {
+                    alert("Erro de conexão ao salvar!");
+                    console.error(err);
+                });
+        };
+
+        window.fecharInventario = function() {
+            document.getElementById('modal-inventario').style.display = 'none';
+            document.getElementById('texto-inventario').value = "";
+            heroiInventarioAtivo = null;
+        };
+
+        // Escutador em tempo real: Atualiza dinamicamente o modal se outro jogador editar ao mesmo tempo
+        onValue(ref(db, 'status'), (snapshot) => {
+            const listaStatus = snapshot.val();
+            if (listaStatus && heroiInventarioAtivo && document.getElementById('modal-inventario').style.display === 'flex') {
+                const textoBanco = listaStatus[heroiInventarioAtivo]?.inventario || "";
+                // Só altera o campo se o usuário atual não estiver com o teclado ativo digitando nele
+                if (document.activeElement !== document.getElementById('texto-inventario')) {
+                    document.getElementById('texto-inventario').value = textoBanco;
+                }
+            }
+        });
     </script>
 
     <div id="modal-imagem-central" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 99; align-items: center; justify-content: center; flex-direction: column; gap: 20px; pointer-events: none;">
@@ -1430,7 +1547,21 @@
             <button id="btn-modal-fechar-sistema" style="background: #222; color: #bfae96; border: 1px solid #444; padding: 6px 16px; font-family: 'Lora', serif; cursor: pointer; border-radius: 4px; margin-top: 5px; font-size: 0.85rem; width: 100%;">Fechar Inimigo</button>
         </div>
     </div>
-</div>
+
+    <div id="modal-inventario" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); z-index: 100000; align-items: center; justify-content: center; pointer-events: auto;">
+        <div style="background: rgba(12, 8, 8, 0.98); border: 2px solid #c5a059; padding: 22px; border-radius: 4px; width: 90%; max-width: 420px; box-shadow: 0 0 25px rgba(197, 160, 89, 0.35); display: flex; flex-direction: column; gap: 15px;">
+            
+            <h3 id="titulo-inventario" style="font-family: 'Cinzel', serif; color: #c5a059; margin: 0; text-align: center; font-size: 1.2rem; letter-spacing: 1px; border-bottom: 1px solid #4a0000; padding-bottom: 8px;">Inventário</h3>
+            
+            <textarea id="texto-inventario" placeholder="Liste os pertences do herói aqui...&#10;Ex:&#10;- Grimório Antigo&#10;- Adaga Sombria&#10;- 2x Poções de Mana" style="width: 100%; height: 220px; background: #080505; color: #dcd0c0; border: 1px solid rgba(197, 160, 89, 0.2); border-radius: 3px; padding: 12px; font-family: 'Lora', serif; font-size: 0.9rem; resize: none; box-sizing: border-box; outline: none; line-height: 1.4;"></textarea>
+            
+            <div style="display: flex; gap: 10px;">
+                <button onclick="salvarInventario()" style="flex: 1; background: #4a0000; color: #bfae96; border: 1px solid #8b0000; padding: 8px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer; border-radius: 3px; transition: all 0.2s;">Salvar</button>
+                <button onclick="fecharInventario()" style="background: #222; color: #dcd0c0; border: 1px solid #444; padding: 8px 16px; font-family: 'Cinzel', serif; cursor: pointer; border-radius: 3px; transition: all 0.2s;">Fechar</button>
+            </div>
+        </div>
+    </div>
+
 
 </body>
 </html>
