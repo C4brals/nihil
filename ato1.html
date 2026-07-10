@@ -444,6 +444,29 @@
             background:#3d2b12;
         }
 
+        .btn-remover-token{
+            position:absolute;
+            top:-8px;
+            right:-8px;
+            width:18px;
+            height:18px;
+            border:none;
+            border-radius:50%;
+            background:#8b0000;
+            color:#fff;
+            cursor:pointer;
+            font-size:12px;
+            font-weight:bold;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            z-index:999;
+        }
+
+        .btn-remover-token:hover{
+            background:#c00000;
+        }
+
         @media (max-width: 900px) {
             .gameplay-wrapper { grid-template-columns: 1fr; }
             .painel-status { max-height: 300px; }
@@ -1073,7 +1096,7 @@
     <!-- JAVASCRIPT: LÓGICA E CONEXÃO FIREBASE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-        import { getDatabase, ref, set, onValue, get } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+        import { getDatabase, ref, set, onValue, get, remove } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
         
 
         // --- CONTROLES DO MINI PLAYER DE MÚSICA ---
@@ -1129,6 +1152,20 @@
             const sliderVolume = document.getElementById('volume-player');
             audio.volume = sliderVolume.value;
         };
+
+        window.removerTokenExtra = function(event, id){
+
+            event.stopPropagation();
+
+            remove(ref(db, "tokens/" + id));
+
+            const token = document.getElementById(id);
+
+            if(token){
+                token.remove();
+            }
+
+        }
 
         const firebaseConfig = {
             apiKey: "AIzaSyBNLypR4a5iIFRFykbkVdHq43k9u6zgOYM",
@@ -1488,6 +1525,10 @@
 
             token.innerHTML = `
                 <img src="${imagem}">
+                <button class="btn-remover-token"
+                        onclick="removerTokenExtra(event, '${id}')">
+                    ×
+                </button>
             `;
 
             mapa.appendChild(token);
@@ -1511,6 +1552,14 @@
             const dados=snapshot.val();
 
             if(!dados) return;
+
+            document.querySelectorAll("[id^='token-extra-']").forEach(token=>{
+
+                if(!dados || !dados[token.id]){
+                    token.remove();
+                }
+
+            });
 
             Object.keys(dados).forEach(id=>{
 
