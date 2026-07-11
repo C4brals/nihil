@@ -467,6 +467,89 @@
             background:#c00000;
         }
 
+        .btn-torre-outubrista{
+            position:absolute;
+            top:2px;
+            left:15px;
+            z-index:999;
+
+            padding:8px 16px;
+
+            background:#241f1f;
+            color:#c5a059;
+
+            border:1px solid #c5a059;
+            border-radius:4px;
+
+            font-family:'Cinzel', serif;
+            font-size:14px;
+            font-weight:600;
+
+            cursor:pointer;
+            transition:all .25s ease;
+
+            box-shadow:0 2px 6px rgba(0,0,0,.5);
+        }
+
+        .btn-torre-outubrista:hover{
+            background:#c5a059;
+            color:#1b1111;
+            box-shadow:0 0 12px rgba(197,160,89,.45);
+        }
+
+        .btn-torre-outubrista:active{
+            transform:scale(.97);
+        }
+
+        /* Janela */
+        .painel-outubrista{
+            display:none;
+
+            position:absolute;
+            top:55px;
+            left:15px;
+
+            width:320px;
+
+            background:rgba(10,5,5,.97);
+            border:1px solid #c5a059;
+            border-radius:6px;
+
+            padding:10px;
+
+            z-index:120;
+            box-shadow:0 0 20px rgba(0,0,0,.8);
+        }
+
+        .painel-outubrista h3{
+            text-align:center;
+            margin-bottom:8px;
+            color:#c5a059;
+            font-family:'Cinzel', serif;
+        }
+
+        .painel-outubrista ul{
+            list-style:none;
+            padding:0;
+            margin:0;
+        }
+
+        .painel-outubrista li{
+            display:flex;
+            justify-content:space-between;
+            padding:7px 4px;
+            border-bottom:1px solid rgba(197,160,89,.12);
+        }
+
+        .painel-outubrista li:last-child{
+            border:none;
+        }
+
+        .custo-am{
+            color:#9c4174;
+            font-weight:bold;
+        }
+
         @media (max-width: 900px) {
             .gameplay-wrapper { grid-template-columns: 1fr; }
             .painel-status { max-height: 300px; }
@@ -974,6 +1057,93 @@
         <main class="tabuleiro-container">
             
             <div class="mapa-wrapper">
+
+                <button
+                    class="btn-torre-outubrista"
+                    onclick="alternarTorreOutubrista()">
+
+                    Torre Outubrista
+                </button>
+
+                <div id="painel-outubrista" class="painel-outubrista">
+
+                    <h3>Torre Outubrista</h3>
+
+                    <ul>
+
+                        <li>
+                            <span>D - Elixir de Cura</span>
+                            <span class="custo-am">3 AM</span>
+                        </li>
+
+                        <li>
+                            <span>D - Elixir de Sangue ácido</span>
+                            <span class="custo-am">5 AM</span>
+                        </li>
+
+                        <li>
+                            <span>I - Elixir da Luta Melhorada</span>
+                            <span class="custo-am">3 AM</span>
+                        </li>
+
+                        <li>
+                            <span>I - Elixir da Invisibilidade</span>
+                            <span class="custo-am">5 AM</span>
+                        </li>
+
+                        <li>
+                            <span>I - Elixir da Confusão Mágica</span>
+                            <span class="custo-am">3 AM</span>
+                        </li>
+
+                        <li>
+                            <span>I - Elixir da Velocidade</span>
+                            <span class="custo-am">5 AM</span>
+                        </li>
+
+                        <li>
+                            <span>D - Elixir de Escudos</span>
+                            <span class="custo-am">3 AM</span>
+                        </li>
+
+                        <li>
+                            <span>D - Elixir da Distorção</span>
+                            <span class="custo-am">6 AM</span>
+                        </li>
+
+                        <li>
+                            <span>D - Elixir do Arm. Mágico</span>
+                            <span class="custo-am">3 AM</span>
+                        </li>
+
+                        <li>
+                            <span>Acampamento</span>
+                            <span class="custo-am">5 AM</span>
+                        </li>
+
+                        <li>
+                            <span>O - Perg. do fogo</span>
+                            <span class="custo-am">3 AM</span>
+                        </li>
+
+                        <li>
+                            <span>O - Perg. do Gelo</span>
+                            <span class="custo-am">3 AM</span>
+                        </li>
+
+                        <li>
+                            <span>Perg. de Guardião</span>
+                            <span class="custo-am">15 AM</span>
+                        </li>
+
+                        <li>
+                            <span>Artefato da Alma de Alnur</span>
+                            <span class="custo-am">50 AM</span>
+                        </li>                        
+
+                    </ul>
+
+                </div>
                 <img src="./assets/mapas/mapa01.jpg" alt="Mapa Nihil" class="mapa-img">
 
                 <div id="token-h1" class="token-heroi" style="--token-color: #8b0000; top: 46%; left: 16.5%;"><img src="./assets/herois/adepto.jpg?w=100" id="img-token-h1"></div>
@@ -1316,7 +1486,7 @@
                 set(ref(db, 'inimigo_ativo/vida'), novaVida);
             }
         };
-
+        
         // Ações dos botões de Usar / Não Usar corrigidas com travas de segurança
         // Botões dos heróis limpam apenas o nó 'imagem_ativa'
         document.getElementById('btn-modal-usar').addEventListener('click', () => {
@@ -1737,6 +1907,19 @@
                 }
             }
         });
+
+  
+        window.alternarTorreOutubrista = function () {
+
+        const painel = document.getElementById("painel-outubrista");
+
+        painel.style.display =
+            painel.style.display === "block"
+                ? "none"
+                : "block";
+
+    };
+        
     </script>
 
     <div id="modal-imagem-central" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 99; align-items: center; justify-content: center; flex-direction: column; gap: 20px; pointer-events: none;">
