@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nihil - Regras do Jogo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Lora:ital,wght=0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="./assets/ico.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="./assets/ico-grande.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="./assets/ico-ios.png">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #050505;
+            color: #dcd0c0;
+            font-family: 'Lora', serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.95)), 
+                              url('https://www.transparenttextures.com/patterns/dark-matter.png');
+            overflow-y: auto;
+            padding: 60px 20px;
+        }
+
+        /* Moldura Medieval Sombria */
+        .moldura-tela {
+            position: fixed;
+            top: 20px;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            border: 2px solid #4a0000;
+            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(139, 0, 0, 0.2);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .moldura-tela::before, .moldura-tela::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 4px solid #c5a059;
+        }
+        .moldura-tela::before { top: -5px; left: -5px; border-right: none; border-bottom: none; }
+        .moldura-tela::after { bottom: -5px; right: -5px; border-left: none; border-top: none; }
+
+        /* Container de Conteúdo */
+        .regras-container {
+            z-index: 2;
+            max-width: 800px;
+            width: 100%;
+            margin: auto 0;
+            padding: 20px 10px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        /* Cabeçalho */
+        .cabecalho-regras {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .titulo-regras {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: #8b0000;
+            text-shadow: 0 0 15px rgba(139, 0, 0, 0.6), 3px 3px 6px #000;
+            margin-bottom: 5px;
+            letter-spacing: 4px;
+            font-weight: 900;
+        }
+
+        .subtitulo-regras {
+            font-family: 'Cinzel', serif;
+            color: #c5a059;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            margin-top: 0;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        /* Seções de Regras */
+        .secao-regra {
+            background: rgba(15, 5, 5, 0.6);
+            border: 1px solid rgba(139, 0, 0, 0.15);
+            border-left: 3px solid #8b0000;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .titulo-secao {
+            font-family: 'Cinzel', serif;
+            color: #c5a059;
+            font-size: 1.3rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .titulo-secao::before {
+            content: '❖';
+            color: #8b0000;
+            font-size: 0.9rem;
+        }
+
+        .texto-regra {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #bfae96;
+            margin: 0 0 15px 0;
+        }
+
+        .texto-regra:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Listas estilizadas dentro das regras */
+        .lista-regras {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .lista-regras li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+            color: #bfae96;
+        }
+
+        .lista-regras li strong {
+            color: #dcd0c0;
+        }
+
+        /* Destaques importantes */
+        .nota-alerta {
+            background: rgba(74, 0, 0, 0.2);
+            border: 1px dashed #4a0000;
+            padding: 15px;
+            font-style: italic;
+            color: #e5c3c3;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+
+        /* Botão Voltar */
+        .botoes-navegacao {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .botao-voltar {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: #c5a059;
+            text-decoration: none;
+            background: linear-gradient(to right, transparent, rgba(74, 0, 0, 0.3), transparent);
+            padding: 10px 40px;
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            border-radius: 3px;
+            transition: all 0.4s ease;
+            letter-spacing: 2px;
+            display: inline-block;
+        }
+
+        .botao-voltar:hover {
+            color: #ffffff;
+            border-color: #8b0000;
+            background: linear-gradient(to right, rgba(139, 0, 0, 0.2), rgba(74, 0, 0, 0.6), rgba(139, 0, 0, 0.2));
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(139, 0, 0, 0.4);
+        }
+
+        /* Rodapé */
+        .footer-menu {
+            font-size: 0.8rem;
+            color: #444;
+            letter-spacing: 2px;
+            z-index: 2;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsividade para Celulares */
+        @media (max-width: 480px) {
+            body {
+                padding: 50px 25px;
+            }
+            .titulo-regras { 
+                font-size: 1.8rem;
+                letter-spacing: 2px;
+            }
+            .subtitulo-regras {
+                font-size: 0.85rem;
+            }
+            .titulo-secao {
+                font-size: 1.1rem;
+            }
+            .texto-regra {
+                font-size: 0.95rem;
+            }
+            .botao-voltar {
+                font-size: 0.95rem;
+                padding: 10px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="moldura-tela"></div>
+
+    <div class="regras-container">
+        <!-- Cabeçalho -->
+        <header class="cabecalho-regras">
+            <h1 class="titulo-regras">DIRETRIZES DA CAMPANHA</h1>
+            <p class="subtitulo-regras">— Os dogmas que regem a sobrevivência em Nihil —</p>
+        </header>
+
+        <!-- Seção 1 -->
+        <section class="secao-regra">
+            <h2 class="titulo-secao">1. Iniciando a Movimentação</h2>
+            <p class="texto-regra">
+                O combate e a exploração em Nihil seguem uma ordem estrita determinada pela Iniciativa. Cada ciclo representa momentos de tensão pura onde cada segundo decide o destino do seu herói. Cada jogador inicia a campanha com 1 Poção de Cura e 5 PV.
+            </p>
+            <ul class="lista-regras">
+                <li><strong>Fase Inicial:</strong> O jogador rola o dado de seu herói e baseado no número obtido, anda a quantidade de casas no tabueiro.</li>
+                <li><strong>Fase de Consequências:</strong> Ao parar na casa escolhida, o jogador pode enfrentar ou não consequências.</li>
+                <li><strong>Tipos de Casas:</strong> O tabuleiro reage, cada casa pode apresentar diferentes efeitos:</li>
+                <p><strong>Um ponto:</strong> Casa normal (Sem efeitos).</p>
+                <p><strong>Um ponto + um círculo:</strong> Casa de evento (algo negativo lhe acontecerá).</p>
+                <p><strong>Um ponto + dois círculos:</strong> Casa de inimigo comum (Enfrente um inimigo comum aleatório).</p>
+                <p><strong>Um ponto + três círculos:</strong> Casa de inimigo elite (Enfrente um inimigo elite aleatório).</p>
+
+            </ul>
+        </section>
+
+        <!-- Seção 2 -->
+        <section class="secao-regra">
+            <h2 class="titulo-secao">2. A Mecânica de Combate</h2>
+            <p class="texto-regra">
+                O mal não compreendido não busca apenas arrancar sua vida, mas distorcer sua mente. Em Nihil, a sanidade é um recurso finito e precioso.
+            </p>
+            <p class="texto-regra">
+                <strong>Início de combate</strong>: Ao entrar em combate, o inimigo lançará seu dado e em seguida o jogador lançará o seu. O maior valor vence, e decide o que fazer: Atacar ou usar habilidades/Itens com a TAG "O" de ofensivo.
+            </p>
+            <p class="texto-regra">
+                <strong>Perdendo no Dado</strong>: Se o jogador perder no dado, ele terá apenas uma opção nesse combate: que é usar habilidades/Itens com a TAG "D" de defensivo.
+            </p>
+            <p class="texto-regra">
+                <strong>Empate no Dado</strong>: Em um empate, ambos lançam os dados novamente (Um por vez).
+            </p>
+            <div class="nota-alerta">
+                "Cuidado, cada inimigo possui habilidades únicas que podem alterar o fluxo do combate. Sempre que o inimigo obter o número <strong>6</strong> no dado, ele ativará uma habilidade especial."
+            </div>
+        </section>
+
+        <!-- Seção 3 -->
+        <section class="secao-regra">
+            <h2 class="titulo-secao">3. Estado de corrompido</h2>
+            <p class="texto-regra">
+                Ao morrer para um Lorde ou General, o jogador não apenas perde a vida, mas também parte de sua sanidade e alma. O estado de <strong>corrompido</strong> faz com que o jogador se torne imigo dos demais jogadores em estado <strong>normal</strong>.
+            </p>
+
+            <ul class="lista-regras">
+                <li>O combate ocorre sempre que um jogador cruzar seu caminho ou o corrompido o caminho dele</li>
+                <li>Sim, você ainda pode se mover normalmente em busca de uma cura, ou da morte de seus ex-aliados.</li>
+            </ul>
+            
+            <div class="nota-alerta">
+                "Cuidado ao adimirar o abismo, pois a corrupção é uma força que se infiltra na mente e no corpo. "
+            </div>
+            
+        </section>
+
+        <!-- Botão para voltar ao Menu Principal -->
+        <nav class="botoes-navegacao">
+            <a href="index.html" class="botao-voltar">Voltar ao Menu</a>
+        </nav>
+    </div>
+
+    <!-- Rodapé mantido original -->
+    <div class="footer-menu">
+        <p>© 2026 Desenvolvido por Augusto Cabral e Marlon Aciole. Todos os direitos reservados.</p>
+    </div>
+
+</body>
+</html>
