@@ -1419,13 +1419,28 @@ to{opacity:1;transform:translateY(0);}
                 audio.loop = true; // Garante que a música continue tocando em loop
                 audio.play()
                     .then(() => {
+
                         btnPlayPause.innerText = "Pause";
                         btnPlayPause.style.background = "#333";
                         btnPlayPause.style.borderColor = "#555";
+
+                        // Sincroniza com todos os jogadores
+                        set(ref(db, "musica"), {
+                            tocando: true,
+                            faixa: audio.src,
+                            tempo: audio.currentTime,
+                            volume: audio.volume,
+                            timestamp: Date.now(),
+                            usuario: jogadorAtual
+                        });
+
                     })
                     .catch(err => {
+
                         console.log("Autoplay bloqueado pelo navegador. Clique em Play manualmente.");
+
                         btnPlayPause.innerText = "Play";
+
                     });
             } else {
                 audio.pause();
