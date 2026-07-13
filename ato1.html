@@ -387,13 +387,15 @@
             display: none; /* Escondido por padrão */
             position: absolute;
             bottom: 110%; /* Abre exatamente acima do botão */
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0; /* Começa alinhado ao pai */
+            width: 100%; /* Ocupa a largura do pai */
+            min-width: 180px;
+            text-align: left;
             background: rgba(10, 5, 5, 0.98);
             border: 1px solid #c5a059;
             box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.8);
             border-radius: 4px;
-            min-width: 180px;
+            min-width: 130px;
             max-height: 250px;
             overflow-y: auto;
             padding: 5px 0;
@@ -409,7 +411,10 @@
             cursor: pointer;
             transition: all 0.2s;
             font-family: 'Lora', serif;
-            text-align: center;
+            
+            /* MUDANÇA AQUI: de center para left */
+            text-align: left; 
+            
             border-bottom: 1px solid rgba(197, 160, 89, 0.1);
         }
         .lista-dropup li:last-child {
@@ -1298,6 +1303,20 @@ to{opacity:1;transform:translateY(0);}
                     <ul id="drop-comuns" class="lista-dropup">
                         <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Comuns/Acumulador.jpg')">Acumulador</li>
                         <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Comuns/Adivinho.jpg')">Adivinho</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Comuns/Alteza das Copas.jpg')">Alteza das Copas</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Comuns/Atormentador.jpg')">Atormentador</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Comuns/Bruxa do Pântano.jpg')">Bruxa do Pântano</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Comuns/Dríade Banida.jpg')">Dríade Banida</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Comuns/Fantasma.jpg')">Fantasma</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Comuns/Goblin Ferroso.jpg')">Goblin Ferroso</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Comuns/Harpia.jpg')">Harpia</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Comuns/Iluminador.jpg')">Iluminador</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Comuns/Lobo Atroz.jpg')">Lobo Atroz</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Comuns/Maculado.jpg')">Maculado</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Comuns/Orador.jpg')">Orador</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Comuns/Orc Desordeiro.jpg')">Orc Desordeiro</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Comuns/Salteador.jpg')">Salteador</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Comuns/Vespa Gigante.jpg')">Vespa Gigante</li>
                     </ul>
                 </div>
 
@@ -1306,15 +1325,32 @@ to{opacity:1;transform:translateY(0);}
                     <ul id="drop-elites" class="lista-dropup">
                         <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Elites/Aparição.jpg')">Aparição</li>
                         <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Elites/Basilisco.jpg')">Basilisco</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Elites/Campeão da Mácula.jpg')">Campeão da Mácula</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Elites/Chefe Orc.jpg')">Chefe Orc</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Elites/Cocatriz.jpg')">Cocatriz</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Elites/Colecionador de Cabeças.jpg')">Colecionador de Cabeças</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Elites/Devorador.jpg')">Devorador</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Elites/Jihada.jpg')">Jihada</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Elites/Líder da Matilha.jpg')">Líder da Matilha</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Elites/Mantícora.jpg')">Mantícora</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Elites/Orc Shaman.jpg')">Orc Xamã</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Elites/quilhionte.jpg')">Quilhionte</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Elites/Quimera.jpg')">Quimera</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Elites/SArcedote de Draqma.jpg')">Sarcedote de Draqma</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Elites/Simbiose.jpg')">Simbiose</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Elites/Troll das CAvernas.jpg')">Troll das Cavernas</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Elites/VAmpiro Alfa.jpg')">Vampiro Alfa</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Inimigos Elites/Wyvern.jpg')">Wyvern</li>
                     </ul>
                 </div>
 
                 <div class="menu-item-container">
-                    <button class="btn-menu-rodape" onclick="alternarDropup(event, 'drop-itens')">Itens</button>
+                    <button class="btn-menu-rodape" onclick="alternarDropup(event, 'drop-itens')">Consumíveis</button>
                     <ul id="drop-itens" class="lista-dropup">
-                        <li onclick="mostrarImagemGrupo('./assets/cartas/Itens Vinculados/A Insaciável.jpg')">A Insaciável</li>
-                        <li onclick="mostrarImagemGrupo('./assets/cartas/Itens Vinculados/Chama do FArol.jpg')">Chama do Farol</li>
                         <li onclick="mostrarImagemGrupo('./assets/cartas/Consumíveis/E de Cura.jpg')">Elixir de Cura</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Consumíveis/E de Cura.jpg')">Elixir de Cura</li>
+                        
+                        
                     </ul>
                 </div>
 
@@ -1347,9 +1383,10 @@ to{opacity:1;transform:translateY(0);}
                 </div>
 
                 <div class="menu-item-container">
-                    <button class="btn-menu-rodape" onclick="alternarDropup(event, 'drop-fragmentos')">Fragmentos</button>
+                    <button class="btn-menu-rodape" onclick="alternarDropup(event, 'drop-fragmentos')">Itens Vinculados</button>
                     <ul id="drop-fragmentos" class="lista-dropup">
-                        <li onclick="mostrarImagemGrupo('./assets/cartas/Fragmentos de Almas/1.jpg')">Fragmento de Alma</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Itens Vinculados/A Insaciável.jpg')">A Insaciável</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Itens Vinculados/Chama do FArol.jpg')">Chama do Farol</li>
                     </ul>
                 </div>
 
