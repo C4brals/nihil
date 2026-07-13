@@ -550,6 +550,132 @@
             font-weight:bold;
         }
 
+        .chat-rolagens{
+
+            position:fixed;
+
+            right:-295px;
+
+            bottom:90px;
+
+            width:280px;
+            max-height:230px;
+
+            transition:right .45s ease;
+
+            z-index:9999;
+            background:rgba(10,5,5,.95);
+        }
+
+        .chat-rolagens.aberto{
+
+            right:15px;
+
+        }
+
+        .titulo-chat{
+
+            background:#3b0d0d;
+
+            color:#c5a059;
+
+            text-align:center;
+
+            padding:8px;
+
+            font-family:'Cinzel',serif;
+
+            border-bottom:1px solid #c5a059;
+
+        }
+
+        #lista-rolagens{
+
+            max-height:180px;
+
+            overflow-y:auto;
+
+        }
+
+        .msg-rolagem{
+
+            padding:8px;
+
+            border-bottom:1px solid rgba(197,160,89,.15);
+
+            color:#ddd;
+
+            font-size:14px;
+
+            animation:fadeEntrada .25s;
+
+        }
+
+        .msg-rolagem strong{
+
+            color:#c5a059;
+
+        }
+
+        .valor-dado{
+
+            font-weight:bold;
+
+            font-size:18px;
+
+            color:#ffd966;
+
+        }
+
+        .aba-rolagens{
+
+            position:fixed;
+
+            right:0;
+
+            bottom:90px;
+
+            width:42px;
+            height:60px;
+
+            background:#3b0d0d;
+
+            border:2px solid #c5a059;
+            border-right:none;
+
+            border-radius:8px 0 0 8px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            color:#c5a059;
+
+            font-size:24px;
+
+            cursor:pointer;
+
+            z-index:9998;
+
+            box-shadow:0 0 15px rgba(0,0,0,.6);
+
+        }
+
+        .chat-rolagens.aberto + .aba-rolagens{
+
+            display:none;
+
+        }
+
+        
+
+@keyframes fadeEntrada{
+
+from{opacity:0;transform:translateY(8px);}
+to{opacity:1;transform:translateY(0);}
+
+}
+
         @media (max-width: 900px) {
             .gameplay-wrapper { grid-template-columns: 1fr; }
             .painel-status { max-height: 300px; }
@@ -1393,6 +1519,35 @@
             
         }
 
+        function adicionarRolagemChat(nome, valor, cor){
+
+            const lista=document.getElementById("lista-rolagens");
+
+            if(!lista) return;
+
+            const linha=document.createElement("div");
+
+            linha.className="msg-rolagem";
+
+            linha.innerHTML=`
+                <strong style="color:${cor}">
+                    ${nome}
+                </strong><br>
+
+                rolou
+
+                <span class="valor-dado">
+                    ${valor}
+                </span>
+            `;
+
+            lista.prepend(linha);
+
+            while(lista.children.length>25)
+                lista.removeChild(lista.lastChild);
+
+        }
+
         
 
         // Registra todos os tokens existentes (os heróis)
@@ -1724,6 +1879,46 @@
 
         }
 
+        let timerChatRolagens = null;
+
+        function mostrarChatRolagens(){
+
+            const chat = document.getElementById("chat-rolagens");
+
+            chat.classList.add("aberto");
+
+            clearTimeout(timerChatRolagens);
+
+            timerChatRolagens = setTimeout(() => {
+                chat.classList.remove("aberto");
+            }, 8000);
+
+        }
+
+        function fecharChatRolagens(){
+
+            clearTimeout(timerChatRolagens);
+
+            document.getElementById("chat-rolagens")
+                    .classList.remove("aberto");
+
+        }
+
+        function alternarChatRolagens(){
+
+            const chat = document.getElementById("chat-rolagens");
+
+            if(chat.classList.contains("aberto")){
+                fecharChatRolagens();
+            }else{
+                mostrarChatRolagens();
+            }
+
+        }
+        window.mostrarChatRolagens = mostrarChatRolagens;
+        window.fecharChatRolagens = fecharChatRolagens;
+        window.alternarChatRolagens = alternarChatRolagens;
+
         // --- ESCUTADORES EM TEMPO REAL ---
         onValue(ref(db,'tokens/'),(snapshot)=>{
 
@@ -1856,13 +2051,35 @@
         const momentoCarregamento = Date.now();
 
         onValue(ref(db, 'rolagem_dado'), (snapshot) => {
+
             const dados = snapshot.val();
-            if (dados && dados.timestamp > momentoCarregamento) {
-                if (!window.ultimoTimestampRolado || dados.timestamp > window.ultimoTimestampRolado) {
-                    window.ultimoTimestampRolado = dados.timestamp;
-                    animarDado3D(dados.nome, dados.resultado, dados.estado, dados.cor);
-                }
-            }
+
+            if (!dados) return;
+
+            if (dados.timestamp <= momentoCarregamento)
+                return;
+
+            if (window.ultimoTimestampRolado &&
+                dados.timestamp <= window.ultimoTimestampRolado)
+                return;
+
+            window.ultimoTimestampRolado = dados.timestamp;
+
+            animarDado3D(
+                dados.nome,
+                dados.resultado,
+                dados.estado,
+                dados.cor
+            );
+
+            adicionarRolagemChat(
+                dados.nome,
+                dados.resultado,
+                dados.cor
+                
+            );
+            mostrarChatRolagens();
+
         });
 
         // --- SISTEMA DE INVENTÁRIO GLOBAL ---
@@ -1972,6 +2189,31 @@
         </div>
     </div>
 
+    <div id="chat-rolagens" class="chat-rolagens">
+
+        <div class="chat-topo">
+
+            <span>🎲 Rolagens</span>
+
+            <span class="btn-chat"
+                onclick="fecharChatRolagens()">
+                ✕
+            </span>
+
+        </div>
+
+        <div id="lista-rolagens"></div>
+
+    </div>
+
+    <div id="abaRolagens"
+        class="aba-rolagens"
+        onclick="alternarChatRolagens()">
+
+        🎲
+
+    </div>
+    
 
 </body>
 </html>
