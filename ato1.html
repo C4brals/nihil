@@ -266,6 +266,133 @@
             filter: brightness(0.85) contrast(1.05); 
         }
 
+        .painel-efeito-mapa{
+
+            position:absolute;
+
+            right:10px;
+            bottom:285px;
+
+            width:125px;
+
+            background:rgba(22,22,22,.90);
+
+            border:2px solid #8c6b2f;
+            border-radius:6px;
+
+            padding:4px;
+
+            text-align:center;
+
+            box-sizing:border-box;
+
+            overflow:hidden;
+
+            z-index:50;
+
+        }
+
+        .painel-efeito-mapa h3{
+
+            margin:0 0 4px;
+
+            font-size:11px;
+
+            color:#d9b96d;
+
+        }
+
+        #previewEfeito{
+
+            width:105px;
+            height:145px;
+
+            object-fit:contain;
+
+            cursor:pointer;
+
+            transition:0.2s;
+        }
+
+        #nomeEfeito{
+
+            display:block;
+
+            margin:4px 0;
+
+            font-size:11px;
+
+            color:#d9b96d;
+
+            text-decoration:underline;
+
+            cursor:pointer;
+
+        }
+
+        .painel-efeito-mapa select{
+
+            width:100%;
+
+            box-sizing:border-box;
+
+            margin-top:6px;
+
+            font-size:12px;
+
+        }
+
+        #janelaDescricao{
+
+            display:none;
+
+            position:fixed;
+
+            inset:0;
+
+            background:rgba(0,0,0,.75);
+
+            justify-content:center;
+
+            align-items:center;
+
+            z-index:9999;
+
+        }
+
+        #caixaDescricao{
+
+            width:500px;
+
+            max-height:75vh;
+
+            overflow:auto;
+
+            background:#222;
+
+            color:white;
+
+            border:2px solid #8c6b2f;
+
+            border-radius:10px;
+
+            padding:20px;
+
+        }
+
+        #textoDescricao{
+
+            margin-top:15px;
+
+            white-space:pre-line;
+
+        }
+
+        /* Tokens continuam acima do efeito */
+        .token-heroi{
+            z-index:10;
+        }
+
         /* Tokens Redondos */
         .token-heroi {
             position: absolute; width: 45px; height: 45px; border-radius: 50%;
@@ -671,15 +798,13 @@
             display:none;
 
         }
+     
+        @keyframes fadeEntrada{
 
-        
+        from{opacity:0;transform:translateY(8px);}
+        to{opacity:1;transform:translateY(0);}
 
-@keyframes fadeEntrada{
-
-from{opacity:0;transform:translateY(8px);}
-to{opacity:1;transform:translateY(0);}
-
-}
+        }
 
         @media (max-width: 900px) {
             .gameplay-wrapper { grid-template-columns: 1fr; }
@@ -1283,7 +1408,36 @@ to{opacity:1;transform:translateY(0);}
                     </ul>
 
                 </div>
-                <img src="./assets/mapas/mapa01.jpg" alt="Mapa Nihil" class="mapa-img">
+                <img src="./assets/mapas/mapa01.jpg" alt="Mapa Nihil" class="mapa-img">    
+                
+                
+
+                <div class="painel-efeito-mapa">
+
+                    <h3>Efeito Atual</h3>
+
+                    <img id="previewEfeito"
+                        src="./assets/cartas/Fragmentos de Almas/nenhum.jpg">
+
+                    <a href="#"
+                        id="nomeEfeito"
+                        onclick="abrirDescricaoEfeito(); return false;">
+                            Nenhum
+                        </a>
+
+                    <select id="seletorEfeito" onchange="trocarEfeitoMapa(this.value)">
+
+                        <option value="">Nenhum</option>
+
+                        <option value="Fragmento I">Fragmento I</option>
+                        <option value="Fragmento II">Fragmento II</option>
+                        <option value="Fragmento III">Fragmento III</option>
+                        <option value="Fragmento IV">Fragmento IV</option>
+                        <option value="Fragmento V">Fragmento V</option>
+
+                    </select>
+
+                </div>
 
                 <div id="token-h1" class="token-heroi" style="--token-color: #8b0000; top: 46%; left: 16.5%;"><img src="./assets/herois/adepto.jpg?w=100" id="img-token-h1"></div>
                 <div id="token-h2" class="token-heroi" style="--token-color: #2e4a2e; top: 46%; left: 18.5%;"><img src="./assets/herois/atroz.jpg?w=100" id="img-token-h2"></div>
@@ -2057,6 +2211,77 @@ to{opacity:1;transform:translateY(0);}
         window.fecharChatRolagens = fecharChatRolagens;
         window.alternarChatRolagens = alternarChatRolagens;
 
+        function trocarEfeitoMapa(nome){
+
+            const preview = document.getElementById("previewEfeito");
+            const titulo = document.getElementById("nomeEfeito");
+
+            if(nome === ""){
+                preview.src = "./assets/Cartas/Fragmentos de Almas/nenhum.jpg";
+                titulo.innerText = "Nenhum";
+                return;
+            }
+
+            const caminho = "./assets/Cartas/Fragmentos de Almas/" + nome + ".jpg";
+
+            console.log(caminho);
+
+            preview.onload = () => console.log("Imagem carregada!");
+            preview.onerror = () => console.error("Imagem NÃO encontrada!");
+
+            preview.src = caminho;
+            titulo.innerText = nome;
+        }
+        // Torna a função acessível ao HTML
+        window.trocarEfeitoMapa = trocarEfeitoMapa;
+
+        const descricaoFragmentos = {
+
+                "Fragmento I":
+            `Aqui você coloca todo o texto do Fragmento I.
+
+            Pode ter várias linhas.
+
+            Pode explicar regras.`,
+
+                "Fragmento II":
+            `Texto do Fragmento II`,
+
+                "Fragmento III":
+            `Texto do Fragmento III`,
+
+                "Fragmento IV":
+            `Texto do Fragmento IV`,
+
+                "Fragmento V":
+            `Texto do Fragmento V`
+
+            };
+
+        function abrirDescricaoEfeito(){
+
+            console.log("Clique detectado");
+
+            const nome = document.getElementById("nomeEfeito").innerText;
+
+            console.log("Nome:", nome);
+
+            if(nome==="Nenhum")
+                return;
+
+            document.getElementById("tituloDescricao").innerText = nome;
+            document.getElementById("textoDescricao").innerText = descricaoFragmentos[nome];
+            document.getElementById("janelaDescricao").style.display = "flex";
+        }
+
+        function fecharDescricao(){
+
+            document.getElementById("janelaDescricao").style.display="none";
+
+        }
+        window.abrirDescricaoEfeito = abrirDescricaoEfeito;
+        window.fecharDescricao = fecharDescricao;
+
         // --- ESCUTADORES EM TEMPO REAL ---
         onValue(ref(db,'tokens/'),(snapshot)=>{
 
@@ -2351,6 +2576,23 @@ to{opacity:1;transform:translateY(0);}
         🎲
 
     </div>
+
+    <div id="janelaDescricao">
+
+        <div id="caixaDescricao">
+
+            <h2 id="tituloDescricao"></h2>
+
+            <div id="textoDescricao"></div>
+
+            <button onclick="fecharDescricao()">
+                Fechar
+            </button>
+
+        </div>
+
+    </div>
+
     
 
 </body>
