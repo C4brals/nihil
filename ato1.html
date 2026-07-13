@@ -324,22 +324,19 @@
 
             color:#d9b96d;
 
-            text-decoration:underline;
+            text-decoration:none;
 
             cursor:pointer;
 
         }
 
-        .painel-efeito-mapa select{
-
-            width:100%;
-
-            box-sizing:border-box;
-
-            margin-top:6px;
-
-            font-size:12px;
-
+        .painel-efeito-mapa select {
+            background: #161616;
+            color: #dcd0c0;
+            border: 1px solid #8c6b2f;
+            padding: 2px;
+            font-family: 'Lora', serif;
+            cursor: pointer;
         }
 
         #janelaDescricao{
@@ -360,24 +357,40 @@
 
         }
 
-        #caixaDescricao{
+        #caixaDescricao {
+            width: 500px;
+            max-height: 75vh;
+            overflow: auto;
+            background: #050505; /* Cor do fundo do body do seu jogo */
+            color: #dcd0c0;      /* Cor padrão de texto do seu tema */
+            border: 2px solid #8c6b2f;
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Lora', serif; /* Mantendo a fonte de texto */
+        }
 
-            width:500px;
+        #caixaDescricao h2, #caixaDescricao h3 {
+            font-family: 'Cinzel', serif;
+            color: #c5a059;
+        }
 
-            max-height:75vh;
+        /* Ajuste para o botão Fechar dentro da caixa de descrição */
+        #caixaDescricao button {
+            background: #161616;              /* Fundo escuro do tema */
+            color: #dcd0c0;                   /* Cor do texto do tema */
+            border: 1px solid #8c6b2f;        /* Borda dourada */
+            padding: 8px 16px;
+            font-family: 'Cinzel', serif;     /* Fonte do título */
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all 0.2s;
+            margin-top: 15px;                 /* Espaçamento acima do botão */
+        }
 
-            overflow:auto;
-
-            background:#222;
-
-            color:white;
-
-            border:2px solid #8c6b2f;
-
-            border-radius:10px;
-
-            padding:20px;
-
+        /* Efeito de hover (quando passa o mouse) para combinar com os outros botões */
+        #caixaDescricao button:hover {
+            background: #8c6b2f;
+            color: #000;
         }
 
         #textoDescricao{
@@ -1423,7 +1436,7 @@
                         id="nomeEfeito"
                         onclick="abrirDescricaoEfeito(); return false;">
                             Nenhum
-                        </a>
+                    </a>
 
                     <select id="seletorEfeito" onchange="trocarEfeitoMapa(this.value)">
 
