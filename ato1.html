@@ -2224,29 +2224,42 @@
         window.fecharChatRolagens = fecharChatRolagens;
         window.alternarChatRolagens = alternarChatRolagens;
 
-        function trocarEfeitoMapa(nome){
+        function trocarEfeitoMapa(nome) {
+            // Referência ao banco
+            const efeitoRef = ref(db, 'efeitoGlobal');
+            
+            // Salva o nome do efeito selecionado
+            set(efeitoRef, {
+                nome: nome || "Nenhum"
+            });
+        }
+        window.trocarEfeitoMapa = trocarEfeitoMapa;
+        // Torna a função acessível ao HTML
+        window.trocarEfeitoMapa = trocarEfeitoMapa;
 
+        const efeitoRef = ref(db, 'efeitoGlobal');
+
+        onValue(efeitoRef, (snapshot) => {
+            const data = snapshot.val();
+            const nome = data ? data.nome : "Nenhum";
+            
+            // Atualiza a interface visual
+            atualizarInterface(nome);
+        });
+
+        function atualizarInterface(nome) {
             const preview = document.getElementById("previewEfeito");
             const titulo = document.getElementById("nomeEfeito");
 
-            if(nome === ""){
-                preview.src = "./assets/Cartas/Fragmentos de Almas/nenhum.jpg";
-                titulo.innerText = "Nenhum";
-                return;
-            }
+            if (!preview || !titulo) return;
 
+            // Ajuste aqui para garantir que o caminho funcione no Vercel
+            // Dica: use caminhos minúsculos e sem espaços se possível
             const caminho = "./assets/Cartas/Fragmentos de Almas/" + nome + ".jpg";
-
-            console.log(caminho);
-
-            preview.onload = () => console.log("Imagem carregada!");
-            preview.onerror = () => console.error("Imagem NÃO encontrada!");
-
+            
             preview.src = caminho;
             titulo.innerText = nome;
         }
-        // Torna a função acessível ao HTML
-        window.trocarEfeitoMapa = trocarEfeitoMapa;
 
         const descricaoFragmentos = {
 
