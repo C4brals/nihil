@@ -571,22 +571,53 @@
             top: calc(100% + 5px);
             right: 0;
             min-width: 180px;
+
             background: rgba(15,15,15,.98);
             border: 1px solid #c5a059;
             border-radius: 6px;
             padding: 5px 0;
             z-index: 30000;
+
+            /* Scroll */
+            max-height: 350px;      /* ajuste conforme desejar */
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
-        .lista-dropdown li{
-            list-style:none;
-            padding:8px 12px;
-            cursor:pointer;
-            color:#ddd;
+        /* Barra de rolagem (Chrome/Edge) */
+        .lista-dropdown::-webkit-scrollbar {
+            width: 8px;
         }
 
-        .lista-dropdown li:hover{
-            background:#3d2b12;
+        .lista-dropdown::-webkit-scrollbar-track {
+            background: #111;
+        }
+
+        .lista-dropdown::-webkit-scrollbar-thumb {
+            background: #8b0000;
+            border-radius: 4px;
+        }
+
+        .lista-dropdown::-webkit-scrollbar-thumb:hover {
+            background: #b00000;
+        }
+
+        /* Firefox */
+        .lista-dropdown {
+            scrollbar-width: thin;
+            scrollbar-color: #8b0000 #111;
+        }
+
+        .lista-dropdown li {
+            list-style: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            color: #ddd;
+            white-space: nowrap;
+        }
+
+        .lista-dropdown li:hover {
+            background: #3d2b12;
         }
 
         .btn-remover-token{
