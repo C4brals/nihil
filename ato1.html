@@ -842,6 +842,30 @@
             display:none;
 
         }
+
+        /* Estilo unificado para os itens dos menus Dropdown do topo (Tokens e Efeitos) */
+        .item-dropdown-topo {
+            list-style: none !important;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            color: #ddd;
+            cursor: pointer;
+            text-align: left;
+            font-family: 'Lora', serif;
+            transition: all 0.2s ease-in-out;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+        }
+
+        /* Efeito ao passar o mouse por cima do item */
+        .item-dropdown-topo:hover {
+            background-color: rgba(197, 160, 89, 0.15);
+            color: #ffffff;
+        }
+
+        /* Remove a linha divisória do último item da lista para ficar perfeito */
+        .item-dropdown-topo:last-child {
+            border-bottom: none;
+        }
      
         @keyframes fadeEntrada{
 
@@ -860,6 +884,8 @@
 
     <div class="moldura-tela"></div>
 
+    <audio id="audio-efeito"></audio>
+
     <div id="mini-player-musica" style="position: fixed; top: 10px; right: 10px; z-index: 20000; background: rgba(15, 10, 10, 0.9); border: 1px solid #c5a059; border-radius: 4px; padding: 5px 10px; display: flex; align-items: center; gap: 10px; box-shadow: 0 0 10px rgba(197, 160, 89, 0.3); pointer-events: auto;">
         <audio id="audio-principal"></audio>
         
@@ -876,85 +902,42 @@
 
         <input type="range" id="volume-player" min="0" max="1" step="0.1" value="0.5" oninput="ajustarVolume()" style="width: 50px; cursor: pointer; accent-color: #8b0000;">
 
-        <div class="menu-item-container">
-
-            <button
-                class="btn-menu-rodape"
-                onclick="alternarDropup(event,'drop-tokens')">
-
-                Tokens
-
+        <div class="menu-item-container" style="position: relative; display: inline-block;">
+            <button id="btn-tokens-topo" onclick="alternarDropup(event,'drop-tokens')" style="background: #111; color: #c5a059; border: 1px solid #c5a059; font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: bold; padding: 3px 6px; cursor: pointer; border-radius: 3px; transition: all 0.2s;">
+                Tokens ▼
             </button>
-            <!-- LISTA DE TOKENS ADICIONAIS-->
-            <ul id="drop-tokens" class="lista-dropdown">
-
-                <li onclick="criarTokenExtra('General Arivys','./assets/tokens/arivys.jpg')">
-                    General Arivys
-                </li>
-                <li onclick="criarTokenExtra('General Nargull','./assets/tokens/nargull.jpg')">
-                    General Nargull
-                </li>
-                <li onclick="criarTokenExtra('General Faredir','./assets/tokens/faredir.jpg')">
-                    General Faredir
-                </li>
-                <li onclick="criarTokenExtra('General Jafras','./assets/tokens/jafras.jpg')">
-                    General Jafras
-                </li>
-
-                <li onclick="criarTokenExtra('Corredor do Abismo','./assets/tokens/travandull_fenda_1.jpg')">
-                    Fenda I - Travandull (Boss)
-                </li>
-                <li onclick="criarTokenExtra('Corredor do Abismo','./assets/tokens/corredorDoAbismo.jpg')">
-                    Fenda I - Corredor do Abismo (Elite)
-                </li>
-                <li onclick="criarTokenExtra('Cria Alada','./assets/tokens/criaAlada.jpg')">
-                    Fenda I - Cria Alada (Comum)
-                </li>
-                
-                <li onclick="criarTokenExtra('Argento Inernal','./assets/tokens/crismodeu_fenda_2.jpg')">
-                    Fenda II - Crismodeu (Boss)
-                </li>
-                <li onclick="criarTokenExtra('Argento Inernal','./assets/tokens/argentoInfernal.jpg')">
-                    Fenda II - Argento Inernal (Elite)
-                </li>
-                <li onclick="criarTokenExtra('Depredador','./assets/tokens/depredadorDasChamas.jpg')">
-                    Fenda II - Depredador (Comum)
-                </li>
-                
-                <li onclick="criarTokenExtra('Arauto','./assets/tokens/clinks_fenda_3.jpg')">
-                    Fenda III - Clinks (Boss)
-                </li>
-                <li onclick="criarTokenExtra('Arauto','./assets/tokens/arauto.jpg')">
-                    Fenda III - Arauto (Elite)
-                </li>
-                <li onclick="criarTokenExtra('Automato','./assets/tokens/automatoDaFenda.jpg')">
-                    Fenda III - Automato (Comum)
-                </li>
-
-                <li onclick="criarTokenExtra('Lâmina do Abismo','./assets/tokens/absam_fenda_4.jpg')">
-                    Fenda IV - Absam (Boss)
-                </li>
-                <li onclick="criarTokenExtra('Sarcedotisa de Malkar','./assets/tokens/sarcedotisaDeMalkar.jpg')">
-                    Fenda IV - Sarcedotisa de Malkar (Elite)
-                </li>
-                <li onclick="criarTokenExtra('Lâmina do Abismo','./assets/tokens/laminaDoAbismo.jpg')">
-                    Fenda IV - Lâmina do Abismo (Comum)
-                </li>
-
-                <li onclick="criarTokenExtra('Lâmina do Abismo','./assets/tokens/fenda.jpg')">
-                    Fenda (Portal)
-                </li>
-                
-
-
-
-
-
+            <ul id="drop-tokens" class="lista-dropdown" style="display: none; position: absolute; top: 110%; right: 0; min-width: 210px; background: rgba(15, 15, 15, 0.98); border: 1px solid #c5a059; border-radius: 4px; padding: 4px 0; z-index: 30005; list-style: none; box-shadow: 0 4px 10px rgba(0,0,0,0.8);">
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('General Arivys','./assets/tokens/arivys.jpg')">General Arivys</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('General Nargull','./assets/tokens/nargull.jpg')">General Nargull</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('General Faredir','./assets/tokens/faredir.jpg')">General Faredir</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('General Jafras','./assets/tokens/jafras.jpg')">General Jafras</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Corredor do Abismo','./assets/tokens/travandull_fenda_1.jpg')">Fenda I - Travandull (Boss)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Corredor do Abismo','./assets/tokens/corredorDoAbismo.jpg')">Fenda I - Corredor do Abismo (Elite)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Cria Alada','./assets/tokens/criaAlada.jpg')">Fenda I - Cria Alada (Comum)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Argento Inernal','./assets/tokens/crismodeu_fenda_2.jpg')">Fenda II - Crismodeu (Boss)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Argento Inernal','./assets/tokens/argentoInfernal.jpg')">Fenda II - Argento Inernal (Elite)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Depredador','./assets/tokens/depredadorDasChamas.jpg')">Fenda II - Depredador (Comum)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Arauto','./assets/tokens/clinks_fenda_3.jpg')">Fenda III - Clinks (Boss)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Arauto','./assets/tokens/arauto.jpg')">Fenda III - Arauto (Elite)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Automato','./assets/tokens/automatoDaFenda.jpg')">Fenda III - Automato (Comum)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Lâmina do Abismo','./assets/tokens/absam_fenda_4.jpg')">Fenda IV - Absam (Boss)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Sarcedotisa de Malkar','./assets/tokens/sarcedotisaDeMalkar.jpg')">Fenda IV - Sarcedotisa de Malkar (Elite)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Lâmina do Abismo','./assets/tokens/laminaDoAbismo.jpg')">Fenda IV - Lâmina do Abismo (Comum)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Lâmina do Abismo','./assets/tokens/fenda.jpg')">Fenda (Portal)</li>
             </ul>
-
         </div>
 
-    </div> 
+        <div class="menu-item-container" style="position: relative; display: inline-block;">
+            <button id="btn-efeitos-topo" onclick="alternarDropdownEfeitos(event)" style="background: #111; color: #c5a059; border: 1px solid #c5a059; font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: bold; padding: 3px 6px; cursor: pointer; border-radius: 3px; transition: all 0.2s;">
+                Efeitos ▼
+            </button>
+            <ul id="drop-efeitos-topo" class="lista-dropdown" style="display: none; position: absolute; top: 110%; right: 0; min-width: 155px; background: rgba(15, 15, 15, 0.98); border: 1px solid #c5a059; border-radius: 4px; padding: 4px 0; z-index: 30005; list-style: none; box-shadow: 0 4px 10px rgba(0,0,0,0.8);">
+                <li class="item-dropdown-topo" onclick="dispararEfeitoFirebase('./assets/efeitosSonoros/ataque_espada.mp3')">Ataque Espada</li>
+                <li class="item-dropdown-topo" onclick="dispararEfeitoFirebase('./assets/efeitosSonoros/magia_fogo.mp3')">Magia de Fogo</li>
+                
+            </ul>
+        </div>
+    </div>
    
 
     <!-- AREA GLOBAL DE LANÇAMENTO DE DADOS -->
@@ -2695,6 +2678,69 @@
 
             }
 
+        });
+
+        // --- CONTROLE DE EXIBIÇÃO DO DROPDOWN ---
+        window.alternarDropdownEfeitos = function(event) {
+            if (event) event.stopPropagation();
+            const dropdown = document.getElementById("drop-efeitos-topo");
+            const estaVisivel = dropdown.style.display === "block";
+            
+            // Fecha o dropdown de Tokens se estiver aberto para não sobrepor
+            const dropTokens = document.getElementById("drop-tokens");
+            if (dropTokens) dropTokens.style.display = "none";
+            
+            dropdown.style.display = estaVisivel ? "none" : "block";
+        };
+
+        // Evento global para fechar o menu caso clique em outro lugar da tela
+        document.addEventListener("click", function(e) {
+            const dropdown = document.getElementById("drop-efeitos-topo");
+            if (dropdown && !e.target.closest('#mini-player-musica')) {
+                dropdown.style.display = "none";
+            }
+        });
+
+        // --- ENVIAR PARA O FIREBASE O EFEITO SONORO DISPARADO ---
+        window.dispararEfeitoFirebase = function(caminhoEfeito) {
+            if (!caminhoEfeito) return;
+            
+            // Fecha o menu suspenso após a escolha
+            const dropdown = document.getElementById("drop-efeitos-topo");
+            if (dropdown) dropdown.style.display = "none";
+
+            // Salvamos no Firebase com um timestamp
+            // Isso garante que se dispararmos duas vezes seguidas o mesmo corte de espada,
+            // o navegador identificará um evento novo e reproduzirá de forma contínua
+            set(ref(db, "efeito_sonoro_sincronizado"), {
+                caminho: caminhoEfeito,
+                timestamp: Date.now()
+            });
+        };
+
+        // --- ESCUTA EM TEMPO REAL DO FIREBASE PARA TOCAR NOS OUTROS JOGADORES ---
+        let ultimoTimestampEfeito = 0;
+
+        onValue(ref(db, "efeito_sonoro_sincronizado"), (snapshot) => {
+            const dados = snapshot.val();
+            if (dados && dados.caminho) {
+                // Apenas toca se for um comando novo (timestamp maior do que o guardado localmente)
+                if (dados.timestamp > ultimoTimestampEfeito) {
+                    ultimoTimestampEfeito = dados.timestamp;
+                    
+                    const playerEfeito = document.getElementById('audio-efeito');
+                    if (playerEfeito) {
+                        // Sincroniza o volume do efeito com a barra de volume do seu player original
+                        const sliderVolume = document.getElementById('volume-player');
+                        playerEfeito.volume = sliderVolume ? parseFloat(sliderVolume.value) : 0.5;
+                        
+                        playerEfeito.src = dados.caminho;
+                        playerEfeito.play().catch(e => {
+                            console.log("O navegador limitou o autoplay antes de uma interação física com a página.");
+                        });
+                    }
+                }
+            }
         });
 
   
