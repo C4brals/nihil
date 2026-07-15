@@ -205,6 +205,58 @@
         ::-webkit-scrollbar-thumb { background: #4a0000; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #8b0000; }
 
+        /* Container do Botão de Voltar */
+        .botoes-container {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            z-index: 2;
+            width: 100%;
+        }
+
+        /* Botão Estilo RPG (Idêntico ao menu) */
+        .botao-voltar {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: #bfae96;
+            text-decoration: none;
+            background: linear-gradient(to right, transparent, rgba(26, 0, 0, 0.4), transparent);
+            padding: 10px 40px;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            border-radius: 3px;
+            transition: all 0.4s ease;
+            position: relative;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .botao-voltar:hover {
+            color: #ffffff;
+            border-color: #8b0000;
+            background: linear-gradient(to right, rgba(139, 0, 0, 0.2), rgba(74, 0, 0, 0.6), rgba(139, 0, 0, 0.2));
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.5), inset 0 0 10px rgba(139, 0, 0, 0.4);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+        }
+
+        .botao-voltar::before, .botao-voltar::after {
+            content: '❖';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8b0000;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .botao-voltar::before { left: 15px; }
+        .botao-voltar::after { right: 15px; }
+
+        .botao-voltar:hover::before { opacity: 1; transform: translateY(-50%) translateX(5px); }
+        .botao-voltar:hover::after { opacity: 1; transform: translateY(-50%) translateX(-5px); }
+
         /* Responsividade */
         @media (max-width: 600px) {
             body { padding: 25px 15px; }
@@ -730,6 +782,10 @@
             </div>
 
         </div>
+    </div>
+
+    <div class="botoes-container">
+        <a href="./ajuda.html" class="botao-voltar">Voltar ao Menu</a>
     </div>
 
 
