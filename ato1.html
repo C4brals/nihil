@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="./assets/ico.png" sizes="32x32">
 
-    <link rel="icon" type="image/png" href="./assets/ico-grande.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="./assets/ico.png" sizes="192x192">
 
     <link rel="apple-touch-icon" href="./assets/ico-ios.png">
     
@@ -1766,12 +1766,15 @@
         // Define o volume inicial baseado no slider (50%)
         audio.volume = 0.5;
 
-        window.trocarMusica = function() {
+        window.trocarMusica = function(vindoDoFirebase = false) {
+
             const caminhoMusica = seletorMusica.value;
-            
+
             if (caminhoMusica) {
+
                 audio.src = caminhoMusica;
-                audio.loop = true; // Garante que a música continue tocando em loop
+                audio.loop = true;
+
                 audio.play()
                     .then(() => {
 
@@ -1779,53 +1782,103 @@
                         btnPlayPause.style.background = "#333";
                         btnPlayPause.style.borderColor = "#555";
 
-                        // Sincroniza com todos os jogadores
-                        set(ref(db, "musica"), {
-                            tocando: true,
-                            faixa: audio.src,
-                            tempo: audio.currentTime,
-                            volume: audio.volume,
-                            timestamp: Date.now(),
-                            usuario: idHeroi
-                        });
+                        // Só envia ao Firebase se foi o usuário quem trocou a música
+                        if (!vindoDoFirebase) {
+
+                            set(ref(db, "musica"), {
+                                tocando: true,
+                                faixa: seletorMusica.value,
+                                tempo: audio.currentTime,
+                                volume: audio.volume,
+                                timestamp: Date.now(),
+                                //usuario: idHeroi
+                            });
+
+                        }
 
                     })
                     .catch(err => {
 
-                        console.log("Autoplay bloqueado pelo navegador. Clique em Play manualmente.");
+                        console.log("Autoplay bloqueado pelo navegador.");
 
                         btnPlayPause.innerText = "Play";
+                        btnPlayPause.style.background = "#8b0000";
+                        btnPlayPause.style.borderColor = "#ff0000";
 
                     });
+
             } else {
+
                 audio.pause();
                 audio.src = "";
+
                 btnPlayPause.innerText = "Play";
                 btnPlayPause.style.background = "#8b0000";
                 btnPlayPause.style.borderColor = "#ff0000";
+
             }
+
         };
 
         window.alternarPlayPause = function() {
-            if (!audio.src || seletorMusica.value === "") return;
+
+            if (!audio.src || seletorMusica.value === "")
+                return;
+
+            console.log("audio.paused =", audio.paused);
 
             if (audio.paused) {
+
                 audio.play();
+
                 btnPlayPause.innerText = "Pause";
                 btnPlayPause.style.background = "#333";
                 btnPlayPause.style.borderColor = "#555";
+
+                set(ref(db, "musica"), {
+
+                    tocando: true,
+                    faixa: seletorMusica.value,
+                    tempo: audio.currentTime,
+                    volume: audio.volume,
+                    timestamp: Date.now(),
+                    //usuario: idHeroi
+
+                });
+
             } else {
+
                 audio.pause();
+
                 btnPlayPause.innerText = "Play";
                 btnPlayPause.style.background = "#8b0000";
                 btnPlayPause.style.borderColor = "#ff0000";
+
+                set(ref(db, "musica"), {
+
+                    tocando: false,
+                    faixa: seletorMusica.value,
+                    tempo: audio.currentTime,
+                    volume: audio.volume,
+                    timestamp: Date.now(),
+                    //usuario: idHeroi
+
+                });
+
             }
+
         };
 
         window.ajustarVolume = function() {
             const sliderVolume = document.getElementById('volume-player');
             audio.volume = sliderVolume.value;
         };
+
+        let ultimoTimestampMusica = 0;
+
+        
+
+
 
         window.removerTokenExtra = function(event, id){
 
@@ -1854,6 +1907,8 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
         let contadorTokensExtras = 0;
+
+        
 
         // --- ENVIAR MOVIMENTAÇÃO AO BANCO (MOUSE + TOUCH ATUALIZADO) ---
         let tokenAtivo = null;
@@ -1917,6 +1972,8 @@
                 lista.removeChild(lista.lastChild);
 
         }
+
+        
 
         
 
@@ -2581,6 +2638,63 @@
                     document.getElementById('texto-inventario').value = textoBanco;
                 }
             }
+        });
+
+        onValue(ref(db, "musica"), (snapshot) => {
+
+            
+            const dados = snapshot.val();
+
+            if (!dados) return;
+
+            console.log("Evento de música recebido:", dados);
+
+            if (dados.timestamp <= ultimoTimestampMusica) return;
+
+            ultimoTimestampMusica = dados.timestamp;
+
+            // Só troca a música se ela realmente mudou
+            if (audio.getAttribute("data-faixa") !== dados.faixa) {
+
+                seletorMusica.value = dados.faixa;
+                audio.src = dados.faixa;
+                audio.loop = true;
+
+                audio.setAttribute("data-faixa", dados.faixa);
+
+            }
+
+            audio.currentTime = dados.tempo;
+            audio.volume = dados.volume;
+
+            if (dados.tocando) {
+
+                audio.play()
+                .then(() => {
+
+                    console.log("Música iniciou normalmente.");
+
+                })
+                .catch((erro) => {
+
+                    console.error(erro);
+
+                });
+
+                btnPlayPause.innerText = "Pause";
+                btnPlayPause.style.background = "#333";
+                btnPlayPause.style.borderColor = "#555";
+
+            } else {
+
+                audio.pause();
+
+                btnPlayPause.innerText = "Play";
+                btnPlayPause.style.background = "#8b0000";
+                btnPlayPause.style.borderColor = "#ff0000";
+
+            }
+
         });
 
   
