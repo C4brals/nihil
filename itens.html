@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nihil - Compêndio de Itens</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: #050505;
+            color: #dcd0c0;
+            font-family: 'Lora', serif;
+            min-height: 100vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.95)), 
+                              url('https://www.transparenttextures.com/patterns/dark-matter.png');
+            padding: 40px;
+            overflow-x: hidden;
+        }
+
+        /* Moldura Medieval Idêntica ao Jogo */
+        .moldura-tela {
+            position: fixed; top: 20px; bottom: 20px; left: 20px; right: 20px;
+            border: 2px solid #4a0000;
+            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(139, 0, 0, 0.2);
+            pointer-events: none; z-index: 100;
+        }
+        .moldura-tela::before, .moldura-tela::after {
+            content: ''; position: absolute; width: 30px; height: 30px; border: 4px solid #c5a059;
+        }
+        .moldura-tela::before { top: -5px; left: -5px; border-right: none; border-bottom: none; }
+        .moldura-tela::after { bottom: -5px; right: -5px; border-left: none; border-top: none; }
+
+        /* Container Principal */
+        .compendio-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Cabeçalho */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: #c5a059;
+            letter-spacing: 4px;
+            text-shadow: 0 2px 10px rgba(197, 160, 89, 0.3);
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: #bfae96;
+            font-style: italic;
+        }
+
+        /* Barra de Pesquisa e Filtros */
+        .painel-controle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+
+        .campo-busca {
+            background: rgba(15, 10, 10, 0.9);
+            border: 1px solid #4a0000;
+            color: #dcd0c0;
+            font-family: 'Lora', serif;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 500px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .campo-busca:focus {
+            border-color: #c5a059;
+            box-shadow: 0 0 10px rgba(197, 160, 89, 0.2);
+        }
+
+        /* Grid de Alta Densidade (Acomoda muitos itens por linha) */
+        .grid-itens {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding-bottom: 40px;
+        }
+
+        /* Card do Item */
+        .card-item {
+            background: linear-gradient(to bottom, #0c0808, #140d0d);
+            border: 1px solid rgba(197, 160, 89, 0.15);
+            border-radius: 6px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efeito de destaque no Hover */
+        .card-item:hover {
+            transform: translateY(-4px);
+            border-color: #c5a059;
+            box-shadow: 0 5px 15px rgba(197, 160, 89, 0.15);
+        }
+
+        /* Divisor Superior do Item (Imagem + Título) */
+        .item-topo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Moldura da Imagem do Item (RPG Clássico) */
+        .item-slot-img {
+            width: 64px;
+            height: 64px;
+            min-width: 64px;
+            background: #111;
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            border-radius: 4px;
+            padding: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .item-slot-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 2px;
+            filter: brightness(0.9) contrast(1.1);
+        }
+
+        /* Informações Básicas */
+        .item-meta {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-titulo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.05rem;
+            color: #c5a059;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        .item-raridade {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            color: #8b0000; /* Comum/Padrão */
+        }
+
+        /* Cores de Raridade customizáveis via classe extra */
+        .card-item.raro .item-raridade { color: #e70303; }
+        .card-item.epico .item-raridade { color: #9c4174; }
+        .card-item.lendario .item-raridade { color: #f2ff00d2; }
+
+        /* Descrição e Regras do Item */
+        .item-descricao {
+            font-size: 0.85rem;
+            color: #bfae96;
+            line-height: 1.4;
+            border-top: 1px solid rgba(197, 160, 89, 0.1);
+            padding-top: 10px;
+            flex-grow: 1;
+        }
+
+        /* Efeito de Brilho Sutil no Fundo */
+        .card-item::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top right, rgba(197, 160, 89, 0.03), transparent 60%);
+            pointer-events: none;
+        }
+
+        /* Scrollbar Medieval */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #4a0000; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8b0000; }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            body { padding: 25px 15px; }
+            header h1 { font-size: 1.8rem; }
+            .grid-itens { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="moldura-tela"></div>
+
+    <div class="compendio-container">
+        
+        <header>
+            <h1>Compêndio de Itens</h1>
+            <p>Artefatos de Alnur, Pergaminhos, Consumíveis e Vinculados</p>
+        </header>
+
+        <div class="painel-controle">
+            <input type="text" id="busca-item" class="campo-busca" placeholder="🔎 Digite o nome de um item para buscar..." oninput="filtrarItens()">
+        </div>
+
+        <div class="grid-itens" id="grid-itens">
+            
+            <!--Consumíveis-->
+            <div class="card-item lendario">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/consumiveis/acampamento.jpg" alt="Acampamento">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Acampamento</span>
+                        <span class="item-raridade">Consumível</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <div class="card-item lendario">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/consumiveis/e_armazenamentoMagico.png" alt="Elixir do Armazenamento Mágico">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Elixir do Armazenamento Mágico</span>
+                        <span class="item-raridade">Consumível</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                   texto
+                </div>
+            </div>
+
+            <div class="card-item lendario">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/consumiveis/e_confusaoMagica.jpg" alt="Elixir da Confusão Mágica">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Elixir da Confusão Mágica</span>
+                        <span class="item-raridade">Consumível</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                   texto
+                </div>
+            </div>
+
+            <div class="card-item lendario">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/consumiveis/e_cura.jpg" alt="Elixir de Cura">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Elixir de Cura</span>
+                        <span class="item-raridade">Consumível</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                   texto
+                </div>
+            </div>
+
+            <div class="card-item lendario">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/consumiveis/e_distorcaoMagica.jpg" alt="Elixir da Distorção Mágica">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Elixir da Distorção Mágica</span>
+                        <span class="item-raridade">Consumível</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                   texto
+                </div>
+            </div>
+
+            <div class="card-item lendario">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/consumiveis/e_escudos.jpg" alt="Elixir de Escudos">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Elixir de Escudos</span>
+                        <span class="item-raridade">Consumível</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                   texto
+                </div>
+            </div>
+
+            <div class="card-item lendario">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/consumiveis/e_invisibilidade.jpg" alt="Elixir da Invisibilidade">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Elixir da Invisibilidade</span>
+                        <span class="item-raridade">Consumível</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                   texto
+                </div>
+            </div>
+
+            <div class="card-item lendario">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/consumiveis/e_lutaMelhorada.png" alt="Elixir da Luta Melhorada">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Elixir da Luta Melhorada</span>
+                        <span class="item-raridade">Consumível</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                   texto
+                </div>
+            </div>
+
+            <div class="card-item lendario">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/consumiveis/e_sangueAcido.jpg" alt="Elixir do Sangue Ácido">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Elixir do Sangue Ácido</span>
+                        <span class="item-raridade">Consumível</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                   texto
+                </div>
+            </div>
+
+            <div class="card-item lendario">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/consumiveis/e_velocidade.jpg" alt="Elixir da Velocidade">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Elixir da Velocidade</span>
+                        <span class="item-raridade">Consumível</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                   texto
+                </div>
+            </div>
+
+            <div class="card-item lendario">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/consumiveis/perg_fogo.jpg" alt="Pergaminho de Fogo">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Pergaminho de Fogo</span>
+                        <span class="item-raridade">Consumível</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                   texto
+                </div>
+            </div>
+
+            <div class="card-item lendario">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/consumiveis/perg_gelo.jpg" alt="Pergaminho de Gelo">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Pergaminho de Gelo</span>
+                        <span class="item-raridade">Consumível</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                   texto
+                </div>
+            </div>
+
+
+            <!--Vinculados-->
+            <div class="card-item epico">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/vinculados/chama_farol.jpg" alt="Chama do Faról">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Chama do Faról</span>
+                        <span class="item-raridade">Vinculado</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <div class="card-item epico">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/vinculados/frag_desmensuravel.jpg" alt="Fragmento do Desmensurável">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Fragmento do Desmensurável</span>
+                        <span class="item-raridade">Vinculado</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <div class="card-item epico">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/vinculados/frag_profundezas.jpg" alt="Fragmento das Profundezas">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Fragmento das Profundezas</span>
+                        <span class="item-raridade">Vinculado</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <div class="card-item epico">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/vinculados/frag_vastidao.jpg" alt="Fragmento da Vastidão">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Fragmento da Vastidão</span>
+                        <span class="item-raridade">Vinculado</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <div class="card-item epico">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/vinculados/insaciavel.jpg" alt="A Insaciável">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">A Insaciável</span>
+                        <span class="item-raridade">Vinculado</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <div class="card-item epico">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/vinculados/odio_abrasador.jpg" alt="Ódio Abrasador">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Ódio Abrasador</span>
+                        <span class="item-raridade">Vinculado</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <div class="card-item epico">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/vinculados/silex.png" alt="Sílex">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Sílex</span>
+                        <span class="item-raridade">Vinculado</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <div class="card-item epico">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/vinculados/sopro_morte.jpg" alt="Sopro da Morte">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Sopro da Morte</span>
+                        <span class="item-raridade">Vinculado</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <div class="card-item epico">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/vinculados/veu.png" alt="Véu">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Véu</span>
+                        <span class="item-raridade">Vinculado</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <!--Artefatos de Alnur-->
+            <div class="card-item raro">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/artefatos/adaga_cristal_absoluto.jpg" alt="Adaga do Cristal Absoluto">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Adaga do Cristal Absoluto</span>
+                        <span class="item-raridade">Artefato de Alnur</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <div class="card-item raro">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/artefatos/amuleto_segredos.png" alt="Amuleto dos Segredos">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Amuleto dos Segredos</span>
+                        <span class="item-raridade">Artefato de Alnur</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <div class="card-item raro">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/artefatos/anel_hostilidade.jpg" alt="Anél da Hostilidade">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Anél da Hostilidade</span>
+                        <span class="item-raridade">Artefato de Alnur</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <div class="card-item raro">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/artefatos/anel_vanguarda.jpg" alt="Anél da Vanguarda">
+                    </div>
+                    <div class="item-meta">
+                         <span class="item-titulo">Anél da Vanguarda</span>
+                        <span class="item-raridade">Artefato de Alnur</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <div class="card-item raro">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/artefatos/crisol.jpg" alt="Crisol do Vínculo">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Crisol do Vínculo</span>
+                        <span class="item-raridade">Artefato de Alnur</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <div class="card-item raro">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/artefatos/dastvo.jpg" alt="Dastvo">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Dastvo, Pergaminho de todos os Contos</span>
+                        <span class="item-raridade">Artefato de Alnur</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <div class="card-item raro">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/artefatos/enciclopedia_intervencao.jpg" alt="Enciclopédia da Intervenção">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Enciclopédia da Intervenção</span>
+                        <span class="item-raridade">Artefato de Alnur</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <div class="card-item raro">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/artefatos/espelho_estacoes.jpg" alt="Espelho das Estações">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Espelho das Estações</span>
+                        <span class="item-raridade">Artefato de Alnur</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <div class="card-item raro">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/artefatos/licor_perpetuo.jpg" alt="Licor do Perpétuo">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Licor do Perpétuo</span>
+                        <span class="item-raridade">Artefato de Alnur</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <div class="card-item raro">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/artefatos/livro_espolios_corrompidos.jpg" alt="Livro dos Espólios Corrompidos">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Livro dos Espólios Corrompidos</span>
+                        <span class="item-raridade">Artefato de Alnur</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <div class="card-item raro">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/artefatos/olho_oxiliat.jpg" alt="O Olho de Oxiliat">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">O Olho de Oxiliat</span>
+                        <span class="item-raridade">Artefato de Alnur</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+            <div class="card-item raro">
+                <div class="item-topo">
+                    <div class="item-slot-img">
+                        <img src="./assets/itens/artefatos/pingente_disturbio.jpg" alt="Pingente do Distúrbio">
+                    </div>
+                    <div class="item-meta">
+                        <span class="item-titulo">Pingente do Distúrbio</span>
+                        <span class="item-raridade">Artefato de Alnur</span>
+                    </div>
+                </div>
+                <div class="item-descricao">
+                    texto
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script>
+        function filtrarItens() {
+            const input = document.getElementById('busca-item').value.toLowerCase();
+            const cards = document.querySelectorAll('.card-item');
+
+            cards.forEach(card => {
+                const titulo = card.querySelector('.item-titulo').innerText.toLowerCase();
+                const descricao = card.querySelector('.item-descricao').innerText.toLowerCase();
+                
+                // Se o termo buscado estiver no título ou na descrição, mantém visível
+                if (titulo.includes(input) || descricao.includes(input)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
+           
