@@ -211,6 +211,16 @@
         .botao-voltar:hover::before { opacity: 1; transform: translateY(-50%) translateX(5px); }
         .botao-voltar:hover::after { opacity: 1; transform: translateY(-50%) translateX(-5px); }
 
+        /* Rodapé Ajustado */
+        .footer-menu {
+            font-size: 0.8rem;
+            color: #444;
+            letter-spacing: 2px;
+            z-index: 2;
+            text-align: center;
+            margin-top: 30px; /* Garante distância mínima caso o menu chegue perto */
+        }
+
         /* Animação */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -276,6 +286,10 @@
     // Define o volume para 10% da capacidade total (bem baixinho)
     audio.volume = 0.4;
     </script>
+
+    <div class="footer-menu">
+        <p>© 2026 Desenvolvido por Augusto Cabral e Marlon Aciole. Todos os direitos reservados.</p>
+    </div>
 
 </body>
 </html>
