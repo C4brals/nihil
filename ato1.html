@@ -955,6 +955,8 @@
                 <li class="item-dropdown-topo" onclick="dispararEfeitoFirebase('./assets/efeitosSonoros/monstro.mp3')">Monstro</li>
                 <li class="item-dropdown-topo" onclick="dispararEfeitoFirebase('./assets/efeitosSonoros/monstro_voador.mp3')">Monstro Voador</li>
                 <li class="item-dropdown-topo" onclick="dispararEfeitoFirebase('./assets/efeitosSonoros/flecha.mp3')">Tiro de Flecha</li>
+                <li class="item-dropdown-topo" onclick="dispararEfeitoFirebase('./assets/efeitosSonoros/defesa_escudo.mp3')">Tiro de Flecha</li>
+                
                 
             </ul>
         </div>
@@ -1779,6 +1781,12 @@
                 </div>
             </div>
 
+            <!--Audio Inimigo DADO 6-->
+            <audio id="som-habilidade-inimigo"
+                src="./assets/efeitosSonoros/habilidade_inimigo.mp3"
+                preload="auto">
+            </audio>
+
         </main>
 
     <!-- JAVASCRIPT: LÓGICA E CONEXÃO FIREBASE -->
@@ -2197,9 +2205,10 @@
         }
 
         // --- FUNÇÃO PARA O INIMIGO ROLAR DADO D6 ---
-        // Modificado: Lê o nome do inimigo a partir do nó correto
         window.lancarDadoInimigo = function() {
+
             let nomeInimigo = "Inimigo";
+
             if (inimigoAbertoLocalmente && inimigoAbertoLocalmente.caminho) {
                 const partes = inimigoAbertoLocalmente.caminho.split('/');
                 const arquivo = partes[partes.length - 1];
@@ -2211,12 +2220,13 @@
 
             set(ref(db, 'rolagem_dado'), {
                 idHeroi: 'sistema_inimigo',
-                nome: nomeInimigo + " Atacou!",
+                nome: nomeInimigo,
                 resultado: resultado,
                 estado: 'Corrompido',
                 cor: '#ff0000',
                 timestamp: Date.now()
             });
+
         };
 
         // --- ANIMAÇÃO FÍSICA E ROTACIONAL DO DADO 3D COM BASE NO RESULTADO ---
@@ -2657,12 +2667,33 @@
                 dados.cor
             );
 
-            adicionarRolagemChat(
-                dados.nome,
-                dados.resultado,
-                dados.cor
-                
-            );
+            if (dados.idHeroi === "sistema_inimigo" && dados.resultado === 6) {
+
+                // Toca o som
+                const audio = document.getElementById("som-habilidade-inimigo");
+                if (audio) {
+                    audio.currentTime = 0;
+                    audio.play().catch(() => {});
+                }
+
+                // Exibe apenas a mensagem especial
+                adicionarRolagemChat(
+                    "💀 Habilidade Especial!",
+                    `${dados.nome} ativou sua habilidade!`,
+                    "#ff9900"
+                );
+
+            } else {
+
+                // Todas as demais rolagens
+                adicionarRolagemChat(
+                    dados.nome,
+                    dados.resultado,
+                    dados.cor
+                );
+
+            }
+
             mostrarChatRolagens();
 
         });
