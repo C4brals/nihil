@@ -413,7 +413,7 @@
             cursor: move; transform: translate(-50%, -50%); z-index: 10;
             transition: border-color 0.3s, box-shadow 0.3s;
 
-            /* ---- ADICIONE ESTAS DUAS LINHAS AQUI ---- */
+            
             user-select: none;         /* Impede que o celular tente selecionar o token como texto */
             touch-action: none;        /* Desativa o comportamento padrão de scroll/zoom do celular sobre o token */
         }
@@ -433,6 +433,24 @@
         }
         .token-heroi.corrompido-estado { border-color: #9c4174 !important; box-shadow: 0 0 12px #9c4174, 0 4px 10px rgba(0,0,0,0.9); }
         .token-heroi.corrompido-estado::after { border-top-color: #9c4174 !important; }
+
+        .nome-token-extra {
+            position: absolute;
+            top: -22px; /* Joga o nome para cima do token */
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.85);
+            color: #c5a059; /* Cor dourada padrão do seu tema */
+            font-family: 'Cinzel', serif;
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 3px;
+            border: 1px solid rgba(197, 160, 89, 0.4);
+            white-space: nowrap; /* Evita que o nome quebre em várias linhas */
+            pointer-events: none; /* Impede que o texto atrapalhe o clique/arraste do token */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
 
         /* ================= AREA DO DADO 3D (CSS PERSPECTIVE) ================= */
         .area-dados {
@@ -946,6 +964,16 @@
                 <li class="item-dropdown-topo" onclick="criarTokenExtra('Sarcedotisa de Malkar','./assets/tokens/sarcedotisaDeMalkar.jpg')">Fenda IV - Sarcedotisa de Malkar (Elite)</li>
                 <li class="item-dropdown-topo" onclick="criarTokenExtra('Lâmina do Abismo','./assets/tokens/laminaDoAbismo.jpg')">Fenda IV - Lâmina do Abismo (Comum)</li>
                 <li class="item-dropdown-topo" onclick="criarTokenExtra('Lâmina do Abismo','./assets/tokens/fenda.jpg')">Fenda (Portal)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Pertences - Adepto das Sombras','./assets/herois/adepto_drop.jpg')">Adepto das Sombras (Drop)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Pertences - Guerreiro Atroz','./assets/herois/atroz_drop.jpg')">Guerreiro Atroz (Drop)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Pertences - Mestre Caçador','./assets/herois/cacador_drop.jpg')">Mestre Caçador (Drop)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Pertences - Clériga','./assets/herois/cleriga_drop.jpg')">Clériga (Drop)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Pertences - Combatente','./assets/herois/combatente_drop.jpg')">Combatente (Drop)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Pertences - Druida','./assets/herois/druida_drop.jpg')">Druida (Drop)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Pertences - Elementarista','./assets/herois/elementarista_drop.jpg')">Elementarista (Drop)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Pertences - Guardião','./assets/herois/guardiao_drop.jpg')">Guardião (Drop)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Pertences - Mestre da Forja','./assets/herois/necromante_drop.jpg')">Mestre da Forja (Drop)</li>
+                <li class="item-dropdown-topo" onclick="criarTokenExtra('Pertences - Protetor','./assets/herois/protetor_drop.jpg')">Protetor (Drop)</li>
             </ul>
         </div>
 
@@ -2382,6 +2410,7 @@
             token.style.top = "50%";
 
             token.innerHTML = `
+                <div class="nome-token-extra">${nome}</div>
                 <img src="${imagem}">
                 <button class="btn-remover-token"
                         onclick="removerTokenExtra(event, '${id}')">
