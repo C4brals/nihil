@@ -1198,9 +1198,9 @@
         .btn-debuff {
             min-width: 58px;
             min-height: 24px;
-            background: rgba(90,0,0,.18);
-            color: #d8a0a0;
-            border: 1px solid rgba(180,40,40,.45);
+            background: rgba(197,160,89,.12);
+            color: #c5a059;
+            border: 1px solid #c5a059;
             font-family: 'Cinzel', serif;
             font-size: .58rem;
             font-weight: bold;
@@ -1209,9 +1209,9 @@
         }
         .btn-debuff.ativo {
             color: #fff;
-            background: #680909;
-            border-color: #ff3b3b;
-            box-shadow: 0 0 8px rgba(255,30,30,.55);
+            background: #096811;
+            border-color: #52ff3b;
+            box-shadow: 0 0 8px rgba(68, 255, 30, 0.55);
         }
         .ordem-turno {
             width: 58px;
@@ -1491,7 +1491,7 @@
                 <div class="controles-heroi">
                                         <button type="button" class="btn-participacao" id="btn-participacao-h1" onclick="alternarParticipacao('h1')">ATIVO</button>
                     <div style="display:flex; gap:4px; align-items:center; width:100%; justify-content:flex-end; margin-bottom:2px;">
-                        <button type="button" class="btn-debuff" id="btn-debuff-h1" onclick="alternarDebuff('h1')">☠ Debuff</button>
+                        <button type="button" class="btn-debuff" id="btn-debuff-h1" onclick="alternarDebuff('h1')">MÁCULA</button>
                         <select class="ordem-turno" id="ordem-h1" onchange="definirOrdemTurno('h1', this.value)" title="Ordem de turno">
                             <option value="0">Turno —</option>
                             <option value="1">1º</option><option value="2">2º</option><option value="3">3º</option>
@@ -3289,7 +3289,7 @@
             if (token) token.classList.toggle('debuff-ativo', ativo);
             if (btn) {
                 btn.classList.toggle('ativo', ativo);
-                btn.innerText = ativo ? '☠ Debuff ON' : '☠ Debuff';
+                btn.innerText = ativo ? 'MÁCULA' : 'MÁCULA';
             }
         }
 
