@@ -48,7 +48,7 @@
 
         .gameplay-wrapper {
             display: grid; 
-            grid-template-columns: 340px 1fr; 
+            grid-template-columns: 390px 1fr; 
             gap: 25px;
             width: 100%; 
             /* MODIFICADO: Remove o max-width de 1400px e força a ocupar 100% da altura da tela útil */
@@ -80,13 +80,16 @@
             background: rgba(20, 15, 15, 0.6); 
             border: 1px solid rgba(139, 0, 0, 0.2);
             /* AUMENTADO: 10px em cima e embaixo para dar espaço vertical ao texto */
-            padding: 10px 14px 10px 0px; 
+            padding: 10px 10px 10px 0px; 
             border-radius: 4px; 
             border-left: 4px solid var(--token-color);
             transition: all 0.3s ease;
             overflow: hidden; 
             /* AUMENTADO: De 70px para 85px (ou mais, se achar necessário) */
-            min-height: 130px; 
+            min-height: 173px; 
+
+            /* ADICIONE ESTA LINHA PARA AUMENTAR A LARGURA HORIZONTAL: */
+            width: 340px; /* Você pode testar valores como 320px, 340px ou 360px para o nome caber completo */
         }
 
         .card-heroi.corrompido-estado {
@@ -104,7 +107,7 @@
         }
 
         .avatar-painel { 
-            width: 55px; /* Largura fixa para o retângulo */
+            width: 85px; /* Largura fixa para o retângulo */
             height: 100%; /* Força a imagem a esticar de cima a baixo */
             align-self: stretch; 
             object-fit: cover; /* Faz a imagem cortar sem distorcer */
@@ -139,11 +142,12 @@
         }
 
         .textos-heroi { display: flex; flex-direction: column; }
-        .nome-heroi { font-family: 'Cinzel', serif; font-size: 0.9rem; color: #bfae96; }
+        .nome-heroi { font-family: 'Cinzel', serif; font-size: 0.9rem; color: #bfae96; white-space: nowrap; overflow: visible; }
+        .info-heroi > div { min-width: 0; }
         .pv-container { font-size: 1.1rem; font-weight: bold; color: #8b0000; margin-top: 3px; }
         .pv-container span { color: #dcd0c0; }
         
-        .controles-heroi { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+        .controles-heroi { display: flex; flex-direction: column; align-items: stretch; gap: 6px; min-width: 105px; width: 105px; flex-shrink: 0; }
         .botoes-acao { display: flex; gap: 6px; align-items: center; }
         
         .btn-pv {
@@ -450,6 +454,239 @@
             white-space: nowrap; /* Evita que o nome quebre em várias linhas */
             pointer-events: none; /* Impede que o texto atrapalhe o clique/arraste do token */
             box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+
+        /* AJUSTE FINAL: todos os controles permanecem dentro do card */
+        .card-heroi {
+            box-sizing: border-box;
+            width: 100%;
+            min-width: 0;
+            overflow: hidden !important;
+            padding: 10px;
+            gap: 8px;
+        }
+        .info-heroi {
+            flex: 1 1 auto;
+            min-width: 0;
+            overflow: hidden;
+        }
+        .textos-heroi {
+            min-width: 0;
+            max-width: 100%;
+            overflow: hidden;
+        }
+        .nome-heroi {
+            display: block;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .controles-heroi {
+            box-sizing: border-box !important;
+            width: 118px !important;
+            min-width: 118px !important;
+            max-width: 118px !important;
+            flex: 0 0 118px !important;
+
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 4px !important;
+
+            overflow: visible !important;
+        }
+
+        .controles-heroi > * {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+            box-sizing: border-box !important;
+        }
+
+        /* =========================
+        BOTÃO ATIVO
+        ========================= */
+
+        .btn-participacao {
+            display: block !important;
+            width: 100% !important;
+            min-width: 0 !important;
+            max-width: 100% !important;
+
+            height: 22px !important;
+            min-height: 22px !important;
+
+            padding: 2px 4px !important;
+
+            font-size: 9px !important;
+            line-height: 1 !important;
+
+            box-sizing: border-box !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+
+
+        /* =========================
+        DEBUFF + TURNO
+        ========================= */
+
+        .controles-heroi > div[style*="display:flex"] {
+            display: flex !important;
+
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+
+            gap: 3px !important;
+
+            overflow: visible !important;
+            box-sizing: border-box !important;
+        }
+
+        .btn-debuff {
+            flex: 1 1 auto !important;
+
+            width: auto !important;
+            min-width: 0 !important;
+            max-width: none !important;
+
+            height: 22px !important;
+            min-height: 22px !important;
+
+            padding: 2px 3px !important;
+
+            font-size: 8px !important;
+
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+
+            box-sizing: border-box !important;
+        }
+
+        .ordem-turno {
+            flex: 0 0 42px !important;
+
+            width: 42px !important;
+            min-width: 42px !important;
+            max-width: 42px !important;
+
+            height: 22px !important;
+
+            padding: 1px !important;
+
+            font-size: 9px !important;
+
+            box-sizing: border-box !important;
+        }
+
+
+        /* =========================
+        LINHAS PV / AM
+        ========================= */
+
+        .linhas-botoes {
+            width: 100% !important;
+            min-width: 0 !important;
+            max-width: 100% !important;
+
+            box-sizing: border-box !important;
+        }
+
+        .botoes-acao {
+            display: flex !important;
+
+            width: 100% !important;
+            min-width: 0 !important;
+            max-width: 100% !important;
+
+            justify-content: flex-end !important;
+            align-items: center !important;
+
+            gap: 3px !important;
+
+            box-sizing: border-box !important;
+        }
+
+        .botoes-acao button {
+            flex: 0 0 25px !important;
+
+            width: 25px !important;
+            min-width: 25px !important;
+            max-width: 25px !important;
+
+            height: 25px !important;
+
+            box-sizing: border-box !important;
+        }
+
+
+        /* =========================
+        NORMAL / CORROMPIDO
+        ========================= */
+
+        .btn-estado {
+            display: block !important;
+
+            width: 100% !important;
+            min-width: 0 !important;
+            max-width: 100% !important;
+
+            height: 22px !important;
+
+            padding: 2px 4px !important;
+
+            font-size: 9px !important;
+
+            box-sizing: border-box !important;
+
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+
+
+        /* =========================
+        HABILIDADES 1 / 2 / 3
+        ========================= */
+
+        .botoes-imagens {
+            display: grid !important;
+
+            grid-template-columns: repeat(3, 1fr) !important;
+
+            width: 100% !important;
+            min-width: 0 !important;
+            max-width: 100% !important;
+
+            gap: 3px !important;
+
+            margin-top: 3px !important;
+
+            box-sizing: border-box !important;
+
+            overflow: visible !important;
+        }
+
+        .botoes-imagens .btn-numero {
+            display: flex !important;
+
+            width: 100% !important;
+            min-width: 0 !important;
+            max-width: 100% !important;
+
+            height: 23px !important;
+
+            padding: 0 !important;
+
+            box-sizing: border-box !important;
+
+            align-items: center !important;
+            justify-content: center !important;
         }
 
         /* ================= AREA DO DADO 3D (CSS PERSPECTIVE) ================= */
@@ -908,6 +1145,204 @@
 
         }
 
+
+
+        /* Correcoes de visibilidade dos controles da partida */
+        .card-heroi { overflow: visible; }
+        .card-heroi .controles-heroi { min-width: 105px; width: 105px; flex-shrink: 0; }
+        .card-heroi .btn-participacao { display: block !important; visibility: visible !important; }
+        /* ================= SISTEMA DE PARTIDA / TURNOS / DEBUFF ================= */
+        .card-heroi.personagem-inativo {
+            opacity: .34;
+            filter: grayscale(1);
+            border-left-color: #555 !important;
+        }
+        .card-heroi.personagem-inativo .avatar-painel {
+            filter: grayscale(1) brightness(.55);
+        }
+        .card-heroi.personagem-inativo .controles-heroi > *:not(.btn-participacao),
+        .card-heroi.personagem-inativo .linhas-botoes,
+        .card-heroi.personagem-inativo .botoes-imagens {
+            pointer-events: none;
+        }
+        /* BOTAO ATIVO / NAO PARTICIPA - sempre visivel */
+        .btn-participacao {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            width: 105px;
+            min-width: 0;
+            min-height: 24px;
+            padding: 3px 4px;
+            background: rgba(197,160,89,.12);
+            color: #c5a059;
+            border: 1px solid #c5a059;
+            font-family: 'Cinzel', serif;
+            font-size: .52rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 3px;
+            letter-spacing: .2px;
+            line-height: 1.1;
+            box-sizing: border-box;
+        }
+        .btn-participacao:hover {
+            background: #c5a059;
+            color: #17100d;
+        }
+        .btn-participacao.inativo {
+            background: rgba(45,45,45,.55);
+            color: #b5b5b5;
+            border-color: #777;
+        }
+        .btn-debuff {
+            min-width: 58px;
+            min-height: 24px;
+            background: rgba(197,160,89,.12);
+            color: #c5a059;
+            border: 1px solid #c5a059;
+            font-family: 'Cinzel', serif;
+            font-size: .58rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .btn-debuff.ativo {
+            color: #fff;
+            background: #096811;
+            border-color: #52ff3b;
+            box-shadow: 0 0 8px rgba(68, 255, 30, 0.55);
+        }
+        .ordem-turno {
+            width: 58px;
+            height: 24px;
+            background: #161616;
+            color: #c5a059;
+            border: 1px solid rgba(197,160,89,.45);
+            border-radius: 3px;
+            font-family: 'Cinzel', serif;
+            font-size: .62rem;
+            cursor: pointer;
+        }
+        .card-heroi.turno-atual {
+            box-shadow: 0 0 0 1px #ffd966, 0 0 14px rgba(255,217,102,.35);
+        }
+        .token-heroi.personagem-inativo {
+            opacity: .28;
+            filter: grayscale(1);
+            cursor: not-allowed;
+        }
+        .token-heroi.debuff-ativo {
+            border-color: #2e7d32 !important; /* Substitui a cor original por verde */
+            box-shadow: 0 0 8px rgba(46, 125, 50, 0.6); /* Opcional: um brilho verde ao redor */
+            animation: pulsarDebuff 1.15s infinite alternate;
+        }
+
+        /* Mantém a seta triangular correta e pinta apenas a borda dela de verde */
+        .token-heroi.debuff-ativo::after {
+            background-color: transparent !important; /* Remove o fundo quadrado */
+            border-top-color: #2e7d32 !important;     /* Ajuste para 'border-bottom-color', 'border-left-color' ou 'border-right-color' dependendo da direção da sua seta */
+        }
+
+        /* O ícone de caveira (seu código atual) */
+        .token-heroi.debuff-ativo::before {
+            content: '☠';
+            position: absolute;
+            right: -7px;
+            top: -9px;
+            width: 19px;
+            height: 19px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0d3b12;
+            color: #dff5df;
+            border: 1px solid #2e7d32;
+            font-size: 11px;
+            z-index: 20;
+            pointer-events: none;
+        }
+        .card-heroi.debuff-ativo {
+            border-color: rgba(27,94,32,.75) !important;
+        }
+        .painel-turnos {
+            background: rgba(8,5,5,.95);
+            border: 1px solid rgba(197,160,89,.35);
+            border-radius: 4px;
+            padding: 8px;
+            margin-bottom: 2px;
+        }
+        .painel-turnos .titulo-turnos {
+            color: #c5a059;
+            font-family: 'Cinzel', serif;
+            font-size: .78rem;
+            text-align: center;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        .turno-atual-display {
+            text-align: center;
+            min-height: 23px;
+            color: #ffd966;
+            font-family: 'Cinzel', serif;
+            font-size: .72rem;
+            margin-bottom: 6px;
+        }
+        .lista-turnos {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            max-height: 110px;
+            overflow-y: auto;
+        }
+        .item-turno {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 3px 5px;
+            color: #dcd0c0;
+            font-size: .68rem;
+            border-left: 3px solid var(--turno-cor, #777);
+            background: rgba(255,255,255,.025);
+        }
+        .item-turno.atual {
+            background: rgba(197,160,89,.15);
+            color: #fff;
+            box-shadow: inset 0 0 8px rgba(197,160,89,.12);
+        }
+        .numero-turno {
+            color: #c5a059;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            width: 18px;
+            text-align: center;
+        }
+        .controles-turno {
+            display: flex;
+            gap: 4px;
+            margin-top: 6px;
+        }
+        .controles-turno button {
+            flex: 1;
+            min-height: 25px;
+            background: rgba(197,160,89,.08);
+            color: #c5a059;
+            border: 1px solid rgba(197,160,89,.35);
+            border-radius: 3px;
+            font-family: 'Cinzel', serif;
+            font-size: .58rem;
+            cursor: pointer;
+        }
+        .controles-turno button:hover {
+            background: #c5a059;
+            color: #050505;
+        }
+        @keyframes pulsarDebuff {
+            from { box-shadow: 0 0 6px #1b5e20, 0 0 10px rgba(27,94,32,.45), 0 4px 10px rgba(0,0,0,.9) !important; }
+            to   { box-shadow: 0 0 10px #1b5e20, 0 0 22px rgba(27,94,32,.9), 0 4px 10px rgba(0,0,0,.9) !important; }
+        }
+
         @media (max-width: 900px) {
             .gameplay-wrapper { grid-template-columns: 1fr; }
             .painel-status { max-height: 300px; }
@@ -925,8 +1360,8 @@
         
         <select id="seletor-musica" onchange="trocarMusica()" style="background: #222; color: #dcd0c0; border: 1px solid #444; font-family: 'Lora', serif; font-size: 0.75rem; padding: 2px 5px; cursor: pointer; max-width: 120px;">
             <option value="">Sem música</option>
-            <option value="./assets/audios/Combate I.mp3">Combate I</option>
-            <option value="./assets/audios/Combate II.mp3">Combate II</option>
+            <option value="./assets/audios/combate1.mp3">Combate I</option>
+            <option value="./assets/audios/Combate2.mp3">Combate II</option>
             <option value="./assets/audios/Combate III.mp3">Combate III</option>
             <option value="./assets/audios/Combate IV.mp3">Combate IV</option>
             <option value="./assets/audios/batalha.mp3">Combate V</option>
@@ -1028,6 +1463,16 @@
         <!-- PAINEL DE CONTROLE LATERAL -->
         <aside class="painel-status">
             <h2>Status do Grupo</h2>
+            <div class="painel-turnos">
+                <div class="titulo-turnos">ORDEM DE INICIATIVA</div>
+                <div id="turno-atual-display" class="turno-atual-display">Nenhum turno definido</div>
+                <div id="lista-turnos" class="lista-turnos"></div>
+                <div class="controles-turno">
+                    <button type="button" onclick="turnoAnterior()">◀ Anterior</button>
+                    <button type="button" onclick="proximoTurno()">Próximo ▶</button>
+                    <button type="button" onclick="limparTurno()">Limpar</button>
+                </div>
+            </div>
             
             <!-- ADEPTO DAS SOMBRAS -->
             <div id="card-h1" class="card-heroi" style="--token-color: #8b0000;" 
@@ -1044,7 +1489,17 @@
                     </div>
                 </div>
                 <div class="controles-heroi">
-                    <div class="linhas-botoes">
+                                        <button type="button" class="btn-participacao" id="btn-participacao-h1" onclick="alternarParticipacao('h1')">ATIVO</button>
+                    <div style="display:flex; gap:4px; align-items:center; width:100%; justify-content:flex-end; margin-bottom:2px;">
+                        <button type="button" class="btn-debuff" id="btn-debuff-h1" onclick="alternarDebuff('h1')">MÁCULA</button>
+                        <select class="ordem-turno" id="ordem-h1" onchange="definirOrdemTurno('h1', this.value)" title="Ordem de turno">
+                            <option value="0">Turno —</option>
+                            <option value="1">1º</option><option value="2">2º</option><option value="3">3º</option>
+                            <option value="4">4º</option><option value="5">5º</option><option value="6">6º</option>
+                            <option value="7">7º</option><option value="8">8º</option><option value="9">9º</option><option value="10">10º</option>
+                        </select>
+                    </div>
+<div class="linhas-botoes">
                         <div class="botoes-acao">
                             <button class="btn-dado" onclick="lancarDado('h1')">⚄</button>
                             <button class="btn-pv" onclick="alterarPV('h1', -1)">-</button>
@@ -1085,7 +1540,17 @@
                     </div>
                 </div>
                 <div class="controles-heroi">
-                    <div class="linhas-botoes">
+                                        <button type="button" class="btn-participacao" id="btn-participacao-h2" onclick="alternarParticipacao('h2')">ATIVO</button>
+                    <div style="display:flex; gap:4px; align-items:center; width:100%; justify-content:flex-end; margin-bottom:2px;">
+                        <button type="button" class="btn-debuff" id="btn-debuff-h2" onclick="alternarDebuff('h2')">☠ Debuff</button>
+                        <select class="ordem-turno" id="ordem-h2" onchange="definirOrdemTurno('h2', this.value)" title="Ordem de turno">
+                            <option value="0">Turno —</option>
+                            <option value="1">1º</option><option value="2">2º</option><option value="3">3º</option>
+                            <option value="4">4º</option><option value="5">5º</option><option value="6">6º</option>
+                            <option value="7">7º</option><option value="8">8º</option><option value="9">9º</option><option value="10">10º</option>
+                        </select>
+                    </div>
+<div class="linhas-botoes">
                         <div class="botoes-acao">
                             <button class="btn-dado" onclick="lancarDado('h2')">⚄</button>
                             <button class="btn-pv" onclick="alterarPV('h2', -1)">-</button>
@@ -1124,7 +1589,17 @@
                     </div>
                 </div>
                 <div class="controles-heroi">
-                    <div class="linhas-botoes">
+                                        <button type="button" class="btn-participacao" id="btn-participacao-h3" onclick="alternarParticipacao('h3')">ATIVO</button>
+                    <div style="display:flex; gap:4px; align-items:center; width:100%; justify-content:flex-end; margin-bottom:2px;">
+                        <button type="button" class="btn-debuff" id="btn-debuff-h3" onclick="alternarDebuff('h3')">☠ Debuff</button>
+                        <select class="ordem-turno" id="ordem-h3" onchange="definirOrdemTurno('h3', this.value)" title="Ordem de turno">
+                            <option value="0">Turno —</option>
+                            <option value="1">1º</option><option value="2">2º</option><option value="3">3º</option>
+                            <option value="4">4º</option><option value="5">5º</option><option value="6">6º</option>
+                            <option value="7">7º</option><option value="8">8º</option><option value="9">9º</option><option value="10">10º</option>
+                        </select>
+                    </div>
+<div class="linhas-botoes">
                         <div class="botoes-acao">
                             <button class="btn-dado" onclick="lancarDado('h3')">⚄</button>
                             <button class="btn-pv" onclick="alterarPV('h3', -1)">-</button>
@@ -1163,7 +1638,17 @@
                     </div>
                 </div>
                 <div class="controles-heroi">
-                    <div class="linhas-botoes">
+                                        <button type="button" class="btn-participacao" id="btn-participacao-h4" onclick="alternarParticipacao('h4')">ATIVO</button>
+                    <div style="display:flex; gap:4px; align-items:center; width:100%; justify-content:flex-end; margin-bottom:2px;">
+                        <button type="button" class="btn-debuff" id="btn-debuff-h4" onclick="alternarDebuff('h4')">☠ Debuff</button>
+                        <select class="ordem-turno" id="ordem-h4" onchange="definirOrdemTurno('h4', this.value)" title="Ordem de turno">
+                            <option value="0">Turno —</option>
+                            <option value="1">1º</option><option value="2">2º</option><option value="3">3º</option>
+                            <option value="4">4º</option><option value="5">5º</option><option value="6">6º</option>
+                            <option value="7">7º</option><option value="8">8º</option><option value="9">9º</option><option value="10">10º</option>
+                        </select>
+                    </div>
+<div class="linhas-botoes">
                         <div class="botoes-acao">
                             <button class="btn-dado" onclick="lancarDado('h4')">⚄</button>
                             <button class="btn-pv" onclick="alterarPV('h4', -1)">-</button>
@@ -1202,7 +1687,17 @@
                     </div>
                 </div>
                 <div class="controles-heroi">
-                    <div class="linhas-botoes">
+                                        <button type="button" class="btn-participacao" id="btn-participacao-h5" onclick="alternarParticipacao('h5')">ATIVO</button>
+                    <div style="display:flex; gap:4px; align-items:center; width:100%; justify-content:flex-end; margin-bottom:2px;">
+                        <button type="button" class="btn-debuff" id="btn-debuff-h5" onclick="alternarDebuff('h5')">☠ Debuff</button>
+                        <select class="ordem-turno" id="ordem-h5" onchange="definirOrdemTurno('h5', this.value)" title="Ordem de turno">
+                            <option value="0">Turno —</option>
+                            <option value="1">1º</option><option value="2">2º</option><option value="3">3º</option>
+                            <option value="4">4º</option><option value="5">5º</option><option value="6">6º</option>
+                            <option value="7">7º</option><option value="8">8º</option><option value="9">9º</option><option value="10">10º</option>
+                        </select>
+                    </div>
+<div class="linhas-botoes">
                         <div class="botoes-acao">
                             <button class="btn-dado" onclick="lancarDado('h5')">⚄</button>
                             <button class="btn-pv" onclick="alterarPV('h5', -1)">-</button>
@@ -1241,7 +1736,17 @@
                     </div>
                 </div>
                 <div class="controles-heroi">
-                    <div class="linhas-botoes">
+                                        <button type="button" class="btn-participacao" id="btn-participacao-h6" onclick="alternarParticipacao('h6')">ATIVO</button>
+                    <div style="display:flex; gap:4px; align-items:center; width:100%; justify-content:flex-end; margin-bottom:2px;">
+                        <button type="button" class="btn-debuff" id="btn-debuff-h6" onclick="alternarDebuff('h6')">☠ Debuff</button>
+                        <select class="ordem-turno" id="ordem-h6" onchange="definirOrdemTurno('h6', this.value)" title="Ordem de turno">
+                            <option value="0">Turno —</option>
+                            <option value="1">1º</option><option value="2">2º</option><option value="3">3º</option>
+                            <option value="4">4º</option><option value="5">5º</option><option value="6">6º</option>
+                            <option value="7">7º</option><option value="8">8º</option><option value="9">9º</option><option value="10">10º</option>
+                        </select>
+                    </div>
+<div class="linhas-botoes">
                         <div class="botoes-acao">
                             <button class="btn-dado" onclick="lancarDado('h6')">⚄</button>
                             <button class="btn-pv" onclick="alterarPV('h6', -1)">-</button>
@@ -1280,7 +1785,17 @@
                     </div>
                 </div>
                 <div class="controles-heroi">
-                    <div class="linhas-botoes">
+                                        <button type="button" class="btn-participacao" id="btn-participacao-h7" onclick="alternarParticipacao('h7')">ATIVO</button>
+                    <div style="display:flex; gap:4px; align-items:center; width:100%; justify-content:flex-end; margin-bottom:2px;">
+                        <button type="button" class="btn-debuff" id="btn-debuff-h7" onclick="alternarDebuff('h7')">☠ Debuff</button>
+                        <select class="ordem-turno" id="ordem-h7" onchange="definirOrdemTurno('h7', this.value)" title="Ordem de turno">
+                            <option value="0">Turno —</option>
+                            <option value="1">1º</option><option value="2">2º</option><option value="3">3º</option>
+                            <option value="4">4º</option><option value="5">5º</option><option value="6">6º</option>
+                            <option value="7">7º</option><option value="8">8º</option><option value="9">9º</option><option value="10">10º</option>
+                        </select>
+                    </div>
+<div class="linhas-botoes">
                         <div class="botoes-acao">
                             <button class="btn-dado" onclick="lancarDado('h7')">⚄</button>
                             <button class="btn-pv" onclick="alterarPV('h7', -1)">-</button>
@@ -1319,7 +1834,17 @@
                     </div>
                 </div>
                 <div class="controles-heroi">
-                    <div class="linhas-botoes">
+                                        <button type="button" class="btn-participacao" id="btn-participacao-h8" onclick="alternarParticipacao('h8')">ATIVO</button>
+                    <div style="display:flex; gap:4px; align-items:center; width:100%; justify-content:flex-end; margin-bottom:2px;">
+                        <button type="button" class="btn-debuff" id="btn-debuff-h8" onclick="alternarDebuff('h8')">☠ Debuff</button>
+                        <select class="ordem-turno" id="ordem-h8" onchange="definirOrdemTurno('h8', this.value)" title="Ordem de turno">
+                            <option value="0">Turno —</option>
+                            <option value="1">1º</option><option value="2">2º</option><option value="3">3º</option>
+                            <option value="4">4º</option><option value="5">5º</option><option value="6">6º</option>
+                            <option value="7">7º</option><option value="8">8º</option><option value="9">9º</option><option value="10">10º</option>
+                        </select>
+                    </div>
+<div class="linhas-botoes">
                         <div class="botoes-acao">
                             <button class="btn-dado" onclick="lancarDado('h8')">⚄</button>
                             <button class="btn-pv" onclick="alterarPV('h8', -1)">-</button>
@@ -1358,7 +1883,17 @@
                     </div>
                 </div>
                 <div class="controles-heroi">
-                    <div class="linhas-botoes">
+                                        <button type="button" class="btn-participacao" id="btn-participacao-h9" onclick="alternarParticipacao('h9')">ATIVO</button>
+                    <div style="display:flex; gap:4px; align-items:center; width:100%; justify-content:flex-end; margin-bottom:2px;">
+                        <button type="button" class="btn-debuff" id="btn-debuff-h9" onclick="alternarDebuff('h9')">☠ Debuff</button>
+                        <select class="ordem-turno" id="ordem-h9" onchange="definirOrdemTurno('h9', this.value)" title="Ordem de turno">
+                            <option value="0">Turno —</option>
+                            <option value="1">1º</option><option value="2">2º</option><option value="3">3º</option>
+                            <option value="4">4º</option><option value="5">5º</option><option value="6">6º</option>
+                            <option value="7">7º</option><option value="8">8º</option><option value="9">9º</option><option value="10">10º</option>
+                        </select>
+                    </div>
+<div class="linhas-botoes">
                         <div class="botoes-acao">
                             <button class="btn-dado" onclick="lancarDado('h9')">⚄</button>
                             <button class="btn-pv" onclick="alterarPV('h9', -1)">-</button>
@@ -1378,7 +1913,6 @@
                         <button id="btn-img-h9-1" class="btn-numero" onclick="abrirImagemCentral('h9', 1, './assets/habilidades/Mestre da Forja 1.jpg')">1</button>
                         <button id="btn-img-h9-2" class="btn-numero" onclick="abrirImagemCentral('h9', 2, './assets/habilidades/Mestre da Forja 2.jpg')">2</button>
                         <button id="btn-img-h9-3" class="btn-numero" onclick="abrirImagemCentral('h9', 3, './assets/habilidades/Mestre da Forja 3.jpg')">3</button>
-                        <button id="btn-img-h9-4" class="btn-numero" onclick="abrirImagemCentral('h9', 4, './assets/habilidades/Mestre da Forja 4.jpg')">4</button>
                     </div>
                 </div>
             </div>
@@ -1398,7 +1932,17 @@
                     </div>
                 </div>
                 <div class="controles-heroi">
-                    <div class="linhas-botoes">
+                                        <button type="button" class="btn-participacao" id="btn-participacao-h10" onclick="alternarParticipacao('h10')">ATIVO</button>
+                    <div style="display:flex; gap:4px; align-items:center; width:100%; justify-content:flex-end; margin-bottom:2px;">
+                        <button type="button" class="btn-debuff" id="btn-debuff-h10" onclick="alternarDebuff('h10')">☠ Debuff</button>
+                        <select class="ordem-turno" id="ordem-h10" onchange="definirOrdemTurno('h10', this.value)" title="Ordem de turno">
+                            <option value="0">Turno —</option>
+                            <option value="1">1º</option><option value="2">2º</option><option value="3">3º</option>
+                            <option value="4">4º</option><option value="5">5º</option><option value="6">6º</option>
+                            <option value="7">7º</option><option value="8">8º</option><option value="9">9º</option><option value="10">10º</option>
+                        </select>
+                    </div>
+<div class="linhas-botoes">
                         <div class="botoes-acao">
                             <button class="btn-dado" onclick="lancarDado('h10')">⚄</button>
                             <button class="btn-pv" onclick="alterarPV('h10', -1)">-</button>
@@ -1533,17 +2077,13 @@
                         <li>
                             <span>Artefato da Alma de Alnur</span>
                             <span class="custo-am">50 AM</span>
-                        </li>  
+                        </li>                         
                         
-                        <li>
-                            <span>Cura do Corrompido</span>
-                            <span class="custo-am">35 AM</span>
-                        </li>
 
                     </ul>
 
                 </div>
-                <img src="./assets/mapas/mapa01.jpg" alt="Mapa Nihil" class="mapa-img">  
+                <img src="./assets/ato2/mapas/principal.png" alt="Mapa Nihil" class="mapa-img">  
                 
                 <canvas id="canvas-nevoa"></canvas>
                 
@@ -1639,6 +2179,7 @@
                     <button class="btn-menu-rodape" onclick="alternarDropup(event, 'drop-itens')">Consumíveis</button>
                     <ul id="drop-itens" class="lista-dropup">
                         <li onclick="mostrarImagemGrupo('./assets/cartas/Consumíveis/Acampamento.jpg')">Acampamento</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Consumíveis/macula.jpg')">A Mácula</li>
                         <li onclick="mostrarImagemGrupo('./assets/cartas/Consumíveis/E Armazenamento Mágico.jpg')">Elixir de Armazenamento Mágico</li>
                         <li onclick="mostrarImagemGrupo('./assets/cartas/Consumíveis/E da Confisão Mágica.jpg')">Elixir da Confusão Mágica</li>
                         <li onclick="mostrarImagemGrupo('./assets/cartas/Consumíveis/E de Cura.jpg')">Elixir de Cura</li>
@@ -1662,6 +2203,10 @@
                         <li onclick="mostrarImagemGrupo('./assets/cartas/Fragmento de Pergaminho/O Farol 1.jpg')">Perg. O Farol I</li>
                         <li onclick="mostrarImagemGrupo('./assets/cartas/Fragmento de Pergaminho/O Farol 2.jpg')">Perg. O Farol II</li>
                         <li onclick="mostrarImagemGrupo('./assets/cartas/Fragmento de Pergaminho/O Farol 3.jpg')">Perg. O Farol III</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Hogi/hogi1.jpg')">Hogi I</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Hogi/hogi2.jpg')">Hogi II</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Hogi/hogi3.jpg')">Hogi III</li>
+                        <li onclick="mostrarImagemGrupo('./assets/cartas/Hogi/hogi4.jpg')">Hogi IV</li>
                                                   
                         
                         
@@ -1788,6 +2333,7 @@
                         <li onclick="mostrarImagemGrupo('./assets/cartas/Descobertas/Perseguido.jpg')">Perseguido</li>
                         <li onclick="mostrarImagemGrupo('./assets/cartas/Descobertas/Rota Indesejada.jpg')">Rota Indesejada</li>
                         <li onclick="mostrarImagemGrupo('./assets/cartas/Descobertas/Templo Sagrado.jpg')">Templo Sagrado</li>
+                        
                     </ul>
                 </div>
 
@@ -1814,13 +2360,9 @@
                 <div class="menu-item-container">
                     <button class="btn-menu-rodape" onclick="alternarDropup(event, 'drop-mapas')" style="color: #ffc107; border-color: rgba(255, 193, 7, 0.4);">Mudar Mapa</button>
                     <ul id="drop-mapas" class="lista-dropup">
-                        <li onclick="trocarMapaNoBanco('./assets/mapas/taverna.jpeg')">Taverna</li>
-                        <li onclick="trocarMapaNoBanco('./assets/mapas/mapa01.jpg')">Mapa I</li>
-                        <li onclick="trocarMapaNoBanco('./assets/mapas/mapa02.jpg')">Mapa II</li>
-                        <li onclick="trocarMapaNoBanco('./assets/mapas/mapa03.jpg')">Mapa III</li>
-                        <li onclick="trocarMapaNoBanco('./assets/mapas/mapa04.jpg')">Mapa IV</li>
-                        <li onclick="trocarMapaNoBanco('./assets/mapas/mapa05.jpg')">Mapa V</li>
-                        <li onclick="trocarMapaNoBanco('./assets/mapas/mapa06.jpg')">Mapa VI</li>
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/taverna.png')">Taverna</li>
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/principal.png')">Mapa Principal</li>   
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg1.png')">Masmorra I</li>                    
                     </ul>
                 </div>
             </div>
@@ -1866,7 +2408,7 @@
                         // Só envia ao Firebase se foi o usuário quem trocou a música
                         if (!vindoDoFirebase) {
 
-                            set(ref(db, "musica"), {
+                            set(campanhaRef( "musica"), {
                                 tocando: true,
                                 faixa: seletorMusica.value,
                                 tempo: audio.currentTime,
@@ -1916,7 +2458,7 @@
                 btnPlayPause.style.background = "#333";
                 btnPlayPause.style.borderColor = "#555";
 
-                set(ref(db, "musica"), {
+                set(campanhaRef( "musica"), {
 
                     tocando: true,
                     faixa: seletorMusica.value,
@@ -1935,7 +2477,7 @@
                 btnPlayPause.style.background = "#8b0000";
                 btnPlayPause.style.borderColor = "#ff0000";
 
-                set(ref(db, "musica"), {
+                set(campanhaRef( "musica"), {
 
                     tocando: false,
                     faixa: seletorMusica.value,
@@ -1965,7 +2507,7 @@
 
             event.stopPropagation();
 
-            remove(ref(db, "tokens/" + id));
+            remove(campanhaRef( "tokens/" + id));
 
             const token = document.getElementById(id);
 
@@ -1987,6 +2529,18 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
+
+        // ============================================================
+        // ISOLAMENTO DE CAMPANHA
+        // Este arquivo pertence exclusivamente ao ATO 2.
+        // Todos os estados persistentes/tempo real do jogo passam por
+        // este caminho, impedindo que o ATO 1 compartilhe os mesmos dados.
+        // ============================================================
+        const CAMPANHA = "ato2";
+
+        function campanhaRef(caminho) {
+            return ref(db, `campanhas/${CAMPANHA}/${caminho}`);
+        }
         let contadorTokensExtras = 0;
 
         
@@ -2076,7 +2630,7 @@
             tokenAtivo.style.left = pctLeft + '%';
             tokenAtivo.style.top = pctTop + '%';
 
-            set(ref(db, 'tokens/' + tokenAtivo.id), {
+            set(campanhaRef( 'tokens/' + tokenAtivo.id), {
                 left: pctLeft,
                 top: pctTop
             });
@@ -2112,7 +2666,7 @@
             if (display) {
                 let pv = parseInt(display.innerText) + valor;
                 if (pv < 0) pv = 0;
-                set(ref(db, 'status/' + idHeroi + '/pv'), pv);
+                set(campanhaRef( 'status/' + idHeroi + '/pv'), pv);
             }
         }
         // --- ENVIAR ENTRADA DE AM AO BANCO ---
@@ -2122,14 +2676,14 @@
                 let am = parseInt(display.innerText) + valor;
                 if (am < 0) am = 0;
                 if (am > 999) am = 999;
-                set(ref(db, 'status/' + idHeroi + '/am'), am);
+                set(campanhaRef( 'status/' + idHeroi + '/am'), am);
             }
         }
 
         // --- FUNÇÃO PARA ALTERNAR O MAPA NO BANCO DE DADOS ---
         window.trocarMapaNoBanco = function(caminhoMapa) {
             // Salva a URL do mapa atual em um nó separado chamado 'mapa_atual'
-            set(ref(db, 'mapa_atual'), caminhoMapa);
+            set(campanhaRef( 'mapa_atual'), caminhoMapa);
         };
 
         // Guarda temporariamente qual botão disparou o modal atual
@@ -2142,7 +2696,7 @@
         // Modificado: Salva localmente e envia ao Firebase para abrir para todos
         window.abrirImagemCentral = function(idHeroi, numeroBotao, caminhoImagem) {
             imagemAbertaLocalmente = { idHeroi, numeroBotao };
-            set(ref(db, 'imagem_ativa'), {
+            set(campanhaRef( 'imagem_ativa'), {
                 idHeroi: idHeroi,
                 numeroBotao: numeroBotao,
                 caminho: caminhoImagem
@@ -2154,7 +2708,7 @@
             if (inimigoAbertoLocalmente) {
                 let novaVida = (inimigoAbertoLocalmente.vida || 0) + valor;
                 if (novaVida < 0) novaVida = 0;
-                set(ref(db, 'inimigo_ativo/vida'), novaVida);
+                set(campanhaRef( 'inimigo_ativo/vida'), novaVida);
             }
         };
         
@@ -2162,24 +2716,24 @@
         // Botões dos heróis limpam apenas o nó 'imagem_ativa'
         document.getElementById('btn-modal-usar').addEventListener('click', () => {
             if (imagemAbertaLocalmente) {
-                set(ref(db, `status/${imagemAbertaLocalmente.idHeroi}/botoes_img/${imagemAbertaLocalmente.numeroBotao}`), true);
+                set(campanhaRef( `status/${imagemAbertaLocalmente.idHeroi}/botoes_img/${imagemAbertaLocalmente.numeroBotao}`), true);
             }
-            set(ref(db, 'imagem_ativa'), null);
+            set(campanhaRef( 'imagem_ativa'), null);
             imagemAbertaLocalmente = null;
         });
 
         document.getElementById('btn-modal-nao-usar').addEventListener('click', () => {
             if (imagemAbertaLocalmente) {
-                set(ref(db, `status/${imagemAbertaLocalmente.idHeroi}/botoes_img/${imagemAbertaLocalmente.numeroBotao}`), false);
+                set(campanhaRef( `status/${imagemAbertaLocalmente.idHeroi}/botoes_img/${imagemAbertaLocalmente.numeroBotao}`), false);
             }
-            set(ref(db, 'imagem_ativa'), null);
+            set(campanhaRef( 'imagem_ativa'), null);
             imagemAbertaLocalmente = null;
         });
 
         // Evento para o botão de fechar quando for imagem do rodapé (sistema)
         // Botão Fechar exclusivo do Inimigo limpa apenas o nó 'inimigo_ativo'
         document.getElementById('btn-modal-fechar-sistema').addEventListener('click', () => {
-            set(ref(db, 'inimigo_ativo'), null);
+            set(campanhaRef( 'inimigo_ativo'), null);
             inimigoAbertoLocalmente = null;
         });
 
@@ -2225,7 +2779,7 @@
                     : "Normal";
             }
 
-            set(ref(db, 'status/' + idHeroi + '/estado'), novoEstado);
+            set(campanhaRef( 'status/' + idHeroi + '/estado'), novoEstado);
         }
 
         window.lancarDado = function(idHeroi) {
@@ -2238,7 +2792,7 @@
             const corHeroi = card.style.getPropertyValue('--token-color').trim();
             const resultado = Math.floor(Math.random() * 6) + 1;
             
-            set(ref(db, 'rolagem_dado'), {
+            set(campanhaRef( 'rolagem_dado'), {
                 idHeroi: idHeroi,
                 nome: nome,
                 resultado: resultado,
@@ -2262,7 +2816,7 @@
 
             const resultado = Math.floor(Math.random() * 6) + 1;
 
-            set(ref(db, 'rolagem_dado'), {
+            set(campanhaRef( 'rolagem_dado'), {
                 idHeroi: 'sistema_inimigo',
                 nome: nomeInimigo,
                 resultado: resultado,
@@ -2391,7 +2945,7 @@
 
         // --- TRANSMITIR IMAGEM DO MENU PARA TODOS OS JOGADORES ---
         window.mostrarImagemGrupo = function(caminhoImagem) {
-            set(ref(db, 'inimigo_ativo'), {
+            set(campanhaRef( 'inimigo_ativo'), {
                 caminho: caminhoImagem,
                 vida: 0
             });
@@ -2428,7 +2982,7 @@
 
             registrarToken(token);
 
-            set(ref(db,"tokens/"+id),{
+            set(campanhaRef("tokens/"+id),{
 
                 left:50,
                 top:50,
@@ -2481,7 +3035,7 @@
 
         function trocarEfeitoMapa(nome) {
             // Referência ao banco
-            const efeitoRef = ref(db, 'efeitoGlobal');
+            const efeitoRef = campanhaRef( 'efeitoGlobal');
             
             // Salva o nome do efeito selecionado
             set(efeitoRef, {
@@ -2492,7 +3046,7 @@
         // Torna a função acessível ao HTML
         window.trocarEfeitoMapa = trocarEfeitoMapa;
 
-        const efeitoRef = ref(db, 'efeitoGlobal');
+        const efeitoRef = campanhaRef( 'efeitoGlobal');
 
         onValue(efeitoRef, (snapshot) => {
             const data = snapshot.val();
@@ -2559,8 +3113,228 @@
         window.abrirDescricaoEfeito = abrirDescricaoEfeito;
         window.fecharDescricao = fecharDescricao;
 
+
+        // ================= PARTIDA: PERSONAGENS / TURNOS / DEBUFF =================
+        const HEROIS_PARTIDA = {
+            h1: {nome:"Adepto das Sombras", cor:"#8b0000"},
+            h2: {nome:"Guerreiro Atroz", cor:"#743838"},
+            h3: {nome:"Mestre Cacador", cor:"#202020"},
+            h4: {nome:"Clériga", cor:"#df8ce6"},
+            h5: {nome:"Combatente", cor:"#331216"},
+            h6: {nome:"Druida", cor:"#4ead3b"},
+            h7: {nome:"Elementarista", cor:"#0d4949"},
+            h8: {nome:"Guardião", cor:"#7e3818"},
+            h9: {nome:"Mestre da Forja", cor:"#3f0024"},
+            h10:{nome:"Protetor", cor:"#8a8104"}
+        };
+
+        function obterStatusHeroi(idHeroi) {
+            const card = document.getElementById(`card-${idHeroi}`);
+            return card;
+        }
+
+        window.alternarParticipacao = function(idHeroi) {
+            const card = obterStatusHeroi(idHeroi);
+            if (!card) return;
+
+            const ativoAgora = !card.classList.contains('personagem-inativo');
+            set(campanhaRef( `status/${idHeroi}/ativo`), !ativoAgora);
+        };
+
+        window.alternarDebuff = function(idHeroi) {
+            const card = obterStatusHeroi(idHeroi);
+            if (!card) return;
+            const token = document.getElementById(`token-${idHeroi}`);
+            const novoValor = !card.classList.contains('debuff-ativo');
+            set(campanhaRef( `status/${idHeroi}/debuff`), novoValor);
+        };
+
+        window.definirOrdemTurno = function(idHeroi, valor) {
+            const ordem = parseInt(valor, 10) || 0;
+            set(campanhaRef( `status/${idHeroi}/ordemTurno`), ordem);
+
+            // Se for a primeira posição e ainda não houver turno atual,
+            // ela se torna automaticamente o turno atual.
+            get(campanhaRef( 'turnos/atual')).then(snapshot => {
+                if (!snapshot.exists() && ordem > 0) {
+                    set(campanhaRef( 'turnos/atual'), idHeroi);
+                }
+            });
+        };
+
+        function obterOrdemAtual() {
+            const resultado = [];
+            document.querySelectorAll('.card-heroi').forEach(card => {
+                const id = card.id.replace('card-', '');
+                const select = document.getElementById(`ordem-${id}`);
+                const ordem = select ? parseInt(select.value, 10) || 0 : 0;
+                const ativo = !card.classList.contains('personagem-inativo');
+                if (ativo && ordem > 0) {
+                    resultado.push({
+                        id,
+                        nome: HEROIS_PARTIDA[id]?.nome || id,
+                        cor: HEROIS_PARTIDA[id]?.cor || '#777',
+                        ordem
+                    });
+                }
+            });
+            resultado.sort((a,b) => a.ordem - b.ordem || a.id.localeCompare(b.id, undefined, {numeric:true}));
+            return resultado;
+        }
+
+        function renderizarTurnos(lista, atualId, rodada = 1) {
+            const painel = document.getElementById('lista-turnos');
+            const display = document.getElementById('turno-atual-display');
+            if (!painel || !display) return;
+
+            painel.innerHTML = '';
+
+            if (!lista.length) {
+                display.innerText = 'Defina a ordem nos personagens';
+            } else {
+                const atual = lista.find(x => x.id === atualId);
+                display.innerText = atual
+                    ? `⚔ Rodada ${rodada} • Turno ${atual.ordem}: ${atual.nome}`
+                    : `Rodada ${rodada} • Nenhum turno definido`;
+            }
+
+            lista.forEach(item => {
+                const linha = document.createElement('div');
+                linha.className = 'item-turno' + (item.id === atualId ? ' atual' : '');
+                linha.style.setProperty('--turno-cor', item.cor);
+                linha.innerHTML = `
+                    <span class="numero-turno">${item.ordem}</span>
+                    <span>${item.nome}</span>
+                `;
+                painel.appendChild(linha);
+            });
+
+            document.querySelectorAll('.card-heroi').forEach(card => {
+                card.classList.remove('turno-atual');
+            });
+            if (atualId) {
+                const cardAtual = document.getElementById(`card-${atualId}`);
+                if (cardAtual) cardAtual.classList.add('turno-atual');
+            }
+        }
+
+        window.proximoTurno = function() {
+            const lista = obterOrdemAtual();
+            if (!lista.length) return;
+
+            Promise.all([
+                get(campanhaRef( 'turnos/atual')),
+                get(campanhaRef( 'turnos/rodada'))
+            ]).then(([atualSnap, rodadaSnap]) => {
+                const atualId = atualSnap.val();
+                let indice = lista.findIndex(x => x.id === atualId);
+                if (indice < 0) indice = -1;
+
+                const proximoIndice = (indice + 1) % lista.length;
+                const voltouAoPrimeiro = indice === lista.length - 1;
+                const rodadaAtual = Math.max(1, parseInt(rodadaSnap.val(), 10) || 1);
+                const novaRodada = voltouAoPrimeiro ? rodadaAtual + 1 : rodadaAtual;
+
+                set(campanhaRef( 'turnos'), {
+                    atual: lista[proximoIndice].id,
+                    rodada: novaRodada
+                });
+            });
+        };
+
+        window.turnoAnterior = function() {
+            const lista = obterOrdemAtual();
+            if (!lista.length) return;
+
+            Promise.all([
+                get(campanhaRef( 'turnos/atual')),
+                get(campanhaRef( 'turnos/rodada'))
+            ]).then(([atualSnap, rodadaSnap]) => {
+                const atualId = atualSnap.val();
+                let indice = lista.findIndex(x => x.id === atualId);
+                if (indice < 0) indice = 0;
+
+                const voltouAoUltimo = indice === 0;
+                const anteriorIndice = (indice - 1 + lista.length) % lista.length;
+                const rodadaAtual = Math.max(1, parseInt(rodadaSnap.val(), 10) || 1);
+                const novaRodada = voltouAoUltimo ? Math.max(1, rodadaAtual - 1) : rodadaAtual;
+
+                set(campanhaRef( 'turnos'), {
+                    atual: lista[anteriorIndice].id,
+                    rodada: novaRodada
+                });
+            });
+        };
+
+        window.limparTurno = function() {
+            set(campanhaRef( 'turnos/atual'), null);
+        };
+
+        function aplicarParticipacaoVisual(idHeroi, ativo) {
+            const card = document.getElementById(`card-${idHeroi}`);
+            const token = document.getElementById(`token-${idHeroi}`);
+            const btn = document.getElementById(`btn-participacao-${idHeroi}`);
+            if (!card) return;
+
+            const estaAtivo = ativo !== false;
+            card.classList.toggle('personagem-inativo', !estaAtivo);
+            if (token) {
+                token.classList.toggle('personagem-inativo', !estaAtivo);
+                token.style.pointerEvents = estaAtivo ? 'auto' : 'none';
+            }
+            if (btn) {
+                btn.innerText = estaAtivo ? 'ATIVO' : 'NÃO PARTICIPA';
+                btn.classList.toggle('inativo', !estaAtivo);
+            }
+        }
+
+        function aplicarDebuffVisual(idHeroi, debuff) {
+            const card = document.getElementById(`card-${idHeroi}`);
+            const token = document.getElementById(`token-${idHeroi}`);
+            const btn = document.getElementById(`btn-debuff-${idHeroi}`);
+            if (!card) return;
+
+            const ativo = debuff === true;
+            card.classList.toggle('debuff-ativo', ativo);
+            if (token) token.classList.toggle('debuff-ativo', ativo);
+            if (btn) {
+                btn.classList.toggle('ativo', ativo);
+                btn.innerText = ativo ? 'MÁCULA' : 'MÁCULA';
+            }
+        }
+
+        onValue(campanhaRef( 'status/'), (snapshot) => {
+            const dados = snapshot.val() || {};
+            Object.keys(HEROIS_PARTIDA).forEach(idHeroi => {
+                const estado = dados[idHeroi] || {};
+                aplicarParticipacaoVisual(idHeroi, estado.ativo !== false);
+                aplicarDebuffVisual(idHeroi, estado.debuff === true);
+
+                const ordem = parseInt(estado.ordemTurno, 10) || 0;
+                const select = document.getElementById(`ordem-${idHeroi}`);
+                if (select && document.activeElement !== select) {
+                    select.value = String(ordem);
+                }
+            });
+        });
+
+        onValue(campanhaRef( 'turnos'), (snapshot) => {
+            const dadosTurno = snapshot.val() || {};
+            renderizarTurnos(obterOrdemAtual(), dadosTurno.atual || null, Math.max(1, parseInt(dadosTurno.rodada, 10) || 1));
+        });
+
+        // Re-renderiza a lista quando a ordem/participação muda no próprio cliente.
+        onValue(campanhaRef( 'status/'), () => {
+            setTimeout(() => {
+                get(campanhaRef( 'turnos')).then(snapshot => {
+                    const dadosTurno = snapshot.val() || {};
+                    renderizarTurnos(obterOrdemAtual(), dadosTurno.atual || null, Math.max(1, parseInt(dadosTurno.rodada, 10) || 1));
+                });
+            }, 0);
+        });
+
         // --- ESCUTADORES EM TEMPO REAL ---
-        onValue(ref(db,'tokens/'),(snapshot)=>{
+        onValue(campanhaRef('tokens/'),(snapshot)=>{
 
             const dados=snapshot.val();
 
@@ -2612,7 +3386,7 @@
         });
 
         // --- ESCUTADOR PARA ATUALIZAR O MAPA EM TEMPO REAL ---
-        onValue(ref(db, 'mapa_atual'), (snapshot) => {
+        onValue(campanhaRef( 'mapa_atual'), (snapshot) => {
             const caminhoMapa = snapshot.val();
             const tagMapa = document.querySelector('.mapa-img');
             
@@ -2623,7 +3397,7 @@
 
         // --- ESCUTADOR MODIFICADO: EXIBIR IMAGEM E ATUALIZAR VIDA DO GRUPO EM TEMPO REAL ---
         // 1. Escutador das Habilidades dos Heróis (Voltou a ser simples e focado)
-        onValue(ref(db, 'imagem_ativa'), (snapshot) => {
+        onValue(campanhaRef( 'imagem_ativa'), (snapshot) => {
             const dados = snapshot.val();
             const modal = document.getElementById('modal-imagem-central');
             const img = document.getElementById('imagem-central-exibida');
@@ -2640,7 +3414,7 @@
         });
 
         // 2. NOVO Escutador Exclusivo do Inimigo Ativo do Rodapé
-        onValue(ref(db, 'inimigo_ativo'), (snapshot) => {
+        onValue(campanhaRef( 'inimigo_ativo'), (snapshot) => {
             const dados = snapshot.val();
             const modalInimigo = document.getElementById('modal-inimigo-central');
             const imgInimigo = document.getElementById('imagem-inimigo-exibida');
@@ -2658,7 +3432,7 @@
             }
         });
 
-        onValue(ref(db, 'status/'), (snapshot) => {
+        onValue(campanhaRef( 'status/'), (snapshot) => {
             const dados = snapshot.val();
             if (dados) {
                 Object.keys(dados).forEach(idHeroi => {
@@ -2690,7 +3464,7 @@
 
         const momentoCarregamento = Date.now();
 
-        onValue(ref(db, 'rolagem_dado'), (snapshot) => {
+        onValue(campanhaRef( 'rolagem_dado'), (snapshot) => {
 
             const dados = snapshot.val();
 
@@ -2754,7 +3528,7 @@
             document.getElementById('modal-inventario').style.display = 'flex';
             
             // Só depois tenta buscar no Firebase
-            get(ref(db, `status/${idHeroi}/inventario`)).then((snapshot) => {
+            get(campanhaRef( `status/${idHeroi}/inventario`)).then((snapshot) => {
                 const dadosSalvos = snapshot.val() || "";
                 document.getElementById('texto-inventario').value = dadosSalvos;
             }).catch((err) => {
@@ -2766,7 +3540,7 @@
             if (!heroiInventarioAtivo) return;
             const conteudoTexto = document.getElementById('texto-inventario').value;
             
-            set(ref(db, `status/${heroiInventarioAtivo}/inventario`), conteudoTexto)
+            set(campanhaRef( `status/${heroiInventarioAtivo}/inventario`), conteudoTexto)
                 .then(() => {
                     fecharInventario();
                 })
@@ -2783,7 +3557,7 @@
         };
 
         // Escutador em tempo real: Atualiza dinamicamente o modal se outro jogador editar ao mesmo tempo
-        onValue(ref(db, 'status'), (snapshot) => {
+        onValue(campanhaRef( 'status'), (snapshot) => {
             const listaStatus = snapshot.val();
             if (listaStatus && heroiInventarioAtivo && document.getElementById('modal-inventario').style.display === 'flex') {
                 const textoBanco = listaStatus[heroiInventarioAtivo]?.inventario || "";
@@ -2794,7 +3568,7 @@
             }
         });
 
-        onValue(ref(db, "musica"), (snapshot) => {
+        onValue(campanhaRef( "musica"), (snapshot) => {
 
             
             const dados = snapshot.val();
@@ -2883,7 +3657,7 @@
             // Salvamos no Firebase com um timestamp
             // Isso garante que se dispararmos duas vezes seguidas o mesmo corte de espada,
             // o navegador identificará um evento novo e reproduzirá de forma contínua
-            set(ref(db, "efeito_sonoro_sincronizado"), {
+            set(campanhaRef( "efeito_sonoro_sincronizado"), {
                 caminho: caminhoEfeito,
                 timestamp: Date.now()
             });
@@ -2892,7 +3666,7 @@
         // --- ESCUTA EM TEMPO REAL DO FIREBASE PARA TOCAR NOS OUTROS JOGADORES ---
         let ultimoTimestampEfeito = 0;
 
-        onValue(ref(db, "efeito_sonoro_sincronizado"), (snapshot) => {
+        onValue(campanhaRef( "efeito_sonoro_sincronizado"), (snapshot) => {
             const dados = snapshot.val();
             if (dados && dados.caminho) {
                 // Apenas toca se for um comando novo (timestamp maior do que o guardado localmente)

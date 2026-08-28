@@ -8,7 +8,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="./assets/ico.png" sizes="32x32">
+
     <link rel="icon" type="image/png" href="./assets/ico-grande.png" sizes="192x192">
+
     <link rel="apple-touch-icon" href="./assets/ico-ios.png">
     
     <style>
@@ -22,36 +24,38 @@
             font-family: 'Lora', serif;
             margin: 0;
             padding: 0;
+            /* Mudado para min-height e inserido paddings para respirar em telas pequenas */
             min-height: 100vh; 
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: space-between; /* Empurra o rodapé nativamente para o fim */
             align-items: center;
             background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.95)), 
                               url('https://www.transparenttextures.com/patterns/dark-matter.png');
-            overflow-y: auto;
+            overflow-y: auto; /* Permite rolar a tela se faltar espaço */
             padding: 60px 20px;
         }
 
-        /* Moldura Medieval Sombria */
+        /* Moldura Medieval Sombria fixa para acompanhar o scroll se necessário */
         .moldura-tela {
             position: fixed;
             top: 20px;
             bottom: 20px;
             left: 20px;
             right: 20px;
-            border: 2px solid #4a0000;
+            border: 2px solid #4a0000; /* Linha de sangue */
             box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(139, 0, 0, 0.2);
             pointer-events: none;
             z-index: 10;
         }
 
+        /* Detalhes nos cantos da moldura */
         .moldura-tela::before, .moldura-tela::after {
             content: '';
             position: absolute;
             width: 30px;
             height: 30px;
-            border: 4px solid #c5a059;
+            border: 4px solid #c5a059; /* Ouro envelhecido nos cantos */
         }
         .moldura-tela::before { top: -5px; left: -5px; border-right: none; border-bottom: none; }
         .moldura-tela::after { bottom: -5px; right: -5px; border-left: none; border-top: none; }
@@ -62,7 +66,7 @@
             z-index: 2;
             max-width: 600px;
             width: 100%;
-            margin: auto 0;
+            margin: auto 0; /* Centraliza verticalmente no espaço disponível */
             padding: 20px 0;
             animation: fadeIn 2s ease-in-out;
         }
@@ -84,7 +88,7 @@
             font-size: 1.1rem;
             letter-spacing: 4px;
             margin-top: 0;
-            margin-bottom: 40px;
+            margin-bottom: 40px; /* Reduzido levemente para evitar empurrar demais */
             text-shadow: 2px 2px 4px #000;
         }
 
@@ -112,10 +116,9 @@
             position: relative;
             letter-spacing: 2px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            cursor: pointer;
-            display: inline-block;
         }
 
+        /* Efeito de Brilho de Sangue e Magia ao passar o mouse */
         .botao-menu:hover {
             color: #ffffff;
             border-color: #8b0000;
@@ -125,6 +128,7 @@
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
         }
 
+        /* Ícones rúnicos ocultos (❖) */
         .botao-menu::before, .botao-menu::after {
             content: '❖';
             position: absolute;
@@ -156,6 +160,7 @@
             width: 100%;
         }
 
+        /* Botão Estilo RPG (Idêntico ao menu) */
         .botao-voltar {
             font-family: 'Cinzel', serif;
             font-size: 1.1rem;
@@ -199,86 +204,10 @@
         .botao-voltar:hover::before { opacity: 1; transform: translateY(-50%) translateX(5px); }
         .botao-voltar:hover::after { opacity: 1; transform: translateY(-50%) translateX(-5px); }
 
-        /* Modal de Senha Temático */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            backdrop-filter: blur(4px);
-        }
-
-        .modal-content {
-            background: #0a0a0a;
-            border: 2px solid #8b0000;
-            box-shadow: 0 0 30px rgba(139, 0, 0, 0.5);
-            padding: 30px;
-            border-radius: 5px;
-            text-align: center;
-            max-width: 380px;
-            width: 90%;
-            position: relative;
-        }
-
-        .modal-content h2 {
-            font-family: 'Cinzel', serif;
-            color: #c5a059;
-            margin-top: 0;
-            font-size: 1.3rem;
-            letter-spacing: 2px;
-        }
-
-        .modal-input {
-            width: 100%;
-            padding: 10px;
-            margin: 20px 0 10px 0;
-            background: #151515;
-            border: 1px solid rgba(197, 160, 89, 0.4);
-            color: #dcd0c0;
-            font-family: 'Lora', serif;
-            text-align: center;
-            font-size: 1rem;
-            border-radius: 3px;
-            outline: none;
-        }
-
-        .modal-input:focus {
-            border-color: #8b0000;
-            box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
-        }
-
-        .mensagem-erro {
-            color: #ff4d4d;
-            font-size: 0.85rem;
-            min-height: 20px;
-            margin-bottom: 15px;
-        }
-
-        .modal-botoes {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .btn-modal {
-            font-family: 'Cinzel', serif;
-            padding: 8px 20px;
-            background: #1a0000;
-            border: 1px solid #8b0000;
-            color: #bfae96;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-modal:hover {
-            background: #8b0000;
-            color: #fff;
+        @media (max-width: 600px) {
+            .titulo-lore { font-size: 1.6rem; }
+            .lore-container { padding: 20px; max-height: 65vh; }
+            .botao-voltar { font-size: 0.9rem; padding: 8px 20px; }
         }
 
         /* Rodapé Ajustado */
@@ -288,20 +217,22 @@
             letter-spacing: 2px;
             z-index: 2;
             text-align: center;
-            margin-top: 30px;
+            margin-top: 30px; /* Garante distância mínima caso o menu chegue perto */
         }
 
+        /* Animação suave ao abrir a página */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Media Query Otimizada para Celulares */
         @media (max-width: 480px) {
             body {
-                padding: 50px 30px;
+                padding: 50px 30px; /* Margem adequada para a moldura interna */
             }
             .titulo-jogo { 
-                font-size: 1.8rem;
+                font-size: 1.8rem; /* Reduzido para não quebrar feio no celular */
                 letter-spacing: 3px;
             }
             .subtitulo-jogo {
@@ -313,7 +244,7 @@
                 padding: 12px 20px; 
             }
             .botao-menu::before, .botao-menu::after {
-                display: none;
+                display: none; /* Oculta runas no celular para sobrar espaço para o texto */
             }
         }
     </style>
@@ -328,7 +259,7 @@
 
         <nav class="opcoes-menu">
             <a href="./ato1.html" class="botao-menu">ATO I</a>
-            <button type="button" class="botao-menu" onclick="abrirModalAto2()">ATO II</button>
+            
         </nav>
     </div>
 
@@ -336,61 +267,9 @@
         <a href="./index.html" class="botao-voltar">Voltar ao Menu</a>
     </div>
 
-    <!-- Modal de Senha do ATO II -->
-    <div id="modalSenha" class="modal-overlay">
-        <div class="modal-content">
-            <h2>ACESSO RESTRITO</h2>
-            <p style="font-size: 0.9rem; color: #8a8a8a; margin: 0;">Insira a palavra-passe do ATO II</p>
-            
-            <input type="password" id="inputSenha" class="modal-input" placeholder="Digite a senha..." onkeypress="verificarEnter(event)">
-            
-            <div id="msgErro" class="mensagem-erro"></div>
-
-            <div class="modal-botoes">
-                <button class="btn-modal" onclick="validarSenha()">Entrar</button>
-                <button class="btn-modal" onclick="fecharModalAto2()">Cancelar</button>
-            </div>
-        </div>
-    </div>
-
     <div class="footer-menu">
         <p>© 2026 Desenvolvido por Augusto Cabral e Marlon Aciole. Todos os direitos reservados.</p>
     </div>
-
-    <script>
-        // DEFINA A SENHA DO ATO 2 AQUI
-        const SENHA_CORRETA = "N1h1l@2026";
-
-        function abrirModalAto2() {
-            document.getElementById('modalSenha').style.display = 'flex';
-            document.getElementById('inputSenha').focus();
-        }
-
-        function fecharModalAto2() {
-            document.getElementById('modalSenha').style.display = 'none';
-            document.getElementById('inputSenha').value = '';
-            document.getElementById('msgErro').innerText = '';
-        }
-
-        function validarSenha() {
-            const senhaInserida = document.getElementById('inputSenha').value;
-            const msgErro = document.getElementById('msgErro');
-
-            if (senhaInserida === SENHA_CORRETA) {
-                window.location.href = "./ato2.html";
-            } else {
-                msgErro.innerText = "Senha incorreta. O acesso foi negado!";
-                document.getElementById('inputSenha').value = '';
-                document.getElementById('inputSenha').focus();
-            }
-        }
-
-        function verificarEnter(event) {
-            if (event.key === 'Enter') {
-                validarSenha();
-            }
-        }
-    </script>
 
 </body>
 </html>
