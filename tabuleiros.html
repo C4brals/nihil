@@ -358,39 +358,50 @@
     </div>
 
     <script>
-        // DEFINA A SENHA DO ATO 2 AQUI
-        const SENHA_CORRETA = "N1h1l@2026";
+    
+    const HASH_SENHA_CORRETA = "33b1f98f1a87a5c8acba965aeeb4a5e512aa138deff6e933b541cf15f4020a5d";
 
-        function abrirModalAto2() {
-            document.getElementById('modalSenha').style.display = 'flex';
+    function abrirModalAto2() {
+        document.getElementById('modalSenha').style.display = 'flex';
+        document.getElementById('inputSenha').focus();
+    }
+
+    function fecharModalAto2() {
+        document.getElementById('modalSenha').style.display = 'none';
+        document.getElementById('inputSenha').value = '';
+        document.getElementById('msgErro').innerText = '';
+    }
+
+    // Função utilitária para converter texto em Hash SHA-256 nativo do navegador
+    async function gerarSHA256(texto) {
+        const msgUint8 = new TextEncoder().encode(texto);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function validarSenha() {
+        const senhaInserida = document.getElementById('inputSenha').value;
+        const msgErro = document.getElementById('msgErro');
+
+        // Transforma a senha digitada em Hash e compara com o Hash armazenado
+        const hashDigitado = await gerarSHA256(senhaInserida);
+
+        if (hashDigitado === HASH_SENHA_CORRETA) {
+            window.location.href = "./ato2.html";
+        } else {
+            msgErro.innerText = "Senha incorreta. O acesso foi negado!";
+            document.getElementById('inputSenha').value = '';
             document.getElementById('inputSenha').focus();
         }
+    }
 
-        function fecharModalAto2() {
-            document.getElementById('modalSenha').style.display = 'none';
-            document.getElementById('inputSenha').value = '';
-            document.getElementById('msgErro').innerText = '';
+    function verificarEnter(event) {
+        if (event.key === 'Enter') {
+            validarSenha();
         }
-
-        function validarSenha() {
-            const senhaInserida = document.getElementById('inputSenha').value;
-            const msgErro = document.getElementById('msgErro');
-
-            if (senhaInserida === SENHA_CORRETA) {
-                window.location.href = "./ato2.html";
-            } else {
-                msgErro.innerText = "Senha incorreta. O acesso foi negado!";
-                document.getElementById('inputSenha').value = '';
-                document.getElementById('inputSenha').focus();
-            }
-        }
-
-        function verificarEnter(event) {
-            if (event.key === 'Enter') {
-                validarSenha();
-            }
-        }
-    </script>
+    }
+</script>
 
 </body>
 </html>
