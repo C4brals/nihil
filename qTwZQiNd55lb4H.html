@@ -276,69 +276,58 @@
             top: 8px;
             left: 50%;
             transform: translateX(-50%);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 5px 10px;
-            background: linear-gradient(145deg, rgba(8, 13, 22, 0.96), rgba(20, 12, 28, 0.96));
+            min-width: 235px;
+            padding: 6px 9px 7px;
+            background: linear-gradient(145deg, rgba(8, 13, 22, 0.97), rgba(20, 12, 28, 0.97));
             border: 2px solid #6f91ad;
             border-radius: 7px;
-            box-shadow: 0 0 10px rgba(111, 145, 173, 0.35), inset 0 0 12px rgba(90, 60, 130, 0.25);
+            box-shadow: 0 0 14px rgba(111, 145, 173, 0.4), inset 0 0 12px rgba(90, 60, 130, 0.25);
             z-index: 40;
             user-select: none;
+            text-align: center;
         }
-
         .contador-selos .titulo-selos {
-            color: #a9c8df;
+            display: block;
+            color: #b9d8ec;
             font-family: 'Cinzel', serif;
-            font-size: 0.72rem;
+            font-size: 0.68rem;
             font-weight: 900;
             letter-spacing: 1.5px;
-            text-shadow: 0 0 7px rgba(169, 200, 223, 0.45);
+            margin-bottom: 4px;
+            text-shadow: 0 0 7px rgba(169, 200, 223, 0.6);
         }
-
+        .selos-simbolos { display:flex; justify-content:center; align-items:center; gap:3px; margin:2px 0 5px; }
+        .simbolo-selo {
+            width:20px; height:20px; display:flex; align-items:center; justify-content:center;
+            color:#dff6ff; font-size:17px; line-height:1;
+            text-shadow:0 0 8px rgba(160,220,255,.9);
+            transition:all .25s ease;
+        }
+        .simbolo-selo.rompido { color:#34434d; opacity:.4; transform:scale(.8); text-shadow:none; }
+        .controles-selos { display:flex; align-items:center; justify-content:center; gap:8px; }
         .contador-selos .valor-selos {
-            min-width: 28px;
-            text-align: center;
-            color: #e8f5ff;
-            font-family: 'Cinzel', serif;
-            font-size: 1rem;
-            font-weight: 900;
-            text-shadow: 0 0 8px rgba(180, 225, 255, 0.55);
+            min-width:38px; text-align:center; color:#e8f5ff;
+            font-family:'Cinzel', serif; font-size:.68rem; font-weight:900;
+            text-shadow:0 0 8px rgba(180,225,255,.55);
         }
-
         .btn-selo {
-            width: 24px;
-            height: 24px;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(14, 20, 30, 0.95);
-            color: #b9d8ec;
-            border: 1px solid #6f91ad;
-            border-radius: 4px;
-            font-family: 'Cinzel', serif;
-            font-size: 0.95rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.15s ease;
+            width:24px; height:22px; padding:0; display:flex; align-items:center; justify-content:center;
+            background:rgba(14,20,30,.95); color:#b9d8ec; border:1px solid #6f91ad; border-radius:4px;
+            font-family:'Cinzel',serif; font-size:.95rem; font-weight:bold; cursor:pointer; transition:all .15s ease;
         }
+        .btn-selo:hover { background:#293c50; border-color:#b9d8ec; box-shadow:0 0 8px rgba(150,210,255,.45); }
 
-        .btn-selo:hover {
-            background: #293c50;
-            color: #ffffff;
-            border-color: #b9d8ec;
-            box-shadow: 0 0 8px rgba(130, 190, 230, 0.45);
+        /* Anúncio sincronizado de selo rompido */
+        .anuncio-selo {
+            position:fixed; top:-100%; left:60%; transform:translateX(-50%);
+            z-index:10000; min-width:360px; padding:13px 55px; text-align:center;
+            font-family:'Cinzel',serif; background:linear-gradient(90deg,transparent,rgba(10,30,42,.98) 18%,rgba(25,55,70,.98) 50%,rgba(10,30,42,.98) 82%,transparent);
+            border-top:1px solid #a9d9ed; border-bottom:1px solid #a9d9ed;
+            opacity:0; pointer-events:none; transition:all .45s cubic-bezier(.175,.885,.32,1.275);
+            box-shadow:0 5px 18px rgba(0,0,0,.55);
         }
-
-        .btn-selo:active {
-            transform: scale(0.92);
-        }
-
-        .token-heroi{
-            z-index:10;
-        }
+        .anuncio-selo.ativo { top:200px; opacity:1; }
+        .anuncio-selo-titulo { color:#e5f8ff; font-size:18px; letter-spacing:1.5px; text-shadow:0 0 8px rgba(160,225,255,.8),0 2px 4px #000; }
 
         /* Tokens Redondos */
         .token-heroi {
@@ -2000,10 +1989,19 @@
                 <img src="./assets/ato2/mapas/principal.png" alt="Mapa Nihil" class="mapa-img">  
                 <!-- Contador global de selos do Boss -->
                 <div id="contador-selos" class="contador-selos">
-                    <span class="titulo-selos">❄ SELOS A ROMPER ❄</span>
-                    <button class="btn-selo" type="button" onclick="alterarSelos(-1)" aria-label="Diminuir selos">−</button>
-                    <span id="valor-selos" class="valor-selos">8</span>
-                    <button class="btn-selo" type="button" onclick="alterarSelos(1)" aria-label="Aumentar selos">+</button>
+                    <span class="titulo-selos">❄ SELOS DE OXILIAT ❄</span>
+                    <div id="selos-simbolos" class="selos-simbolos">
+                        <span class="simbolo-selo">✦</span><span class="simbolo-selo">✦</span><span class="simbolo-selo">✦</span><span class="simbolo-selo">✦</span>
+                        <span class="simbolo-selo">✦</span><span class="simbolo-selo">✦</span><span class="simbolo-selo">✦</span><span class="simbolo-selo">✦</span>
+                    </div>
+                    <div class="controles-selos">
+                        <button class="btn-selo" type="button" onclick="alterarSelos(-1)" aria-label="Romper um selo">−</button>
+                        <span id="valor-selos" class="valor-selos">8 / 8</span>
+                        <button class="btn-selo" type="button" onclick="alterarSelos(1)" aria-label="Restaurar um selo">+</button>
+                    </div>
+                </div>
+                <div id="anuncio-selo" class="anuncio-selo" aria-live="assertive">
+                    <div class="anuncio-selo-titulo">❄ UM SELO DE OXILIAT FOI ROMPIDO ❄</div>
                 </div>
 
                 <div id="token-h1" class="token-heroi" style="--token-color: #8b0000; top: 46%; left: 16.5%;"><img src="./assets/herois/adepto.jpg?w=100" id="img-token-h1"></div>
@@ -2252,14 +2250,14 @@
                     <ul id="drop-mapas" class="lista-dropup">
                         <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/taverna.png')">Taverna</li>
                         <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/principal.jpg')">Mapa Principal</li>   
-                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg1.jpg')">DG I</li>      
-                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg2.jpg')">DG II</li>  
-                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg3.jpg')">DG III</li>    
-                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg4.jpg')">DG IV</li>     
-                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg5.jpg')">DG V</li>  
-                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg6.jpg')">DG VI</li>  
-                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg7.jpg')">DG VII</li>
-                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg8.jpg')">DG VIII</li>          
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg1.jpg')">Masmorra I</li>      
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg2.jpg')">Masmorra II</li>  
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg3.jpg')">Masmorra III</li>    
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg4.jpg')">Masmorra IV</li>     
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg5.jpg')">Masmorra V</li>  
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg6.jpg')">Masmorra VI</li>  
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg7.jpg')">Masmorra VII</li>
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg8.jpg')">Masmorra VIII</li>          
                     </ul>
                 </div>
             </div>
@@ -2444,30 +2442,58 @@
         // Compartilhado entre todos os jogadores via Firebase.
         // O valor permitido é de 1 a 8, com 8 como estado inicial.
         // ============================================================
+        function renderizarSelos(selos) {
+            const display = document.getElementById('valor-selos');
+            const container = document.getElementById('selos-simbolos');
+            if (!display || !container) return;
+            display.innerText = `${selos} / 8`;
+            container.innerHTML = '';
+            for (let i = 1; i <= 8; i++) {
+                const selo = document.createElement('span');
+                selo.className = 'simbolo-selo' + (i > selos ? ' rompido' : '');
+                selo.innerText = '✦';
+                container.appendChild(selo);
+            }
+        }
+
         window.alterarSelos = function(valor) {
             const display = document.getElementById('valor-selos');
             if (!display) return;
+            let selosAtuais = parseInt(display.innerText, 10);
+            if (Number.isNaN(selosAtuais)) selosAtuais = 8;
+            const novoValor = Math.max(1, Math.min(8, selosAtuais + valor));
 
-            let selos = parseInt(display.innerText, 10);
-            if (Number.isNaN(selos)) selos = 8;
-
-            selos += valor;
-            selos = Math.max(1, Math.min(8, selos));
-
-            set(campanhaRef('selos_boss'), selos);
+            if (valor < 0 && novoValor < selosAtuais) {
+                set(campanhaRef('aviso_selo'), {
+                    mensagem: 'Um Selo de Oxiliat foi rompido',
+                    timestamp: Date.now()
+                });
+            }
+            set(campanhaRef('selos_boss'), novoValor);
         };
 
         onValue(campanhaRef('selos_boss'), (snapshot) => {
-            const display = document.getElementById('valor-selos');
-            if (!display) return;
-
             const dados = snapshot.val();
-            const selos = (typeof dados === 'number')
-                ? Math.max(1, Math.min(8, dados))
-                : 8;
-
-            display.innerText = selos;
+            const selos = (typeof dados === 'number') ? Math.max(1, Math.min(8, dados)) : 8;
+            renderizarSelos(selos);
         });
+
+        let ultimoTimestampAvisoSelo = 0;
+        onValue(campanhaRef('aviso_selo'), (snapshot) => {
+            const dados = snapshot.val();
+            if (!dados || !dados.timestamp || dados.timestamp <= ultimoTimestampAvisoSelo) return;
+            ultimoTimestampAvisoSelo = dados.timestamp;
+            const anuncio = document.getElementById('anuncio-selo');
+            if (!anuncio) return;
+            anuncio.querySelector('.anuncio-selo-titulo').innerText = dados.mensagem || 'Um Selo de Oxiliat foi rompido';
+            anuncio.classList.remove('ativo');
+            void anuncio.offsetWidth;
+            anuncio.classList.add('ativo');
+            clearTimeout(window.timerAnuncioSelo);
+            window.timerAnuncioSelo = setTimeout(() => anuncio.classList.remove('ativo'), 5000);
+        });
+
+        renderizarSelos(8);
         let contadorTokensExtras = 0;
 
         
