@@ -270,72 +270,142 @@
             filter: brightness(0.85) contrast(1.05); 
         }
 
-        /* ================= CONTADOR DE SELOS DO BOSS ================= */
-        .contador-selos {
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 5px 10px;
-            background: linear-gradient(145deg, rgba(8, 13, 22, 0.96), rgba(20, 12, 28, 0.96));
-            border: 2px solid #6f91ad;
-            border-radius: 7px;
-            box-shadow: 0 0 10px rgba(111, 145, 173, 0.35), inset 0 0 12px rgba(90, 60, 130, 0.25);
-            z-index: 40;
-            user-select: none;
+        .painel-efeito-mapa{
+
+            position:absolute;
+
+            right:10px;
+            bottom:285px;
+
+            width:125px;
+
+            background:rgba(22,22,22,.90);
+
+            border:2px solid #8c6b2f;
+            border-radius:6px;
+
+            padding:4px;
+
+            text-align:center;
+
+            box-sizing:border-box;
+
+            overflow:hidden;
+
+            z-index:50;
+
         }
 
-        .contador-selos .titulo-selos {
-            color: #a9c8df;
-            font-family: 'Cinzel', serif;
-            font-size: 0.72rem;
-            font-weight: 900;
-            letter-spacing: 1.5px;
-            text-shadow: 0 0 7px rgba(169, 200, 223, 0.45);
+        .painel-efeito-mapa h3{
+
+            margin:0 0 4px;
+
+            font-size:11px;
+
+            color:#d9b96d;
+
         }
 
-        .contador-selos .valor-selos {
-            min-width: 28px;
-            text-align: center;
-            color: #e8f5ff;
-            font-family: 'Cinzel', serif;
-            font-size: 1rem;
-            font-weight: 900;
-            text-shadow: 0 0 8px rgba(180, 225, 255, 0.55);
+        #previewEfeito{
+
+            width:105px;
+            height:145px;
+
+            object-fit:contain;
+
+            cursor:pointer;
+
+            transition:0.2s;
         }
 
-        .btn-selo {
-            width: 24px;
-            height: 24px;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(14, 20, 30, 0.95);
-            color: #b9d8ec;
-            border: 1px solid #6f91ad;
-            border-radius: 4px;
-            font-family: 'Cinzel', serif;
-            font-size: 0.95rem;
-            font-weight: bold;
+        #nomeEfeito{
+
+            display:block;
+
+            margin:4px 0;
+
+            font-size:11px;
+
+            color:#d9b96d;
+
+            text-decoration:none;
+
+            cursor:pointer;
+
+        }
+
+        .painel-efeito-mapa select {
+            background: #161616;
+            color: #dcd0c0;
+            border: 1px solid #8c6b2f;
+            padding: 2px;
+            font-family: 'Lora', serif;
             cursor: pointer;
-            transition: all 0.15s ease;
         }
 
-        .btn-selo:hover {
-            background: #293c50;
-            color: #ffffff;
-            border-color: #b9d8ec;
-            box-shadow: 0 0 8px rgba(130, 190, 230, 0.45);
+        #janelaDescricao{
+
+            display:none;
+
+            position:fixed;
+
+            inset:0;
+
+            background:rgba(0,0,0,.75);
+
+            justify-content:center;
+
+            align-items:center;
+
+            z-index:9999;
+
         }
 
-        .btn-selo:active {
-            transform: scale(0.92);
+        #caixaDescricao {
+            width: 500px;
+            max-height: 75vh;
+            overflow: auto;
+            background: #050505; /* Cor do fundo do body do seu jogo */
+            color: #dcd0c0;      /* Cor padrão de texto do seu tema */
+            border: 2px solid #8c6b2f;
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Lora', serif; /* Mantendo a fonte de texto */
         }
 
+        #caixaDescricao h2, #caixaDescricao h3 {
+            font-family: 'Cinzel', serif;
+            color: #c5a059;
+        }
+
+        /* Ajuste para o botão Fechar dentro da caixa de descrição */
+        #caixaDescricao button {
+            background: #161616;              /* Fundo escuro do tema */
+            color: #dcd0c0;                   /* Cor do texto do tema */
+            border: 1px solid #8c6b2f;        /* Borda dourada */
+            padding: 8px 16px;
+            font-family: 'Cinzel', serif;     /* Fonte do título */
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all 0.2s;
+            margin-top: 15px;                 /* Espaçamento acima do botão */
+        }
+
+        /* Efeito de hover (quando passa o mouse) para combinar com os outros botões */
+        #caixaDescricao button:hover {
+            background: #8c6b2f;
+            color: #000;
+        }
+
+        #textoDescricao{
+
+            margin-top:15px;
+
+            white-space:pre-line;
+
+        }
+
+        /* Tokens continuam acima do efeito */
         .token-heroi{
             z-index:10;
         }
@@ -1050,6 +1120,22 @@
         /* Remove a linha divisória do último item da lista para ficar perfeito */
         .item-dropdown-topo:last-child {
             border-bottom: none;
+        }
+
+        #canvas-nevoa{
+
+            position:absolute;
+
+            left:0;
+            top:0;
+
+            width:100%;
+            height:100%;
+
+            pointer-events:none;
+
+            z-index:8;
+
         }
      
         @keyframes fadeEntrada{
@@ -1998,12 +2084,36 @@
 
                 </div>
                 <img src="./assets/ato2/mapas/principal.png" alt="Mapa Nihil" class="mapa-img">  
-                <!-- Contador global de selos do Boss -->
-                <div id="contador-selos" class="contador-selos">
-                    <span class="titulo-selos">❄ SELOS A ROMPER ❄</span>
-                    <button class="btn-selo" type="button" onclick="alterarSelos(-1)" aria-label="Diminuir selos">−</button>
-                    <span id="valor-selos" class="valor-selos">8</span>
-                    <button class="btn-selo" type="button" onclick="alterarSelos(1)" aria-label="Aumentar selos">+</button>
+                
+                <canvas id="canvas-nevoa"></canvas>
+                
+                
+
+                <div class="painel-efeito-mapa">
+
+                    <h3>Efeito Atual</h3>
+
+                    <img id="previewEfeito"
+                        src="./assets/cartas/Fragmentos de Almas/nenhum.jpg">
+
+                    <a href="#"
+                        id="nomeEfeito"
+                        onclick="abrirDescricaoEfeito(); return false;">
+                            Nenhum
+                    </a>
+
+                    <select id="seletorEfeito" onchange="trocarEfeitoMapa(this.value)">
+
+                        <option value="">Nenhum</option>
+
+                        <option value="Fragmento I">Fragmento I</option>
+                        <option value="Fragmento II">Fragmento II</option>
+                        <option value="Fragmento III">Fragmento III</option>
+                        <option value="Fragmento IV">Fragmento IV</option>
+                        <option value="Fragmento V">Fragmento V</option>
+
+                    </select>
+
                 </div>
 
                 <div id="token-h1" class="token-heroi" style="--token-color: #8b0000; top: 46%; left: 16.5%;"><img src="./assets/herois/adepto.jpg?w=100" id="img-token-h1"></div>
@@ -2251,15 +2361,15 @@
                     <button class="btn-menu-rodape" onclick="alternarDropup(event, 'drop-mapas')" style="color: #ffc107; border-color: rgba(255, 193, 7, 0.4);">Mudar Mapa</button>
                     <ul id="drop-mapas" class="lista-dropup">
                         <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/taverna.png')">Taverna</li>
-                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/principal.jpg')">Mapa Principal</li>   
-                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg1.jpg')">DG I</li>      
-                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg2.jpg')">DG II</li>  
-                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg3.jpg')">DG III</li>    
-                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg4.jpg')">DG IV</li>     
-                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg5.jpg')">DG V</li>  
-                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg6.jpg')">DG VI</li>  
-                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg7.jpg')">DG VII</li>
-                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg8.jpg')">DG VIII</li>          
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/principal.png')">Mapa Principal</li>   
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg1.jpg')">Masmorra I</li>      
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg2.jpg')">Masmorra II</li>  
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg3.jpg')">Masmorra III</li>    
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg4.jpg')">Masmorra IV</li>     
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg5.jpg')">Masmorra V</li>  
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg6.jpg')">Masmorra VI</li>  
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg7.jpg')">Masmorra VII</li>
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg8.jpg')">Masmorra VIII</li>          
                     </ul>
                 </div>
             </div>
@@ -2438,36 +2548,6 @@
         function campanhaRef(caminho) {
             return ref(db, `campanhas/${CAMPANHA}/${caminho}`);
         }
-
-        // ============================================================
-        // CONTADOR GLOBAL DE SELOS DO BOSS
-        // Compartilhado entre todos os jogadores via Firebase.
-        // O valor permitido é de 1 a 8, com 8 como estado inicial.
-        // ============================================================
-        window.alterarSelos = function(valor) {
-            const display = document.getElementById('valor-selos');
-            if (!display) return;
-
-            let selos = parseInt(display.innerText, 10);
-            if (Number.isNaN(selos)) selos = 8;
-
-            selos += valor;
-            selos = Math.max(1, Math.min(8, selos));
-
-            set(campanhaRef('selos_boss'), selos);
-        };
-
-        onValue(campanhaRef('selos_boss'), (snapshot) => {
-            const display = document.getElementById('valor-selos');
-            if (!display) return;
-
-            const dados = snapshot.val();
-            const selos = (typeof dados === 'number')
-                ? Math.max(1, Math.min(8, dados))
-                : 8;
-
-            display.innerText = selos;
-        });
         let contadorTokensExtras = 0;
 
         
@@ -2959,6 +3039,86 @@
         window.mostrarChatRolagens = mostrarChatRolagens;
         window.fecharChatRolagens = fecharChatRolagens;
         window.alternarChatRolagens = alternarChatRolagens;
+
+        function trocarEfeitoMapa(nome) {
+            // Referência ao banco
+            const efeitoRef = campanhaRef( 'efeitoGlobal');
+            
+            // Salva o nome do efeito selecionado
+            set(efeitoRef, {
+                nome: nome || "Nenhum"
+            });
+        }
+        window.trocarEfeitoMapa = trocarEfeitoMapa;
+        // Torna a função acessível ao HTML
+        window.trocarEfeitoMapa = trocarEfeitoMapa;
+
+        const efeitoRef = campanhaRef( 'efeitoGlobal');
+
+        onValue(efeitoRef, (snapshot) => {
+            const data = snapshot.val();
+            const nome = data ? data.nome : "Nenhum";
+            
+            // Atualiza a interface visual
+            atualizarInterface(nome);
+        });
+
+        function atualizarInterface(nome) {
+            const preview = document.getElementById("previewEfeito");
+            const titulo = document.getElementById("nomeEfeito");
+
+            if (!preview || !titulo) return;
+
+            // Ajuste aqui para garantir que o caminho funcione no Vercel
+            // Dica: use caminhos minúsculos e sem espaços se possível
+            const caminho = "./assets/cartas/Fragmentos de Almas/" + nome + ".jpg";
+            
+            preview.src = caminho;
+            titulo.innerText = nome;
+        }
+
+        const descricaoFragmentos = {
+
+                "Fragmento I":
+            `A podridão é espalhada pelo cenário, todos os eventos do cenário a partir de agora ficam com mácula por perto, sempre que um evento é ativado, o jogador que estiver no local receberá 2 de dano ao PV, e depois ativará o efeito do Evento. A maldição é quebrada quando o próximo Lorde for derrotado por qualquer jogador.`,
+
+                "Fragmento II":
+            `Uma explosão de mácula percorre o continente, infectando todas as almas de Hémoras. A partir de agora, todos os efeitos de cura são reduzidos em 1, até o mínimo de 1. Isso serve para: habilidades, descansos, elixires e itens. A maldição é quebrada quando o próximo Lorde for derrotado por qualquer jogador.`,
+
+                "Fragmento III":
+            `Este fragmento espalha uma maldição temporária, fazendo com que todos os inimigos tenham mais 1 de PV máximo. A maldição é quebrada quando o próximo Lorde for derrotado por qualquer jogador.`,
+
+                "Fragmento IV":
+            `“O Despertar do Desespero” após a destruição do lorde, duas fendas planares são abertas em cada mapa, esses mecanismos de guerra, permitem que criaturas dos outros planos divinos invadam o plano material, a fenda a cada dois turnos permitirá a vinda de uma unidade elite para o mapa onde a mesma, perseguirá o jogador mais perto, casos decidam, os jogadores poderão entrar na mesma e ao derrotar o patrono da fenda ela se fechará.`,
+
+                "Fragmento V":
+            `Espalha a fúria no mapa, dando a condição de +1 de acerto no ataque para os inimigos comuns e elite. A maldição é quebrada quando o próximo Lorde for derrotado por qualquer jogador.`
+
+            };
+
+        function abrirDescricaoEfeito(){
+
+            console.log("Clique detectado");
+
+            const nome = document.getElementById("nomeEfeito").innerText;
+
+            console.log("Nome:", nome);
+
+            if(nome==="Nenhum")
+                return;
+
+            document.getElementById("tituloDescricao").innerText = nome;
+            document.getElementById("textoDescricao").innerText = descricaoFragmentos[nome];
+            document.getElementById("janelaDescricao").style.display = "flex";
+        }
+
+        function fecharDescricao(){
+
+            document.getElementById("janelaDescricao").style.display="none";
+
+        }
+        window.abrirDescricaoEfeito = abrirDescricaoEfeito;
+        window.fecharDescricao = fecharDescricao;
 
 
         // ================= PARTIDA: PERSONAGENS / TURNOS / DEBUFF =================
@@ -3615,6 +3775,24 @@
         🎲
 
     </div>
+
+    <div id="janelaDescricao">
+
+        <div id="caixaDescricao">
+
+            <h2 id="tituloDescricao"></h2>
+
+            <div id="textoDescricao"></div>
+
+            <button onclick="fecharDescricao()">
+                Fechar
+            </button>
+
+        </div>
+
+    </div>
+
+    
 
 </body>
 </html>
