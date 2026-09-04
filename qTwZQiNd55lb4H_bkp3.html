@@ -625,9 +625,9 @@
         .anuncio-rolagem h3 { color: #c5a059; font-size: 1.4rem; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
         .anuncio-rolagem p { font-size: 0.9rem; color: #bfae96; margin-top: 4px; }
 
-        /* ================= ÁREA 3D DOS DADOS ================= */
+        /* Cena do Dado */
         .cena-dado {
-            width: 150px; height: 150px; perspective: 900px;
+            width: 100px; height: 100px; perspective: 600px;
             opacity: 0; transform: scale(0.3); transition: opacity 0.3s, transform 0.3s;
         }
         .cena-dado.ativo { opacity: 1; transform: scale(1); }
@@ -636,89 +636,27 @@
             width: 100%; height: 100%; position: relative; transform-style: preserve-3d;
             transition: transform 2.5s cubic-bezier(0.2, 0.8, 0.25, 1.15);
         }
-
-        /* D6: cubo original */
-        .dado-cubo {
-            position:absolute; inset:25px; transform-style:preserve-3d;
-            transition:opacity .2s, visibility .2s;
+        .dado3d.dado-d8::after{
+            content:'D8'; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:20;
+            font-family:'Cinzel',serif; font-size:12px; font-weight:900; color:#c5a059; text-shadow:0 1px 3px #000; pointer-events:none;
         }
-        .dado3d.dado-d8 .dado-cubo { opacity:0; visibility:hidden; }
 
+        /* Faces do Dado - Agora usando a cor dinâmica do herói */
         .face {
-            position:absolute; width:100px; height:100px;
-            background:radial-gradient(var(--cor-dado, #8b0000), #050505);
-            border:2px solid #c5a059; border-radius:8px; display:flex; align-items:center;
-            justify-content:center; font-family:'Cinzel',serif; font-size:2.2rem; font-weight:bold;
-            color:#bfae96; box-shadow:inset 0 0 15px rgba(0,0,0,.6); backface-visibility:initial;
-        }
-        .face-1 { transform:rotateY(0deg) translateZ(50px); }
-        .face-6 { transform:rotateX(180deg) translateZ(50px); }
-        .face-2 { transform:rotateY(90deg) translateZ(50px); }
-        .face-5 { transform:rotateY(-90deg) translateZ(50px); }
-        .face-3 { transform:rotateX(90deg) translateZ(50px); }
-        .face-4 { transform:rotateX(-90deg) translateZ(50px); }
-
-        /* ================= D8 OCTAÉDRICO REAL =================
-           O D8 é composto por 8 faces triangulares: 4 no hemisfério superior
-           e 4 no hemisfério inferior. Não é um cubo com o texto D8. */
-        .dado-octaedro {
-            position:absolute; inset:0; transform-style:preserve-3d;
-            width:150px; height:150px;
-            left:0; top:0;
-            opacity:0; visibility:hidden;
-            transform:rotateX(-18deg) rotateY(25deg);
-            transition:opacity .2s, visibility .2s;
-        }
-        .dado3d.dado-d8 .dado-octaedro { opacity:1; visibility:visible; }
-
-        .face-d8 {
-            position:absolute; left:25px; top:25px; width:100px; height:100px;
-            transform-origin:50% 50%;
-            clip-path:polygon(50% 0%, 0% 100%, 100% 100%);
-            display:flex; align-items:center; justify-content:center;
-            font-family:'Cinzel',serif; font-size:2rem; font-weight:900;
-            color:#fff2cf; text-shadow:0 2px 5px #000;
-            background:linear-gradient(145deg, var(--cor-dado, #8b0000), #16051f 78%);
-            border:0;
-            filter:drop-shadow(0 0 3px #c5a059);
-            backface-visibility:hidden;
-        }
-        .face-d8::before {
-            content:''; position:absolute; inset:2px;
-            clip-path:polygon(50% 0%, 0% 100%, 100% 100%);
-            background:transparent;
-            box-shadow:inset 0 0 12px rgba(0,0,0,.8);
-        }
-        .face-d8 span {
-            position:absolute; top:42%; left:50%; transform:translate(-50%,-50%);
-            z-index:2;
+            position: absolute; width: 100px; height: 100px; 
+            background: radial-gradient(var(--cor-dado, #8b0000), #050505); /* Usa a cor do herói misturada com preto */
+            border: 2px solid #c5a059; border-radius: 8px; display: flex; align-items: center;
+            justify-content: center; font-family: 'Cinzel', serif; font-size: 2.2rem; font-weight: bold;
+            color: #bfae96; box-shadow: inset 0 0 15px rgba(0,0,0,0.6); backface-visibility: initial;
         }
 
-        /* Quatro faces superiores */
-        .d8-1 { transform:rotateY(0deg) rotateX(48deg) translateZ(35px); }
-        .d8-2 { transform:rotateY(90deg) rotateX(48deg) translateZ(35px); }
-        .d8-3 { transform:rotateY(180deg) rotateX(48deg) translateZ(35px); }
-        .d8-4 { transform:rotateY(270deg) rotateX(48deg) translateZ(35px); }
-        /* Quatro faces inferiores */
-        .d8-5 { transform:rotateY(0deg) rotateX(-48deg) translateZ(35px); }
-        .d8-6 { transform:rotateY(90deg) rotateX(-48deg) translateZ(35px); }
-        .d8-7 { transform:rotateY(180deg) rotateX(-48deg) translateZ(35px); }
-        .d8-8 { transform:rotateY(270deg) rotateX(-48deg) translateZ(35px); }
-
-        .dado3d.dado-d8 {
-            width:150px; height:150px;
-        }
-        .dado3d.dado-d8 .face-d8 {
-            background:linear-gradient(145deg, var(--cor-dado, #7b1fa2), #180520 80%);
-        }
-
-        /* Indicador discreto do tipo de dado */
-        .dado3d.dado-d8::after {
-            content:'D8'; position:absolute; left:50%; bottom:-8px;
-            transform:translateX(-50%); z-index:50;
-            font-family:'Cinzel',serif; font-size:12px; font-weight:900;
-            color:#c5a059; text-shadow:0 1px 3px #000; pointer-events:none;
-        }
+        /* Posicionamento 3D das faces */
+        .face-1 { transform: rotateY(0deg) translateZ(50px); }
+        .face-6 { transform: rotateX(180deg) translateZ(50px); }
+        .face-2 { transform: rotateY(90deg) translateZ(50px); }
+        .face-5 { transform: rotateY(-90deg) translateZ(50px); }
+        .face-3 { transform: rotateX(90deg) translateZ(50px); }
+        .face-4 { transform: rotateX(-90deg) translateZ(50px); }
 
         /* Quando o dado for Corrompido: mistura a cor do herói com roxo/preto e muda a borda */
         .cena-dado.dado-corrompido .face {
@@ -889,7 +827,7 @@
             font-size:11px; line-height:20px; display:flex; align-items:center; justify-content:center; z-index:1000;
         }
         .btn-ocultar-token:hover{ background:#c5a059; color:#111; }
-        .token-extra-inativo{ opacity:0.18 !important; filter:grayscale(1); }
+        .token-extra-inativo{ opacity:0.35 !important; filter:grayscale(1); }
         .token-extra-inativo > img, .token-extra-inativo > .nome-token-extra{ pointer-events:none; }
 
         .btn-torre-outubrista{
@@ -1419,25 +1357,12 @@
         </div>
         <div id="cena-dado" class="cena-dado">
             <div id="dado3d" class="dado3d">
-                <div class="dado-cubo">
-                    <div class="face face-1">1</div>
-                    <div class="face face-6">6</div>
-                    <div class="face face-2">2</div>
-                    <div class="face face-5">5</div>
-                    <div class="face face-3">3</div>
-                    <div class="face face-4">4</div>
-                </div>
-
-                <div class="dado-octaedro" aria-label="Dado de oito lados">
-                    <div class="face-d8 d8-1"><span>1</span></div>
-                    <div class="face-d8 d8-2"><span>2</span></div>
-                    <div class="face-d8 d8-3"><span>3</span></div>
-                    <div class="face-d8 d8-4"><span>4</span></div>
-                    <div class="face-d8 d8-5"><span>5</span></div>
-                    <div class="face-d8 d8-6"><span>6</span></div>
-                    <div class="face-d8 d8-7"><span>7</span></div>
-                    <div class="face-d8 d8-8"><span>8</span></div>
-                </div>
+                <div class="face face-1">1</div>
+                <div class="face face-6">6</div>
+                <div class="face face-2">2</div>
+                <div class="face face-5">5</div>
+                <div class="face face-3">3</div>
+                <div class="face face-4">4</div>
             </div>
         </div>
     </div>
@@ -2861,66 +2786,42 @@
             const dado = document.getElementById('dado3d');
             const anuncio = document.getElementById('anuncio-rolagem');
             const anuncioNome = document.getElementById('anuncio-nome');
+            
+            dado.style.setProperty('--cor-dado', cor);
+            dado.classList.toggle('dado-d8', Number(lados) === 8);
+            dado.dataset.lados = Number(lados) === 8 ? '8' : '6';
 
-            const ehD8 = Number(lados) === 8;
-            const valor = Math.max(1, Math.min(ehD8 ? 8 : 6, Number(resultado) || 1));
+            if (estado === "Corrompido") {
+                cena.classList.add('dado-corrompido');
+            } else {
+                cena.classList.remove('dado-corrompido');
+            }
 
-            dado.style.setProperty('--cor-dado', cor || '#8b0000');
-            dado.classList.toggle('dado-d8', ehD8);
-            dado.dataset.lados = ehD8 ? '8' : '6';
-
-            cena.classList.toggle('dado-corrompido', estado === 'Corrompido');
-            anuncioNome.innerText = nome + (ehD8 ? ' — D8' : ' — D6');
+            anuncioNome.innerText = nome;
             anuncio.classList.add('ativo');
             cena.classList.add('ativo');
 
-            let finalX;
-            let finalY;
+            const rotacoesFaces = {
+                1: { x: 0, y: 0 },
+                6: { x: 180, y: 0 },
+                2: { x: 0, y: -90 },
+                5: { x: 0, y: 90 },
+                3: { x: -90, y: 0 },
+                4: { x: 90, y: 0 }
+            };
 
-            if (ehD8) {
-                /* Cada resultado aponta para uma das oito faces triangulares.
-                   As rotações adicionais mantêm a animação longa e imprevisível. */
-                const rotacoesD8 = {
-                    1: { x: -48, y: 0 },
-                    2: { x: -48, y: 90 },
-                    3: { x: -48, y: 180 },
-                    4: { x: -48, y: 270 },
-                    5: { x: 48, y: 0 },
-                    6: { x: 48, y: 90 },
-                    7: { x: 48, y: 180 },
-                    8: { x: 48, y: 270 }
-                };
-                const faceAlvo = rotacoesD8[valor];
-                const voltasX = (Math.floor(Math.random() * 3) + 4) * 360;
-                const voltasY = (Math.floor(Math.random() * 3) + 4) * 360;
-                finalX = faceAlvo.x + voltasX;
-                finalY = faceAlvo.y + voltasY;
-            } else {
-                const rotacoesD6 = {
-                    1: { x: 0, y: 0 },
-                    6: { x: 180, y: 0 },
-                    2: { x: 0, y: -90 },
-                    5: { x: 0, y: 90 },
-                    3: { x: -90, y: 0 },
-                    4: { x: 90, y: 0 }
-                };
-                const faceAlvo = rotacoesD6[valor];
-                const voltasX = (Math.floor(Math.random() * 3) + 3) * 360;
-                const voltasY = (Math.floor(Math.random() * 3) + 3) * 360;
-                finalX = faceAlvo.x + voltasX;
-                finalY = faceAlvo.y + voltasY;
-            }
+            const faceAlvo = rotacoesFaces[resultado] || rotacoesFaces[1];
+            const voltasX = (Math.floor(Math.random() * 3) + 3) * 360;
+            const voltasY = (Math.floor(Math.random() * 3) + 3) * 360;
+            const finalX = faceAlvo.x + voltasX;
+            const finalY = faceAlvo.y + voltasY;
 
             dado.style.transform = `rotateX(${finalX}deg) rotateY(${finalY}deg)`;
 
             setTimeout(() => {
                 anuncio.classList.remove('ativo');
                 cena.classList.remove('ativo');
-                setTimeout(() => {
-                    dado.style.transition = 'none';
-                    dado.style.transform = 'none';
-                    setTimeout(() => { dado.style.transition = ''; }, 50);
-                }, 400);
+                setTimeout(() => { dado.style.transition = 'none'; dado.style.transform = 'none'; setTimeout(() => dado.style.transition = '', 50); }, 400);
             }, 5000);
         }
 
