@@ -161,6 +161,8 @@
         
         /* Container de PV (mantido igual) */
         .pv-container { font-size: 1.1rem; font-weight: bold; color: #8b0000; }
+        .pv-container span { color: #dcd0c0; }
+        
         /* Novo Container de AM (estilo idêntico ao PV, mas roxo) */
         .am-container { font-size: 1.1rem; font-weight: bold; color: #9c4174; font-family: 'Lora', serif; }
         .am-container span { color: #dcd0c0; }
@@ -195,6 +197,14 @@
             width: 28px; height: 28px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer;
         }
         .btn-am:hover { color: #fff; border-color: #9c4174; background: #4a154b; }
+
+        /* Botão para Rolar Dado */
+        .btn-dado {
+            background: rgba(197, 160, 89, 0.1); color: #c5a059; border: 1px solid #c5a059;
+            width: 28px; height: 28px; font-size: 0.9rem; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; border-radius: 3px; transition: all 0.2s;
+        }
+        .btn-dado:hover { background: #c5a059; color: #050505; box-shadow: 0 0 8px rgba(197, 160, 89, 0.4); }
 
         /* Botão para Rolar Dado */
         .btn-dado {
@@ -695,59 +705,21 @@
         /* Rodapé Horizontal */
         .rodape-menu {
             display: flex;
-            flex-wrap: nowrap;
-            justify-content: flex-start;
-            align-items: center;
-            gap: 8px;
-            width: 100%;
-            min-width: 0;
-            box-sizing: border-box;
+            justify-content: space-around;
             background: rgba(15, 10, 10, 0.95);
             border-top: 2px solid #4a0000;
-            padding: 10px 12px 12px;
-            z-index: 50;
+            padding: 10px 0;
+            z-index: 50; /* Garante que fique acima do mapa, mas abaixo do modal */
             position: relative;
-            overflow-x: scroll;
-            overflow-y: visible;
-            white-space: nowrap;
-            scrollbar-width: auto;
-            scrollbar-color: #8b0000 #111;
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior-x: contain;
         }
-
-        .rodape-menu::-webkit-scrollbar {
-            height: 9px;
-        }
-
-        .rodape-menu::-webkit-scrollbar-track {
-            background: #111;
-            border-radius: 5px;
-        }
-
-        .rodape-menu::-webkit-scrollbar-thumb {
-            background: #8b0000;
-            border: 1px solid #c5a059;
-            border-radius: 5px;
-        }
-
-        .rodape-menu::-webkit-scrollbar-thumb:hover {
-            background: #a83232;
-        }
-
-        .rodape-menu { cursor: grab; }
-        .rodape-menu.arrastando { cursor: grabbing; user-select: none; }
 
         /* Item do menu (contém o botão e a lista que sobe) */
         .menu-item-container {
             position: relative;
-            flex: 0 0 auto;
         }
 
         /* Botões Principais do Rodapé */
         .btn-menu-rodape {
-            flex: 0 0 auto;
-            white-space: nowrap;
             background: rgba(197, 160, 89, 0.1);
             color: #c5a059;
             border: 1px solid rgba(197, 160, 89, 0.4);
@@ -1328,330 +1300,11 @@
             .gameplay-wrapper { grid-template-columns: 1fr; }
             .painel-status { max-height: 300px; }
         }
-
-        /* ============================================================
-           RESPONSIVIDADE — CELULAR / TABLET
-           ============================================================ */
-        @media (max-width: 900px) {
-            body {
-                width: 100%;
-                min-height: 100dvh;
-                height: 100dvh;
-                padding: 8px;
-                overflow: hidden;
-                align-items: stretch;
-            }
-
-            .moldura-tela {
-                top: 6px;
-                bottom: 6px;
-                left: 6px;
-                right: 6px;
-            }
-
-            .gameplay-wrapper {
-                grid-template-columns: 1fr;
-                grid-template-rows: minmax(190px, 34dvh) minmax(0, 1fr);
-                gap: 8px;
-                width: 100%;
-                height: 100%;
-                min-width: 0;
-                min-height: 0;
-            }
-
-            .painel-status {
-                width: 100%;
-                max-width: 100%;
-                max-height: none;
-                min-height: 0;
-                padding: 8px;
-                gap: 7px;
-                overflow-y: auto;
-                overflow-x: hidden;
-            }
-
-            .painel-status h2 {
-                font-size: .9rem;
-                padding-bottom: 6px;
-                margin-bottom: 0;
-            }
-
-            .painel-turnos {
-                padding: 6px;
-            }
-
-            .card-heroi {
-                min-height: 118px;
-                width: 100%;
-                padding: 7px;
-            }
-
-            .avatar-painel {
-                width: 58px;
-            }
-
-            .info-heroi {
-                gap: 7px;
-            }
-
-            .nome-heroi {
-                font-size: .76rem;
-            }
-
-            .pv-container,
-            .am-container {
-                font-size: .9rem;
-            }
-
-            .controles-heroi {
-                width: 108px !important;
-                min-width: 108px !important;
-                max-width: 108px !important;
-                flex-basis: 108px !important;
-            }
-
-            .tabuleiro-container {
-                width: 100%;
-                min-width: 0;
-                min-height: 0;
-                height: 100%;
-            }
-
-            .mapa-wrapper {
-                min-height: 0;
-            }
-
-            .mapa-img {
-                object-fit: contain;
-            }
-
-            /* Barra horizontal dos grupos do rodapé */
-            .rodape-menu {
-                width: 100%;
-                justify-content: flex-start;
-                align-items: center;
-                gap: 7px;
-                padding: 7px 9px;
-                overflow-x: scroll;
-                overflow-y: visible;
-                white-space: nowrap;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: thin;
-                scrollbar-color: #8b0000 #111;
-                touch-action: pan-x;
-            }
-
-            .rodape-menu::-webkit-scrollbar {
-                height: 7px;
-            }
-
-            .rodape-menu::-webkit-scrollbar-track {
-                background: #111;
-            }
-
-            .rodape-menu::-webkit-scrollbar-thumb {
-                background: #8b0000;
-                border-radius: 4px;
-            }
-
-            .menu-item-container {
-                flex: 0 0 auto;
-            }
-
-            .btn-menu-rodape {
-                flex: 0 0 auto;
-                padding: 7px 11px;
-                font-size: .7rem;
-                white-space: nowrap;
-            }
-
-            .lista-dropup {
-                max-height: min(42dvh, 250px);
-                min-width: 155px;
-                max-width: 78vw;
-                overflow-y: auto;
-                overflow-x: hidden;
-            }
-
-            #mini-player-musica {
-                top: 8px !important;
-                right: 8px !important;
-                max-width: calc(100vw - 16px);
-            }
-
-            #mini-player-musica select {
-                max-width: 90px !important;
-            }
-
-            .anuncio-rolagem h3 {
-                font-size: 1rem;
-            }
-
-            .anuncio-rolagem {
-                max-width: 90vw;
-                padding: 9px 25px;
-            }
-
-            .cena-dado {
-                width: 125px;
-                height: 125px;
-            }
-
-            .chat-rolagens {
-                right: -90vw;
-                width: min(280px, 88vw);
-                bottom: 78px;
-            }
-
-            .chat-rolagens.aberto {
-                right: 8px;
-            }
-
-            .aba-rolagens {
-                bottom: 78px;
-            }
-
-            .contador-selos {
-                min-width: 190px;
-                transform: translateX(-50%) scale(.85);
-                transform-origin: top center;
-            }
-
-            .btn-torre-outubrista {
-                font-size: 10px;
-                padding: 3px 6px;
-            }
-        }
-
-        @media (max-width: 520px) {
-            .gameplay-wrapper {
-                grid-template-rows: minmax(165px, 31dvh) minmax(0, 1fr);
-            }
-
-            .painel-status {
-                padding: 6px;
-            }
-
-            .card-heroi {
-                min-height: 108px;
-            }
-
-            .avatar-painel {
-                width: 50px;
-            }
-
-            .controles-heroi {
-                width: 100px !important;
-                min-width: 100px !important;
-                max-width: 100px !important;
-                flex-basis: 100px !important;
-            }
-
-            .btn-participacao,
-            .btn-estado {
-                font-size: 8px !important;
-            }
-
-            #mini-player-musica {
-                transform: scale(.9);
-                transform-origin: top right;
-            }
-        }
-        /* ============================================================
-           INDICADOR DE CONEXÃO / PRESENÇA
-           ============================================================ */
-        #painel-conexao-jogadores {
-            position: fixed;
-            left: 25px;
-            bottom: 25px;
-            z-index: 20001;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 10px;
-            background: rgba(12, 8, 8, .94);
-            border: 1px solid rgba(197, 160, 89, .55);
-            border-radius: 5px;
-            box-shadow: 0 0 12px rgba(0,0,0,.55);
-            font-family: 'Lora', serif;
-            font-size: .72rem;
-            color: #dcd0c0;
-            user-select: none;
-        }
-        #indicador-conexao {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            background: #777;
-            box-shadow: 0 0 5px rgba(255,255,255,.2);
-            flex: 0 0 auto;
-        }
-        #indicador-conexao.conectado {
-            background: #36c56f;
-            box-shadow: 0 0 8px rgba(54,197,111,.8);
-        }
-        #indicador-conexao.desconectado {
-            background: #d08a2e;
-            box-shadow: 0 0 8px rgba(208,138,46,.65);
-        }
-        #painel-conexao-jogadores button {
-            border: 1px solid rgba(197,160,89,.35);
-            background: rgba(197,160,89,.08);
-            color: #c5a059;
-            border-radius: 3px;
-            padding: 2px 6px;
-            cursor: pointer;
-            font-family: 'Cinzel', serif;
-            font-size: .62rem;
-        }
-        #painel-conexao-jogadores button:hover { background: rgba(197,160,89,.18); }
-        #aviso-jogador {
-            position: fixed;
-            bottom: 58px;
-            left: 50%;
-            transform: translate(-50%, -15px);
-            z-index: 30000;
-            opacity: 0;
-            pointer-events: none;
-            padding: 10px 18px;
-            min-width: 240px;
-            max-width: min(90vw, 480px);
-            text-align: center;
-            background: rgba(12,8,8,.97);
-            border: 1px solid #c5a059;
-            border-radius: 5px;
-            box-shadow: 0 0 20px rgba(0,0,0,.7);
-            color: #e8e0d5;
-            font-family: 'Cinzel', serif;
-            font-size: .78rem;
-            transition: opacity .25s ease, transform .25s ease;
-        }
-        #aviso-jogador.visivel { opacity: 1; transform: translate(-50%, 0); }
-        #aviso-jogador.entrada { border-color: #5eaa78; }
-        #aviso-jogador.saida { border-color: #a83232; }
-        @media (max-width: 700px) {
-            #painel-conexao-jogadores {
-                bottom: 7px; left: 7px; max-width: 70vw;
-                padding: 5px 7px; font-size: .62rem;
-            }
-            #nome-jogador-atual { max-width: 75px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-            #aviso-jogador { bottom: 52px; font-size: .7rem; padding: 8px 12px; }
-        }
-
     </style>
 </head>
 <body>
 
     <div class="moldura-tela"></div>
-
-    <div id="painel-conexao-jogadores" title="Status da conexão e jogadores online">
-        <span id="indicador-conexao"></span>
-        <span id="texto-conexao">Conectando...</span>
-        <span id="quantidade-jogadores-online">0 online</span>
-        <span id="nome-jogador-atual"></span>
-        <button type="button" onclick="renomearJogador()" title="Alterar nome">✎</button>
-    </div>
-    <div id="aviso-jogador"></div>
 
     <audio id="audio-efeito"></audio>
 
@@ -2652,7 +2305,7 @@
     <!-- JAVASCRIPT: LÓGICA E CONEXÃO FIREBASE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-        import { getDatabase, ref, set, onValue, get, remove, push, onChildAdded, onChildRemoved, onDisconnect, serverTimestamp, query, orderByKey, startAt } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+        import { getDatabase, ref, set, onValue, get, remove } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
         
 
         // --- CONTROLES DO MINI PLAYER DE MÚSICA ---
@@ -2824,112 +2477,6 @@
         function campanhaRef(caminho) {
             return ref(db, `campanhas/${CAMPANHA}/${caminho}`);
         }
-
-        // ============================================================
-        // PRESENÇA / CONEXÃO DOS JOGADORES
-        // Cada aba recebe uma identidade própria. O Firebase remove
-        // automaticamente a presença quando a conexão é encerrada.
-        // Isso evita depender de relógio local e permite avisar os
-        // demais jogadores quando alguém sai da partida.
-        // ============================================================
-        const jogadorSessaoId = sessionStorage.getItem('nihil_jogador_sessao') || crypto.randomUUID();
-        sessionStorage.setItem('nihil_jogador_sessao', jogadorSessaoId);
-
-        let nomeJogador = localStorage.getItem('nihil_nome_jogador') || '';
-        if (!nomeJogador) {
-            nomeJogador = `Jogador ${jogadorSessaoId.slice(0, 4).toUpperCase()}`;
-            localStorage.setItem('nihil_nome_jogador', nomeJogador);
-        }
-        const nomeDisplayInicial = document.getElementById('nome-jogador-atual');
-        if (nomeDisplayInicial) nomeDisplayInicial.innerText = nomeJogador;
-
-        const presencaRef = campanhaRef(`presenca/${jogadorSessaoId}`);
-        const presencasRef = campanhaRef('presenca');
-        const firebaseConectadoRef = ref(db, '.info/connected');
-        const jogadoresConhecidos = new Map();
-        let presencaInicialCarregada = false;
-
-        function atualizarPainelConexao(conectado, onlineCount = null) {
-            const indicador = document.getElementById('indicador-conexao');
-            const texto = document.getElementById('texto-conexao');
-            const quantidade = document.getElementById('quantidade-jogadores-online');
-            if (indicador) {
-                indicador.classList.toggle('conectado', conectado === true);
-                indicador.classList.toggle('desconectado', conectado !== true);
-            }
-            if (texto) texto.innerText = conectado === true ? 'Firebase conectado' : 'Reconectando...';
-            if (quantidade && onlineCount !== null) quantidade.innerText = `${onlineCount} online`;
-        }
-
-        function mostrarAvisoJogador(mensagem, tipo = 'saida') {
-            const aviso = document.getElementById('aviso-jogador');
-            if (!aviso) return;
-            aviso.className = `aviso-jogador ${tipo} visivel`;
-            aviso.innerText = mensagem;
-            clearTimeout(window.timerAvisoJogador);
-            window.timerAvisoJogador = setTimeout(() => {
-                aviso.classList.remove('visivel');
-            }, 4500);
-        }
-
-        window.renomearJogador = function() {
-            const novoNome = prompt('Nome que será exibido aos outros jogadores:', nomeJogador);
-            if (novoNome === null) return;
-            const nomeLimpo = novoNome.trim().slice(0, 30);
-            if (!nomeLimpo) return;
-            nomeJogador = nomeLimpo;
-            localStorage.setItem('nihil_nome_jogador', nomeJogador);
-            set(presencaRef, { nome: nomeJogador, online: true, entrada: serverTimestamp() }).catch(console.error);
-            const nomeDisplay = document.getElementById('nome-jogador-atual');
-            if (nomeDisplay) nomeDisplay.innerText = nomeJogador;
-        };
-
-        onValue(firebaseConectadoRef, (snapshot) => {
-            const conectado = snapshot.val() === true;
-            atualizarPainelConexao(conectado);
-
-            if (!conectado) return;
-
-            onDisconnect(presencaRef).remove()
-                .then(() => set(presencaRef, {
-                    nome: nomeJogador,
-                    online: true,
-                    entrada: serverTimestamp()
-                }))
-                .catch(err => console.error('Falha ao registrar presença:', err));
-        });
-
-        onValue(presencasRef, (snapshot) => {
-            const dados = snapshot.val() || {};
-            const nomesAtuais = new Map();
-            Object.entries(dados).forEach(([id, jogador]) => {
-                if (jogador && jogador.online !== false) {
-                    nomesAtuais.set(id, jogador.nome || 'Jogador');
-                }
-            });
-
-            jogadoresConhecidos.clear();
-            nomesAtuais.forEach((nome, id) => jogadoresConhecidos.set(id, nome));
-            atualizarPainelConexao(true, nomesAtuais.size);
-            presencaInicialCarregada = true;
-        });
-
-        onChildAdded(presencasRef, (snapshot) => {
-            const dados = snapshot.val();
-            if (!dados || snapshot.key === jogadorSessaoId || !dados.nome) return;
-            const jaConhecido = jogadoresConhecidos.has(snapshot.key);
-            jogadoresConhecidos.set(snapshot.key, dados.nome);
-            if (presencaInicialCarregada && !jaConhecido) {
-                mostrarAvisoJogador(`⚔️ ${dados.nome} entrou na partida.`, 'entrada');
-            }
-        });
-
-        onChildRemoved(presencasRef, (snapshot) => {
-            const nome = jogadoresConhecidos.get(snapshot.key);
-            if (!nome || snapshot.key === jogadorSessaoId) return;
-            jogadoresConhecidos.delete(snapshot.key);
-            mostrarAvisoJogador(`⚠️ ${nome} desconectou-se da partida.`, 'saida');
-        });
 
         // ============================================================
         // CONTADOR GLOBAL DE SELOS DO BOSS
@@ -3229,21 +2776,6 @@
             set(campanhaRef( 'status/' + idHeroi + '/estado'), novoEstado);
         }
 
-        // ============================================================
-        // SISTEMA DE ROLAGENS ROBUSTO
-        // Cada rolagem recebe uma chave única do Firebase.
-        // Não usamos mais Date.now() para decidir se uma rolagem é nova,
-        // evitando que relógios diferentes dos dispositivos congelem o
-        // rolador de um jogador após uma rolagem de inimigo.
-        // ============================================================
-        function publicarRolagemDado(dados) {
-            return set(push(campanhaRef('rolagens_dado')), {
-                ...dados,
-                timestamp: serverTimestamp(),
-                eventoId: crypto.randomUUID()
-            });
-        }
-
         window.lancarDado = function(idHeroi) {
             const card = document.getElementById(`card-${idHeroi}`);
             if (!card) return;
@@ -3254,13 +2786,13 @@
             const corHeroi = card.style.getPropertyValue('--token-color').trim();
             const resultado = Math.floor(Math.random() * 6) + 1;
             
-            publicarRolagemDado({
+            set(campanhaRef( 'rolagem_dado'), {
                 idHeroi: idHeroi,
                 nome: nome,
                 resultado: resultado,
                 estado: estado,
                 cor: corHeroi,
-                lados: 6
+                timestamp: Date.now()
             });
         }
 
@@ -3280,13 +2812,14 @@
             const lados = ehOxiliat ? 8 : 6;
             const resultado = Math.floor(Math.random() * lados) + 1;
 
-            publicarRolagemDado({
+            set(campanhaRef( 'rolagem_dado'), {
                 idHeroi: 'sistema_inimigo',
                 nome: nomeInimigo,
                 resultado: resultado,
                 lados: lados,
                 estado: 'Corrompido',
-                cor: '#ff0000'
+                cor: '#ff0000',
+                timestamp: Date.now()
             });
 
         };
@@ -4057,30 +3590,22 @@
             }
         });
 
-        // Listener baseado na chave única de cada rolagem.
-        // A chave inicial é criada localmente, sem gravar nada no banco.
-        // Assim, o listener recebe somente rolagens novas e não depende do
-        // relógio do celular/computador de nenhum jogador.
-        const chaveInicialRolagens = push(campanhaRef('rolagens_dado')).key;
-        const consultaRolagensNovas = query(
-            campanhaRef('rolagens_dado'),
-            orderByKey(),
-            startAt(chaveInicialRolagens)
-        );
-        const rolagensJaVistas = new Set();
+        const momentoCarregamento = Date.now();
 
-        onChildAdded(consultaRolagensNovas, (snapshot) => {
+        onValue(campanhaRef( 'rolagem_dado'), (snapshot) => {
+
             const dados = snapshot.val();
+
             if (!dados) return;
 
-            const chaveEvento = snapshot.key || dados.eventoId;
-            if (!chaveEvento || rolagensJaVistas.has(chaveEvento)) return;
-            rolagensJaVistas.add(chaveEvento);
+            if (dados.timestamp <= momentoCarregamento)
+                return;
 
-            if (rolagensJaVistas.size > 200) {
-                const primeira = rolagensJaVistas.values().next().value;
-                rolagensJaVistas.delete(primeira);
-            }
+            if (window.ultimoTimestampRolado &&
+                dados.timestamp <= window.ultimoTimestampRolado)
+                return;
+
+            window.ultimoTimestampRolado = dados.timestamp;
 
             animarDado3D(
                 dados.nome,
@@ -4090,11 +3615,15 @@
                 dados.lados || 6
             );
 
+            // Oxiliat ativa sua habilidade ao obter 6, 7 ou 8 no D8.
+            // O resultado também é exibido na mensagem para todos os jogadores.
             const ehOxiliatRolagem = dados.idHeroi === "sistema_inimigo" &&
                 String(dados.nome || "").toLowerCase() === "oxiliat" &&
                 Number(dados.lados || 6) === 8;
 
             if (ehOxiliatRolagem && [6, 7, 8].includes(Number(dados.resultado))) {
+
+                // Toca o som da habilidade
                 const audio = document.getElementById("som-habilidade-inimigo");
                 if (audio) {
                     audio.currentTime = 0;
@@ -4102,20 +3631,27 @@
                 }
 
                 const resultadoHabilidade = Number(dados.resultado);
+
+                // Exibe a habilidade + o número obtido no D8.
                 adicionarRolagemChat(
                     "💀 Habilidade Especial!",
                     `${dados.nome} ativou sua habilidade! Resultado do D8: ${resultadoHabilidade}`,
                     "#3b82f6"
                 );
+
             } else {
+
+                // Todas as demais rolagens
                 adicionarRolagemChat(
                     dados.nome,
                     dados.resultado,
                     dados.cor
                 );
+
             }
 
             mostrarChatRolagens();
+
         });
 
         // --- SISTEMA DE INVENTÁRIO GLOBAL ---
@@ -4301,48 +3837,6 @@
 
     };
         
-
-
-    // Rolagem horizontal do menu inferior: roda do mouse e arraste.
-    (() => {
-        const menu = document.querySelector('.rodape-menu');
-        if (!menu) return;
-
-        menu.addEventListener('wheel', (e) => {
-            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-                e.preventDefault();
-                menu.scrollLeft += e.deltaY;
-            }
-        }, { passive: false });
-
-        let arrastando = false;
-        let inicioX = 0;
-        let scrollInicial = 0;
-
-        menu.addEventListener('pointerdown', (e) => {
-            if (e.pointerType === 'mouse' && e.button !== 0) return;
-            arrastando = true;
-            inicioX = e.clientX;
-            scrollInicial = menu.scrollLeft;
-            menu.classList.add('arrastando');
-            if (menu.setPointerCapture) menu.setPointerCapture(e.pointerId);
-        });
-
-        menu.addEventListener('pointermove', (e) => {
-            if (!arrastando) return;
-            const deslocamento = e.clientX - inicioX;
-            if (Math.abs(deslocamento) > 2) e.preventDefault();
-            menu.scrollLeft = scrollInicial - deslocamento;
-        });
-
-        const pararArraste = (e) => {
-            arrastando = false;
-            menu.classList.remove('arrastando');
-            try { if (menu.releasePointerCapture) menu.releasePointerCapture(e.pointerId); } catch (_) {}
-        };
-        menu.addEventListener('pointerup', pararArraste);
-        menu.addEventListener('pointercancel', pararArraste);
-    })();
     </script>
 
     <div id="modal-imagem-central" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 99; align-items: center; justify-content: center; flex-direction: column; gap: 20px; pointer-events: none;">
