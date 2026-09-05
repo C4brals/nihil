@@ -206,6 +206,14 @@
         }
         .btn-dado:hover { background: #c5a059; color: #050505; box-shadow: 0 0 8px rgba(197, 160, 89, 0.4); }
 
+        /* Botão para Rolar Dado */
+        .btn-dado {
+            background: rgba(197, 160, 89, 0.1); color: #c5a059; border: 1px solid #c5a059;
+            width: 28px; height: 28px; font-size: 0.9rem; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; border-radius: 3px; transition: all 0.2s;
+        }
+        .btn-dado:hover { background: #c5a059; color: #050505; box-shadow: 0 0 8px rgba(197, 160, 89, 0.4); }
+
         .btn-estado {
             font-family: 'Cinzel', serif; font-size: 0.65rem; padding: 2px 6px;
             background: rgba(20, 20, 20, 0.8); border: 1px solid #c5a059; color: #c5a059;
@@ -1335,77 +1343,15 @@
             to   { box-shadow: 0 0 10px #1b5e20, 0 0 22px rgba(27,94,32,.9), 0 4px 10px rgba(0,0,0,.9) !important; }
         }
 
-        /* ================= STATUS FIREBASE / JOGADORES ================= */
-        .painel-status-firebase { position:fixed; left:28px; bottom:28px; width:285px; max-width:calc(100vw - 56px); padding:8px 10px 7px; background:rgba(8,6,6,.95); border:1px solid rgba(197,160,89,.68); border-radius:5px; box-shadow:0 4px 16px rgba(0,0,0,.72); z-index:30000; font-family:'Lora',serif; font-size:.72rem; }
-        .cabecalho-status-firebase { display:flex; align-items:center; justify-content:space-between; min-height:17px; }
-        .titulo-status-firebase { display:flex; align-items:center; gap:6px; color:#c5a059; font-family:'Cinzel',serif; font-size:.64rem; letter-spacing:.45px; text-transform:uppercase; }
-        .titulo-status-firebase .ornamento { color:#c5a059; font-size:.65rem; }
-        .botao-editar-nome-firebase { width:21px; height:20px; padding:0; display:flex; align-items:center; justify-content:center; background:rgba(35,28,18,.8); color:#c5a059; border:1px solid rgba(197,160,89,.45); border-radius:3px; cursor:pointer; font-size:.72rem; line-height:1; }
-        .botao-editar-nome-firebase:hover { background:rgba(197,160,89,.16); color:#fff; border-color:#c5a059; }
-        .status-firebase-linha { display:flex; align-items:center; gap:6px; margin-top:5px; color:#dcd0c0; }
-        .indicador-firebase { width:9px; height:9px; min-width:9px; border-radius:50%; display:inline-block; box-shadow:0 0 6px currentColor; }
-        .indicador-firebase.online { background:#35b94b; color:#35b94b; }
-        .indicador-firebase.offline { background:#a33; color:#a33; }
-        .status-firebase-nome { margin-top:3px; color:#c5b9a8; font-size:.68rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-        .status-firebase-nome strong { color:#c5a059; font-family:'Cinzel',serif; font-size:.67rem; }
-        .edicao-nome-firebase { display:none; gap:4px; margin-top:6px; }
-        .edicao-nome-firebase.visivel { display:flex; }
-        .edicao-nome-firebase input { flex:1; min-width:0; height:24px; padding:3px 6px; background:#111; color:#dcd0c0; border:1px solid rgba(197,160,89,.3); border-radius:3px; outline:none; font-family:'Lora',serif; font-size:.7rem; }
-        .edicao-nome-firebase button { width:30px; height:24px; padding:0; background:#4a0000; color:#c5a059; border:1px solid #8b0000; border-radius:3px; cursor:pointer; font-family:'Cinzel',serif; font-size:.62rem; font-weight:bold; }
-        .edicao-nome-firebase button:hover { background:#8b0000; color:#fff; }
-        .titulo-jogadores-conectados { margin-top:6px; padding-top:5px; border-top:1px solid rgba(197,160,89,.16); color:#bfae96; font-family:'Cinzel',serif; font-size:.61rem; letter-spacing:.55px; }
-        .lista-jogadores-conectados { margin-top:2px; max-height:54px; overflow-y:auto; }
-        .jogador-conectado { display:flex; align-items:center; gap:5px; min-height:17px; color:#dcd0c0; }
-        .jogador-conectado.proprio { color:#c5a059; }
-        .ponto-jogador { width:6px; height:6px; min-width:6px; border-radius:50%; background:#35b94b; box-shadow:0 0 5px rgba(53,185,75,.7); }
-        .nome-jogador { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-        .rotulo-voce { margin-left:auto; color:#777; font-size:.57rem; }
-        .modal-nome-firebase { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.68); z-index:40000; }
-        .modal-nome-firebase.oculto { display:none; }
-        .caixa-nome-firebase { width:min(360px,calc(100vw - 32px)); padding:18px; background:rgba(10,7,7,.98); border:1px solid rgba(197,160,89,.72); border-top:3px solid #8b0000; border-radius:5px; box-shadow:0 10px 35px rgba(0,0,0,.8); text-align:center; }
-        .caixa-nome-firebase h3 { margin:0 0 7px; color:#c5a059; font-family:'Cinzel',serif; font-size:.86rem; letter-spacing:.5px; }
-        .caixa-nome-firebase p { margin:0 0 12px; color:#c9c0b5; font-family:'Lora',serif; font-size:.72rem; }
-        .caixa-nome-firebase input { width:100%; box-sizing:border-box; height:32px; padding:5px 8px; background:#111; color:#eee; border:1px solid rgba(197,160,89,.4); border-radius:3px; outline:none; font-family:'Lora',serif; font-size:.78rem; text-align:center; }
-        .caixa-nome-firebase input:focus { border-color:#c5a059; box-shadow:0 0 6px rgba(197,160,89,.2); }
-        .caixa-nome-firebase button { margin-top:10px; min-width:100px; height:29px; padding:4px 12px; background:#4a0000; color:#c5a059; border:1px solid #8b0000; border-radius:3px; cursor:pointer; font-family:'Cinzel',serif; font-size:.66rem; font-weight:bold; }
-        .caixa-nome-firebase button:hover { background:#8b0000; color:#fff; }
-        .alerta-conexao { position:fixed; left:330px; bottom:30px; max-width:min(420px,calc(100vw - 360px)); padding:9px 13px; background:rgba(35,10,10,.97); border:1px solid #8b0000; border-left:3px solid #ff4d4d; border-radius:4px; color:#f0dede; font-family:'Cinzel',serif; font-size:.68rem; opacity:0; transform:translateY(8px); pointer-events:none; transition:opacity .2s,transform .2s; z-index:30001; }
-        .alerta-conexao.visivel { opacity:1; transform:translateY(0); }
-        .alerta-conexao.info { border-left-color:#c5a059; }
-
         @media (max-width: 900px) {
             .gameplay-wrapper { grid-template-columns: 1fr; }
             .painel-status { max-height: 300px; }
-            .painel-status-firebase { left:12px; bottom:12px; width:250px; max-width:calc(100vw - 24px); }
-            .alerta-conexao { left:12px; bottom:155px; max-width:calc(100vw - 24px); }
         }
     </style>
 </head>
 <body>
 
     <div class="moldura-tela"></div>
-
-    <section id="painel-status-firebase" class="painel-status-firebase" aria-label="Status da conexão">
-        <div class="cabecalho-status-firebase">
-            <div class="titulo-status-firebase"><span class="ornamento">❖</span><span>Conexão da Campanha</span></div>
-            <button type="button" id="btn-editar-nome-firebase" class="botao-editar-nome-firebase" title="Alterar nome">✎</button>
-        </div>
-        <div class="status-firebase-linha"><span id="status-firebase-indicador" class="indicador-firebase offline"></span><span id="status-firebase-texto">Conectando ao Firebase...</span></div>
-        <div class="status-firebase-nome" id="status-firebase-nome">Jogador: <strong>Jogador</strong></div>
-        <div class="edicao-nome-firebase" id="edicao-nome-firebase"><input id="input-nome-jogador" type="text" maxlength="24" placeholder="Seu nome" autocomplete="nickname"><button type="button" id="btn-salvar-nome" title="Salvar nome">OK</button></div>
-        <div class="titulo-jogadores-conectados">Online (<span id="quantidade-jogadores-conectados">0</span>):</div>
-        <div id="lista-jogadores-conectados" class="lista-jogadores-conectados"></div>
-    </section>
-    <div id="alerta-conexao" class="alerta-conexao" role="status" aria-live="polite"></div>
-
-    <div id="modal-nome-firebase" class="modal-nome-firebase oculto" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-nome">
-        <div class="caixa-nome-firebase">
-            <h3 id="titulo-modal-nome">Identifique seu aventureiro</h3>
-            <p>Digite o nome que será exibido para os outros jogadores nesta sala.</p>
-            <input id="input-nome-inicial" type="text" maxlength="24" placeholder="Nome do jogador" autocomplete="nickname">
-            <button type="button" id="btn-confirmar-nome-inicial">ENTRAR NA SALA</button>
-        </div>
-    </div>
 
     <audio id="audio-efeito"></audio>
 
@@ -2437,7 +2383,7 @@
     <!-- JAVASCRIPT: LÓGICA E CONEXÃO FIREBASE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-        import { getDatabase, ref, set, onValue, onChildAdded, onChildRemoved, push, get, remove, onDisconnect } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+        import { getDatabase, ref, set, onValue, onChildAdded, push, get, remove } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
         
 
         // --- CONTROLES DO MINI PLAYER DE MÚSICA ---
@@ -2589,132 +2535,6 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
         let contadorTokensExtras = 0;
-
-        // ================= PRESENÇA / CONEXÃO DOS JOGADORES =================
-        const sessaoJogador = (window.crypto && crypto.randomUUID)
-            ? crypto.randomUUID()
-            : 'sessao-' + Date.now() + '-' + Math.random().toString(36).slice(2);
-        const presencaRef = ref(db, `presenca_jogadores/${sessaoJogador}`);
-        const conexaoFirebaseRef = ref(db, '.info/connected');
-        const nomeSalvo = localStorage.getItem('nihil_nome_jogador') || '';
-        let nomeJogador = nomeSalvo.trim() || 'Jogador';
-
-        function atualizarStatusConexao(online) {
-            const indicador = document.getElementById('status-firebase-indicador');
-            const texto = document.getElementById('status-firebase-texto');
-            const nome = document.getElementById('status-firebase-nome');
-            if (indicador) { indicador.classList.toggle('online', online); indicador.classList.toggle('offline', !online); }
-            if (texto) texto.innerText = online ? 'Conectado ao Firebase' : 'Desconectado do Firebase';
-            if (nome) nome.innerHTML = `Jogador: <strong>${nomeJogador.replace(/[&<>\"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]))}</strong>`;
-        }
-
-        function mostrarAlertaConexao(mensagem, tipo = 'info') {
-            const alerta = document.getElementById('alerta-conexao');
-            if (!alerta) return;
-            alerta.innerText = mensagem;
-            alerta.className = `alerta-conexao ${tipo} visivel`;
-            clearTimeout(mostrarAlertaConexao.timer);
-            mostrarAlertaConexao.timer = setTimeout(() => alerta.classList.remove('visivel'), 5000);
-        }
-
-        function normalizarNomeJogador(valor) {
-            return (valor || '').trim().replace(/\s+/g, ' ').slice(0, 24);
-        }
-
-        function salvarNomeJogador(valor = null) {
-            const campo = document.getElementById('input-nome-jogador');
-            const nomeInformado = valor !== null ? valor : (campo?.value || '');
-            const novoNome = normalizarNomeJogador(nomeInformado);
-            if (!novoNome) return false;
-            nomeJogador = novoNome;
-            if (campo) campo.value = nomeJogador;
-            localStorage.setItem('nihil_nome_jogador', nomeJogador);
-            if (document.getElementById('status-firebase-indicador')?.classList.contains('online')) {
-                set(ref(db, `presenca_jogadores/${sessaoJogador}/nome`), nomeJogador).catch(err => console.error('Falha ao atualizar nome:', err));
-            }
-            atualizarStatusConexao(true);
-            return true;
-        }
-
-        function fecharEdicaoNome() {
-            document.getElementById('edicao-nome-firebase')?.classList.remove('visivel');
-        }
-
-        function abrirModalNomeInicial() {
-            const modal = document.getElementById('modal-nome-firebase');
-            const campo = document.getElementById('input-nome-inicial');
-            if (!modal || !campo) return;
-            campo.value = nomeSalvo.trim();
-            modal.classList.remove('oculto');
-            setTimeout(() => campo.focus(), 50);
-        }
-
-        function confirmarNomeInicial() {
-            const campo = document.getElementById('input-nome-inicial');
-            if (!salvarNomeJogador(campo?.value || '')) {
-                campo?.focus();
-                return;
-            }
-            document.getElementById('modal-nome-firebase')?.classList.add('oculto');
-        }
-
-        onValue(conexaoFirebaseRef, (conectado) => {
-            const online = conectado.val() === true;
-            atualizarStatusConexao(online);
-            if (online) {
-                onDisconnect(presencaRef).remove()
-                    .then(() => set(presencaRef, { nome: nomeJogador, conectadoEm: Date.now() }))
-                    .catch(err => console.error('Falha ao registrar presença:', err));
-            } else {
-                mostrarAlertaConexao('⚠ Conexão com o Firebase perdida.', 'offline');
-            }
-        });
-
-        onValue(ref(db, 'presenca_jogadores'), (snapshot) => {
-            const dados = snapshot.val() || {};
-            const lista = document.getElementById('lista-jogadores-conectados');
-            if (!lista) return;
-            lista.innerHTML = '';
-            const quantidade = Object.keys(dados).length;
-            const contador = document.getElementById('quantidade-jogadores-conectados');
-            if (contador) contador.textContent = quantidade;
-            Object.entries(dados).forEach(([id, jogador]) => {
-                const item = document.createElement('div');
-                item.className = 'jogador-conectado' + (id === sessaoJogador ? ' proprio' : '');
-                const ponto = document.createElement('span'); ponto.className = 'ponto-jogador';
-                const nome = document.createElement('span'); nome.className = 'nome-jogador'; nome.textContent = jogador?.nome || 'Jogador';
-                item.appendChild(ponto); item.appendChild(nome);
-                if (id === sessaoJogador) { const voce = document.createElement('span'); voce.className='rotulo-voce'; voce.textContent='você'; item.appendChild(voce); }
-                lista.appendChild(item);
-            });
-        });
-
-        onChildRemoved(ref(db, 'presenca_jogadores'), (snapshot) => {
-            const jogador = snapshot.val();
-            if (!jogador?.nome || snapshot.key === sessaoJogador) return;
-            mostrarAlertaConexao(`⚠ ${jogador.nome} desconectou.`, 'offline');
-        });
-
-        window.addEventListener('beforeunload', () => { remove(presencaRef).catch(() => {}); });
-
-        const campoNomeJogador = document.getElementById('input-nome-jogador');
-        const botaoSalvarNome = document.getElementById('btn-salvar-nome');
-        const botaoEditarNome = document.getElementById('btn-editar-nome-firebase');
-        const modalNomeInicial = document.getElementById('modal-nome-firebase');
-        const campoNomeInicial = document.getElementById('input-nome-inicial');
-        const botaoConfirmarNomeInicial = document.getElementById('btn-confirmar-nome-inicial');
-        if (campoNomeJogador) { campoNomeJogador.value = nomeJogador; campoNomeJogador.addEventListener('keydown', e => { if (e.key === 'Enter') { salvarNomeJogador(); fecharEdicaoNome(); } }); }
-        if (botaoSalvarNome) botaoSalvarNome.addEventListener('click', () => { if (salvarNomeJogador()) fecharEdicaoNome(); });
-        if (botaoEditarNome) botaoEditarNome.addEventListener('click', () => {
-            const edicao = document.getElementById('edicao-nome-firebase');
-            if (!edicao) return;
-            edicao.classList.toggle('visivel');
-            if (edicao.classList.contains('visivel')) { campoNomeJogador?.focus(); campoNomeJogador?.select(); }
-        });
-        if (botaoConfirmarNomeInicial) botaoConfirmarNomeInicial.addEventListener('click', confirmarNomeInicial);
-        if (campoNomeInicial) campoNomeInicial.addEventListener('keydown', e => { if (e.key === 'Enter') confirmarNomeInicial(); });
-        // Na primeira entrada nesta sala, o nome é solicitado imediatamente.
-        abrirModalNomeInicial();
 
         
 
@@ -2961,18 +2781,14 @@
         async function registrarRolagem(dados) {
             try {
                 const novaRolagemRef = push(ref(db, 'rolagens'));
-                await set(novaRolagemRef, { ...dados, sessaoJogador: sessaoJogador, timestamp: Date.now() });
+                await set(novaRolagemRef, {
+                    ...dados,
+                    timestamp: Date.now()
+                });
                 console.log('🎲 Rolagem enviada com sucesso:', dados.nome, dados.resultado);
             } catch (erro) {
                 console.error('❌ Erro ao enviar rolagem ao Firebase:', erro);
-                mostrarAlertaConexao('⚠ A rolagem foi feita localmente, mas não pôde ser enviada ao Firebase.', 'offline');
             }
-        }
-
-        function executarRolagemLocal(dados) {
-            animarDado3D(dados.nome, dados.resultado, dados.estado, dados.cor);
-            adicionarRolagemChat(dados.nome, dados.resultado, dados.cor);
-            mostrarChatRolagens();
         }
 
         window.lancarDado = function(idHeroi) {
@@ -2986,9 +2802,15 @@
             const nome = elementoNome ? elementoNome.innerText.trim() : "Herói";
             const estado = card.classList.contains('corrompido-estado') ? 'Corrompido' : 'Normal';
             const corHeroi = card.style.getPropertyValue('--token-color').trim();
-            const dadosRolagem = { idHeroi, nome, resultado: Math.floor(Math.random() * 6) + 1, estado, cor: corHeroi };
-            executarRolagemLocal(dadosRolagem);
-            registrarRolagem(dadosRolagem);
+            const resultado = Math.floor(Math.random() * 6) + 1;
+
+            registrarRolagem({
+                idHeroi: idHeroi,
+                nome: nome,
+                resultado: resultado,
+                estado: estado,
+                cor: corHeroi
+            });
         }
 
         // --- FUNÇÃO PARA O INIMIGO ROLAR DADO D6 ---
@@ -3003,28 +2825,59 @@
                 nomeInimigo = nomeInimigo.charAt(0).toUpperCase() + nomeInimigo.slice(1);
             }
 
-            const dadosRolagem = { idHeroi:'sistema_inimigo', nome:nomeInimigo, resultado:Math.floor(Math.random()*6)+1, estado:'Corrompido', cor:'#ff0000' };
-            executarRolagemLocal(dadosRolagem);
-            registrarRolagem(dadosRolagem);
+            const resultado = Math.floor(Math.random() * 6) + 1;
+
+            registrarRolagem({
+                idHeroi: 'sistema_inimigo',
+                nome: nomeInimigo,
+                resultado: resultado,
+                estado: 'Corrompido',
+                cor: '#ff0000'
+            });
 
         };
 
         // --- ANIMAÇÃO FÍSICA E ROTACIONAL DO DADO 3D COM BASE NO RESULTADO ---
-        let timerAnimacaoDado = null;
-
         function animarDado3D(nome, resultado, estado, cor) {
-            const cena=document.getElementById('cena-dado'), dado=document.getElementById('dado3d'), anuncio=document.getElementById('anuncio-rolagem'), anuncioNome=document.getElementById('anuncio-nome');
-            if(!cena || !dado || !anuncio || !anuncioNome) return;
-            clearTimeout(timerAnimacaoDado);
-            dado.style.transition='';
-            dado.style.setProperty('--cor-dado',cor);
-            cena.classList.toggle('dado-corrompido',estado==='Corrompido');
-            anuncioNome.innerText=nome; anuncio.classList.add('ativo'); cena.classList.add('ativo');
-            const rotacoesFaces={1:{x:0,y:0},6:{x:180,y:0},2:{x:0,y:-90},5:{x:0,y:90},3:{x:-90,y:0},4:{x:90,y:0}};
-            const faceAlvo=rotacoesFaces[resultado]||rotacoesFaces[1];
-            const voltasX=(Math.floor(Math.random()*3)+3)*360, voltasY=(Math.floor(Math.random()*3)+3)*360;
-            dado.style.transform=`rotateX(${faceAlvo.x+voltasX}deg) rotateY(${faceAlvo.y+voltasY}deg)`;
-            timerAnimacaoDado=setTimeout(()=>{ anuncio.classList.remove('ativo'); cena.classList.remove('ativo'); setTimeout(()=>{ dado.style.transition='none'; dado.style.transform='none'; setTimeout(()=>dado.style.transition='',50); },400); },3000);
+            const cena = document.getElementById('cena-dado');
+            const dado = document.getElementById('dado3d');
+            const anuncio = document.getElementById('anuncio-rolagem');
+            const anuncioNome = document.getElementById('anuncio-nome');
+            
+            dado.style.setProperty('--cor-dado', cor);
+
+            if (estado === "Corrompido") {
+                cena.classList.add('dado-corrompido');
+            } else {
+                cena.classList.remove('dado-corrompido');
+            }
+
+            anuncioNome.innerText = nome;
+            anuncio.classList.add('ativo');
+            cena.classList.add('ativo');
+
+            const rotacoesFaces = {
+                1: { x: 0, y: 0 },
+                6: { x: 180, y: 0 },
+                2: { x: 0, y: -90 },
+                5: { x: 0, y: 90 },
+                3: { x: -90, y: 0 },
+                4: { x: 90, y: 0 }
+            };
+
+            const faceAlvo = rotacoesFaces[resultado];
+            const voltasX = (Math.floor(Math.random() * 3) + 3) * 360;
+            const voltasY = (Math.floor(Math.random() * 3) + 3) * 360;
+            const finalX = faceAlvo.x + voltasX;
+            const finalY = faceAlvo.y + voltasY;
+
+            dado.style.transform = `rotateX(${finalX}deg) rotateY(${finalY}deg)`;
+
+            setTimeout(() => {
+                anuncio.classList.remove('ativo');
+                cena.classList.remove('ativo');
+                setTimeout(() => { dado.style.transition = 'none'; dado.style.transform = 'none'; setTimeout(() => dado.style.transition = '', 50); }, 400);
+            }, 5000);
         }
 
         function aplicarEstadoVisual(idHeroi, estado) {
@@ -3632,7 +3485,6 @@
 
             // Não reproduz rolagens antigas que já estavam salvas quando a página abriu.
             if (!dados.timestamp || dados.timestamp <= momentoCarregamento) return;
-            if (dados.sessaoJogador === sessaoJogador) return;
 
             animarDado3D(
                 dados.nome,
