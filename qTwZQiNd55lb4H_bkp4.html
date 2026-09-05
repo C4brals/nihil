@@ -625,9 +625,9 @@
         .anuncio-rolagem h3 { color: #c5a059; font-size: 1.4rem; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
         .anuncio-rolagem p { font-size: 0.9rem; color: #bfae96; margin-top: 4px; }
 
-        /* Cena do Dado */
+        /* ================= ÁREA 3D DOS DADOS ================= */
         .cena-dado {
-            width: 100px; height: 100px; perspective: 600px;
+            width: 150px; height: 150px; perspective: 900px;
             opacity: 0; transform: scale(0.3); transition: opacity 0.3s, transform 0.3s;
         }
         .cena-dado.ativo { opacity: 1; transform: scale(1); }
@@ -637,22 +637,63 @@
             transition: transform 2.5s cubic-bezier(0.2, 0.8, 0.25, 1.15);
         }
 
-        /* Faces do Dado - Agora usando a cor dinâmica do herói */
+        /* D6: cubo original */
+        .dado-cubo {
+            position:absolute; inset:25px; transform-style:preserve-3d;
+            transition:opacity .2s, visibility .2s;
+        }
+        .dado3d.dado-d8 .dado-cubo { opacity:0; visibility:hidden; }
+
         .face {
-            position: absolute; width: 100px; height: 100px; 
-            background: radial-gradient(var(--cor-dado, #8b0000), #050505); /* Usa a cor do herói misturada com preto */
-            border: 2px solid #c5a059; border-radius: 8px; display: flex; align-items: center;
-            justify-content: center; font-family: 'Cinzel', serif; font-size: 2.2rem; font-weight: bold;
-            color: #bfae96; box-shadow: inset 0 0 15px rgba(0,0,0,0.6); backface-visibility: initial;
+            position:absolute; width:100px; height:100px;
+            background:radial-gradient(var(--cor-dado, #8b0000), #050505);
+            border:2px solid #c5a059; border-radius:8px; display:flex; align-items:center;
+            justify-content:center; font-family:'Cinzel',serif; font-size:2.2rem; font-weight:bold;
+            color:#bfae96; box-shadow:inset 0 0 15px rgba(0,0,0,.6); backface-visibility:initial;
+        }
+        .face-1 { transform:rotateY(0deg) translateZ(50px); }
+        .face-6 { transform:rotateX(180deg) translateZ(50px); }
+        .face-2 { transform:rotateY(90deg) translateZ(50px); }
+        .face-5 { transform:rotateY(-90deg) translateZ(50px); }
+        .face-3 { transform:rotateX(90deg) translateZ(50px); }
+        .face-4 { transform:rotateX(-90deg) translateZ(50px); }
+
+        /* ================= D8 OCTAÉDRICO 3D =================
+           O D8 é desenhado em Canvas com projeção perspectiva real.
+           Isso permite mostrar as 8 faces triangulares como um sólido,
+           mantendo o mesmo conceito visual do D6: profundidade, sombra,
+           bordas, rotação e iluminação. */
+        .dado-octaedro {
+            position:absolute;
+            width:180px;
+            height:180px;
+            left:-15px;
+            top:-15px;
+            opacity:0;
+            visibility:hidden;
+            transform-style:preserve-3d;
+            transform-origin:50% 50%;
+            transition:opacity .2s, visibility .2s;
+            filter:drop-shadow(0 14px 18px rgba(0,0,0,.78)) drop-shadow(0 0 16px rgba(125,35,170,.45));
+            pointer-events:none;
+        }
+        .dado3d.dado-d8 .dado-octaedro {
+            opacity:1;
+            visibility:visible;
         }
 
-        /* Posicionamento 3D das faces */
-        .face-1 { transform: rotateY(0deg) translateZ(50px); }
-        .face-6 { transform: rotateX(180deg) translateZ(50px); }
-        .face-2 { transform: rotateY(90deg) translateZ(50px); }
-        .face-5 { transform: rotateY(-90deg) translateZ(50px); }
-        .face-3 { transform: rotateX(90deg) translateZ(50px); }
-        .face-4 { transform: rotateX(-90deg) translateZ(50px); }
+        /* D8 de Oxiliat: azul escuro, mantendo o brilho dourado do RPG. */
+        .dado3d.dado-d8 {
+            --cor-dado: #0b1f3a;
+            filter: drop-shadow(0 14px 18px rgba(0,0,0,.82))
+                    drop-shadow(0 0 18px rgba(20,70,125,.55));
+        }
+        .d8-canvas {
+            width:180px;
+            height:180px;
+            display:block;
+            overflow:visible;
+        }
 
         /* Quando o dado for Corrompido: mistura a cor do herói com roxo/preto e muda a borda */
         .cena-dado.dado-corrompido .face {
@@ -816,6 +857,15 @@
         .btn-remover-token:hover{
             background:#c00000;
         }
+
+        .btn-ocultar-token{
+            position:absolute; right:-8px; bottom:-8px; width:22px; height:22px; padding:0;
+            border:1px solid #c5a059; border-radius:50%; background:#111; color:#c5a059; cursor:pointer;
+            font-size:11px; line-height:20px; display:flex; align-items:center; justify-content:center; z-index:1000;
+        }
+        .btn-ocultar-token:hover{ background:#c5a059; color:#111; }
+        .token-extra-inativo{ opacity:0.55 !important; filter:grayscale(1); }
+        .token-extra-inativo > img, .token-extra-inativo > .nome-token-extra{ pointer-events:none; }
 
         .btn-torre-outubrista{
             position:absolute;
@@ -1344,12 +1394,18 @@
         </div>
         <div id="cena-dado" class="cena-dado">
             <div id="dado3d" class="dado3d">
-                <div class="face face-1">1</div>
-                <div class="face face-6">6</div>
-                <div class="face face-2">2</div>
-                <div class="face face-5">5</div>
-                <div class="face face-3">3</div>
-                <div class="face face-4">4</div>
+                <div class="dado-cubo">
+                    <div class="face face-1">1</div>
+                    <div class="face face-6">6</div>
+                    <div class="face face-2">2</div>
+                    <div class="face face-5">5</div>
+                    <div class="face face-3">3</div>
+                    <div class="face face-4">4</div>
+                </div>
+
+                <div class="dado-octaedro" aria-label="Dado de oito lados em 3D">
+                    <canvas id="d8-canvas" class="d8-canvas" width="360" height="360" aria-label="D8 octaédrico 3D"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -2120,7 +2176,7 @@
                 </div>
 
                 <div class="menu-item-container">
-                    <button class="btn-menu-rodape" onclick="alternarDropup(event, 'drop-lordes')">Herdeiros</button>
+                    <button class="btn-menu-rodape" onclick="alternarDropup(event, 'drop-lordes')">Chefes</button>
                     <ul id="drop-lordes" class="lista-dropup">
                         <li onclick="mostrarImagemGrupo('./assets/ato2/herdeiros/Bern.jpg')">Bern, o Colecionador</li>
                         <li onclick="mostrarImagemGrupo('./assets/ato2/herdeiros/Edgard.jpg')">Edgard, dançarino das Almas</li>
@@ -2130,6 +2186,7 @@
                         <li onclick="mostrarImagemGrupo('./assets/ato2/herdeiros/Margoth.jpg')">Margoth, o Rei caído</li>
                         <li onclick="mostrarImagemGrupo('./assets/ato2/herdeiros/Modren.jpg')">Modren, O corrompido</li>
                         <li onclick="mostrarImagemGrupo('./assets/ato2/herdeiros/Shiva.jpg')">Shiva, a absoluta</li>
+                        <li onclick="mostrarImagemGrupo('./assets/ato2/chefes/oxiliat.jpg')">Oxiliat</li>
                         
                     </ul>
                 </div>
@@ -2222,7 +2279,7 @@
                 <div class="menu-item-container">
                     <button class="btn-menu-rodape" onclick="alternarDropup(event, 'drop-mapas')" style="color: #ffc107; border-color: rgba(255, 193, 7, 0.4);">Mudar Mapa</button>
                     <ul id="drop-mapas" class="lista-dropup">
-                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/taverna.png')">Taverna</li>
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/taverna.jpeg')">Taverna</li>
                         <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/principal.jpg')">Mapa Principal</li>   
                         <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg1.jpg')">DG I</li>      
                         <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg2.jpg')">DG II</li>  
@@ -2247,7 +2304,7 @@
     <!-- JAVASCRIPT: LÓGICA E CONEXÃO FIREBASE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-        import { getDatabase, ref, set, onValue, onChildAdded, push, get, remove } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+        import { getDatabase, ref, set, onValue, get, remove } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
         
 
         // --- CONTROLES DO MINI PLAYER DE MÚSICA ---
@@ -2371,6 +2428,15 @@
         
 
 
+
+        window.alternarVisibilidadeToken = function(event, id){
+            if (event) event.stopPropagation();
+            get(campanhaRef("tokens/" + id)).then(snapshot => {
+                const dados = snapshot.val();
+                if (!dados) return;
+                set(campanhaRef("tokens/" + id + "/ativo"), dados.ativo === false);
+            });
+        };
 
         window.removerTokenExtra = function(event, id){
 
@@ -2709,41 +2775,23 @@
             set(campanhaRef( 'status/' + idHeroi + '/estado'), novoEstado);
         }
 
-        // --- ROLAGENS MULTIPLAYER ---
-        // Cada rolagem recebe um ID próprio com push(), evitando que um jogador
-        // sobrescreva a rolagem de outro no mesmo nó do Firebase.
-        async function registrarRolagem(dados) {
-            try {
-                const novaRolagemRef = push(campanhaRef('rolagens'));
-                await set(novaRolagemRef, {
-                    ...dados,
-                    timestamp: Date.now()
-                });
-                console.log('🎲 Rolagem enviada com sucesso:', dados.nome, dados.resultado);
-            } catch (erro) {
-                console.error('❌ Erro ao enviar rolagem ao Firebase:', erro);
-            }
-        }
-
         window.lancarDado = function(idHeroi) {
             const card = document.getElementById(`card-${idHeroi}`);
-            if (!card) {
-                console.error('❌ Card do herói não encontrado para rolagem:', idHeroi);
-                return;
-            }
+            if (!card) return;
 
             const elementoNome = card.querySelector('.nome-heroi');
             const nome = elementoNome ? elementoNome.innerText.trim() : "Herói";
             const estado = card.classList.contains('corrompido-estado') ? 'Corrompido' : 'Normal';
             const corHeroi = card.style.getPropertyValue('--token-color').trim();
             const resultado = Math.floor(Math.random() * 6) + 1;
-
-            registrarRolagem({
+            
+            set(campanhaRef( 'rolagem_dado'), {
                 idHeroi: idHeroi,
                 nome: nome,
                 resultado: resultado,
                 estado: estado,
-                cor: corHeroi
+                cor: corHeroi,
+                timestamp: Date.now()
             });
         }
 
@@ -2759,58 +2807,261 @@
                 nomeInimigo = nomeInimigo.charAt(0).toUpperCase() + nomeInimigo.slice(1);
             }
 
-            const resultado = Math.floor(Math.random() * 6) + 1;
+            const ehOxiliat = !!(inimigoAbertoLocalmente && inimigoAbertoLocalmente.caminho && inimigoAbertoLocalmente.caminho.toLowerCase().endsWith('/oxiliat.jpg'));
+            const lados = ehOxiliat ? 8 : 6;
+            const resultado = Math.floor(Math.random() * lados) + 1;
 
-            registrarRolagem({
+            set(campanhaRef( 'rolagem_dado'), {
                 idHeroi: 'sistema_inimigo',
                 nome: nomeInimigo,
                 resultado: resultado,
+                lados: lados,
                 estado: 'Corrompido',
-                cor: '#ff0000'
+                cor: '#ff0000',
+                timestamp: Date.now()
             });
 
         };
 
         // --- ANIMAÇÃO FÍSICA E ROTACIONAL DO DADO 3D COM BASE NO RESULTADO ---
-        function animarDado3D(nome, resultado, estado, cor) {
+        // --- MOTOR 3D DO D8 OCTAÉDRICO ---
+        function animarD8Octaedro(resultado, cor, duracao = 3000) {
+            const canvas = document.getElementById('d8-canvas');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            const W = canvas.width;
+            const H = canvas.height;
+            const cx = W / 2;
+            const cy = H / 2;
+            const escala = 78;
+            const camera = 4.8;
+
+            // Octaedro regular: dois polos e quatro vértices no equador.
+            const vertices = [
+                {x:0,  y:-1, z:0}, // 0 topo
+                {x:1,  y:0,  z:0}, // 1
+                {x:0,  y:0,  z:1}, // 2
+                {x:-1, y:0,  z:0}, // 3
+                {x:0,  y:0,  z:-1},// 4
+                {x:0,  y:1,  z:0}  // 5 base
+            ];
+
+            // 8 faces triangulares reais do octaedro.
+            const faces = [
+                [0,1,2,1], [0,2,3,2], [0,3,4,3], [0,4,1,4],
+                [5,2,1,5], [5,3,2,6], [5,4,3,7], [5,1,4,8]
+            ];
+
+            const alvo = Math.max(1, Math.min(8, Number(resultado) || 1));
+
+            const rotX = (p,a) => {
+                const c=Math.cos(a), s=Math.sin(a);
+                return {x:p.x, y:p.y*c-p.z*s, z:p.y*s+p.z*c};
+            };
+            const rotY = (p,a) => {
+                const c=Math.cos(a), s=Math.sin(a);
+                return {x:p.x*c+p.z*s, y:p.y, z:-p.x*s+p.z*c};
+            };
+            const rotZ = (p,a) => {
+                const c=Math.cos(a), s=Math.sin(a);
+                return {x:p.x*c-p.y*s, y:p.x*s+p.y*c, z:p.z};
+            };
+            const transformar = (p,rx,ry,rz) => rotZ(rotY(rotX(p,rx),ry),rz);
+            const projetar = p => {
+                const f = camera / (camera - p.z);
+                return {x:cx+p.x*escala*f, y:cy+p.y*escala*f, z:p.z};
+            };
+
+            // Procura uma orientação em que a face do resultado fique virada
+            // para o jogador. Assim o número sorteado aparece numa face do D8.
+            let melhor = {score:-Infinity, rx:0, ry:0, rz:0};
+            for (let i=0;i<900;i++) {
+                const rx=(Math.random()*2-1)*Math.PI;
+                const ry=Math.random()*Math.PI*2;
+                const rz=Math.random()*Math.PI*2;
+                const face=faces.find(f=>f[3]===alvo);
+                const a=transformar(vertices[face[0]],rx,ry,rz);
+                const b=transformar(vertices[face[1]],rx,ry,rz);
+                const c=transformar(vertices[face[2]],rx,ry,rz);
+                const ux=b.x-a.x, uy=b.y-a.y, uz=b.z-a.z;
+                const vx=c.x-a.x, vy=c.y-a.y, vz=c.z-a.z;
+                const nx=uy*vz-uz*vy;
+                const ny=uz*vx-ux*vz;
+                const nz=ux*vy-uy*vx;
+                const len=Math.hypot(nx,ny,nz)||1;
+                const score=nz/len - Math.abs(ny/len)*0.12;
+                if(score>melhor.score) melhor={score,rx,ry,rz};
+            }
+
+            const inicio={rx:(Math.random()*2-1)*Math.PI, ry:Math.random()*Math.PI*2, rz:Math.random()*Math.PI*2};
+            const voltasX=(Math.floor(Math.random()*3)+3)*Math.PI*2;
+            const voltasY=(Math.floor(Math.random()*3)+3)*Math.PI*2;
+            const voltasZ=(Math.floor(Math.random()*2)+2)*Math.PI*2;
+            const destino={
+                rx:melhor.rx+voltasX,
+                ry:melhor.ry+voltasY,
+                rz:melhor.rz+voltasZ
+            };
+            const inicioTempo=performance.now();
+
+            const base = cor || '#8b0000';
+            const corHex = base.startsWith('#') ? base : '#7b28a8';
+
+            function hexParaRgb(hex) {
+                const h=hex.replace('#','');
+                const n=parseInt(h.length===3?h.split('').map(x=>x+x).join(''):h,16);
+                return {r:(n>>16)&255,g:(n>>8)&255,b:n&255};
+            }
+            const rgb=hexParaRgb(corHex);
+            const misturar=(a,b,t)=>Math.round(a+(b-a)*t);
+            const corFace=(brilho)=>`rgb(${misturar(rgb.r,255,brilho)},${misturar(rgb.g,255,brilho)},${misturar(rgb.b,255,brilho)})`;
+
+            function desenhar(tempo) {
+                const t=Math.min(1,(tempo-inicioTempo)/duracao);
+                // easeOutCubic: acelera e desacelera como um dado real.
+                const e=1-Math.pow(1-t,3);
+                const rx=inicio.rx+(destino.rx-inicio.rx)*e;
+                const ry=inicio.ry+(destino.ry-inicio.ry)*e;
+                const rz=inicio.rz+(destino.rz-inicio.rz)*e;
+
+                ctx.clearRect(0,0,W,H);
+
+                // Sombra no chão.
+                ctx.save();
+                ctx.translate(cx,cy+76);
+                ctx.scale(1.0,.23);
+                const sombra=ctx.createRadialGradient(0,0,5,0,0,72);
+                sombra.addColorStop(0,'rgba(0,0,0,.72)');
+                sombra.addColorStop(1,'rgba(0,0,0,0)');
+                ctx.fillStyle=sombra;
+                ctx.beginPath(); ctx.arc(0,0,72,0,Math.PI*2); ctx.fill();
+                ctx.restore();
+
+                const v=vertices.map(p=>transformar(p,rx,ry,rz));
+                const p=v.map(projetar);
+
+                const renderFaces=faces.map(f=>{
+                    const a=v[f[0]], b=v[f[1]], c=v[f[2]];
+                    const ux=b.x-a.x,uy=b.y-a.y,uz=b.z-a.z;
+                    const vx=c.x-a.x,vy=c.y-a.y,vz=c.z-a.z;
+                    let nx=uy*vz-uz*vy, ny=uz*vx-ux*vz, nz=ux*vy-uy*vx;
+                    const len=Math.hypot(nx,ny,nz)||1;
+                    nx/=len; ny/=len; nz/=len;
+                    const z=(a.z+b.z+c.z)/3;
+                    return {f,nx,ny,nz,z};
+                }).sort((a,b)=>a.z-b.z);
+
+                renderFaces.forEach(item=>{
+                    const f=item.f;
+                    // Culling: só desenhamos as faces voltadas para o observador.
+                    if(item.nz < -0.02) return;
+
+                    const brilho=Math.max(.08,Math.min(.72,.24+item.nz*.42-item.ny*.08));
+                    ctx.beginPath();
+                    ctx.moveTo(p[f[0]].x,p[f[0]].y);
+                    ctx.lineTo(p[f[1]].x,p[f[1]].y);
+                    ctx.lineTo(p[f[2]].x,p[f[2]].y);
+                    ctx.closePath();
+                    ctx.fillStyle=corFace(brilho);
+                    ctx.fill();
+                    ctx.lineWidth=4;
+                    ctx.strokeStyle='#c5a059';
+                    ctx.stroke();
+
+                    // Brilho interno da aresta.
+                    ctx.lineWidth=1;
+                    ctx.strokeStyle='rgba(255,235,185,.62)';
+                    ctx.stroke();
+
+                    // Número da face.
+                    const pcx=(p[f[0]].x+p[f[1]].x+p[f[2]].x)/3;
+                    const pcy=(p[f[0]].y+p[f[1]].y+p[f[2]].y)/3;
+                    const tamanho=Math.max(20,Math.min(31,24+(item.z+1)*4));
+                    ctx.font=`900 ${tamanho}px Cinzel, Georgia, serif`;
+                    ctx.textAlign='center';
+                    ctx.textBaseline='middle';
+                    ctx.lineWidth=5;
+                    ctx.strokeStyle='rgba(15,5,20,.95)';
+                    ctx.strokeText(String(f[3]),pcx,pcy);
+                    ctx.fillStyle='#fff0c2';
+                    ctx.fillText(String(f[3]),pcx,pcy);
+
+                    if(f[3]===alvo && t>.72){
+                        ctx.beginPath();
+                        ctx.moveTo(p[f[0]].x,p[f[0]].y);
+                        ctx.lineTo(p[f[1]].x,p[f[1]].y);
+                        ctx.lineTo(p[f[2]].x,p[f[2]].y);
+                        ctx.closePath();
+                        ctx.lineWidth=2;
+                        ctx.strokeStyle=`rgba(255,220,120,${(t-.72)*3})`;
+                        ctx.stroke();
+                    }
+                });
+
+                // Pequeno brilho central para reforçar o volume.
+                const brilho=ctx.createRadialGradient(cx-18,cy-25,2,cx,cy,82);
+                brilho.addColorStop(0,'rgba(255,255,255,.16)');
+                brilho.addColorStop(.45,'rgba(190,90,255,.05)');
+                brilho.addColorStop(1,'rgba(0,0,0,0)');
+                ctx.fillStyle=brilho;
+                ctx.beginPath(); ctx.arc(cx,cy,82,0,Math.PI*2); ctx.fill();
+
+                if(t<1) requestAnimationFrame(desenhar);
+            }
+            requestAnimationFrame(desenhar);
+        }
+
+        // --- ANIMAÇÃO FÍSICA E ROTACIONAL DO DADO ---
+        function animarDado3D(nome, resultado, estado, cor, lados = 6) {
             const cena = document.getElementById('cena-dado');
             const dado = document.getElementById('dado3d');
             const anuncio = document.getElementById('anuncio-rolagem');
             const anuncioNome = document.getElementById('anuncio-nome');
-            
-            dado.style.setProperty('--cor-dado', cor);
 
-            if (estado === "Corrompido") {
-                cena.classList.add('dado-corrompido');
-            } else {
-                cena.classList.remove('dado-corrompido');
-            }
+            const ehD8 = Number(lados) === 8;
+            const valor = Math.max(1, Math.min(ehD8 ? 8 : 6, Number(resultado) || 1));
 
-            anuncioNome.innerText = nome;
+            // O D8 do Oxiliat usa uma identidade visual própria em azul escuro.
+            // Os D6 continuam usando a cor recebida pelo evento.
+            const corVisual = ehD8 ? '#0b1f3a' : (cor || '#8b0000');
+            dado.style.setProperty('--cor-dado', corVisual);
+            dado.classList.toggle('dado-d8', ehD8);
+            dado.dataset.lados = ehD8 ? '8' : '6';
+
+            cena.classList.toggle('dado-corrompido', estado === 'Corrompido');
+            anuncioNome.innerText = nome + (ehD8 ? ' — D8' : ' — D6');
             anuncio.classList.add('ativo');
             cena.classList.add('ativo');
 
-            const rotacoesFaces = {
-                1: { x: 0, y: 0 },
-                6: { x: 180, y: 0 },
-                2: { x: 0, y: -90 },
-                5: { x: 0, y: 90 },
-                3: { x: -90, y: 0 },
-                4: { x: 90, y: 0 }
-            };
-
-            const faceAlvo = rotacoesFaces[resultado];
-            const voltasX = (Math.floor(Math.random() * 3) + 3) * 360;
-            const voltasY = (Math.floor(Math.random() * 3) + 3) * 360;
-            const finalX = faceAlvo.x + voltasX;
-            const finalY = faceAlvo.y + voltasY;
-
-            dado.style.transform = `rotateX(${finalX}deg) rotateY(${finalY}deg)`;
+            if (ehD8) {
+                // O D8 possui seu próprio motor 3D em Canvas.
+                dado.style.transform = 'none';
+                // Azul escuro exclusivo do D8 de Oxiliat.
+                animarD8Octaedro(valor, '#0b1f3a', 3200);
+            } else {
+                const rotacoesD6 = {
+                    1: { x: 0, y: 0 },
+                    6: { x: 180, y: 0 },
+                    2: { x: 0, y: -90 },
+                    5: { x: 0, y: 90 },
+                    3: { x: -90, y: 0 },
+                    4: { x: 90, y: 0 }
+                };
+                const faceAlvo = rotacoesD6[valor];
+                const voltasX = (Math.floor(Math.random() * 3) + 3) * 360;
+                const voltasY = (Math.floor(Math.random() * 3) + 3) * 360;
+                dado.style.transform = `rotateX(${faceAlvo.x + voltasX}deg) rotateY(${faceAlvo.y + voltasY}deg)`;
+            }
 
             setTimeout(() => {
                 anuncio.classList.remove('ativo');
                 cena.classList.remove('ativo');
-                setTimeout(() => { dado.style.transition = 'none'; dado.style.transform = 'none'; setTimeout(() => dado.style.transition = '', 50); }, 400);
+                setTimeout(() => {
+                    dado.style.transition = 'none';
+                    dado.style.transform = 'none';
+                    setTimeout(() => { dado.style.transition = ''; }, 50);
+                }, 400);
             }, 5000);
         }
 
@@ -2920,6 +3171,11 @@
                         onclick="removerTokenExtra(event, '${id}')">
                     ×
                 </button>
+                <button class="btn-ocultar-token"
+                        onclick="alternarVisibilidadeToken(event, '${id}')"
+                        title="Ocultar/mostrar token">
+                    👁
+                </button>
             `;
 
             mapa.appendChild(token);
@@ -2931,7 +3187,8 @@
                 left:50,
                 top:50,
                 nome:nome,
-                imagem:imagem
+                imagem:imagem,
+                ativo:true
 
             });
 
@@ -3227,6 +3484,8 @@
 
                     token.innerHTML=`
                         <img src="${dados[id].imagem}">
+                        <button class="btn-remover-token" onclick="removerTokenExtra(event, '${id}')">×</button>
+                        <button class="btn-ocultar-token" onclick="alternarVisibilidadeToken(event, '${id}')" title="Ocultar/mostrar token">👁</button>
                     `;
 
                     document
@@ -3242,6 +3501,10 @@
                     token.style.left=dados[id].left+"%";
 
                     token.style.top=dados[id].top+"%";
+
+                if (id.startsWith('token-extra-')) {
+                    token.classList.toggle('token-extra-inativo', dados[id].ativo === false);
+                }
 
                 }
 
@@ -3326,41 +3589,58 @@
             }
         });
 
-        // --- OUVINTE DAS ROLAGENS ---
-        // child_added recebe cada rolagem individualmente. Assim, duas pessoas
-        // podem rolar ao mesmo tempo sem uma substituir a outra.
         const momentoCarregamento = Date.now();
 
-        onChildAdded(campanhaRef('rolagens'), (snapshot) => {
+        onValue(campanhaRef( 'rolagem_dado'), (snapshot) => {
+
             const dados = snapshot.val();
+
             if (!dados) return;
 
-            // Não reproduz rolagens antigas que já estavam salvas quando a página abriu.
-            if (!dados.timestamp || dados.timestamp <= momentoCarregamento) return;
+            if (dados.timestamp <= momentoCarregamento)
+                return;
+
+            if (window.ultimoTimestampRolado &&
+                dados.timestamp <= window.ultimoTimestampRolado)
+                return;
+
+            window.ultimoTimestampRolado = dados.timestamp;
 
             animarDado3D(
                 dados.nome,
                 dados.resultado,
                 dados.estado,
-                dados.cor
+                dados.cor,
+                dados.lados || 6
             );
 
-            if (dados.idHeroi === "sistema_inimigo" && dados.resultado === 6) {
+            // Oxiliat ativa sua habilidade ao obter 6, 7 ou 8 no D8.
+            // O resultado também é exibido na mensagem para todos os jogadores.
+            const ehOxiliatRolagem = dados.idHeroi === "sistema_inimigo" &&
+                String(dados.nome || "").toLowerCase() === "oxiliat" &&
+                Number(dados.lados || 6) === 8;
 
+            if (ehOxiliatRolagem && [6, 7, 8].includes(Number(dados.resultado))) {
+
+                // Toca o som da habilidade
                 const audio = document.getElementById("som-habilidade-inimigo");
                 if (audio) {
                     audio.currentTime = 0;
                     audio.play().catch(() => {});
                 }
 
+                const resultadoHabilidade = Number(dados.resultado);
+
+                // Exibe a habilidade + o número obtido no D8.
                 adicionarRolagemChat(
                     "💀 Habilidade Especial!",
-                    `${dados.nome} ativou sua habilidade!`,
-                    "#ff9900"
+                    `${dados.nome} ativou sua habilidade! Resultado do D8: ${resultadoHabilidade}`,
+                    "#3b82f6"
                 );
 
             } else {
 
+                // Todas as demais rolagens
                 adicionarRolagemChat(
                     dados.nome,
                     dados.resultado,
@@ -3370,6 +3650,7 @@
             }
 
             mostrarChatRolagens();
+
         });
 
         // --- SISTEMA DE INVENTÁRIO GLOBAL ---
