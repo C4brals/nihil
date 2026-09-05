@@ -1368,7 +1368,6 @@
                 Efeitos Sonoros ▼
             </button>
             <ul id="drop-efeitos-topo" class="lista-dropdown" style="display: none; position: absolute; top: 110%; right: 0; min-width: 155px; background: rgba(15, 15, 15, 0.98); border: 1px solid #c5a059; border-radius: 4px; padding: 4px 0; z-index: 30005; list-style: none; box-shadow: 0 4px 10px rgba(0,0,0,0.8);">
-                <li class="item-dropdown-topo" onclick="dispararEfeitoFirebase('')">Nenhum Efeito</li>
                 <li class="item-dropdown-topo" onclick="dispararEfeitoFirebase('./assets/efeitosSonoros/ataque_espada.mp3')">Ataque Espada 1</li>
                 <li class="item-dropdown-topo" onclick="dispararEfeitoFirebase('./assets/efeitosSonoros/ataque_espada2.mp3')">Ataque Espada 2</li>
                 <li class="item-dropdown-topo" onclick="dispararEfeitoFirebase('./assets/efeitosSonoros/magia_fogo.mp3')">Magia de Fogo</li>
@@ -2305,7 +2304,7 @@
     <!-- JAVASCRIPT: LÓGICA E CONEXÃO FIREBASE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-        import { getDatabase, ref, set, onValue, onChildAdded, push, get, remove } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+        import { getDatabase, ref, set, onValue, get, remove } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
         
 
         // --- CONTROLES DO MINI PLAYER DE MÚSICA ---
@@ -2776,21 +2775,6 @@
             set(campanhaRef( 'status/' + idHeroi + '/estado'), novoEstado);
         }
 
-        // --- ROLAGENS MULTIPLAYER ---
-        // Cada rolagem recebe um ID próprio com push(), evitando que uma rolagem
-        // sobrescreva outra quando dois jogadores rolam ao mesmo tempo.
-        async function registrarRolagem(dados) {
-            try {
-                const novaRolagemRef = push(campanhaRef('rolagens'));
-                await set(novaRolagemRef, {
-                    ...dados,
-                    timestamp: Date.now()
-                });
-            } catch (erro) {
-                console.error('Erro ao enviar rolagem ao Firebase:', erro);
-            }
-        }
-
         window.lancarDado = function(idHeroi) {
             const card = document.getElementById(`card-${idHeroi}`);
             if (!card) return;
@@ -2801,13 +2785,13 @@
             const corHeroi = card.style.getPropertyValue('--token-color').trim();
             const resultado = Math.floor(Math.random() * 6) + 1;
             
-            registrarRolagem({
+            set(campanhaRef( 'rolagem_dado'), {
                 idHeroi: idHeroi,
                 nome: nome,
                 resultado: resultado,
                 estado: estado,
                 cor: corHeroi,
-                lados: 6
+                timestamp: Date.now()
             });
         }
 
@@ -2827,13 +2811,14 @@
             const lados = ehOxiliat ? 8 : 6;
             const resultado = Math.floor(Math.random() * lados) + 1;
 
-            registrarRolagem({
+            set(campanhaRef( 'rolagem_dado'), {
                 idHeroi: 'sistema_inimigo',
                 nome: nomeInimigo,
                 resultado: resultado,
                 lados: lados,
                 estado: 'Corrompido',
-                cor: '#ff0000'
+                cor: '#ff0000',
+                timestamp: Date.now()
             });
 
         };
@@ -3606,14 +3591,20 @@
 
         const momentoCarregamento = Date.now();
 
-        onChildAdded(campanhaRef('rolagens'), (snapshot) => {
+        onValue(campanhaRef( 'rolagem_dado'), (snapshot) => {
 
             const dados = snapshot.val();
 
             if (!dados) return;
 
-            // Não reproduz rolagens antigas que já estavam salvas quando a página abriu.
-            if (!dados.timestamp || dados.timestamp <= momentoCarregamento) return;
+            if (dados.timestamp <= momentoCarregamento)
+                return;
+
+            if (window.ultimoTimestampRolado &&
+                dados.timestamp <= window.ultimoTimestampRolado)
+                return;
+
+            window.ultimoTimestampRolado = dados.timestamp;
 
             animarDado3D(
                 dados.nome,
