@@ -2383,7 +2383,7 @@
     <!-- JAVASCRIPT: LÓGICA E CONEXÃO FIREBASE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-        import { getDatabase, ref, set, onValue, onChildAdded, push, get, remove } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+        import { getDatabase, ref, set, onValue, get, remove } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
         
 
         // --- CONTROLES DO MINI PLAYER DE MÚSICA ---
@@ -2775,41 +2775,23 @@
             set(ref(db, 'status/' + idHeroi + '/estado'), novoEstado);
         }
 
-        // --- ROLAGENS MULTIPLAYER ---
-        // Cada rolagem recebe um ID próprio com push(), evitando que um jogador
-        // sobrescreva a rolagem de outro no mesmo nó do Firebase.
-        async function registrarRolagem(dados) {
-            try {
-                const novaRolagemRef = push(ref(db, 'rolagens'));
-                await set(novaRolagemRef, {
-                    ...dados,
-                    timestamp: Date.now()
-                });
-                console.log('🎲 Rolagem enviada com sucesso:', dados.nome, dados.resultado);
-            } catch (erro) {
-                console.error('❌ Erro ao enviar rolagem ao Firebase:', erro);
-            }
-        }
-
         window.lancarDado = function(idHeroi) {
             const card = document.getElementById(`card-${idHeroi}`);
-            if (!card) {
-                console.error('❌ Card do herói não encontrado para rolagem:', idHeroi);
-                return;
-            }
+            if (!card) return;
 
             const elementoNome = card.querySelector('.nome-heroi');
             const nome = elementoNome ? elementoNome.innerText.trim() : "Herói";
             const estado = card.classList.contains('corrompido-estado') ? 'Corrompido' : 'Normal';
             const corHeroi = card.style.getPropertyValue('--token-color').trim();
             const resultado = Math.floor(Math.random() * 6) + 1;
-
-            registrarRolagem({
+            
+            set(ref(db, 'rolagem_dado'), {
                 idHeroi: idHeroi,
                 nome: nome,
                 resultado: resultado,
                 estado: estado,
-                cor: corHeroi
+                cor: corHeroi,
+                timestamp: Date.now()
             });
         }
 
@@ -2827,12 +2809,13 @@
 
             const resultado = Math.floor(Math.random() * 6) + 1;
 
-            registrarRolagem({
+            set(ref(db, 'rolagem_dado'), {
                 idHeroi: 'sistema_inimigo',
                 nome: nomeInimigo,
                 resultado: resultado,
                 estado: 'Corrompido',
-                cor: '#ff0000'
+                cor: '#ff0000',
+                timestamp: Date.now()
             });
 
         };
@@ -3472,19 +3455,22 @@
             }
         });
 
-        // --- OUVINTE DAS ROLAGENS ---
-        // child_added recebe cada rolagem individualmente. Assim, duas pessoas
-        // podem rolar ao mesmo tempo sem uma substituir a outra.
         const momentoCarregamento = Date.now();
 
-        onChildAdded(ref(db, 'rolagens'), (snapshot) => {
+        onValue(ref(db, 'rolagem_dado'), (snapshot) => {
 
             const dados = snapshot.val();
 
             if (!dados) return;
 
-            // Não reproduz rolagens antigas que já estavam salvas quando a página abriu.
-            if (!dados.timestamp || dados.timestamp <= momentoCarregamento) return;
+            if (dados.timestamp <= momentoCarregamento)
+                return;
+
+            if (window.ultimoTimestampRolado &&
+                dados.timestamp <= window.ultimoTimestampRolado)
+                return;
+
+            window.ultimoTimestampRolado = dados.timestamp;
 
             animarDado3D(
                 dados.nome,
