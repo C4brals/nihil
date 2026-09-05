@@ -159,15 +159,13 @@
         /* Container para alinhar as duas linhas (PV e AM) */
         .atributos-container { display: flex; flex-direction: column; gap: 6px; margin-top: 5px; }
         
-        /* Container de PV (mantido igual) */
-        .pv-container { font-size: 1.1rem; font-weight: bold; color: #8b0000; }
+        /* Container de PV */
         /* Novo Container de AM (estilo idêntico ao PV, mas roxo) */
         .am-container { font-size: 1.1rem; font-weight: bold; color: #9c4174; font-family: 'Lora', serif; }
         .am-container span { color: #dcd0c0; }
 
         .controles-heroi { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
         
-        /* Container para agrupar os botões de cada atributo */
         /* Container para agrupar os botões de cada atributo */
         .linhas-botoes { 
             display: flex; 
@@ -183,12 +181,6 @@
             justify-content: flex-end; /* Alinha todos os botões de todas as linhas à direita */
         }
         
-        .btn-pv {
-            background: rgba(40, 10, 10, 0.5); color: #bfae96; border: 1px solid rgba(197, 160, 89, 0.2);
-            width: 28px; height: 28px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer;
-        }
-        .btn-pv:hover { color: #fff; border-color: #8b0000; background: #4a0000; }
-
         /* Novo botão específico para o AM (muda a cor de hover para roxo) */
         .btn-am {
             background: rgba(30, 10, 30, 0.5); color: #bfae96; border: 1px solid rgba(197, 160, 89, 0.2);
@@ -695,59 +687,21 @@
         /* Rodapé Horizontal */
         .rodape-menu {
             display: flex;
-            flex-wrap: nowrap;
-            justify-content: flex-start;
-            align-items: center;
-            gap: 8px;
-            width: 100%;
-            min-width: 0;
-            box-sizing: border-box;
+            justify-content: space-around;
             background: rgba(15, 10, 10, 0.95);
             border-top: 2px solid #4a0000;
-            padding: 10px 12px 12px;
-            z-index: 50;
+            padding: 10px 0;
+            z-index: 50; /* Garante que fique acima do mapa, mas abaixo do modal */
             position: relative;
-            overflow-x: scroll;
-            overflow-y: visible;
-            white-space: nowrap;
-            scrollbar-width: auto;
-            scrollbar-color: #8b0000 #111;
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior-x: contain;
         }
-
-        .rodape-menu::-webkit-scrollbar {
-            height: 9px;
-        }
-
-        .rodape-menu::-webkit-scrollbar-track {
-            background: #111;
-            border-radius: 5px;
-        }
-
-        .rodape-menu::-webkit-scrollbar-thumb {
-            background: #8b0000;
-            border: 1px solid #c5a059;
-            border-radius: 5px;
-        }
-
-        .rodape-menu::-webkit-scrollbar-thumb:hover {
-            background: #a83232;
-        }
-
-        .rodape-menu { cursor: grab; }
-        .rodape-menu.arrastando { cursor: grabbing; user-select: none; }
 
         /* Item do menu (contém o botão e a lista que sobe) */
         .menu-item-container {
             position: relative;
-            flex: 0 0 auto;
         }
 
         /* Botões Principais do Rodapé */
         .btn-menu-rodape {
-            flex: 0 0 auto;
-            white-space: nowrap;
             background: rgba(197, 160, 89, 0.1);
             color: #c5a059;
             border: 1px solid rgba(197, 160, 89, 0.4);
@@ -1324,334 +1278,53 @@
             to   { box-shadow: 0 0 10px #1b5e20, 0 0 22px rgba(27,94,32,.9), 0 4px 10px rgba(0,0,0,.9) !important; }
         }
 
+        /* =========================
+           STATUS FIREBASE / PRESENÇA
+           ========================= */
+        .firebase-status-panel {
+            position: fixed; left: 30px; bottom: 28px; z-index: 25000;
+            width: min(285px, calc(100vw - 60px)); padding: 9px 11px;
+            background: rgba(10, 7, 7, .94); border: 1px solid rgba(197,160,89,.55);
+            border-radius: 5px; box-shadow: 0 5px 18px rgba(0,0,0,.65);
+            font-family: 'Lora', serif; pointer-events: auto;
+        }
+        .firebase-status-header { display:flex; align-items:center; justify-content:space-between; gap:8px; color:#c5a059; font-family:'Cinzel',serif; font-size:.65rem; letter-spacing:.7px; margin-bottom:5px; }
+        .firebase-status-line { display:flex; align-items:center; gap:7px; color:#dcd0c0; font-size:.72rem; }
+        .firebase-dot { width:9px; height:9px; border-radius:50%; flex:0 0 9px; background:#8b0000; box-shadow:0 0 7px rgba(139,0,0,.7); }
+        .firebase-dot.online { background:#32c45a; box-shadow:0 0 8px rgba(50,196,90,.8); }
+        .firebase-dot.waiting { background:#c5a059; box-shadow:0 0 8px rgba(197,160,89,.65); }
+        .firebase-dot.offline { background:#d32f2f; box-shadow:0 0 8px rgba(211,47,47,.7); }
+        #nome-jogador-status { color:#fff; font-weight:bold; }
+        .firebase-online-list { margin-top:6px; padding-top:5px; border-top:1px solid rgba(197,160,89,.12); color:#a99b89; font-size:.64rem; line-height:1.35; max-height:54px; overflow-y:auto; }
+        .firebase-status-actions { display:flex; gap:5px; }
+        .firebase-status-actions button { border:1px solid rgba(197,160,89,.35); background:rgba(197,160,89,.08); color:#c5a059; border-radius:3px; cursor:pointer; padding:2px 5px; font-size:.58rem; }
+        .firebase-status-actions button:hover { background:#c5a059; color:#111; }
+        .firebase-toast { position:fixed; left:30px; bottom:145px; z-index:26000; min-width:260px; max-width:min(390px,calc(100vw - 60px)); padding:10px 13px; border:1px solid #c5a059; border-radius:5px; background:rgba(12,7,7,.97); color:#eee; font-family:'Cinzel',serif; font-size:.72rem; box-shadow:0 5px 18px rgba(0,0,0,.7); opacity:0; transform:translateY(12px); pointer-events:none; transition:opacity .25s ease, transform .25s ease; }
+        .firebase-toast.ativo { opacity:1; transform:translateY(0); }
+        .firebase-toast.desconexao { border-color:#b33; }
+
         @media (max-width: 900px) {
             .gameplay-wrapper { grid-template-columns: 1fr; }
             .painel-status { max-height: 300px; }
+            .firebase-status-panel { left: 12px; bottom: 12px; width: min(300px, calc(100vw - 24px)); }
+            .firebase-toast { left: 12px; bottom: 125px; max-width: calc(100vw - 24px); }
         }
-
-        /* ============================================================
-           RESPONSIVIDADE — CELULAR / TABLET
-           ============================================================ */
-        @media (max-width: 900px) {
-            body {
-                width: 100%;
-                min-height: 100dvh;
-                height: 100dvh;
-                padding: 8px;
-                overflow: hidden;
-                align-items: stretch;
-            }
-
-            .moldura-tela {
-                top: 6px;
-                bottom: 6px;
-                left: 6px;
-                right: 6px;
-            }
-
-            .gameplay-wrapper {
-                grid-template-columns: 1fr;
-                grid-template-rows: minmax(190px, 34dvh) minmax(0, 1fr);
-                gap: 8px;
-                width: 100%;
-                height: 100%;
-                min-width: 0;
-                min-height: 0;
-            }
-
-            .painel-status {
-                width: 100%;
-                max-width: 100%;
-                max-height: none;
-                min-height: 0;
-                padding: 8px;
-                gap: 7px;
-                overflow-y: auto;
-                overflow-x: hidden;
-            }
-
-            .painel-status h2 {
-                font-size: .9rem;
-                padding-bottom: 6px;
-                margin-bottom: 0;
-            }
-
-            .painel-turnos {
-                padding: 6px;
-            }
-
-            .card-heroi {
-                min-height: 118px;
-                width: 100%;
-                padding: 7px;
-            }
-
-            .avatar-painel {
-                width: 58px;
-            }
-
-            .info-heroi {
-                gap: 7px;
-            }
-
-            .nome-heroi {
-                font-size: .76rem;
-            }
-
-            .pv-container,
-            .am-container {
-                font-size: .9rem;
-            }
-
-            .controles-heroi {
-                width: 108px !important;
-                min-width: 108px !important;
-                max-width: 108px !important;
-                flex-basis: 108px !important;
-            }
-
-            .tabuleiro-container {
-                width: 100%;
-                min-width: 0;
-                min-height: 0;
-                height: 100%;
-            }
-
-            .mapa-wrapper {
-                min-height: 0;
-            }
-
-            .mapa-img {
-                object-fit: contain;
-            }
-
-            /* Barra horizontal dos grupos do rodapé */
-            .rodape-menu {
-                width: 100%;
-                justify-content: flex-start;
-                align-items: center;
-                gap: 7px;
-                padding: 7px 9px;
-                overflow-x: scroll;
-                overflow-y: visible;
-                white-space: nowrap;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: thin;
-                scrollbar-color: #8b0000 #111;
-                touch-action: pan-x;
-            }
-
-            .rodape-menu::-webkit-scrollbar {
-                height: 7px;
-            }
-
-            .rodape-menu::-webkit-scrollbar-track {
-                background: #111;
-            }
-
-            .rodape-menu::-webkit-scrollbar-thumb {
-                background: #8b0000;
-                border-radius: 4px;
-            }
-
-            .menu-item-container {
-                flex: 0 0 auto;
-            }
-
-            .btn-menu-rodape {
-                flex: 0 0 auto;
-                padding: 7px 11px;
-                font-size: .7rem;
-                white-space: nowrap;
-            }
-
-            .lista-dropup {
-                max-height: min(42dvh, 250px);
-                min-width: 155px;
-                max-width: 78vw;
-                overflow-y: auto;
-                overflow-x: hidden;
-            }
-
-            #mini-player-musica {
-                top: 8px !important;
-                right: 8px !important;
-                max-width: calc(100vw - 16px);
-            }
-
-            #mini-player-musica select {
-                max-width: 90px !important;
-            }
-
-            .anuncio-rolagem h3 {
-                font-size: 1rem;
-            }
-
-            .anuncio-rolagem {
-                max-width: 90vw;
-                padding: 9px 25px;
-            }
-
-            .cena-dado {
-                width: 125px;
-                height: 125px;
-            }
-
-            .chat-rolagens {
-                right: -90vw;
-                width: min(280px, 88vw);
-                bottom: 78px;
-            }
-
-            .chat-rolagens.aberto {
-                right: 8px;
-            }
-
-            .aba-rolagens {
-                bottom: 78px;
-            }
-
-            .contador-selos {
-                min-width: 190px;
-                transform: translateX(-50%) scale(.85);
-                transform-origin: top center;
-            }
-
-            .btn-torre-outubrista {
-                font-size: 10px;
-                padding: 3px 6px;
-            }
-        }
-
-        @media (max-width: 520px) {
-            .gameplay-wrapper {
-                grid-template-rows: minmax(165px, 31dvh) minmax(0, 1fr);
-            }
-
-            .painel-status {
-                padding: 6px;
-            }
-
-            .card-heroi {
-                min-height: 108px;
-            }
-
-            .avatar-painel {
-                width: 50px;
-            }
-
-            .controles-heroi {
-                width: 100px !important;
-                min-width: 100px !important;
-                max-width: 100px !important;
-                flex-basis: 100px !important;
-            }
-
-            .btn-participacao,
-            .btn-estado {
-                font-size: 8px !important;
-            }
-
-            #mini-player-musica {
-                transform: scale(.9);
-                transform-origin: top right;
-            }
-        }
-        /* ============================================================
-           INDICADOR DE CONEXÃO / PRESENÇA
-           ============================================================ */
-        #painel-conexao-jogadores {
-            position: fixed;
-            left: 25px;
-            bottom: 25px;
-            z-index: 20001;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 10px;
-            background: rgba(12, 8, 8, .94);
-            border: 1px solid rgba(197, 160, 89, .55);
-            border-radius: 5px;
-            box-shadow: 0 0 12px rgba(0,0,0,.55);
-            font-family: 'Lora', serif;
-            font-size: .72rem;
-            color: #dcd0c0;
-            user-select: none;
-        }
-        #indicador-conexao {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            background: #777;
-            box-shadow: 0 0 5px rgba(255,255,255,.2);
-            flex: 0 0 auto;
-        }
-        #indicador-conexao.conectado {
-            background: #36c56f;
-            box-shadow: 0 0 8px rgba(54,197,111,.8);
-        }
-        #indicador-conexao.desconectado {
-            background: #d08a2e;
-            box-shadow: 0 0 8px rgba(208,138,46,.65);
-        }
-        #painel-conexao-jogadores button {
-            border: 1px solid rgba(197,160,89,.35);
-            background: rgba(197,160,89,.08);
-            color: #c5a059;
-            border-radius: 3px;
-            padding: 2px 6px;
-            cursor: pointer;
-            font-family: 'Cinzel', serif;
-            font-size: .62rem;
-        }
-        #painel-conexao-jogadores button:hover { background: rgba(197,160,89,.18); }
-        #aviso-jogador {
-            position: fixed;
-            bottom: 58px;
-            left: 50%;
-            transform: translate(-50%, -15px);
-            z-index: 30000;
-            opacity: 0;
-            pointer-events: none;
-            padding: 10px 18px;
-            min-width: 240px;
-            max-width: min(90vw, 480px);
-            text-align: center;
-            background: rgba(12,8,8,.97);
-            border: 1px solid #c5a059;
-            border-radius: 5px;
-            box-shadow: 0 0 20px rgba(0,0,0,.7);
-            color: #e8e0d5;
-            font-family: 'Cinzel', serif;
-            font-size: .78rem;
-            transition: opacity .25s ease, transform .25s ease;
-        }
-        #aviso-jogador.visivel { opacity: 1; transform: translate(-50%, 0); }
-        #aviso-jogador.entrada { border-color: #5eaa78; }
-        #aviso-jogador.saida { border-color: #a83232; }
-        @media (max-width: 700px) {
-            #painel-conexao-jogadores {
-                bottom: 7px; left: 7px; max-width: 70vw;
-                padding: 5px 7px; font-size: .62rem;
-            }
-            #nome-jogador-atual { max-width: 75px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-            #aviso-jogador { bottom: 52px; font-size: .7rem; padding: 8px 12px; }
-        }
-
     </style>
 </head>
 <body>
 
     <div class="moldura-tela"></div>
 
-    <div id="painel-conexao-jogadores" title="Status da conexão e jogadores online">
-        <span id="indicador-conexao"></span>
-        <span id="texto-conexao">Conectando...</span>
-        <span id="quantidade-jogadores-online">0 online</span>
-        <span id="nome-jogador-atual"></span>
-        <button type="button" onclick="renomearJogador()" title="Alterar nome">✎</button>
+    <div id="firebase-status-panel" class="firebase-status-panel">
+        <div class="firebase-status-header">
+            <span>◈ CONEXÃO DA CAMPANHA</span>
+            <div class="firebase-status-actions"><button type="button" onclick="alterarNomeJogador()" title="Alterar nome">✎</button></div>
+        </div>
+        <div class="firebase-status-line"><span id="firebase-dot" class="firebase-dot waiting"></span><span id="firebase-status-text">Conectando ao Firebase...</span></div>
+        <div class="firebase-status-line" style="margin-top:3px;"><span>Jogador:</span> <span id="nome-jogador-status">Jogador</span></div>
+        <div id="firebase-online-list" class="firebase-online-list">Nenhum outro jogador conectado.</div>
     </div>
-    <div id="aviso-jogador"></div>
+    <div id="firebase-toast" class="firebase-toast"></div>
 
     <audio id="audio-efeito"></audio>
 
@@ -2652,7 +2325,7 @@
     <!-- JAVASCRIPT: LÓGICA E CONEXÃO FIREBASE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-        import { getDatabase, ref, set, onValue, get, remove, push, onChildAdded, onChildRemoved, onDisconnect, serverTimestamp, query, orderByKey, startAt } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+        import { getDatabase, ref, set, push, onValue, onChildAdded, onDisconnect, get, remove } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
         
 
         // --- CONTROLES DO MINI PLAYER DE MÚSICA ---
@@ -2825,111 +2498,89 @@
             return ref(db, `campanhas/${CAMPANHA}/${caminho}`);
         }
 
+        // Eventos de rolagem são registros independentes para evitar sobrescrita/congelamento.
+        const rolagensRef = campanhaRef('rolagens');
         // ============================================================
-        // PRESENÇA / CONEXÃO DOS JOGADORES
-        // Cada aba recebe uma identidade própria. O Firebase remove
-        // automaticamente a presença quando a conexão é encerrada.
-        // Isso evita depender de relógio local e permite avisar os
-        // demais jogadores quando alguém sai da partida.
+        // PRESENÇA DOS JOGADORES / STATUS DE CONEXÃO
         // ============================================================
-        const jogadorSessaoId = sessionStorage.getItem('nihil_jogador_sessao') || crypto.randomUUID();
-        sessionStorage.setItem('nihil_jogador_sessao', jogadorSessaoId);
-
-        let nomeJogador = localStorage.getItem('nihil_nome_jogador') || '';
+        const presencaId = sessionStorage.getItem('nihil_presenca_id') ||
+            (window.crypto && crypto.randomUUID ? crypto.randomUUID() : `jogador_${Date.now()}_${Math.random().toString(16).slice(2)}`);
+        sessionStorage.setItem('nihil_presenca_id', presencaId);
+        let nomeJogador = (localStorage.getItem('nihil_nome_jogador') || '').trim();
         if (!nomeJogador) {
-            nomeJogador = `Jogador ${jogadorSessaoId.slice(0, 4).toUpperCase()}`;
+            nomeJogador = (prompt('Digite seu nome de exibição para a campanha:', 'Jogador') || 'Jogador').trim() || 'Jogador';
             localStorage.setItem('nihil_nome_jogador', nomeJogador);
         }
-        const nomeDisplayInicial = document.getElementById('nome-jogador-atual');
-        if (nomeDisplayInicial) nomeDisplayInicial.innerText = nomeJogador;
 
-        const presencaRef = campanhaRef(`presenca/${jogadorSessaoId}`);
-        const presencasRef = campanhaRef('presenca');
-        const firebaseConectadoRef = ref(db, '.info/connected');
-        const jogadoresConhecidos = new Map();
-        let presencaInicialCarregada = false;
+        const presencaRef = campanhaRef(`presenca/${presencaId}`);
+        const conexaoRef = ref(db, '.info/connected');
+        const elFirebaseDot = document.getElementById('firebase-dot');
+        const elFirebaseText = document.getElementById('firebase-status-text');
+        const elNomeJogador = document.getElementById('nome-jogador-status');
+        const elOnlineList = document.getElementById('firebase-online-list');
+        let primeiraLeituraPresenca = true;
+        let presencasAnteriores = {};
+        let toastTimer = null;
+        elNomeJogador.innerText = nomeJogador;
 
-        function atualizarPainelConexao(conectado, onlineCount = null) {
-            const indicador = document.getElementById('indicador-conexao');
-            const texto = document.getElementById('texto-conexao');
-            const quantidade = document.getElementById('quantidade-jogadores-online');
-            if (indicador) {
-                indicador.classList.toggle('conectado', conectado === true);
-                indicador.classList.toggle('desconectado', conectado !== true);
-            }
-            if (texto) texto.innerText = conectado === true ? 'Firebase conectado' : 'Reconectando...';
-            if (quantidade && onlineCount !== null) quantidade.innerText = `${onlineCount} online`;
+        function mostrarToastFirebase(mensagem, desconexao = false) {
+            const toast = document.getElementById('firebase-toast');
+            if (!toast) return;
+            if (toastTimer) clearTimeout(toastTimer);
+            toast.innerText = mensagem;
+            toast.classList.toggle('desconexao', desconexao);
+            toast.classList.add('ativo');
+            toastTimer = setTimeout(() => toast.classList.remove('ativo'), 4200);
         }
 
-        function mostrarAvisoJogador(mensagem, tipo = 'saida') {
-            const aviso = document.getElementById('aviso-jogador');
-            if (!aviso) return;
-            aviso.className = `aviso-jogador ${tipo} visivel`;
-            aviso.innerText = mensagem;
-            clearTimeout(window.timerAvisoJogador);
-            window.timerAvisoJogador = setTimeout(() => {
-                aviso.classList.remove('visivel');
-            }, 4500);
+        function renderizarPresencas(dados) {
+            const nomes = Object.values(dados || {})
+                .filter(j => j && j.online !== false && j.nome)
+                .map(j => String(j.nome).trim()).filter(Boolean);
+            const unicos = [...new Set(nomes)].sort((a,b) => a.localeCompare(b, 'pt-BR'));
+            if (elOnlineList) elOnlineList.innerText = unicos.length
+                ? `Online (${unicos.length}): ${unicos.join(' • ')}`
+                : 'Nenhum outro jogador conectado.';
         }
 
-        window.renomearJogador = function() {
-            const novoNome = prompt('Nome que será exibido aos outros jogadores:', nomeJogador);
-            if (novoNome === null) return;
-            const nomeLimpo = novoNome.trim().slice(0, 30);
-            if (!nomeLimpo) return;
-            nomeJogador = nomeLimpo;
+        window.alterarNomeJogador = function() {
+            const novoNome = (prompt('Nome de exibição:', nomeJogador) || '').trim();
+            if (!novoNome || novoNome === nomeJogador) return;
+            nomeJogador = novoNome.slice(0, 32);
             localStorage.setItem('nihil_nome_jogador', nomeJogador);
-            set(presencaRef, { nome: nomeJogador, online: true, entrada: serverTimestamp() }).catch(console.error);
-            const nomeDisplay = document.getElementById('nome-jogador-atual');
-            if (nomeDisplay) nomeDisplay.innerText = nomeJogador;
+            elNomeJogador.innerText = nomeJogador;
+            set(presencaRef, { online:true, nome:nomeJogador, entrouEm:Date.now(), ultimaAtividade:Date.now() })
+                .catch(err => console.error('Falha ao atualizar presença:', err));
         };
 
-        onValue(firebaseConectadoRef, (snapshot) => {
-            const conectado = snapshot.val() === true;
-            atualizarPainelConexao(conectado);
-
-            if (!conectado) return;
-
-            onDisconnect(presencaRef).remove()
-                .then(() => set(presencaRef, {
-                    nome: nomeJogador,
-                    online: true,
-                    entrada: serverTimestamp()
-                }))
-                .catch(err => console.error('Falha ao registrar presença:', err));
-        });
-
-        onValue(presencasRef, (snapshot) => {
-            const dados = snapshot.val() || {};
-            const nomesAtuais = new Map();
-            Object.entries(dados).forEach(([id, jogador]) => {
-                if (jogador && jogador.online !== false) {
-                    nomesAtuais.set(id, jogador.nome || 'Jogador');
-                }
-            });
-
-            jogadoresConhecidos.clear();
-            nomesAtuais.forEach((nome, id) => jogadoresConhecidos.set(id, nome));
-            atualizarPainelConexao(true, nomesAtuais.size);
-            presencaInicialCarregada = true;
-        });
-
-        onChildAdded(presencasRef, (snapshot) => {
-            const dados = snapshot.val();
-            if (!dados || snapshot.key === jogadorSessaoId || !dados.nome) return;
-            const jaConhecido = jogadoresConhecidos.has(snapshot.key);
-            jogadoresConhecidos.set(snapshot.key, dados.nome);
-            if (presencaInicialCarregada && !jaConhecido) {
-                mostrarAvisoJogador(`⚔️ ${dados.nome} entrou na partida.`, 'entrada');
+        onValue(conexaoRef, (conectado) => {
+            const online = conectado.val() === true;
+            if (elFirebaseDot) elFirebaseDot.className = `firebase-dot ${online ? 'online' : 'offline'}`;
+            if (elFirebaseText) elFirebaseText.innerText = online ? 'Conectado ao Firebase' : 'Desconectado do Firebase';
+            if (online) {
+                onDisconnect(presencaRef).remove()
+                    .then(() => set(presencaRef, { online:true, nome:nomeJogador, entrouEm:Date.now(), ultimaAtividade:Date.now() }))
+                    .then(() => mostrarToastFirebase('✓ Conexão com o Firebase restabelecida.'))
+                    .catch(err => console.error('Falha ao registrar presença:', err));
+            } else {
+                mostrarToastFirebase('⚠ Conexão com o Firebase perdida.', true);
             }
         });
 
-        onChildRemoved(presencasRef, (snapshot) => {
-            const nome = jogadoresConhecidos.get(snapshot.key);
-            if (!nome || snapshot.key === jogadorSessaoId) return;
-            jogadoresConhecidos.delete(snapshot.key);
-            mostrarAvisoJogador(`⚠️ ${nome} desconectou-se da partida.`, 'saida');
+        onValue(campanhaRef('presenca'), (snapshot) => {
+            const dados = snapshot.val() || {};
+            renderizarPresencas(dados);
+            if (!primeiraLeituraPresenca) {
+                Object.keys(presencasAnteriores).forEach(id => {
+                    if (!dados[id] && presencasAnteriores[id]?.nome) {
+                        mostrarToastFirebase(`⚠ ${presencasAnteriores[id].nome} desconectou-se da campanha.`, true);
+                    }
+                });
+            }
+            presencasAnteriores = dados;
+            primeiraLeituraPresenca = false;
         });
+
 
         // ============================================================
         // CONTADOR GLOBAL DE SELOS DO BOSS
@@ -3229,21 +2880,6 @@
             set(campanhaRef( 'status/' + idHeroi + '/estado'), novoEstado);
         }
 
-        // ============================================================
-        // SISTEMA DE ROLAGENS ROBUSTO
-        // Cada rolagem recebe uma chave única do Firebase.
-        // Não usamos mais Date.now() para decidir se uma rolagem é nova,
-        // evitando que relógios diferentes dos dispositivos congelem o
-        // rolador de um jogador após uma rolagem de inimigo.
-        // ============================================================
-        function publicarRolagemDado(dados) {
-            return set(push(campanhaRef('rolagens_dado')), {
-                ...dados,
-                timestamp: serverTimestamp(),
-                eventoId: crypto.randomUUID()
-            });
-        }
-
         window.lancarDado = function(idHeroi) {
             const card = document.getElementById(`card-${idHeroi}`);
             if (!card) return;
@@ -3254,14 +2890,10 @@
             const corHeroi = card.style.getPropertyValue('--token-color').trim();
             const resultado = Math.floor(Math.random() * 6) + 1;
             
-            publicarRolagemDado({
-                idHeroi: idHeroi,
-                nome: nome,
-                resultado: resultado,
-                estado: estado,
-                cor: corHeroi,
-                lados: 6
-            });
+            push(rolagensRef, {
+                idHeroi: idHeroi, nome: nome, resultado: resultado, estado: estado,
+                cor: corHeroi, timestamp: Date.now()
+            }).catch(err => console.error('Falha ao registrar rolagem:', err));
         }
 
         // --- FUNÇÃO PARA O INIMIGO ROLAR DADO D6 ---
@@ -3280,14 +2912,10 @@
             const lados = ehOxiliat ? 8 : 6;
             const resultado = Math.floor(Math.random() * lados) + 1;
 
-            publicarRolagemDado({
-                idHeroi: 'sistema_inimigo',
-                nome: nomeInimigo,
-                resultado: resultado,
-                lados: lados,
-                estado: 'Corrompido',
-                cor: '#ff0000'
-            });
+            push(rolagensRef, {
+                idHeroi: 'sistema_inimigo', nome: nomeInimigo, resultado: resultado,
+                lados: lados, estado: 'Corrompido', cor: '#ff0000', timestamp: Date.now()
+            }).catch(err => console.error('Falha ao registrar rolagem do inimigo:', err));
 
         };
 
@@ -3475,10 +3103,15 @@
                 ctx.fillStyle=brilho;
                 ctx.beginPath(); ctx.arc(cx,cy,82,0,Math.PI*2); ctx.fill();
 
-                if(t<1) requestAnimationFrame(desenhar);
+                if(t<1) frameD8Ativo = requestAnimationFrame(desenhar);
+                else frameD8Ativo = null;
             }
-            requestAnimationFrame(desenhar);
+            frameD8Ativo = requestAnimationFrame(desenhar);
         }
+
+        // Controle de animações concorrentes: rolagem nova cancela o timer/frame anterior.
+        let timerOcultarDado = null;
+        let frameD8Ativo = null;
 
         // --- ANIMAÇÃO FÍSICA E ROTACIONAL DO DADO ---
         function animarDado3D(nome, resultado, estado, cor, lados = 6) {
@@ -3486,6 +3119,9 @@
             const dado = document.getElementById('dado3d');
             const anuncio = document.getElementById('anuncio-rolagem');
             const anuncioNome = document.getElementById('anuncio-nome');
+
+            if (timerOcultarDado) { clearTimeout(timerOcultarDado); timerOcultarDado = null; }
+            if (frameD8Ativo !== null) { cancelAnimationFrame(frameD8Ativo); frameD8Ativo = null; }
 
             const ehD8 = Number(lados) === 8;
             const valor = Math.max(1, Math.min(ehD8 ? 8 : 6, Number(resultado) || 1));
@@ -3522,9 +3158,10 @@
                 dado.style.transform = `rotateX(${faceAlvo.x + voltasX}deg) rotateY(${faceAlvo.y + voltasY}deg)`;
             }
 
-            setTimeout(() => {
+            timerOcultarDado = setTimeout(() => {
                 anuncio.classList.remove('ativo');
                 cena.classList.remove('ativo');
+                timerOcultarDado = null;
                 setTimeout(() => {
                     dado.style.transition = 'none';
                     dado.style.transform = 'none';
@@ -4057,44 +3694,27 @@
             }
         });
 
-        // Listener baseado na chave única de cada rolagem.
-        // A chave inicial é criada localmente, sem gravar nada no banco.
-        // Assim, o listener recebe somente rolagens novas e não depende do
-        // relógio do celular/computador de nenhum jogador.
-        const chaveInicialRolagens = push(campanhaRef('rolagens_dado')).key;
-        const consultaRolagensNovas = query(
-            campanhaRef('rolagens_dado'),
-            orderByKey(),
-            startAt(chaveInicialRolagens)
-        );
-        const rolagensJaVistas = new Set();
+        const momentoCarregamento = Date.now();
 
-        onChildAdded(consultaRolagensNovas, (snapshot) => {
-            const dados = snapshot.val();
-            if (!dados) return;
-
-            const chaveEvento = snapshot.key || dados.eventoId;
-            if (!chaveEvento || rolagensJaVistas.has(chaveEvento)) return;
-            rolagensJaVistas.add(chaveEvento);
-
-            if (rolagensJaVistas.size > 200) {
-                const primeira = rolagensJaVistas.values().next().value;
-                rolagensJaVistas.delete(primeira);
-            }
+        // Cada rolagem é um evento independente; rolagens simultâneas não se sobrescrevem.
+        onChildAdded(rolagensRef, (childSnapshot) => {
+            const dados = childSnapshot.val();
+            if (!dados || !dados.timestamp) return;
+            if (Number(dados.timestamp) <= momentoCarregamento) return;
 
             animarDado3D(
-                dados.nome,
-                dados.resultado,
-                dados.estado,
-                dados.cor,
-                dados.lados || 6
+                dados.nome, dados.resultado, dados.estado, dados.cor, dados.lados || 6
             );
 
+            // Oxiliat ativa sua habilidade ao obter 6, 7 ou 8 no D8.
+            // O resultado também é exibido na mensagem para todos os jogadores.
             const ehOxiliatRolagem = dados.idHeroi === "sistema_inimigo" &&
                 String(dados.nome || "").toLowerCase() === "oxiliat" &&
                 Number(dados.lados || 6) === 8;
 
             if (ehOxiliatRolagem && [6, 7, 8].includes(Number(dados.resultado))) {
+
+                // Toca o som da habilidade
                 const audio = document.getElementById("som-habilidade-inimigo");
                 if (audio) {
                     audio.currentTime = 0;
@@ -4102,20 +3722,27 @@
                 }
 
                 const resultadoHabilidade = Number(dados.resultado);
+
+                // Exibe a habilidade + o número obtido no D8.
                 adicionarRolagemChat(
                     "💀 Habilidade Especial!",
                     `${dados.nome} ativou sua habilidade! Resultado do D8: ${resultadoHabilidade}`,
                     "#3b82f6"
                 );
+
             } else {
+
+                // Todas as demais rolagens
                 adicionarRolagemChat(
                     dados.nome,
                     dados.resultado,
                     dados.cor
                 );
+
             }
 
             mostrarChatRolagens();
+
         });
 
         // --- SISTEMA DE INVENTÁRIO GLOBAL ---
@@ -4301,48 +3928,6 @@
 
     };
         
-
-
-    // Rolagem horizontal do menu inferior: roda do mouse e arraste.
-    (() => {
-        const menu = document.querySelector('.rodape-menu');
-        if (!menu) return;
-
-        menu.addEventListener('wheel', (e) => {
-            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-                e.preventDefault();
-                menu.scrollLeft += e.deltaY;
-            }
-        }, { passive: false });
-
-        let arrastando = false;
-        let inicioX = 0;
-        let scrollInicial = 0;
-
-        menu.addEventListener('pointerdown', (e) => {
-            if (e.pointerType === 'mouse' && e.button !== 0) return;
-            arrastando = true;
-            inicioX = e.clientX;
-            scrollInicial = menu.scrollLeft;
-            menu.classList.add('arrastando');
-            if (menu.setPointerCapture) menu.setPointerCapture(e.pointerId);
-        });
-
-        menu.addEventListener('pointermove', (e) => {
-            if (!arrastando) return;
-            const deslocamento = e.clientX - inicioX;
-            if (Math.abs(deslocamento) > 2) e.preventDefault();
-            menu.scrollLeft = scrollInicial - deslocamento;
-        });
-
-        const pararArraste = (e) => {
-            arrastando = false;
-            menu.classList.remove('arrastando');
-            try { if (menu.releasePointerCapture) menu.releasePointerCapture(e.pointerId); } catch (_) {}
-        };
-        menu.addEventListener('pointerup', pararArraste);
-        menu.addEventListener('pointercancel', pararArraste);
-    })();
     </script>
 
     <div id="modal-imagem-central" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 99; align-items: center; justify-content: center; flex-direction: column; gap: 20px; pointer-events: none;">
