@@ -1278,36 +1278,49 @@
             to   { box-shadow: 0 0 10px #1b5e20, 0 0 22px rgba(27,94,32,.9), 0 4px 10px rgba(0,0,0,.9) !important; }
         }
 
-        /* =========================
-           STATUS FIREBASE / PRESENÇA
-           ========================= */
-        .firebase-status-panel {
-            position: fixed; left: 30px; bottom: 28px; z-index: 25000;
-            width: min(285px, calc(100vw - 60px)); padding: 9px 11px;
-            background: rgba(10, 7, 7, .94); border: 1px solid rgba(197,160,89,.55);
-            border-radius: 5px; box-shadow: 0 5px 18px rgba(0,0,0,.65);
-            font-family: 'Lora', serif; pointer-events: auto;
-        }
-        .firebase-status-header { display:flex; align-items:center; justify-content:space-between; gap:8px; color:#c5a059; font-family:'Cinzel',serif; font-size:.65rem; letter-spacing:.7px; margin-bottom:5px; }
-        .firebase-status-line { display:flex; align-items:center; gap:7px; color:#dcd0c0; font-size:.72rem; }
-        .firebase-dot { width:9px; height:9px; border-radius:50%; flex:0 0 9px; background:#8b0000; box-shadow:0 0 7px rgba(139,0,0,.7); }
-        .firebase-dot.online { background:#32c45a; box-shadow:0 0 8px rgba(50,196,90,.8); }
-        .firebase-dot.waiting { background:#c5a059; box-shadow:0 0 8px rgba(197,160,89,.65); }
-        .firebase-dot.offline { background:#d32f2f; box-shadow:0 0 8px rgba(211,47,47,.7); }
-        #nome-jogador-status { color:#fff; font-weight:bold; }
-        .firebase-online-list { margin-top:6px; padding-top:5px; border-top:1px solid rgba(197,160,89,.12); color:#a99b89; font-size:.64rem; line-height:1.35; max-height:54px; overflow-y:auto; }
-        .firebase-status-actions { display:flex; gap:5px; }
-        .firebase-status-actions button { border:1px solid rgba(197,160,89,.35); background:rgba(197,160,89,.08); color:#c5a059; border-radius:3px; cursor:pointer; padding:2px 5px; font-size:.58rem; }
-        .firebase-status-actions button:hover { background:#c5a059; color:#111; }
-        .firebase-toast { position:fixed; left:30px; bottom:145px; z-index:26000; min-width:260px; max-width:min(390px,calc(100vw - 60px)); padding:10px 13px; border:1px solid #c5a059; border-radius:5px; background:rgba(12,7,7,.97); color:#eee; font-family:'Cinzel',serif; font-size:.72rem; box-shadow:0 5px 18px rgba(0,0,0,.7); opacity:0; transform:translateY(12px); pointer-events:none; transition:opacity .25s ease, transform .25s ease; }
-        .firebase-toast.ativo { opacity:1; transform:translateY(0); }
-        .firebase-toast.desconexao { border-color:#b33; }
+        /* ================= STATUS FIREBASE / JOGADORES ================= */
+        .painel-status-firebase { position:fixed; left:28px; bottom:28px; width:285px; max-width:calc(100vw - 56px); padding:8px 10px 7px; background:rgba(8,6,6,.95); border:1px solid rgba(197,160,89,.68); border-radius:5px; box-shadow:0 4px 16px rgba(0,0,0,.72); z-index:30000; font-family:'Lora',serif; font-size:.72rem; }
+        .cabecalho-status-firebase { display:flex; align-items:center; justify-content:space-between; min-height:17px; }
+        .titulo-status-firebase { display:flex; align-items:center; gap:6px; color:#c5a059; font-family:'Cinzel',serif; font-size:.64rem; letter-spacing:.45px; text-transform:uppercase; }
+        .titulo-status-firebase .ornamento { color:#c5a059; font-size:.65rem; }
+        .botao-editar-nome-firebase { width:21px; height:20px; padding:0; display:flex; align-items:center; justify-content:center; background:rgba(35,28,18,.8); color:#c5a059; border:1px solid rgba(197,160,89,.45); border-radius:3px; cursor:pointer; font-size:.72rem; line-height:1; }
+        .botao-editar-nome-firebase:hover { background:rgba(197,160,89,.16); color:#fff; border-color:#c5a059; }
+        .status-firebase-linha { display:flex; align-items:center; gap:6px; margin-top:5px; color:#dcd0c0; }
+        .indicador-firebase { width:9px; height:9px; min-width:9px; border-radius:50%; display:inline-block; box-shadow:0 0 6px currentColor; }
+        .indicador-firebase.online { background:#35b94b; color:#35b94b; }
+        .indicador-firebase.offline { background:#a33; color:#a33; }
+        .status-firebase-nome { margin-top:3px; color:#c5b9a8; font-size:.68rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .status-firebase-nome strong { color:#c5a059; font-family:'Cinzel',serif; font-size:.67rem; }
+        .edicao-nome-firebase { display:none; gap:4px; margin-top:6px; }
+        .edicao-nome-firebase.visivel { display:flex; }
+        .edicao-nome-firebase input { flex:1; min-width:0; height:24px; padding:3px 6px; background:#111; color:#dcd0c0; border:1px solid rgba(197,160,89,.3); border-radius:3px; outline:none; font-family:'Lora',serif; font-size:.7rem; }
+        .edicao-nome-firebase button { width:30px; height:24px; padding:0; background:#4a0000; color:#c5a059; border:1px solid #8b0000; border-radius:3px; cursor:pointer; font-family:'Cinzel',serif; font-size:.62rem; font-weight:bold; }
+        .edicao-nome-firebase button:hover { background:#8b0000; color:#fff; }
+        .titulo-jogadores-conectados { margin-top:6px; padding-top:5px; border-top:1px solid rgba(197,160,89,.16); color:#bfae96; font-family:'Cinzel',serif; font-size:.61rem; letter-spacing:.55px; }
+        .lista-jogadores-conectados { margin-top:2px; max-height:54px; overflow-y:auto; }
+        .jogador-conectado { display:flex; align-items:center; gap:5px; min-height:17px; color:#dcd0c0; }
+        .jogador-conectado.proprio { color:#c5a059; }
+        .ponto-jogador { width:6px; height:6px; min-width:6px; border-radius:50%; background:#35b94b; box-shadow:0 0 5px rgba(53,185,75,.7); }
+        .nome-jogador { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+        .rotulo-voce { margin-left:auto; color:#777; font-size:.57rem; }
+        .modal-nome-firebase { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.68); z-index:40000; }
+        .modal-nome-firebase.oculto { display:none; }
+        .caixa-nome-firebase { width:min(360px,calc(100vw - 32px)); padding:18px; background:rgba(10,7,7,.98); border:1px solid rgba(197,160,89,.72); border-top:3px solid #8b0000; border-radius:5px; box-shadow:0 10px 35px rgba(0,0,0,.8); text-align:center; }
+        .caixa-nome-firebase h3 { margin:0 0 7px; color:#c5a059; font-family:'Cinzel',serif; font-size:.86rem; letter-spacing:.5px; }
+        .caixa-nome-firebase p { margin:0 0 12px; color:#c9c0b5; font-family:'Lora',serif; font-size:.72rem; }
+        .caixa-nome-firebase input { width:100%; box-sizing:border-box; height:32px; padding:5px 8px; background:#111; color:#eee; border:1px solid rgba(197,160,89,.4); border-radius:3px; outline:none; font-family:'Lora',serif; font-size:.78rem; text-align:center; }
+        .caixa-nome-firebase input:focus { border-color:#c5a059; box-shadow:0 0 6px rgba(197,160,89,.2); }
+        .caixa-nome-firebase button { margin-top:10px; min-width:100px; height:29px; padding:4px 12px; background:#4a0000; color:#c5a059; border:1px solid #8b0000; border-radius:3px; cursor:pointer; font-family:'Cinzel',serif; font-size:.66rem; font-weight:bold; }
+        .caixa-nome-firebase button:hover { background:#8b0000; color:#fff; }
+        .alerta-conexao { position:fixed; left:330px; bottom:30px; max-width:min(420px,calc(100vw - 360px)); padding:9px 13px; background:rgba(35,10,10,.97); border:1px solid #8b0000; border-left:3px solid #ff4d4d; border-radius:4px; color:#f0dede; font-family:'Cinzel',serif; font-size:.68rem; opacity:0; transform:translateY(8px); pointer-events:none; transition:opacity .2s,transform .2s; z-index:30001; }
+        .alerta-conexao.visivel { opacity:1; transform:translateY(0); }
+        .alerta-conexao.info { border-left-color:#c5a059; }
 
         @media (max-width: 900px) {
             .gameplay-wrapper { grid-template-columns: 1fr; }
             .painel-status { max-height: 300px; }
-            .firebase-status-panel { left: 12px; bottom: 12px; width: min(300px, calc(100vw - 24px)); }
-            .firebase-toast { left: 12px; bottom: 125px; max-width: calc(100vw - 24px); }
+            .painel-status-firebase { left:12px; bottom:12px; width:250px; max-width:calc(100vw - 24px); }
+            .alerta-conexao { left:12px; bottom:155px; max-width:calc(100vw - 24px); }
         }
     </style>
 </head>
@@ -1315,16 +1328,27 @@
 
     <div class="moldura-tela"></div>
 
-    <div id="firebase-status-panel" class="firebase-status-panel">
-        <div class="firebase-status-header">
-            <span>◈ CONEXÃO DA CAMPANHA</span>
-            <div class="firebase-status-actions"><button type="button" onclick="alterarNomeJogador()" title="Alterar nome">✎</button></div>
+    <section id="painel-status-firebase" class="painel-status-firebase" aria-label="Status da conexão">
+        <div class="cabecalho-status-firebase">
+            <div class="titulo-status-firebase"><span class="ornamento">❖</span><span>Conexão da Campanha</span></div>
+            <button type="button" id="btn-editar-nome-firebase" class="botao-editar-nome-firebase" title="Alterar nome">✎</button>
         </div>
-        <div class="firebase-status-line"><span id="firebase-dot" class="firebase-dot waiting"></span><span id="firebase-status-text">Conectando ao Firebase...</span></div>
-        <div class="firebase-status-line" style="margin-top:3px;"><span>Jogador:</span> <span id="nome-jogador-status">Jogador</span></div>
-        <div id="firebase-online-list" class="firebase-online-list">Nenhum outro jogador conectado.</div>
+        <div class="status-firebase-linha"><span id="status-firebase-indicador" class="indicador-firebase offline"></span><span id="status-firebase-texto">Conectando ao Firebase...</span></div>
+        <div class="status-firebase-nome" id="status-firebase-nome">Jogador: <strong>Jogador</strong></div>
+        <div class="edicao-nome-firebase" id="edicao-nome-firebase"><input id="input-nome-jogador" type="text" maxlength="24" placeholder="Seu nome" autocomplete="nickname"><button type="button" id="btn-salvar-nome" title="Salvar nome">OK</button></div>
+        <div class="titulo-jogadores-conectados">Online (<span id="quantidade-jogadores-conectados">0</span>):</div>
+        <div id="lista-jogadores-conectados" class="lista-jogadores-conectados"></div>
+    </section>
+    <div id="alerta-conexao" class="alerta-conexao" role="status" aria-live="polite"></div>
+
+    <div id="modal-nome-firebase" class="modal-nome-firebase" style="display:flex;" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-nome">
+        <div class="caixa-nome-firebase">
+            <h3 id="titulo-modal-nome">Identifique seu aventureiro</h3>
+            <p>Digite o nome que será exibido para os outros jogadores nesta sala.</p>
+            <input id="input-nome-inicial" type="text" maxlength="24" placeholder="Nome do jogador" autocomplete="nickname">
+            <button type="button" id="btn-confirmar-nome-inicial">ENTRAR NA SALA</button>
+        </div>
     </div>
-    <div id="firebase-toast" class="firebase-toast"></div>
 
     <audio id="audio-efeito"></audio>
 
@@ -2322,10 +2346,125 @@
 
         </main>
 
+    <!-- FALLBACK DE ENTRADA: funciona mesmo se o módulo Firebase demorar ou falhar. -->
+    <script>
+    (function () {
+        function fecharModalEntrada() {
+            var modal = document.getElementById('modal-nome-firebase');
+            var campo = document.getElementById('input-nome-inicial');
+            if (!campo || !campo.value.trim()) {
+                if (campo) campo.focus();
+                return false;
+            }
+            var nome = campo.value.trim().replace(/\s+/g, ' ').slice(0, 24);
+            window.__nihilNomeInicial = nome;
+            window.__nihilNomeConfirmado = true;
+            if (modal) {
+                modal.classList.add('oculto');
+                modal.style.display = 'none';
+                modal.hidden = true;
+                modal.setAttribute('aria-hidden', 'true');
+            }
+            return true;
+        }
+        document.addEventListener('click', function (event) {
+            var botao = event.target.closest && event.target.closest('#btn-confirmar-nome-inicial');
+            if (!botao) return;
+            event.preventDefault();
+            event.stopPropagation();
+            fecharModalEntrada();
+            if (typeof window.confirmarNomeInicial === 'function') {
+                try { window.confirmarNomeInicial(); } catch (erro) { console.error('Entrada Firebase:', erro); }
+            }
+        }, true);
+        document.addEventListener('keydown', function (event) {
+            if (event.key !== 'Enter') return;
+            var campo = document.getElementById('input-nome-inicial');
+            if (!campo || document.activeElement !== campo) return;
+            event.preventDefault();
+            fecharModalEntrada();
+            if (typeof window.confirmarNomeInicial === 'function') {
+                try { window.confirmarNomeInicial(); } catch (erro) { console.error('Entrada Firebase:', erro); }
+            }
+        }, true);
+    })();
+    </script>
+
     <!-- JAVASCRIPT: LÓGICA E CONEXÃO FIREBASE -->
-    <script type="module">
+    
+
+    <div id="modal-imagem-central" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 99; align-items: center; justify-content: center; flex-direction: column; gap: 20px; pointer-events: none;">
+        <img id="imagem-central-exibida" src="" style="max-width: 80%; max-height: 65vh; border: 2px solid #c5a059; box-shadow: 0 0 20px rgba(197, 160, 89, 0.5); border-radius: 4px; pointer-events: auto;">
+        
+        <div id="container-botoes-heroi" style="display: flex; gap: 20px; pointer-events: auto;">
+            <button id="btn-modal-usar" style="background: #8b0000; color: #fff; border: 1px solid #ff0000; padding: 10px 25px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer; border-radius: 4px;">Usar</button>
+            <button id="btn-modal-nao-usar" style="background: #333; color: #dcd0c0; border: 1px solid #555; padding: 10px 25px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer; border-radius: 4px;">Não usar</button>
+        </div>
+    </div>
+
+    <div id="modal-inimigo-central" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 98; align-items: center; justify-content: center; flex-direction: column; gap: 20px; pointer-events: none;">
+        <img id="imagem-inimigo-exibida" src="" style="max-width: 75%; max-height: 60vh; border: 2px solid #8b0000; box-shadow: 0 0 20px rgba(139, 0, 0, 0.6); border-radius: 4px; pointer-events: auto;">
+        
+        <div id="container-vida-monstro" style="flex-direction: column; align-items: center; gap: 12px; background: rgba(15,10,10,0.95); padding: 15px 25px; border: 1px solid rgba(139, 0, 0, 0.4); border-radius: 6px; pointer-events: auto;">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <span style="font-family: 'Cinzel', serif; font-weight: bold; color: #8b0000; font-size: 1.2rem;">PV:</span>
+                <button onclick="alterarVidaTemporaria(-1)" style="background: #333; color: #fff; border: 1px solid #555; width: 30px; height: 30px; cursor: pointer; font-weight: bold; border-radius: 3px;">-</button>
+                <span id="display-vida-temporaria" style="font-family: 'Lora', serif; font-size: 1.5rem; font-weight: bold; color: #fff; min-width: 40px; text-align: center;">0</span>
+                <button onclick="alterarVidaTemporaria(1)" style="background: #8b0000; color: #fff; border: 1px solid #ff0000; width: 30px; height: 30px; cursor: pointer; font-weight: bold; border-radius: 3px;">+</button>
+            </div>
+
+            <button onclick="lancarDadoInimigo()" style="background: linear-gradient(135deg, #8b0000 0%, #ff0000 100%); color: #fff; border: 2px solid #ff4d4d; padding: 8px 20px; font-family: 'Cinzel', serif; font-weight: bold; font-size: 1rem; cursor: pointer; border-radius: 5px; box-shadow: 0 0 15px rgba(255, 0, 0, 0.4); text-transform: uppercase; letter-spacing: 1px; transition: transform 0.1s; width: 100%; margin-top: 5px;">
+                ⚔️ Rolar Ataque
+            </button>
+
+            <button id="btn-modal-fechar-sistema" style="background: #222; color: #bfae96; border: 1px solid #444; padding: 6px 16px; font-family: 'Lora', serif; cursor: pointer; border-radius: 4px; margin-top: 5px; font-size: 0.85rem; width: 100%;">Fechar Inimigo</button>
+        </div>
+    </div>
+
+    <div id="modal-inventario" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); z-index: 100000; align-items: center; justify-content: center; pointer-events: auto;">
+        <div style="background: rgba(12, 8, 8, 0.98); border: 2px solid #c5a059; padding: 22px; border-radius: 4px; width: 90%; max-width: 420px; box-shadow: 0 0 25px rgba(197, 160, 89, 0.35); display: flex; flex-direction: column; gap: 15px;">
+            
+            <h3 id="titulo-inventario" style="font-family: 'Cinzel', serif; color: #c5a059; margin: 0; text-align: center; font-size: 1.2rem; letter-spacing: 1px; border-bottom: 1px solid #4a0000; padding-bottom: 8px;">Inventário</h3>
+            
+            <textarea id="texto-inventario" placeholder="Liste os pertences do herói aqui...&#10;Ex:&#10;- Pergaminho de Fogo&#10;- Elixir de Escudos&#10;- 2x Elixir de Cura" style="width: 100%; height: 220px; background: #080505; color: #dcd0c0; border: 1px solid rgba(197, 160, 89, 0.2); border-radius: 3px; padding: 12px; font-family: 'Lora', serif; font-size: 0.9rem; resize: none; box-sizing: border-box; outline: none; line-height: 1.4;"></textarea>
+            
+            <div style="display: flex; gap: 10px;">
+                <button onclick="salvarInventario()" style="flex: 1; background: #4a0000; color: #bfae96; border: 1px solid #8b0000; padding: 8px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer; border-radius: 3px; transition: all 0.2s;">Salvar</button>
+                <button onclick="fecharInventario()" style="background: #222; color: #dcd0c0; border: 1px solid #444; padding: 8px 16px; font-family: 'Cinzel', serif; cursor: pointer; border-radius: 3px; transition: all 0.2s;">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="chat-rolagens" class="chat-rolagens">
+
+        <div class="chat-topo">
+
+            <span>🎲 Rolagens</span>
+
+            <span class="btn-chat"
+                onclick="fecharChatRolagens()">
+                ✕
+            </span>
+
+        </div>
+
+        <div id="lista-rolagens"></div>
+
+    </div>
+
+    <div id="abaRolagens"
+        class="aba-rolagens"
+        onclick="alternarChatRolagens()">
+
+        🎲
+
+    </div>
+
+
+
+<script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-        import { getDatabase, ref, set, push, onValue, onChildAdded, onDisconnect, get, remove } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+        import { getDatabase, ref, set, push, onValue, onChildAdded, onChildRemoved, onDisconnect, get, remove } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
         
 
         // --- CONTROLES DO MINI PLAYER DE MÚSICA ---
@@ -2494,92 +2633,214 @@
         // ============================================================
         const CAMPANHA = "ato2";
 
+        // A presença também é isolada por campanha.
+        // Assim, os jogadores do ATO 2 não aparecem na lista do ATO 1.
         function campanhaRef(caminho) {
             return ref(db, `campanhas/${CAMPANHA}/${caminho}`);
         }
 
         // Eventos de rolagem são registros independentes para evitar sobrescrita/congelamento.
         const rolagensRef = campanhaRef('rolagens');
-        // ============================================================
-        // PRESENÇA DOS JOGADORES / STATUS DE CONEXÃO
-        // ============================================================
-        const presencaId = sessionStorage.getItem('nihil_presenca_id') ||
-            (window.crypto && crypto.randomUUID ? crypto.randomUUID() : `jogador_${Date.now()}_${Math.random().toString(16).slice(2)}`);
-        sessionStorage.setItem('nihil_presenca_id', presencaId);
-        let nomeJogador = (localStorage.getItem('nihil_nome_jogador') || '').trim();
-        if (!nomeJogador) {
-            nomeJogador = (prompt('Digite seu nome de exibição para a campanha:', 'Jogador') || 'Jogador').trim() || 'Jogador';
-            localStorage.setItem('nihil_nome_jogador', nomeJogador);
+        
+         // ================= PRESENÇA / CONEXÃO DOS JOGADORES =================
+        // Identificador por aba/sessão. O acesso ao sessionStorage é protegido
+        // porque, em alguns modos do navegador/arquivo local, ele pode lançar exceção.
+        const CHAVE_SESSAO_PRESENCA = 'nihil_sessao_presenca';
+        let sessaoJogador = null;
+        try {
+            sessaoJogador = sessionStorage.getItem(CHAVE_SESSAO_PRESENCA);
+        } catch (erro) {
+            console.warn('sessionStorage indisponível; usando ID temporário de sessão.', erro);
+        }
+        if (!sessaoJogador) {
+            sessaoJogador = (window.crypto && typeof crypto.randomUUID === 'function')
+                ? crypto.randomUUID()
+                : 'sessao-' + Date.now() + '-' + Math.random().toString(36).slice(2);
+            try {
+                sessionStorage.setItem(CHAVE_SESSAO_PRESENCA, sessaoJogador);
+            } catch (erro) {
+                console.warn('Não foi possível persistir o ID da sessão.', erro);
+            }
+        }
+        const presencaJogadoresRef = campanhaRef('presenca_jogadores');
+        const presencaRef = campanhaRef(`presenca_jogadores/${sessaoJogador}`);
+        const conexaoFirebaseRef = ref(db, '.info/connected');
+        const nomeSalvo = '';
+        let nomeJogador = window.__nihilNomeInicial || '';
+        let nomeConfirmado = window.__nihilNomeConfirmado === true;
+
+        function atualizarStatusConexao(online) {
+            const indicador = document.getElementById('status-firebase-indicador');
+            const texto = document.getElementById('status-firebase-texto');
+            const nome = document.getElementById('status-firebase-nome');
+            if (indicador) { indicador.classList.toggle('online', online); indicador.classList.toggle('offline', !online); }
+            if (texto) texto.innerText = online ? 'Conectado ao Firebase' : 'Desconectado do Firebase';
+            if (nome) nome.innerHTML = `Jogador: <strong>${nomeJogador.replace(/[&<>\"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]))}</strong>`;
         }
 
-        const presencaRef = campanhaRef(`presenca/${presencaId}`);
-        const conexaoRef = ref(db, '.info/connected');
-        const elFirebaseDot = document.getElementById('firebase-dot');
-        const elFirebaseText = document.getElementById('firebase-status-text');
-        const elNomeJogador = document.getElementById('nome-jogador-status');
-        const elOnlineList = document.getElementById('firebase-online-list');
-        let primeiraLeituraPresenca = true;
-        let presencasAnteriores = {};
-        let toastTimer = null;
-        elNomeJogador.innerText = nomeJogador;
-
-        function mostrarToastFirebase(mensagem, desconexao = false) {
-            const toast = document.getElementById('firebase-toast');
-            if (!toast) return;
-            if (toastTimer) clearTimeout(toastTimer);
-            toast.innerText = mensagem;
-            toast.classList.toggle('desconexao', desconexao);
-            toast.classList.add('ativo');
-            toastTimer = setTimeout(() => toast.classList.remove('ativo'), 4200);
+        function mostrarAlertaConexao(mensagem, tipo = 'info') {
+            const alerta = document.getElementById('alerta-conexao');
+            if (!alerta) return;
+            alerta.innerText = mensagem;
+            alerta.className = `alerta-conexao ${tipo} visivel`;
+            clearTimeout(mostrarAlertaConexao.timer);
+            mostrarAlertaConexao.timer = setTimeout(() => alerta.classList.remove('visivel'), 5000);
         }
 
-        function renderizarPresencas(dados) {
-            const nomes = Object.values(dados || {})
-                .filter(j => j && j.online !== false && j.nome)
-                .map(j => String(j.nome).trim()).filter(Boolean);
-            const unicos = [...new Set(nomes)].sort((a,b) => a.localeCompare(b, 'pt-BR'));
-            if (elOnlineList) elOnlineList.innerText = unicos.length
-                ? `Online (${unicos.length}): ${unicos.join(' • ')}`
-                : 'Nenhum outro jogador conectado.';
+        function normalizarNomeJogador(valor) {
+            return (valor || '').trim().replace(/\s+/g, ' ').slice(0, 24);
         }
 
-        window.alterarNomeJogador = function() {
-            const novoNome = (prompt('Nome de exibição:', nomeJogador) || '').trim();
-            if (!novoNome || novoNome === nomeJogador) return;
-            nomeJogador = novoNome.slice(0, 32);
-            localStorage.setItem('nihil_nome_jogador', nomeJogador);
-            elNomeJogador.innerText = nomeJogador;
-            set(presencaRef, { online:true, nome:nomeJogador, entrouEm:Date.now(), ultimaAtividade:Date.now() })
-                .catch(err => console.error('Falha ao atualizar presença:', err));
-        };
-
-        onValue(conexaoRef, (conectado) => {
-            const online = conectado.val() === true;
-            if (elFirebaseDot) elFirebaseDot.className = `firebase-dot ${online ? 'online' : 'offline'}`;
-            if (elFirebaseText) elFirebaseText.innerText = online ? 'Conectado ao Firebase' : 'Desconectado do Firebase';
-            if (online) {
+        function salvarNomeJogador(valor = null) {
+            const campo = document.getElementById('input-nome-jogador');
+            const nomeInformado = valor !== null ? valor : (campo?.value || '');
+            const novoNome = normalizarNomeJogador(nomeInformado);
+            if (!novoNome) return false;
+            nomeJogador = novoNome;
+            if (campo) campo.value = nomeJogador;
+            nomeConfirmado = true;
+            if (document.getElementById('status-firebase-indicador')?.classList.contains('online')) {
+                set(campanhaRef(`presenca_jogadores/${sessaoJogador}/nome`), nomeJogador).catch(err => console.error('Falha ao atualizar nome:', err));
+            }
+            atualizarStatusConexao(true);
+            if (document.getElementById('status-firebase-indicador')?.classList.contains('online')) {
                 onDisconnect(presencaRef).remove()
-                    .then(() => set(presencaRef, { online:true, nome:nomeJogador, entrouEm:Date.now(), ultimaAtividade:Date.now() }))
-                    .then(() => mostrarToastFirebase('✓ Conexão com o Firebase restabelecida.'))
+                    .then(() => set(presencaRef, { nome: nomeJogador, conectadoEm: Date.now() }))
                     .catch(err => console.error('Falha ao registrar presença:', err));
+            }
+            return true;
+        }
+
+        function fecharEdicaoNome() {
+            document.getElementById('edicao-nome-firebase')?.classList.remove('visivel');
+        }
+
+        function abrirModalNomeInicial() {
+            if (nomeConfirmado) return;
+            const modal = document.getElementById('modal-nome-firebase');
+            const campo = document.getElementById('input-nome-inicial');
+            if (!modal || !campo || nomeConfirmado || window.__nihilNomeConfirmado === true) return;
+            campo.value = '';
+            modal.hidden = false;
+            modal.setAttribute('aria-hidden', 'false');
+            modal.classList.remove('oculto');
+            modal.style.display = 'flex';
+            setTimeout(() => campo.focus(), 50);
+        }
+
+        function confirmarNomeInicial() {
+            const campo = document.getElementById('input-nome-inicial');
+            const modal = document.getElementById('modal-nome-firebase');
+            const nomeInformado = campo?.value || '';
+            const nome = normalizarNomeJogador(nomeInformado);
+
+            if (!nome) {
+                campo?.focus();
+                if (campo) campo.setCustomValidity('Digite um nome para entrar na sala.');
+                campo?.reportValidity?.();
+                return false;
+            }
+            if (campo) campo.setCustomValidity('');
+
+            // Primeiro libera a interface. Nada de await aqui: a rede nunca
+            // poderá manter o jogador preso no modal.
+            nomeJogador = nome;
+            nomeConfirmado = true;
+            window.__nihilNomeInicial = nome;
+            window.__nihilNomeConfirmado = true;
+
+            const campoPainel = document.getElementById('input-nome-jogador');
+            if (campoPainel) campoPainel.value = nome;
+
+            modal?.classList.add('oculto');
+            if (modal) { modal.style.display = 'none'; modal.hidden = true; modal.setAttribute('aria-hidden', 'true'); }
+
+            const estaOnline = document.getElementById('status-firebase-indicador')?.classList.contains('online') === true;
+            atualizarStatusConexao(estaOnline);
+
+            if (estaOnline) {
+                onDisconnect(presencaRef).remove()
+                    .then(() => set(presencaRef, { nome: nomeJogador, conectadoEm: Date.now() }))
+                    .catch(erro => {
+                        console.error('Falha ao registrar presença:', erro);
+                    });
+            }
+            return true;
+        }
+        // Disponibiliza a função também no escopo global para evitar falha caso o navegador
+        // não consiga registrar o listener do módulo a tempo.
+        window.confirmarNomeInicial = confirmarNomeInicial;
+
+        onValue(conexaoFirebaseRef, (conectado) => {
+            const online = conectado.val() === true;
+            atualizarStatusConexao(online);
+            if (online) {
+                if (nomeConfirmado && nomeJogador) {
+                    onDisconnect(presencaRef).remove()
+                        .then(() => set(presencaRef, { nome: nomeJogador, conectadoEm: Date.now() }))
+                        .catch(err => console.error('Falha ao registrar presença:', err));
+                }
             } else {
-                mostrarToastFirebase('⚠ Conexão com o Firebase perdida.', true);
+                mostrarAlertaConexao('⚠ Conexão com o Firebase perdida.', 'offline');
             }
         });
 
-        onValue(campanhaRef('presenca'), (snapshot) => {
+        onValue(presencaJogadoresRef, (snapshot) => {
             const dados = snapshot.val() || {};
-            renderizarPresencas(dados);
-            if (!primeiraLeituraPresenca) {
-                Object.keys(presencasAnteriores).forEach(id => {
-                    if (!dados[id] && presencasAnteriores[id]?.nome) {
-                        mostrarToastFirebase(`⚠ ${presencasAnteriores[id].nome} desconectou-se da campanha.`, true);
-                    }
-                });
-            }
-            presencasAnteriores = dados;
-            primeiraLeituraPresenca = false;
+            const lista = document.getElementById('lista-jogadores-conectados');
+            if (!lista) return;
+            lista.innerHTML = '';
+            const quantidade = Object.keys(dados).length;
+            const contador = document.getElementById('quantidade-jogadores-conectados');
+            if (contador) contador.textContent = quantidade;
+            Object.entries(dados).forEach(([id, jogador]) => {
+                const item = document.createElement('div');
+                item.className = 'jogador-conectado' + (id === sessaoJogador ? ' proprio' : '');
+                const ponto = document.createElement('span'); ponto.className = 'ponto-jogador';
+                const nome = document.createElement('span'); nome.className = 'nome-jogador'; nome.textContent = jogador?.nome || 'Jogador';
+                item.appendChild(ponto); item.appendChild(nome);
+                if (id === sessaoJogador) { const voce = document.createElement('span'); voce.className='rotulo-voce'; voce.textContent='você'; item.appendChild(voce); }
+                lista.appendChild(item);
+            });
         });
+
+        onChildRemoved(presencaJogadoresRef, (snapshot) => {
+            const jogador = snapshot.val();
+            if (!jogador?.nome || snapshot.key === sessaoJogador) return;
+            mostrarAlertaConexao(`⚠ ${jogador.nome} desconectou.`, 'offline');
+        });
+
+        window.addEventListener('beforeunload', () => { remove(presencaRef).catch(() => {}); });
+
+        const campoNomeJogador = document.getElementById('input-nome-jogador');
+        const botaoSalvarNome = document.getElementById('btn-salvar-nome');
+        const botaoEditarNome = document.getElementById('btn-editar-nome-firebase');
+        const modalNomeInicial = document.getElementById('modal-nome-firebase');
+        const campoNomeInicial = document.getElementById('input-nome-inicial');
+        const botaoConfirmarNomeInicial = document.getElementById('btn-confirmar-nome-inicial');
+        if (campoNomeJogador) { campoNomeJogador.value = nomeJogador; campoNomeJogador.addEventListener('keydown', e => { if (e.key === 'Enter') { salvarNomeJogador(); fecharEdicaoNome(); } }); }
+        if (botaoSalvarNome) botaoSalvarNome.addEventListener('click', () => { if (salvarNomeJogador()) fecharEdicaoNome(); });
+        if (botaoEditarNome) botaoEditarNome.addEventListener('click', () => {
+            const edicao = document.getElementById('edicao-nome-firebase');
+            if (!edicao) return;
+            edicao.classList.toggle('visivel');
+            if (edicao.classList.contains('visivel')) { campoNomeJogador?.focus(); campoNomeJogador?.select(); }
+        });
+        if (botaoConfirmarNomeInicial) {
+            botaoConfirmarNomeInicial.addEventListener('click', (e) => {
+                e.preventDefault();
+                confirmarNomeInicial();
+            });
+        }
+        if (campoNomeInicial) campoNomeInicial.addEventListener('keydown', e => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                confirmarNomeInicial();
+            }
+        });
+        // O modal já começa visível no HTML. Não o reabra aqui, pois isso
+        // poderia desfazer o fechamento feito pelo fallback de entrada.
+
 
 
         // ============================================================
@@ -2812,28 +3073,48 @@
         
         // Ações dos botões de Usar / Não Usar corrigidas com travas de segurança
         // Botões dos heróis limpam apenas o nó 'imagem_ativa'
-        document.getElementById('btn-modal-usar').addEventListener('click', () => {
-            if (imagemAbertaLocalmente) {
-                set(campanhaRef( `status/${imagemAbertaLocalmente.idHeroi}/botoes_img/${imagemAbertaLocalmente.numeroBotao}`), true);
+        // Os elementos destes modais ficam no final do HTML, depois deste módulo.
+        // Portanto, neste ponto da análise do documento eles ainda podem não existir.
+        // Guardamos os listeners para o DOMContentLoaded, evitando que um null
+        // interrompa o módulo inteiro e deixe os demais botões do jogo inutilizados.
+        function configurarBotoesModaisCentrais() {
+            const btnUsar = document.getElementById('btn-modal-usar');
+            if (btnUsar && !btnUsar.dataset.listenerConfigurado) {
+                btnUsar.dataset.listenerConfigurado = 'true';
+                btnUsar.addEventListener('click', () => {
+                    if (imagemAbertaLocalmente) {
+                        set(campanhaRef(`status/${imagemAbertaLocalmente.idHeroi}/botoes_img/${imagemAbertaLocalmente.numeroBotao}`), true);
+                    }
+                    set(campanhaRef('imagem_ativa'), null);
+                    imagemAbertaLocalmente = null;
+                });
             }
-            set(campanhaRef( 'imagem_ativa'), null);
-            imagemAbertaLocalmente = null;
-        });
 
-        document.getElementById('btn-modal-nao-usar').addEventListener('click', () => {
-            if (imagemAbertaLocalmente) {
-                set(campanhaRef( `status/${imagemAbertaLocalmente.idHeroi}/botoes_img/${imagemAbertaLocalmente.numeroBotao}`), false);
+            const btnNaoUsar = document.getElementById('btn-modal-nao-usar');
+            if (btnNaoUsar && !btnNaoUsar.dataset.listenerConfigurado) {
+                btnNaoUsar.dataset.listenerConfigurado = 'true';
+                btnNaoUsar.addEventListener('click', () => {
+                    if (imagemAbertaLocalmente) {
+                        set(campanhaRef(`status/${imagemAbertaLocalmente.idHeroi}/botoes_img/${imagemAbertaLocalmente.numeroBotao}`), false);
+                    }
+                    set(campanhaRef('imagem_ativa'), null);
+                    imagemAbertaLocalmente = null;
+                });
             }
-            set(campanhaRef( 'imagem_ativa'), null);
-            imagemAbertaLocalmente = null;
-        });
 
-        // Evento para o botão de fechar quando for imagem do rodapé (sistema)
-        // Botão Fechar exclusivo do Inimigo limpa apenas o nó 'inimigo_ativo'
-        document.getElementById('btn-modal-fechar-sistema').addEventListener('click', () => {
-            set(campanhaRef( 'inimigo_ativo'), null);
-            inimigoAbertoLocalmente = null;
-        });
+            const btnFecharSistema = document.getElementById('btn-modal-fechar-sistema');
+            if (btnFecharSistema && !btnFecharSistema.dataset.listenerConfigurado) {
+                btnFecharSistema.dataset.listenerConfigurado = 'true';
+                btnFecharSistema.addEventListener('click', () => {
+                    set(campanhaRef('inimigo_ativo'), null);
+                    inimigoAbertoLocalmente = null;
+                });
+            }
+        }
+
+        // Tenta agora e novamente quando todo o HTML tiver sido criado.
+        configurarBotoesModaisCentrais();
+        window.addEventListener('DOMContentLoaded', configurarBotoesModaisCentrais);
 
         function fecharModalCentral() {
             document.getElementById('modal-imagem-central').style.display = 'none';
@@ -3929,73 +4210,5 @@
     };
         
     </script>
-
-    <div id="modal-imagem-central" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 99; align-items: center; justify-content: center; flex-direction: column; gap: 20px; pointer-events: none;">
-        <img id="imagem-central-exibida" src="" style="max-width: 80%; max-height: 65vh; border: 2px solid #c5a059; box-shadow: 0 0 20px rgba(197, 160, 89, 0.5); border-radius: 4px; pointer-events: auto;">
-        
-        <div id="container-botoes-heroi" style="display: flex; gap: 20px; pointer-events: auto;">
-            <button id="btn-modal-usar" style="background: #8b0000; color: #fff; border: 1px solid #ff0000; padding: 10px 25px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer; border-radius: 4px;">Usar</button>
-            <button id="btn-modal-nao-usar" style="background: #333; color: #dcd0c0; border: 1px solid #555; padding: 10px 25px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer; border-radius: 4px;">Não usar</button>
-        </div>
-    </div>
-
-    <div id="modal-inimigo-central" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 98; align-items: center; justify-content: center; flex-direction: column; gap: 20px; pointer-events: none;">
-        <img id="imagem-inimigo-exibida" src="" style="max-width: 75%; max-height: 60vh; border: 2px solid #8b0000; box-shadow: 0 0 20px rgba(139, 0, 0, 0.6); border-radius: 4px; pointer-events: auto;">
-        
-        <div id="container-vida-monstro" style="flex-direction: column; align-items: center; gap: 12px; background: rgba(15,10,10,0.95); padding: 15px 25px; border: 1px solid rgba(139, 0, 0, 0.4); border-radius: 6px; pointer-events: auto;">
-            <div style="display: flex; align-items: center; gap: 15px;">
-                <span style="font-family: 'Cinzel', serif; font-weight: bold; color: #8b0000; font-size: 1.2rem;">PV:</span>
-                <button onclick="alterarVidaTemporaria(-1)" style="background: #333; color: #fff; border: 1px solid #555; width: 30px; height: 30px; cursor: pointer; font-weight: bold; border-radius: 3px;">-</button>
-                <span id="display-vida-temporaria" style="font-family: 'Lora', serif; font-size: 1.5rem; font-weight: bold; color: #fff; min-width: 40px; text-align: center;">0</span>
-                <button onclick="alterarVidaTemporaria(1)" style="background: #8b0000; color: #fff; border: 1px solid #ff0000; width: 30px; height: 30px; cursor: pointer; font-weight: bold; border-radius: 3px;">+</button>
-            </div>
-
-            <button onclick="lancarDadoInimigo()" style="background: linear-gradient(135deg, #8b0000 0%, #ff0000 100%); color: #fff; border: 2px solid #ff4d4d; padding: 8px 20px; font-family: 'Cinzel', serif; font-weight: bold; font-size: 1rem; cursor: pointer; border-radius: 5px; box-shadow: 0 0 15px rgba(255, 0, 0, 0.4); text-transform: uppercase; letter-spacing: 1px; transition: transform 0.1s; width: 100%; margin-top: 5px;">
-                ⚔️ Rolar Ataque
-            </button>
-
-            <button id="btn-modal-fechar-sistema" style="background: #222; color: #bfae96; border: 1px solid #444; padding: 6px 16px; font-family: 'Lora', serif; cursor: pointer; border-radius: 4px; margin-top: 5px; font-size: 0.85rem; width: 100%;">Fechar Inimigo</button>
-        </div>
-    </div>
-
-    <div id="modal-inventario" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); z-index: 100000; align-items: center; justify-content: center; pointer-events: auto;">
-        <div style="background: rgba(12, 8, 8, 0.98); border: 2px solid #c5a059; padding: 22px; border-radius: 4px; width: 90%; max-width: 420px; box-shadow: 0 0 25px rgba(197, 160, 89, 0.35); display: flex; flex-direction: column; gap: 15px;">
-            
-            <h3 id="titulo-inventario" style="font-family: 'Cinzel', serif; color: #c5a059; margin: 0; text-align: center; font-size: 1.2rem; letter-spacing: 1px; border-bottom: 1px solid #4a0000; padding-bottom: 8px;">Inventário</h3>
-            
-            <textarea id="texto-inventario" placeholder="Liste os pertences do herói aqui...&#10;Ex:&#10;- Pergaminho de Fogo&#10;- Elixir de Escudos&#10;- 2x Elixir de Cura" style="width: 100%; height: 220px; background: #080505; color: #dcd0c0; border: 1px solid rgba(197, 160, 89, 0.2); border-radius: 3px; padding: 12px; font-family: 'Lora', serif; font-size: 0.9rem; resize: none; box-sizing: border-box; outline: none; line-height: 1.4;"></textarea>
-            
-            <div style="display: flex; gap: 10px;">
-                <button onclick="salvarInventario()" style="flex: 1; background: #4a0000; color: #bfae96; border: 1px solid #8b0000; padding: 8px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer; border-radius: 3px; transition: all 0.2s;">Salvar</button>
-                <button onclick="fecharInventario()" style="background: #222; color: #dcd0c0; border: 1px solid #444; padding: 8px 16px; font-family: 'Cinzel', serif; cursor: pointer; border-radius: 3px; transition: all 0.2s;">Fechar</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="chat-rolagens" class="chat-rolagens">
-
-        <div class="chat-topo">
-
-            <span>🎲 Rolagens</span>
-
-            <span class="btn-chat"
-                onclick="fecharChatRolagens()">
-                ✕
-            </span>
-
-        </div>
-
-        <div id="lista-rolagens"></div>
-
-    </div>
-
-    <div id="abaRolagens"
-        class="aba-rolagens"
-        onclick="alternarChatRolagens()">
-
-        🎲
-
-    </div>
-
 </body>
 </html>
