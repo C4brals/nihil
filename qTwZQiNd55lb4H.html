@@ -1279,7 +1279,7 @@
         }
 
         /* ================= STATUS FIREBASE / JOGADORES ================= */
-        .painel-status-firebase { position:fixed; left:28px; bottom:28px; width:285px; max-width:calc(100vw - 56px); padding:8px 10px 7px; background:rgba(8,6,6,.95); border:1px solid rgba(197,160,89,.68); border-radius:5px; box-shadow:0 4px 16px rgba(0,0,0,.72); z-index:30000; font-family:'Lora',serif; font-size:.72rem; }
+        .painel-status-firebase { position:fixed; left:25px; bottom:25px; width:220px; max-width:calc(100vw - 56px); padding:8px 10px 7px; background:rgba(8,6,6,.95); border:1px solid rgba(197,160,89,.68); border-radius:5px; box-shadow:0 4px 16px rgba(0,0,0,.72); z-index:30000; font-family:'Lora',serif; font-size:.72rem; }
         .cabecalho-status-firebase { display:flex; align-items:center; justify-content:space-between; min-height:17px; }
         .titulo-status-firebase { display:flex; align-items:center; gap:6px; color:#c5a059; font-family:'Cinzel',serif; font-size:.64rem; letter-spacing:.45px; text-transform:uppercase; }
         .titulo-status-firebase .ornamento { color:#c5a059; font-size:.65rem; }
@@ -4157,44 +4157,58 @@
 
         // --- ENVIAR PARA O FIREBASE O EFEITO SONORO DISPARADO ---
         window.dispararEfeitoFirebase = function(caminhoEfeito) {
-            if (!caminhoEfeito) return;
-            
             // Fecha o menu suspenso após a escolha
             const dropdown = document.getElementById("drop-efeitos-topo");
             if (dropdown) dropdown.style.display = "none";
 
-            // Salvamos no Firebase com um timestamp
-            // Isso garante que se dispararmos duas vezes seguidas o mesmo corte de espada,
-            // o navegador identificará um evento novo e reproduzirá de forma contínua
-            set(campanhaRef( "efeito_sonoro_sincronizado"), {
-                caminho: caminhoEfeito,
+            // "Nenhum Efeito" também precisa ir para o Firebase.
+            // Caso contrário, o último efeito válido continua salvo e será
+            // reproduzido novamente quando a página for atualizada.
+            set(campanhaRef("efeito_sonoro_sincronizado"), {
+                caminho: caminhoEfeito || "",
                 timestamp: Date.now()
-            });
+            }).catch(erro => console.error("Falha ao atualizar efeito sonoro:", erro));
         };
 
         // --- ESCUTA EM TEMPO REAL DO FIREBASE PARA TOCAR NOS OUTROS JOGADORES ---
         let ultimoTimestampEfeito = 0;
+        let primeiraLeituraEfeitoFirebase = true;
 
-        onValue(campanhaRef( "efeito_sonoro_sincronizado"), (snapshot) => {
+        onValue(campanhaRef("efeito_sonoro_sincronizado"), (snapshot) => {
             const dados = snapshot.val();
-            if (dados && dados.caminho) {
-                // Apenas toca se for um comando novo (timestamp maior do que o guardado localmente)
-                if (dados.timestamp > ultimoTimestampEfeito) {
-                    ultimoTimestampEfeito = dados.timestamp;
-                    
-                    const playerEfeito = document.getElementById('audio-efeito');
-                    if (playerEfeito) {
-                        // Sincroniza o volume do efeito com a barra de volume do seu player original
-                        const sliderVolume = document.getElementById('volume-player');
-                        playerEfeito.volume = sliderVolume ? parseFloat(sliderVolume.value) : 0.5;
-                        
-                        playerEfeito.src = dados.caminho;
-                        playerEfeito.play().catch(e => {
-                            console.log("O navegador limitou o autoplay antes de uma interação física com a página.");
-                        });
-                    }
-                }
+            if (!dados || typeof dados.timestamp !== "number") return;
+
+            // O onValue() dispara imediatamente com o valor que já estava salvo.
+            // NÃO reproduzimos essa primeira leitura: assim, atualizar o navegador
+            // não repete o último efeito sonoro.
+            if (primeiraLeituraEfeitoFirebase) {
+                primeiraLeituraEfeitoFirebase = false;
+                ultimoTimestampEfeito = dados.timestamp;
+                return;
             }
+
+            if (dados.timestamp <= ultimoTimestampEfeito) return;
+            ultimoTimestampEfeito = dados.timestamp;
+
+            // Caminho vazio = "Nenhum Efeito". Apenas interrompe qualquer
+            // efeito que esteja tocando; não tenta reproduzir áudio vazio.
+            const playerEfeito = document.getElementById('audio-efeito');
+            if (!playerEfeito) return;
+
+            if (!dados.caminho) {
+                playerEfeito.pause();
+                playerEfeito.currentTime = 0;
+                playerEfeito.removeAttribute('src');
+                playerEfeito.load();
+                return;
+            }
+
+            const sliderVolume = document.getElementById('volume-player');
+            playerEfeito.volume = sliderVolume ? parseFloat(sliderVolume.value) : 0.5;
+            playerEfeito.src = dados.caminho;
+            playerEfeito.play().catch(e => {
+                console.log("O navegador limitou o autoplay antes de uma interação física com a página.");
+            });
         });
 
   
