@@ -244,32 +244,12 @@
             overflow: hidden;
         }
 
-        .mapa-midia {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            z-index: 0;
-        }
-
-        .mapa-midia .mapa-img,
-        .mapa-midia .mapa-video {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: brightness(0.85) contrast(1.05);
-        }
-
-        .mapa-midia .mapa-img {
-            display: block;
-        }
-
-        .mapa-midia .mapa-video {
-            display: none;
+        .mapa-img { 
+            width: 100%; 
+            height: 100%; 
+            display: block; 
+            object-fit: contain; 
+            filter: brightness(0.85) contrast(1.05); 
         }
 
         /* ================= CONTADOR DE SELOS DO BOSS ================= */
@@ -2100,10 +2080,7 @@
                     </ul>
 
                 </div>
-                <div class="mapa-midia">
-                    <img id="mapa-img-atual" src="./assets/ato2/mapas/principal.jpg" alt="Mapa Nihil" class="mapa-img">
-                    <video id="mapa-video-atual" class="mapa-video" autoplay loop muted playsinline preload="auto"></video>
-                </div>
+                <img src="./assets/ato2/mapas/principal.jpg" alt="Mapa Nihil" class="mapa-img">  
                 <!-- Contador global de selos do Boss -->
                 <div id="contador-selos" class="contador-selos">
                     <span class="titulo-selos">❄ SELOS DE OXILIAT ❄</span>
@@ -2351,8 +2328,8 @@
                         <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/principal.jpg')">Mapa Principal</li>   
                         <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg1.jpg')">DG I</li>      
                         <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg2.jpg')">DG II</li>  
-                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/videoDG3.mp4')">DG III</li>    
-                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg4.jpg')">DG IV</li>     
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg3.jpg')">DG III</li>    
+                        <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/gifdg4.mp4')">DG IV</li>     
                         <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg5.jpg')">DG V</li>  
                         <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg6.jpg')">DG VI</li>  
                         <li onclick="trocarMapaNoBanco('./assets/ato2/mapas/dg7.jpg')">DG VII</li>
@@ -3924,43 +3901,11 @@
         // --- ESCUTADOR PARA ATUALIZAR O MAPA EM TEMPO REAL ---
         onValue(campanhaRef( 'mapa_atual'), (snapshot) => {
             const caminhoMapa = snapshot.val();
-            const imgMapa = document.getElementById('mapa-img-atual');
-            const videoMapa = document.getElementById('mapa-video-atual');
-
-            if (!caminhoMapa || !imgMapa || !videoMapa) return;
-
-            const caminhoMinusculo = caminhoMapa.toLowerCase();
-            const ehVideo =
-                caminhoMinusculo.endsWith('.mp4') ||
-                caminhoMinusculo.endsWith('.webm') ||
-                caminhoMinusculo.endsWith('.ogg');
-
-            if (ehVideo) {
-                imgMapa.style.display = 'none';
-                videoMapa.style.display = 'block';
-
-                videoMapa.pause();
-                videoMapa.src = caminhoMapa;
-                videoMapa.loop = true;
-                videoMapa.autoplay = true;
-                videoMapa.muted = true;
-                videoMapa.playsInline = true;
-                videoMapa.currentTime = 0;
-                videoMapa.load();
-
-                videoMapa.play().catch((erro) => {
-                    console.warn('Autoplay do mapa bloqueado pelo navegador:', erro);
-                });
-                return;
+            const tagMapa = document.querySelector('.mapa-img');
+            
+            if (caminhoMapa && tagMapa) {
+                tagMapa.src = caminhoMapa;
             }
-
-            // Continua aceitando normalmente JPG, JPEG, PNG, GIF etc.
-            videoMapa.pause();
-            videoMapa.removeAttribute('src');
-            videoMapa.load();
-            videoMapa.style.display = 'none';
-            imgMapa.style.display = 'block';
-            imgMapa.src = caminhoMapa;
         });
 
         // --- ESCUTADOR MODIFICADO: EXIBIR IMAGEM E ATUALIZAR VIDA DO GRUPO EM TEMPO REAL ---
