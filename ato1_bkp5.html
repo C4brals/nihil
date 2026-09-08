@@ -1381,14 +1381,6 @@
         .titulo-status-firebase .ornamento { color:#c5a059; font-size:.65rem; }
         .botao-editar-nome-firebase { width:21px; height:20px; padding:0; display:flex; align-items:center; justify-content:center; background:rgba(35,28,18,.8); color:#c5a059; border:1px solid rgba(197,160,89,.45); border-radius:3px; cursor:pointer; font-size:.72rem; line-height:1; }
         .botao-editar-nome-firebase:hover { background:rgba(197,160,89,.16); color:#fff; border-color:#c5a059; }
-        .botao-minimizar-firebase { width:21px; height:20px; padding:0; display:flex; align-items:center; justify-content:center; background:rgba(35,28,18,.8); color:#c5a059; border:1px solid rgba(197,160,89,.45); border-radius:3px; cursor:pointer; font-size:.72rem; line-height:1; margin-left:4px; }
-        .botao-minimizar-firebase:hover { background:rgba(197,160,89,.16); color:#fff; border-color:#c5a059; }
-        .acoes-cabecalho-firebase { display:flex; align-items:center; justify-content:flex-end; }
-        .painel-status-firebase.minimizado { width:auto; min-width:0; padding:5px 7px; }
-        .painel-status-firebase.minimizado .conteudo-status-firebase { display:none; }
-        .painel-status-firebase.minimizado .cabecalho-status-firebase { min-height:20px; }
-        .painel-status-firebase.minimizado .titulo-status-firebase { font-size:.6rem; }
-        .painel-status-firebase.minimizado .botao-editar-nome-firebase { display:none; }
         .status-firebase-linha { display:flex; align-items:center; gap:6px; margin-top:5px; color:#dcd0c0; }
         .indicador-firebase { width:9px; height:9px; min-width:9px; border-radius:50%; display:inline-block; box-shadow:0 0 6px currentColor; }
         .indicador-firebase.online { background:#35b94b; color:#35b94b; }
@@ -1435,18 +1427,13 @@
     <section id="painel-status-firebase" class="painel-status-firebase" aria-label="Status da conexão">
         <div class="cabecalho-status-firebase">
             <div class="titulo-status-firebase"><span class="ornamento">❖</span><span>Conexão da Campanha</span></div>
-            <div class="acoes-cabecalho-firebase">
-                <button type="button" id="btn-editar-nome-firebase" class="botao-editar-nome-firebase" title="Alterar nome">✎</button>
-                <button type="button" id="btn-minimizar-firebase" class="botao-minimizar-firebase" title="Minimizar painel" aria-label="Minimizar painel">−</button>
-            </div>
+            <button type="button" id="btn-editar-nome-firebase" class="botao-editar-nome-firebase" title="Alterar nome">✎</button>
         </div>
-        <div class="conteudo-status-firebase">
         <div class="status-firebase-linha"><span id="status-firebase-indicador" class="indicador-firebase offline"></span><span id="status-firebase-texto">Conectando ao Firebase...</span></div>
         <div class="status-firebase-nome" id="status-firebase-nome">Jogador: <strong>Jogador</strong></div>
         <div class="edicao-nome-firebase" id="edicao-nome-firebase"><input id="input-nome-jogador" type="text" maxlength="24" placeholder="Seu nome" autocomplete="nickname"><button type="button" id="btn-salvar-nome" title="Salvar nome">OK</button></div>
         <div class="titulo-jogadores-conectados">Online (<span id="quantidade-jogadores-conectados">0</span>):</div>
         <div id="lista-jogadores-conectados" class="lista-jogadores-conectados"></div>
-        </div>
     </section>
     <div id="alerta-conexao" class="alerta-conexao" role="status" aria-live="polite"></div>
 
@@ -2762,26 +2749,6 @@
         const campoNomeJogador = document.getElementById('input-nome-jogador');
         const botaoSalvarNome = document.getElementById('btn-salvar-nome');
         const botaoEditarNome = document.getElementById('btn-editar-nome-firebase');
-        const botaoMinimizarFirebase = document.getElementById('btn-minimizar-firebase');
-        const painelStatusFirebase = document.getElementById('painel-status-firebase');
-        const estadoPainelFirebase = sessionStorage.getItem('nihil_status_firebase_minimizado') === 'true';
-        if (painelStatusFirebase && estadoPainelFirebase) {
-            painelStatusFirebase.classList.add('minimizado');
-            if (botaoMinimizarFirebase) {
-                botaoMinimizarFirebase.innerText = '+';
-                botaoMinimizarFirebase.title = 'Mostrar painel';
-                botaoMinimizarFirebase.setAttribute('aria-label', 'Mostrar painel');
-            }
-        }
-        if (botaoMinimizarFirebase && painelStatusFirebase) {
-            botaoMinimizarFirebase.addEventListener('click', () => {
-                const minimizado = painelStatusFirebase.classList.toggle('minimizado');
-                sessionStorage.setItem('nihil_status_firebase_minimizado', minimizado ? 'true' : 'false');
-                botaoMinimizarFirebase.innerText = minimizado ? '+' : '−';
-                botaoMinimizarFirebase.title = minimizado ? 'Mostrar painel' : 'Minimizar painel';
-                botaoMinimizarFirebase.setAttribute('aria-label', minimizado ? 'Mostrar painel' : 'Minimizar painel');
-            });
-        }
         const modalNomeInicial = document.getElementById('modal-nome-firebase');
         const campoNomeInicial = document.getElementById('input-nome-inicial');
         const botaoConfirmarNomeInicial = document.getElementById('btn-confirmar-nome-inicial');
