@@ -1305,43 +1305,6 @@
         .titulo-status-firebase .ornamento { color:#c5a059; font-size:.65rem; }
         .botao-editar-nome-firebase { width:21px; height:20px; padding:0; display:flex; align-items:center; justify-content:center; background:rgba(35,28,18,.8); color:#c5a059; border:1px solid rgba(197,160,89,.45); border-radius:3px; cursor:pointer; font-size:.72rem; line-height:1; }
         .botao-editar-nome-firebase:hover { background:rgba(197,160,89,.16); color:#fff; border-color:#c5a059; }
-
-        /* Botão para minimizar/restaurar o painel de status Firebase */
-        .botao-minimizar-firebase {
-            width:21px;
-            height:20px;
-            padding:0;
-            margin-left:auto;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            background:rgba(35,28,18,.8);
-            color:#c5a059;
-            border:1px solid rgba(197,160,89,.45);
-            border-radius:3px;
-            cursor:pointer;
-            font-size:.72rem;
-            line-height:1;
-            transition:all .2s ease;
-        }
-        .botao-minimizar-firebase:hover {
-            background:rgba(197,160,89,.16);
-            color:#fff;
-            border-color:#c5a059;
-            box-shadow:0 0 7px rgba(197,160,89,.2);
-        }
-        .painel-status-firebase.minimizado {
-            width:220px;
-            min-width:220px;
-            padding:6px 10px;
-        }
-        .painel-status-firebase.minimizado .conteudo-status-firebase {
-            display:none;
-        }
-        .painel-status-firebase.minimizado .cabecalho-status-firebase {
-            min-height:20px;
-        }
-
         .status-firebase-linha { display:flex; align-items:center; gap:6px; margin-top:5px; color:#dcd0c0; }
         .indicador-firebase { width:9px; height:9px; min-width:9px; border-radius:50%; display:inline-block; box-shadow:0 0 6px currentColor; }
         .indicador-firebase.online { background:#35b94b; color:#35b94b; }
@@ -1388,16 +1351,13 @@
     <section id="painel-status-firebase" class="painel-status-firebase" aria-label="Status da conexão">
         <div class="cabecalho-status-firebase">
             <div class="titulo-status-firebase"><span class="ornamento">❖</span><span>Conexão da Campanha</span></div>
-            <button type="button" id="btn-editar-nome-firebase" class="botao-editar-nome-firebase" title="Alterar nome" aria-label="Alterar nome">✎</button>
-            <button type="button" id="btn-minimizar-firebase" class="botao-minimizar-firebase" title="Minimizar painel" aria-label="Minimizar painel" aria-expanded="true">−</button>
+            <button type="button" id="btn-editar-nome-firebase" class="botao-editar-nome-firebase" title="Alterar nome">✎</button>
         </div>
-        <div id="conteudo-status-firebase" class="conteudo-status-firebase">
-            <div class="status-firebase-linha"><span id="status-firebase-indicador" class="indicador-firebase offline"></span><span id="status-firebase-texto">Conectando ao Firebase...</span></div>
-            <div class="status-firebase-nome" id="status-firebase-nome">Jogador: <strong>Jogador</strong></div>
-            <div class="edicao-nome-firebase" id="edicao-nome-firebase"><input id="input-nome-jogador" type="text" maxlength="24" placeholder="Seu nome" autocomplete="nickname"><button type="button" id="btn-salvar-nome" title="Salvar nome">OK</button></div>
-            <div class="titulo-jogadores-conectados">Online (<span id="quantidade-jogadores-conectados">0</span>):</div>
-            <div id="lista-jogadores-conectados" class="lista-jogadores-conectados"></div>
-        </div>
+        <div class="status-firebase-linha"><span id="status-firebase-indicador" class="indicador-firebase offline"></span><span id="status-firebase-texto">Conectando ao Firebase...</span></div>
+        <div class="status-firebase-nome" id="status-firebase-nome">Jogador: <strong>Jogador</strong></div>
+        <div class="edicao-nome-firebase" id="edicao-nome-firebase"><input id="input-nome-jogador" type="text" maxlength="24" placeholder="Seu nome" autocomplete="nickname"><button type="button" id="btn-salvar-nome" title="Salvar nome">OK</button></div>
+        <div class="titulo-jogadores-conectados">Online (<span id="quantidade-jogadores-conectados">0</span>):</div>
+        <div id="lista-jogadores-conectados" class="lista-jogadores-conectados"></div>
     </section>
     <div id="alerta-conexao" class="alerta-conexao" role="status" aria-live="polite"></div>
 
@@ -2878,21 +2838,6 @@
         const campoNomeJogador = document.getElementById('input-nome-jogador');
         const botaoSalvarNome = document.getElementById('btn-salvar-nome');
         const botaoEditarNome = document.getElementById('btn-editar-nome-firebase');
-        const botaoMinimizarFirebase = document.getElementById('btn-minimizar-firebase');
-        const painelStatusFirebase = document.getElementById('painel-status-firebase');
-
-        // Minimiza/restaura apenas a interface do painel.
-        // Nenhum listener ou conexão do Firebase é interrompido.
-        if (botaoMinimizarFirebase && painelStatusFirebase) {
-            botaoMinimizarFirebase.addEventListener('click', () => {
-                const minimizado = painelStatusFirebase.classList.toggle('minimizado');
-                botaoMinimizarFirebase.textContent = minimizado ? '+' : '−';
-                botaoMinimizarFirebase.title = minimizado ? 'Restaurar painel' : 'Minimizar painel';
-                botaoMinimizarFirebase.setAttribute('aria-label', minimizado ? 'Restaurar painel' : 'Minimizar painel');
-                botaoMinimizarFirebase.setAttribute('aria-expanded', String(!minimizado));
-            });
-        }
-
         const modalNomeInicial = document.getElementById('modal-nome-firebase');
         const campoNomeInicial = document.getElementById('input-nome-inicial');
         const botaoConfirmarNomeInicial = document.getElementById('btn-confirmar-nome-inicial');
