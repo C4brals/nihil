@@ -283,95 +283,77 @@
             display: none;
         }
 
-        #topo-controles-direita{
-            position:fixed;
-            top:10px;
+        .painel-efeito-mapa{
+
+            position:absolute;
+
             right:10px;
-            z-index:20000;
-            display:flex;
-            align-items:stretch;
-            gap:10px;
-            pointer-events:none;
+            bottom:285px;
+
+            width:125px;
+
+            background:rgba(22,22,22,.90);
+
+            border:2px solid #8c6b2f;
+            border-radius:6px;
+
+            padding:4px;
+
+            text-align:center;
+
+            box-sizing:border-box;
+
+            overflow:hidden;
+
+            z-index:50;
+
         }
 
-        .painel-efeito-topo{
-            height:42px;
-            min-width:150px;
-            max-width:190px;
-            padding:4px 12px;
-            background:rgba(15,10,10,.90);
-            border:1px solid #c5a059;
-            border-radius:4px;
-            box-shadow:0 0 10px rgba(197,160,89,.3);
-            display:flex;
-            flex-direction:column;
-            justify-content:center;
-            align-items:center;
-            gap:1px;
+        .painel-efeito-mapa h3{
+
+            margin:0 0 4px;
+
+            font-size:11px;
+
+            color:#d9b96d;
+
+        }
+
+        #previewEfeito{
+
+            width:105px;
+            height:145px;
+
+            object-fit:contain;
+
             cursor:pointer;
-            pointer-events:auto;
-            transition:all .2s ease;
-        }
 
-        .painel-efeito-topo:hover{
-            background:rgba(35,20,15,.96);
-            box-shadow:0 0 14px rgba(197,160,89,.45);
-        }
-
-        .rotulo-fragmento{
-            font-family:'Cinzel',serif;
-            font-size:8px;
-            letter-spacing:1px;
-            color:#8f806d;
-            line-height:1;
+            transition:0.2s;
         }
 
         #nomeEfeito{
-            display:none;
-            color:#d9b96d;
-            font-family:'Cinzel',serif;
-            font-size:11px;
-            font-weight:700;
-            line-height:1.2;
-            white-space:nowrap;
-            overflow:hidden;
-            text-overflow:ellipsis;
-            max-width:100%;
-        }
 
-        #seletorEfeito{
             display:block;
-            width:100%;
-            margin-top:2px;
-            padding:2px 24px 2px 6px;
-            background:#111;
-            color:#f0d58a;
-            border:1px solid rgba(212,175,55,.45);
-            border-radius:4px;
+
+            margin:4px 0;
+
             font-size:11px;
+
+            color:#d9b96d;
+
+            text-decoration:none;
+
             cursor:pointer;
-            font-family:'Cinzel',serif;
+
         }
 
-        #seletorEfeito option{
-            background:#111;
-            color:#f0d58a;
-        }
-
-        @media (max-width:900px){
-            #topo-controles-direita{
-                top:8px;
-                right:8px;
-                gap:6px;
-            }
-            .painel-efeito-topo{
-                min-width:120px;
-                max-width:145px;
-                height:42px;
-                padding:4px 8px;
-            }
-            #nomeEfeito{font-size:10px;}
-            .rotulo-fragmento{font-size:7px;}
+        .painel-efeito-mapa select {
+            background: #161616;
+            color: #dcd0c0;
+            border: 1px solid #8c6b2f;
+            padding: 2px;
+            font-family: 'Lora', serif;
+            cursor: pointer;
         }
 
         #janelaDescricao{
@@ -1448,23 +1430,7 @@
 
     <audio id="audio-efeito"></audio>
 
-    <div id="topo-controles-direita">
-        <div id="painel-efeito-topo" class="painel-efeito-topo"
-             title="Clique para ver a descrição do fragmento ativo"
-             onclick="abrirDescricaoEfeito()">
-            <span class="rotulo-fragmento">FRAGMENTO ATIVO</span>
-            <span id="nomeEfeito">Nenhum</span>
-            <select id="seletorEfeito" aria-label="Selecionar fragmento" onclick="event.stopPropagation()" onchange="trocarEfeitoMapa(this.value)">
-                <option value="">Nenhum</option>
-                <option value="Fragmento I">Fragmento I</option>
-                <option value="Fragmento II">Fragmento II</option>
-                <option value="Fragmento III">Fragmento III</option>
-                <option value="Fragmento IV">Fragmento IV</option>
-                <option value="Fragmento V">Fragmento V</option>
-            </select>
-        </div>
-
-    <div id="mini-player-musica" style="position: relative; top: auto; right: auto; z-index: 20000; background: rgba(15, 10, 10, 0.9); border: 1px solid #c5a059; border-radius: 4px; padding: 5px 10px; display: flex; align-items: center; gap: 10px; box-shadow: 0 0 10px rgba(197, 160, 89, 0.3); pointer-events: auto;">
+    <div id="mini-player-musica" style="position: fixed; top: 10px; right: 10px; z-index: 20000; background: rgba(15, 10, 10, 0.9); border: 1px solid #c5a059; border-radius: 4px; padding: 5px 10px; display: flex; align-items: center; gap: 10px; box-shadow: 0 0 10px rgba(197, 160, 89, 0.3); pointer-events: auto;">
         <audio id="audio-principal"></audio>
         
         <select id="seletor-musica" onchange="trocarMusica()" style="background: #222; color: #dcd0c0; border: 1px solid #444; font-family: 'Lora', serif; font-size: 0.75rem; padding: 2px 5px; cursor: pointer; max-width: 120px;">
@@ -1547,7 +1513,6 @@
                 
             </ul>
         </div>
-    </div>
     </div>
    
 
@@ -2208,6 +2173,33 @@
                 <canvas id="canvas-nevoa"></canvas>
                 
                 
+
+                <div class="painel-efeito-mapa">
+
+                    <h3>Efeito Atual</h3>
+
+                    <img id="previewEfeito"
+                        src="./assets/cartas/Fragmentos de Almas/nenhum.jpg">
+
+                    <a href="#"
+                        id="nomeEfeito"
+                        onclick="abrirDescricaoEfeito(); return false;">
+                            Nenhum
+                    </a>
+
+                    <select id="seletorEfeito" onchange="trocarEfeitoMapa(this.value)">
+
+                        <option value="">Nenhum</option>
+
+                        <option value="Fragmento I">Fragmento I</option>
+                        <option value="Fragmento II">Fragmento II</option>
+                        <option value="Fragmento III">Fragmento III</option>
+                        <option value="Fragmento IV">Fragmento IV</option>
+                        <option value="Fragmento V">Fragmento V</option>
+
+                    </select>
+
+                </div>
 
                 <div id="token-h1" class="token-heroi" style="--token-color: #8b0000; top: 46%; left: 16.5%;"><img src="./assets/herois/adepto.jpg?w=100" id="img-token-h1"></div>
                 <div id="token-h2" class="token-heroi" style="--token-color: #2e4a2e; top: 46%; left: 18.5%;"><img src="./assets/herois/atroz.jpg?w=100" id="img-token-h2"></div>
@@ -3263,17 +3255,17 @@
         });
 
         function atualizarInterface(nome) {
+            const preview = document.getElementById("previewEfeito");
             const titulo = document.getElementById("nomeEfeito");
-            const seletor = document.getElementById("seletorEfeito");
 
-            if (!titulo) return;
+            if (!preview || !titulo) return;
 
-            titulo.innerText = nome || "Nenhum";
-
-            // Mantém a lista sincronizada com o Firebase.
-            if (seletor) {
-                seletor.value = nome === "Nenhum" ? "" : nome;
-            }
+            // Ajuste aqui para garantir que o caminho funcione no Vercel
+            // Dica: use caminhos minúsculos e sem espaços se possível
+            const caminho = "./assets/cartas/Fragmentos de Almas/" + nome + ".jpg";
+            
+            preview.src = caminho;
+            titulo.innerText = nome;
         }
 
         const descricaoFragmentos = {
