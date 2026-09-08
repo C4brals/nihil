@@ -254,12 +254,33 @@
             overflow: hidden;
         }
 
-        .mapa-img { 
-            width: 100%; 
-            height: 100%; 
-            display: block; 
-            object-fit: contain; 
-            filter: brightness(0.85) contrast(1.05); 
+        /* Área de mídia do mapa: aceita imagens e vídeos sem interferir nos tokens */
+        .mapa-midia {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .mapa-midia .mapa-img,
+        .mapa-midia .mapa-video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(0.85) contrast(1.05);
+        }
+
+        .mapa-midia .mapa-img {
+            display: block;
+        }
+
+        .mapa-midia .mapa-video {
+            display: none;
         }
 
         .painel-efeito-mapa{
@@ -1336,7 +1357,7 @@
         }
 
         /* ================= STATUS FIREBASE / JOGADORES ================= */
-        .painel-status-firebase { position:fixed; left:28px; bottom:28px; width:220px; max-width:calc(100vw - 56px); padding:8px 10px 7px; background:rgba(8,6,6,.95); border:1px solid rgba(197,160,89,.68); border-radius:5px; box-shadow:0 4px 16px rgba(0,0,0,.72); z-index:30000; font-family:'Lora',serif; font-size:.72rem; }
+        .painel-status-firebase { position:fixed; left:28px; bottom:28px; width:285px; max-width:calc(100vw - 56px); padding:8px 10px 7px; background:rgba(8,6,6,.95); border:1px solid rgba(197,160,89,.68); border-radius:5px; box-shadow:0 4px 16px rgba(0,0,0,.72); z-index:30000; font-family:'Lora',serif; font-size:.72rem; }
         .cabecalho-status-firebase { display:flex; align-items:center; justify-content:space-between; min-height:17px; }
         .titulo-status-firebase { display:flex; align-items:center; gap:6px; color:#c5a059; font-family:'Cinzel',serif; font-size:.64rem; letter-spacing:.45px; text-transform:uppercase; }
         .titulo-status-firebase .ornamento { color:#c5a059; font-size:.65rem; }
@@ -2138,7 +2159,16 @@
                     </ul>
 
                 </div>
-                <img src="./assets/mapas/mapa01.jpg" alt="Mapa Nihil" class="mapa-img">  
+                <div class="mapa-midia">
+                    <img id="mapa-img-atual" src="./assets/mapas/mapa01.jpg" alt="Mapa Nihil" class="mapa-img">
+                    <video id="mapa-video-atual"
+                           class="mapa-video"
+                           autoplay
+                           loop
+                           muted
+                           playsinline
+                           preload="auto"></video>
+                </div>
                 
                 <canvas id="canvas-nevoa"></canvas>
                 
@@ -2591,13 +2621,17 @@
         let contadorTokensExtras = 0;
 
         // ================= PRESENÇA / CONEXÃO DOS JOGADORES =================
-        const sessaoJogador = (window.crypto && crypto.randomUUID)
+        const CHAVE_SESSAO_PRESENCA = 'nihil_sessao_presenca';
+        const sessaoJogador = sessionStorage.getItem(CHAVE_SESSAO_PRESENCA) || ((window.crypto && crypto.randomUUID)
             ? crypto.randomUUID()
-            : 'sessao-' + Date.now() + '-' + Math.random().toString(36).slice(2);
-        const presencaRef = ref(db, `presenca_jogadores/${sessaoJogador}`);
+            : 'sessao-' + Date.now() + '-' + Math.random().toString(36).slice(2));
+        sessionStorage.setItem(CHAVE_SESSAO_PRESENCA, sessaoJogador);
+        const presencaJogadoresRef = ref(db, 'campanhas/ato1/presenca_jogadores');
+        const presencaRef = ref(db, `campanhas/ato1/presenca_jogadores/${sessaoJogador}`);
         const conexaoFirebaseRef = ref(db, '.info/connected');
-        const nomeSalvo = localStorage.getItem('nihil_nome_jogador') || '';
-        let nomeJogador = nomeSalvo.trim() || 'Jogador';
+        const nomeSalvo = '';
+        let nomeJogador = '';
+        let nomeConfirmado = false;
 
         function atualizarStatusConexao(online) {
             const indicador = document.getElementById('status-firebase-indicador');
@@ -2628,11 +2662,16 @@
             if (!novoNome) return false;
             nomeJogador = novoNome;
             if (campo) campo.value = nomeJogador;
-            localStorage.setItem('nihil_nome_jogador', nomeJogador);
+            nomeConfirmado = true;
             if (document.getElementById('status-firebase-indicador')?.classList.contains('online')) {
-                set(ref(db, `presenca_jogadores/${sessaoJogador}/nome`), nomeJogador).catch(err => console.error('Falha ao atualizar nome:', err));
+                set(ref(db, `campanhas/ato1/presenca_jogadores/${sessaoJogador}/nome`), nomeJogador).catch(err => console.error('Falha ao atualizar nome:', err));
             }
             atualizarStatusConexao(true);
+            if (document.getElementById('status-firebase-indicador')?.classList.contains('online')) {
+                onDisconnect(presencaRef).remove()
+                    .then(() => set(presencaRef, { nome: nomeJogador, conectadoEm: Date.now() }))
+                    .catch(err => console.error('Falha ao registrar presença:', err));
+            }
             return true;
         }
 
@@ -2644,7 +2683,7 @@
             const modal = document.getElementById('modal-nome-firebase');
             const campo = document.getElementById('input-nome-inicial');
             if (!modal || !campo) return;
-            campo.value = nomeSalvo.trim();
+            campo.value = '';
             modal.classList.remove('oculto');
             setTimeout(() => campo.focus(), 50);
         }
@@ -2662,15 +2701,17 @@
             const online = conectado.val() === true;
             atualizarStatusConexao(online);
             if (online) {
-                onDisconnect(presencaRef).remove()
-                    .then(() => set(presencaRef, { nome: nomeJogador, conectadoEm: Date.now() }))
-                    .catch(err => console.error('Falha ao registrar presença:', err));
+                if (nomeConfirmado && nomeJogador) {
+                    onDisconnect(presencaRef).remove()
+                        .then(() => set(presencaRef, { nome: nomeJogador, conectadoEm: Date.now() }))
+                        .catch(err => console.error('Falha ao registrar presença:', err));
+                }
             } else {
                 mostrarAlertaConexao('⚠ Conexão com o Firebase perdida.', 'offline');
             }
         });
 
-        onValue(ref(db, 'presenca_jogadores'), (snapshot) => {
+        onValue(presencaJogadoresRef, (snapshot) => {
             const dados = snapshot.val() || {};
             const lista = document.getElementById('lista-jogadores-conectados');
             if (!lista) return;
@@ -2689,7 +2730,7 @@
             });
         });
 
-        onChildRemoved(ref(db, 'presenca_jogadores'), (snapshot) => {
+        onChildRemoved(presencaJogadoresRef, (snapshot) => {
             const jogador = snapshot.val();
             if (!jogador?.nome || snapshot.key === sessaoJogador) return;
             mostrarAlertaConexao(`⚠ ${jogador.nome} desconectou.`, 'offline');
@@ -3545,11 +3586,40 @@
         // --- ESCUTADOR PARA ATUALIZAR O MAPA EM TEMPO REAL ---
         onValue(ref(db, 'mapa_atual'), (snapshot) => {
             const caminhoMapa = snapshot.val();
-            const tagMapa = document.querySelector('.mapa-img');
-            
-            if (caminhoMapa && tagMapa) {
-                tagMapa.src = caminhoMapa;
+            if (!caminhoMapa) return;
+
+            const imgMapa = document.getElementById('mapa-img-atual');
+            const videoMapa = document.getElementById('mapa-video-atual');
+            if (!imgMapa || !videoMapa) return;
+
+            const caminhoMinusculo = caminhoMapa.toLowerCase();
+            const ehVideo =
+                caminhoMinusculo.endsWith('.mp4') ||
+                caminhoMinusculo.endsWith('.webm') ||
+                caminhoMinusculo.endsWith('.ogg');
+
+            if (ehVideo) {
+                imgMapa.style.display = 'none';
+                videoMapa.style.display = 'block';
+                videoMapa.src = caminhoMapa;
+                videoMapa.loop = true;
+                videoMapa.autoplay = true;
+                videoMapa.muted = true;
+                videoMapa.playsInline = true;
+                videoMapa.currentTime = 0;
+                videoMapa.play().catch((erro) => {
+                    console.warn('Autoplay do vídeo do mapa bloqueado:', erro);
+                });
+                return;
             }
+
+            // Para JPG, JPEG, PNG, GIF e demais imagens, volta ao <img>.
+            videoMapa.pause();
+            videoMapa.removeAttribute('src');
+            videoMapa.load();
+            videoMapa.style.display = 'none';
+            imgMapa.style.display = 'block';
+            imgMapa.src = caminhoMapa;
         });
 
         // --- ESCUTADOR MODIFICADO: EXIBIR IMAGEM E ATUALIZAR VIDA DO GRUPO EM TEMPO REAL ---
