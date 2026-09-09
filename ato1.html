@@ -3593,23 +3593,32 @@
 
                 // Se ainda não existe, cria automaticamente
                 if(!token && dados[id].imagem){
+                    token = document.createElement("div");
 
-                    token=document.createElement("div");
+                    token.className = "token-heroi";
+                    token.id = id;
 
-                    token.className="token-heroi";
+                    token.style.setProperty("--token-color", "#4B0082");
 
-                    token.id=id;
+                    token.innerHTML = `
+                        <div class="nome-token-extra">
+                            ${dados[id].nome || ""}
+                        </div>
 
-                    token.innerHTML=`
                         <img src="${dados[id].imagem}">
+
+                        <button
+                            class="btn-remover-token"
+                            onclick="removerTokenExtra(event, '${id}')">
+                            ×
+                        </button>
                     `;
 
                     document
-                    .querySelector(".mapa-wrapper")
-                    .appendChild(token);
+                        .querySelector(".mapa-wrapper")
+                        .appendChild(token);
 
                     registrarToken(token);
-
                 }
 
                 if(token!==tokenAtivo){
