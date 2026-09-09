@@ -3947,6 +3947,7 @@
                     token.id=id;
 
                     token.innerHTML=`
+                        <div class="nome-token-extra">${dados[id].nome || ''}</div>
                         <img src="${dados[id].imagem}">
                         <button class="btn-remover-token" onclick="removerTokenExtra(event, '${id}')">×</button>
                         <button class="btn-ocultar-token" onclick="alternarVisibilidadeToken(event, '${id}')" title="Ocultar/mostrar token">👁</button>
