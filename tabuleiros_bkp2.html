@@ -327,7 +327,7 @@
         <p class="subtitulo-jogo">— Mapas a serem explorados —</p>
 
         <nav class="opcoes-menu">
-            <button type="button" class="botao-menu" onclick="abrirModalAto1()">ATO I</button>
+            <a href="./ato1.html" class="botao-menu">ATO I</a>
             <button type="button" class="botao-menu" onclick="abrirModalAto2()">ATO II</button>
         </nav>
     </div>
@@ -340,7 +340,7 @@
     <div id="modalSenha" class="modal-overlay">
         <div class="modal-content">
             <h2>ACESSO RESTRITO</h2>
-            <p id="textoModalSenha" style="font-size: 0.9rem; color: #8a8a8a; margin: 0;">Insira a palavra-passe do ATO II</p>
+            <p style="font-size: 0.9rem; color: #8a8a8a; margin: 0;">Insira a palavra-passe do ATO II</p>
             
             <input type="password" id="inputSenha" class="modal-input" placeholder="Digite a senha..." onkeypress="verificarEnter(event)">
             
@@ -359,27 +359,14 @@
 
     <script>
     
-    const HASH_SENHA_ATO1 = "cbdd5f59f514588bac5c1086f74b2f82b44d3c4382c200b0223eba26092ecaad";
-    const HASH_SENHA_ATO2 = "cbdd5f59f514588bac5c1086f74b2f82b44d3c4382c200b0223eba26092ecaad";
-
-    let atoSelecionado = null;
-
-    function abrirModalAto1() {
-        atoSelecionado = "ato1";
-        document.getElementById('textoModalSenha').innerText = 'Insira a palavra-passe do ATO I';
-        document.getElementById('modalSenha').style.display = 'flex';
-        document.getElementById('inputSenha').focus();
-    }
+    const HASH_SENHA_CORRETA = "33b1f98f1a87a5c8acba965aeeb4a5e512aa138deff6e933b541cf15f4020a5d";
 
     function abrirModalAto2() {
-        atoSelecionado = "ato2";
-        document.getElementById('textoModalSenha').innerText = 'Insira a palavra-passe do ATO II';
         document.getElementById('modalSenha').style.display = 'flex';
         document.getElementById('inputSenha').focus();
     }
 
     function fecharModalAto2() {
-        atoSelecionado = null;
         document.getElementById('modalSenha').style.display = 'none';
         document.getElementById('inputSenha').value = '';
         document.getElementById('msgErro').innerText = '';
@@ -400,19 +387,13 @@
         // Transforma a senha digitada em Hash e compara com o Hash armazenado
         const hashDigitado = await gerarSHA256(senhaInserida);
 
-        if (atoSelecionado === "ato1" && hashDigitado === HASH_SENHA_ATO1) {
-            window.location.href = "./Xk7mP2qL9vR4.html";
-            return;
-        }
-
-        if (atoSelecionado === "ato2" && hashDigitado === HASH_SENHA_ATO2) {
+        if (hashDigitado === HASH_SENHA_CORRETA) {
             window.location.href = "./qTwZQiNd55lb4H.html";
-            return;
+        } else {
+            msgErro.innerText = "Senha incorreta. O acesso foi negado!";
+            document.getElementById('inputSenha').value = '';
+            document.getElementById('inputSenha').focus();
         }
-
-        msgErro.innerText = "Senha incorreta. O acesso foi negado!";
-        document.getElementById('inputSenha').value = '';
-        document.getElementById('inputSenha').focus();
     }
 
     function verificarEnter(event) {
